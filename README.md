@@ -28,7 +28,14 @@
 # 📑PRODUCT BACKLOG
 |  Requisitos Funcionais       |
 |------------------------------|
-| Inserção de Dados, Monitoramento e controle da alimentação.                                                                
+| INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO;  |
+| AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):                    |
+| -VERIFICAR SE O USUÁRIO ESTÁ CADASTRADO NO BANCO DE DADOS;  |
+| -VERIFICAR SENHA;                                           |
+| -VERIFICAR STATUS DO USUÁRIO;                               |
+| -VERIFICAR SE É O PRIMEIRO ACESSO AO SISTEMA;               |
+| -VERIFICAR ESPAÇOS / CAMPOS EM BRANCO;                      |
+| -SITUAÇÃO(STATUS) OK.                                       |
  
 
 |   Requisitos Não Funcionais                                                                                                                      
