@@ -52,8 +52,8 @@
 | => ganho de peso, perca de peso, ganho de massa muscular etc...;
 | => exibição dos objetivos e metas será por meio de gráficos;
 | => adicionar alarmes para as refeições ou lembretes;
-| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, GERAR CAPTCHA, ENTRE OUTROS ). 
-
+| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
+| NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
 
 
 # USER STORIES
