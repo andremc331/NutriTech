@@ -16,7 +16,7 @@
 |       DESAFIO       |
 |O objetivo é especificar e construir uma aplicação web que permita aos usuários registrar e monitorar a ingestão diária de calorias e nutrientes, auxiliando no controle da alimentação e na manutenção da saúde.
 
-|     RESTTRIÇÕES DE PROJETO E TECNOLOGIA
+|  RESTRIÇÕES DE PROJETO E TECNOLOGIA    
 | - As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:
 
 | 1.	Back end: TypeScript e Node.js;
