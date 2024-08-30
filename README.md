@@ -48,7 +48,7 @@
 | =>nome, email, senha, altura, peso, idade, sexo;
 | INSERÇÃO DE DIETA
 | => alimento (grupo alimentar), prato (quantidade), horário, tipo de refeição (desjejum, almoço, ceia etc...), calorias;
-| INSERSÃO DE METAS
+| INSERÇÃO DE METAS
 | => ganho de peso, perca de peso, ganho de massa muscular etc...;
 | => exibição dos objetivos e metas será por meio de gráficos;
 | => adicionar alarmes para as refeições ou lembretes;
