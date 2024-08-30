@@ -1,4 +1,4 @@
-# NutriTech
+# NUTRITECH
 <div align="middle">
 </div>
 <img src='./src/pages/logo.nutritech.jpg'/>
