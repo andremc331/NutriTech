@@ -28,9 +28,9 @@
 # 📑PRODUCT BACKLOG
 |  Requisitos Funcionais       |
 |------------------------------|
-| INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO;  
-| AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):      
+| INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO; 
 | INSERÇÃO DE USUARIO => nome, email, senha, altura, peso, idade, sexo;              
+| AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):      
 | -VERIFICAR SE O USUÁRIO ESTÁ CADASTRADO NO BANCO DE DADOS;  
 | -VERIFICAR SENHA;                                           
 | -VERIFICAR STATUS DO USUÁRIO;                               
