@@ -29,7 +29,8 @@
 |  Requisitos Funcionais       |
 |------------------------------|
 | INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO;  
-| AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):                    
+| AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):      
+| INSERÇÃO DE USUARIO => nome, email, senha, altura, peso, idade, sexo;              
 | -VERIFICAR SE O USUÁRIO ESTÁ CADASTRADO NO BANCO DE DADOS;  
 | -VERIFICAR SENHA;                                           
 | -VERIFICAR STATUS DO USUÁRIO;                               
@@ -44,8 +45,6 @@
 |------------------------------|
 | CRIAR BANCO DE DADOS NO SISTEMA MONGO;  
 | => criar identidade visual da empresa e criar paleta de cores para o site;
-| INSERÇÃO DE USUARIO
-| =>nome, email, senha, altura, peso, idade, sexo;
 | INSERÇÃO DE DIETA
 | => alimento (grupo alimentar), prato (quantidade), horário, tipo de refeição (desjejum, almoço, ceia etc...), calorias;
 | INSERÇÃO DE METAS
