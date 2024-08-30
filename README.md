@@ -52,7 +52,7 @@
 |------------------------------|
 
 
-# :busts_in_silhouette: USER STORIES
+# USER STORIES
 |Ator          |Ação                         |Motivo                        |
 |--------------|-----------------------------|------------------------------|
 |Como usuario eu quero|                    |
@@ -64,10 +64,10 @@
 |Como usuario eu quero|                    |
 |Como usuario eu quero|                    |
 
-# 🐦‍🔥 BURNDOWN
+# BURNDOWN
 
 
-# ✈️ WIREFRAME
+# WIREFRAME
 
 # 🔗 LINKS
 
