@@ -92,9 +92,9 @@
 
 |CARGO | NOME| SOCIAL MEDIA |
 |------|-----|:--------------:|
-| P.O (Product Owner) |   Danilo    |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>       |
-| Scrum Master |   Andre De Carvalho   |     <a target="_blank" href="https://github.com/andremc331"><img  src="https://skillicons.dev/icons?i=github"></a>         |
-| Dev     |   Eduardo   |     <a target="_blank" href="https://"><img src="https://skillicons.dev/icons?i=github"></a>       |
+| P.O (Product Owner) |   Danilo Alves    |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>       |
+| Scrum Master |   Andre Michel   |     <a target="_blank" href="https://github.com/andremc331"><img  src="https://skillicons.dev/icons?i=github"></a>         |
+| Dev     |   Eduardo Henrique  |     <a target="_blank" href="https://"><img src="https://skillicons.dev/icons?i=github"></a>       |
 | Dev     |   Valcir  |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>         |
 | Dev     |   Bruno Henrique   |     <a target="_blank" href="https:/"><img  src="https://skillicons.dev/icons?i=github"></a>         |
 | Dev     |   André Ventura   |     <a target="_blank" href="https:/"><img  src="https://skillicons.dev/icons?i=github"></a>        |
