@@ -62,6 +62,7 @@
 |Como usuario eu quero| O controle das calorias e nutrientes ingeridos ao longo do dia | Fundamental para a manutenção da saúde e bem-estar ao longo da vida.
 |Como usuario eu quero| Gerenciamento do peso e do fornecimento de energia advindo dos alimentos | Necessário e essencial para as atividades diárias.
 |Como usuario eu quero| Dieta que controle a ingestão de proteínas, carboidratos, gorduras, vitaminas e minerais | O acompanhamento nutricional é vital para o manejo adequado da condição e para evitar complicações de saúde.
+|Como usuario eu quero| Acompanhar o progresso da minha dieta | Demonstra o desempenho e atividade de forma a motivar o usuário e o mesmo poder comparar seu desempenho.
 
 
 # BURNDOWN
