@@ -36,6 +36,13 @@
 | -VERIFICAR SE É O PRIMEIRO ACESSO AO SISTEMA;                                                                         
 | -VERIFICAR ESPAÇOS / CAMPOS EM BRANCO;                      
 | -SITUAÇÃO(STATUS) OK.                                                                                                
+| INSERÇÃO DE CARDÁPIO (todos alimentos / produtos consumíveis que serão compatíveis com as dietas).
+
+ 
+
+|   Requisitos Não Funcionais                                                                                                                      
+|------------------------------|
+| CRIAR BANCO DE DADOS NO SISTEMA MONGO;  
 | => criar identidade visual da empresa e criar paleta de cores para o site;
 | INSERÇÃO DE USUARIO
 | =>nome, email, senha, altura, peso, idade, sexo;
@@ -45,11 +52,8 @@
 | => ganho de peso, perca de peso, ganho de massa muscular etc...;
 | => exibição dos objetivos e metas será por meio de gráficos;
 | => adicionar alarmes para as refeições ou lembretes;
-| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, GERAR CAPCHA, ENTRE OUTROS).
- 
+| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, GERAR CAPTCHA, ENTRE OUTROS ). 
 
-|   Requisitos Não Funcionais                                                                                                                      
-|------------------------------|
 
 
 # USER STORIES
