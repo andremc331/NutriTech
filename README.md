@@ -16,13 +16,13 @@
 |       DESAFIO       |
 |O objetivo é especificar e construir uma aplicação web que permita aos usuários registrar e monitorar a ingestão diária de calorias e nutrientes, auxiliando no controle da alimentação e na manutenção da saúde.|
 
-|     RESTTRIÇÕES DE PROJETO E TECNOLOGIA       |
-|As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:
-|1.	Back end: TypeScript e Node.js;
-|2.	Front end: React TypeScript;
-|3.	Armazenamento: SGBD MongoDB;
-|4.	Documentação: GitHub;
-|5.	Usar alguma ferramenta de gestão para gerenciar o backlog do produto. 
+|     RESTTRIÇÕES DE PROJETO E TECNOLOGIA
+| - As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:
+| 1.	Back end: TypeScript e Node.js;
+| 2.	Front end: React TypeScript;
+| 3.	Armazenamento: SGBD MongoDB;
+| 4.	Documentação: GitHub;
+| 5.	Usar alguma ferramenta de gestão para gerenciar o backlog do produto. 
 
 
 # 📑PRODUCT BACKLOG
