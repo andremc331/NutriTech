@@ -55,7 +55,7 @@
 | O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
 | NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
 
-<img src='./src/pages/logo.nutritech.jpg'/>
+<--<img src='./src/pages/logo.nutritech.jpg'/>-->
 
 # USER STORIES
 |Ator          |Ação                         |Motivo                        |
@@ -93,7 +93,7 @@
 
 |CARGO | NOME| SOCIAL MEDIA |
 |------|-----|:--------------:|
-| P.O (Product Owner) |   Danilo Alves    |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>       |
+| P.O (Product Owner) |   Danilo Alves    |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>       |<img src='./src/pages/logo.nutritech.jpg'/>
 | Scrum Master |   Andre Michel   |     <a target="_blank" href="https://github.com/andremc331"><img  src="https://skillicons.dev/icons?i=github"></a>         |
 | Dev     |   Eduardo Henrique  |     <a target="_blank" href="https://"><img src="https://skillicons.dev/icons?i=github"></a>       |
 | Dev     |   Valcir  |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>         |
