@@ -1,4 +1,4 @@
-# NutriTech
+# NUTRITECH
 <div align="middle">
 </div>
 <img src='./logo/logo.nutritech.jpg' widht=''/>
@@ -55,7 +55,6 @@
 | O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
 | NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
 
-
 # USER STORIES
 |Ator          |Ação                         |Motivo                        |
 |--------------|-----------------------------|------------------------------|
@@ -92,11 +91,11 @@
 
 |CARGO | NOME| SOCIAL MEDIA |
 |------|-----|:--------------:|
-| P.O (Product Owner) |   Danilo Alves    |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>       |
-| Scrum Master |   Andre Michel   |     <a target="_blank" href="https://github.com/andremc331"><img  src="https://skillicons.dev/icons?i=github"></a>         |
-| Dev     |   Eduardo Henrique  |     <a target="_blank" href="https://"><img src="https://skillicons.dev/icons?i=github"></a>       |
-| Dev     |   Valcir  |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>         |
-| Dev     |   Bruno Henrique   |     <a target="_blank" href="https:/"><img  src="https://skillicons.dev/icons?i=github"></a>         |
-| Dev     |   André Ventura   |     <a target="_blank" href="https:/"><img  src="https://skillicons.dev/icons?i=github"></a>        |
+| P.O (Product Owner) |   Danilo Alves    |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>|
+| Scrum Master |   Andre Michel   |     <a target="_blank" href="https://github.com/andremc331"><img  src="https://skillicons.dev/icons?i=github"></a>|
+| Dev     |   Eduardo Henrique  |     <a target="_blank" href="https://"><img src="https://skillicons.dev/icons?i=github"></a>|
+| Dev     |   Valcir  |     <a target="_blank" href="https://"><img  src="https://skillicons.dev/icons?i=github"></a>|
+| Dev     |   Bruno Henrique   |     <a target="_blank" href="https:/"><img  src="https://skillicons.dev/icons?i=github"></a>|
+| Dev     |   André Ventura   |     <a target="_blank" href="https:/"><img  src="https://skillicons.dev/icons?i=github"></a>|
 
 
