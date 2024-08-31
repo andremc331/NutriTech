@@ -1,7 +1,7 @@
 # NUTRITECH
 <div align="middle">
 </div>
-<img src='./src/pages/logo.nutritech.jpg'/>
+<!-- <img src='./src/pages/logo.nutritech.jpg'/> -->
 <div>
  <h1>DESCRIÇÃO</h1>
 </div>
@@ -55,6 +55,7 @@
 | O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
 | NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
 
+<img src='./src/pages/logo.nutritech.jpg'/>
 
 # USER STORIES
 |Ator          |Ação                         |Motivo                        |
