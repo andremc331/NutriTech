@@ -1,12 +1,12 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import { useState } from "react";
+//import Saida from "./Saida";
+//import Entrada from "./Entrada"
 
-const App: React.FC = () => {
+function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <h1>O MELHOR PARA A SAÚDE</h1>
-        <p>Seu site de saúde e nutrição.</p>
       </header>
     </div>
   );
