@@ -1,27 +1,27 @@
-import React from "react";
-import { useState } from "react";
-//import Saida from "./Saida";
-//import Entrada from "./Entrada"
 
-function App() {
-  const [nome, setNome] = useState("");
-  const [lista, setLista] = useState<string []>([]);
+import React from 'react';
+import './App.css';
 
-  function handle(){
-    const temp =[...lista,nome]; //se colocar nome antes dos ... o nome será salvo sempre em 1°
-    setLista(temp);
-  }
-
-
-  return ( //sempre q houver onClick necessário função
-    <div>
-      <div>
-        <label>Exercício 3</label>
-        <input value={nome} onChange={(e)=>setNome(e.target.value)} />
-        <button onClick={handle}>Salvar</button>
-      </div>
+const App: React.FC = () => {
+  return (
+    <div className="App">
+      <header className="App-header">
+        <h1>O MELHOR PARA A SAÚDE</h1>
+        <p>Seu site de saúde e nutrição.</p>
+      </header>
     </div>
   );
-}
+};
 
 export default App;
+
+
+
+
+
+
+
+
+
+
+
