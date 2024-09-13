@@ -29,6 +29,18 @@
 # 📑PRODUCT BACKLOG
 |  Requisitos Funcionais       |
 |------------------------------|
+| => criar identidade visual da empresa e criar paleta de cores para o site;
+| INSERÇÃO DE DIETA
+| => alimento (grupo alimentar), prato (quantidade), horário, tipo de refeição (desjejum, almoço, ceia etc...), calorias;
+| INSERÇÃO DE METAS
+| => ganho de peso, perca de peso, ganho de massa muscular;
+| => exibição dos objetivos e metas será por meio de gráficos;
+| => adicionar alarmes para as refeições ou lembretes;
+| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
+| NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
+
+|   Requisitos Não Funcionais                                                                                                                      
+|------------------------------|
 | INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO; 
 | INSERÇÃO DE USUARIO => nome, email, senha, altura, peso, idade, sexo;              
 | AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):      
@@ -40,20 +52,6 @@
 | -SITUAÇÃO(STATUS) OK.                                                                                                
 | INSERÇÃO DE CARDÁPIO (todos alimentos / produtos consumíveis que serão compatíveis com as dietas).
 
- 
-
-|   Requisitos Não Funcionais                                                                                                                      
-|------------------------------|
-| CRIAR BANCO DE DADOS NO SISTEMA MONGO;  
-| => criar identidade visual da empresa e criar paleta de cores para o site;
-| INSERÇÃO DE DIETA
-| => alimento (grupo alimentar), prato (quantidade), horário, tipo de refeição (desjejum, almoço, ceia etc...), calorias;
-| INSERÇÃO DE METAS
-| => ganho de peso, perca de peso, ganho de massa muscular etc...;
-| => exibição dos objetivos e metas será por meio de gráficos;
-| => adicionar alarmes para as refeições ou lembretes;
-| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
-| NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
 
 # USER STORIES
 |Ator          |Ação                         |Motivo                        |
