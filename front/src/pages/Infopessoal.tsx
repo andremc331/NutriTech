@@ -1,55 +1,120 @@
-import React from "react";
+import { useState } from "react";
+import './Info.css'
 
-function Infopessoal() {
-  return (
-    <div id="cadastro">
-        <div className="inform">
-          <h1>Informações Pessoais</h1>
-          <label htmlFor="name">Insira sua Nome:</label>
-          <br />
-          <input type="string" id="name" placeholder="Ex:João"></input>
-          <br />
-          <label htmlFor="age">Insira sua Idade:</label>
-          <br />
-          <input type="number" id="age" placeholder="Ex:17"></input>
-          <br />
-          <label htmlFor="height">Insira sua Altura:</label>
-          <br />
-          <input type="number" id="height" placeholder="Ex:1.75"></input>
-          <br />
-          <label htmlFor="weight">Insira sua Peso:</label>
-          <br />
-          <input type="number" id="weight" placeholder="Ex:80.0"></input>
-        </div>
-        <br />
-        {/* <label htmlFor="gmail">Insira se Email:</label>
-        <br />
-        <input id="gmail"></input>
-        <br /> */}
-        <label>Selecione seu Gênero:</label>
-        <div id="selects">
-          <input type="checkbox" id="men"></input>
-          <label htmlFor="men">Masculino</label>
-          <input type="checkbox" id="femile"></input>
-          <label>Feminino</label>
-          <input type="checkbox" id="not"></input>
-          <label>Prefiro não dizer</label>
-        </div>
-        <br />
-        <div>
-          <br />
-          <label>Qual seu objetivo</label>
-          <br />
-          <select>
-            <option>Ganhar peso</option>
-            <option>Perder peso</option>
-            <option>Manter peso</option>
-          </select>
-        </div>
-        <br />
-        <button>Enviar</button>
+// Definindo o tipo para os dados do usuário
+interface UserData {
+    username: string;
+    dob: string;
+    height: number;
+    weight: number;
+    gender: string;
+  }
+   
+  const App: React.FC = () => {
+    const [userData, setUserData] = useState<UserData>({
+      username: '',
+      dob: '',
+      height: 0,
+      weight: 0,
+      gender: '',
+    });
+   
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { name, value } = e.target;
+      setUserData({
+        ...userData,
+        [name]: value,
+      });
+    };
+   
+    const handleSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
+      console.log('Dados do usuário:', userData);
+      // Aqui você pode enviar os dados para um servidor ou fazer outra ação
+    };
+   
+    return (
+      <div className="container">
+        <h2>Informações de usuário</h2>
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Nome de usuário:</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            value={userData.username}
+            onChange={handleChange}
+          />
+   
+          <label htmlFor="dob">Data de nascimento:</label>
+          <input
+            type="date"
+            id="dob"
+            name="dob"
+            value={userData.dob}
+            onChange={handleChange}
+          />
+   
+          <label htmlFor="height">Altura (cm):</label>
+          <input
+            type="number"
+            id="height"
+            name="height"
+            value={userData.height}
+            onChange={handleChange}
+          />
+   
+          <label htmlFor="weight">Peso (kg):</label>
+          <input
+            type="number"
+            id="weight"
+            name="weight"
+            value={userData.weight}
+            onChange={handleChange}
+          />
+   
+          <div className="gender">
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Masculino"
+                checked={userData.gender === 'Masculino'}
+                onChange={handleChange}
+              />
+              Masculino
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Feminino"
+                checked={userData.gender === 'Feminino'}
+                onChange={handleChange}
+              />
+              Feminino
+            </label>
+            <label>
+              <input
+                type="radio"
+                name="gender"
+                value="Prefiro não informar"
+                checked={userData.gender === 'Prefiro não informar'}
+                onChange={handleChange}
+              />
+              Prefiro não informar
+            </label>
+          </div>
+   
+          <div className="buttons">
+            <button type="button" className="back">
+              Voltar
+            </button>
+            <button type="submit">Próximo</button>
+          </div>
+        </form>
       </div>
-  );
-}
-
-export default Infopessoal;
+    );
+  };
+   
+  export default App;
