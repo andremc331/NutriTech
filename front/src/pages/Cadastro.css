@@ -1,15 +1,15 @@
 .form-container {
-    width: 300px;
+    width: 800px;
     margin: 50px auto;
     padding: 20px;
     border: 2px solid purple;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    background-color: #714D95;
   }
-  
+
   h2 {
     text-align: center;
-    color: purple;
+    color: white;
   }
   
   .form-group {
@@ -19,7 +19,7 @@
   .form-group label {
     display: block;
     margin-bottom: 5px;
-    color: purple;
+    color: #999999;
   }
   
   .form-group input {
@@ -42,4 +42,16 @@
   
   button:hover {
     background-color: darkviolet;
+  }
+  
+/*logo*/
+  .image-container {
+    text-align: center;
+    margin-top: 20px;
+    max-width: 100%;
+  }
+  
+  .image-container img {
+    width: 200px; /* Ajuste conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
   }

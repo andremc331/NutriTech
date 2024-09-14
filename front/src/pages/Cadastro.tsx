@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './Cadastro.css';
+import logo from '../logo/logo.nutritech.jpeg'
 
 const Cadastro: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -26,7 +27,10 @@ const Cadastro: React.FC = () => {
 
   return (
     <div className="form-container">
-      <h2>Cadastro</h2>
+      <div className="image-container">
+      <img src={logo} className="App-logo" alt="logo"/>
+      </div>
+      <h2>Informações de Usuário</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="nome">Nome:</label>
