@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Cadastro.css';
-import logo from '../logo/logo.nutritech.jpeg'
+import logo from '../logo/logo.nutritech.png.png';
 
 const Cadastro: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -19,76 +19,86 @@ const Cadastro: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // Lógica para próxima página ou envio de dados
-    console.log('Form data submitted:', formData);
+  const handleNextPage = () => {
+    // Redireciona para outra página
+    window.location.href = '/nova-pagina'; // Substitua pelo caminho da sua página
   };
 
   return (
-    <div className="form-container">
+    <div>
+      {/* Imagem do logo no topo da página */}
       <div className="image-container">
-      <img src={logo} className="App-logo" alt="logo"/>
+        <img src={logo} alt="Logo Nutritech" />
       </div>
-      <h2>Informações de Usuário</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label htmlFor="nome">Nome:</label>
-          <input
-            type="text"
-            id="nome"
-            name="nome"
-            value={formData.nome}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="sobrenome">Sobrenome:</label>
-          <input
-            type="text"
-            id="sobrenome"
-            name="sobrenome"
-            value={formData.sobrenome}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Email:</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="senha">Senha:</label>
-          <input
-            type="password"
-            id="senha"
-            name="senha"
-            value={formData.senha}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="confirmarSenha">Confirmar Senha:</label>
-          <input
-            type="password"
-            id="confirmarSenha"
-            name="confirmarSenha"
-            value={formData.confirmarSenha}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="submit">Próxima Página</button>
-      </form>
+
+      {/* Contêiner do formulário */}
+      <div className="form-container">
+        <h2>Informações de Usuário</h2>
+        <form onSubmit={(e) => e.preventDefault()}>
+          <div className="form-group-row">
+          <div className="form-group">
+            <label htmlFor="nome">Nome:</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              value={formData.nome}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="sobrenome">Sobrenome:</label>
+            <input
+              type="text"
+              id="sobrenome"
+              name="sobrenome"
+              value={formData.sobrenome}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Email:</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="senha">Senha:</label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              value={formData.senha}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="confirmarSenha">Confirmar Senha:</label>
+            <input
+              type="password"
+              id="confirmarSenha"
+              name="confirmarSenha"
+              value={formData.confirmarSenha}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="button-container">
+          <button type="button" onClick={handleNextPage}>
+            →
+          </button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };
