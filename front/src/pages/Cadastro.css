@@ -29,7 +29,8 @@ body{
     text-align: left;
     color: white;
     font-family: Anton;
-    font-size: 40px;
+    font-size: 50px;
+    font-weight: bold;
   }
   
   .form-group {
@@ -90,8 +91,8 @@ body{
   }
   /* Estilo padrão dos botões */
 .navigation-button {
-  width: 120px; /* Largura dos botões */
-  height: 40px; /* Altura dos botões */
+  width: 150px; /* Largura dos botões */
+  height: 50px; /* Altura dos botões */
   background-color: #21D29D; /* Cor de fundo */
   color: white; /* Cor do texto */
   border: none; /* Remove as bordas */
