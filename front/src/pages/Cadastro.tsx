@@ -21,7 +21,7 @@ const Cadastro: React.FC = () => {
 
   const handleNextPage = () => {
     // Redireciona para outra página
-    window.location.href = '/nova-pagina'; // Substitua pelo caminho da sua página
+    window.location.href = '/info-pessoal'; // Substitua pelo caminho da sua página
   };
 
   return (

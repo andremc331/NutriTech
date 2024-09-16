@@ -1,49 +1,33 @@
-import './App.css';
-import Cadastro from './pages/Cadastro';
-
-/*function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          NutriTech
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        </a>
-      </header>
-      </div>
-  );
-}*/
-
 import React, { useState } from 'react';
+import Cadastro from './pages/Cadastro';  // Ajuste o caminho conforme necessário
+import InfoPessoal from './pages/Infopessoal';  // Ajuste o caminho conforme necessário
 
-// Componentes das páginas
-const HomePage: React.FC = () => <div>Home Page</div>;
-const CadastroPage: React.FC = () => <div><Cadastro></Cadastro> Page</div>;
+const BemVindoPage: React.FC = () => <div>Página de Boas-Vindas</div>;
 
 const App: React.FC = () => {
   // Estado para controlar a página atual
-  const [page, setPage] = useState<'home' | 'cadastro'>('home');
+  const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal'>('info-pessoal');
 
   return (
     <div>
       {/* Navegação */}
       <nav>
-        <button onClick={() => setPage('home')}>Home</button>
-        <button onClick={() => setPage('cadastro')}>Cadastro</button>
+      <button className="navigation-button" onClick={() => setPage('bem-vindo')}>Bem-Vindo</button>
+      <button className="navigation-button" onClick={() => setPage('cadastro')}>Cadastro</button>
+      <button className="navigation-button" onClick={() => setPage('info-pessoal')}>Info Pessoal</button>
       </nav>
-
       {/* Conteúdo Condicional */}
-      {page === 'home' && <HomePage />}
-      {page === 'cadastro' && <CadastroPage />}
+      {page === 'bem-vindo' && <BemVindoPage />}
+      {page === 'cadastro' && <Cadastro />}
+      {page === 'info-pessoal' && <InfoPessoal />}
     </div>
   );
 };
-//////////////
+
 export default App;
+
+
+/*
+const BemVindoPage: React.FC = () => <div>BemVindo Page</div>;
+const CadastroPage: React.FC = () => <div><Cadastro></Cadastro> Page</div>;
+const InfoPessoalPage: React.FC = () => <div><InfoPessoal></InfoPessoal> Page</div>;*/

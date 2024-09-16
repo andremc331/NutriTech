@@ -88,6 +88,24 @@ body{
     display: flex;
     justify-content: flex-end; /* Alinha o conteúdo à direita */
   }
-  
+  /* Estilo padrão dos botões */
+.navigation-button {
+  width: 120px; /* Largura dos botões */
+  height: 40px; /* Altura dos botões */
+  background-color: #21D29D; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove as bordas */
+  border-radius: 5px; /* Arredonda os cantos */
+  cursor: pointer; /* Aponta que o elemento é clicável */
+  margin: 5px; /* Espaçamento entre os botões */
+  font-size: 16px; /* Tamanho da fonte */
+  transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+  gap: 50px;
+}
+
+/* Efeito ao passar o mouse */
+.navigation-button:hover {
+  background-color: #1CA885; /* Cor de fundo ao passar o mouse */
+}
 
   
