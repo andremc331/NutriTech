@@ -1,7 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './index.css';
+// import './index.css';
+import Infopessoal from './pages/Infopessoal';
+import './CSS/Infopessoal.css'
+// import './logo/logo.nutritech.fundo.jpeg'
 
 
 const root = ReactDOM.createRoot(
@@ -9,6 +11,6 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <App />
+    <Infopessoal/>
   </React.StrictMode>
 );
