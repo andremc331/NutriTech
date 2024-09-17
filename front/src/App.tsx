@@ -1,34 +1,32 @@
 import React, { useState } from 'react';
-import Cadastro from './pages/Cadastro';  // Ajuste o caminho conforme necessário
-import InfoPessoal from './pages/Infopessoal';  // Ajuste o caminho conforme necessário
+import Cadastro from './pages/Cadastro';  
+import InfoPessoal from './pages/Infopessoal';  
 import DefinicaoMetas from './pages/DefinicaoMetas';
 import TermosDeUso from './pages/TermosDeUso';
 import MenuPrincipal from './pages/MenuPrincipal';
 
-const BemVindoPage: React.FC = () => <div>Página de Boas-Vindas</div>;
+const BemVindoPage: React.FC<{ setPage: React.Dispatch<React.SetStateAction<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>> }> = ({ setPage }) => {
+  return (
+    <div>
+      <h1>Página de Boas-Vindas</h1>
+      <button onClick={() => setPage('cadastro')}>Cadastrar</button>
+    </div>
+  );
+};
 
 const App: React.FC = () => {
   // Estado para controlar a página atual
-  const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>('info-pessoal');
-//
+  const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>('bem-vindo');
+
   return (
     <div>
-      {/* Navegação */}
-      <nav>
-      <button className="navigation-button" onClick={() => setPage('bem-vindo')}>Bem-Vindo</button>
-      <button className="navigation-button" onClick={() => setPage('cadastro')}>Cadastro</button>
-      <button className="navigation-button" onClick={() => setPage('info-pessoal')}>Info Pessoal</button>
-      <button className="navigation-button" onClick={() => setPage('definicao-metas')}>Definição de Metas</button>
-      <button className="navigation-button" onClick={() => setPage('termosdeuso')}>Termos de Uso</button>
-      <button className="navigation-button" onClick={() => setPage('menu-principal')}>Menu Principal</button>
-      </nav>
-      {/* Conteúdo Condicional */}
-      {page === 'bem-vindo' && <BemVindoPage />}
-      {page === 'cadastro' && <Cadastro />}
+      {/* Navegação Condicional */}
+      {page === 'bem-vindo' && <BemVindoPage setPage={setPage} />}
+      {page === 'cadastro' && <Cadastro setPage={setPage} />}
       {page === 'info-pessoal' && <InfoPessoal />}
       {page === 'definicao-metas' && <DefinicaoMetas />}
       {page === 'termosdeuso' && <TermosDeUso />}
-      {page === 'menu-principal' && <MenuPrincipal />}
+      {page === 'menu-principal' && <MenuPrincipal setPage={setPage}/>}
     </div>
   );
 };
