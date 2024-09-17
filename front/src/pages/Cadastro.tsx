@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import './Cadastro.css';
 import logo from '../logo/logo.nutritech.png.png';
 
-const Cadastro: React.FC = () => {
+interface CadastroProps {
+  setPage: React.Dispatch<React.SetStateAction<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>>;
+}
+
+const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   const [formData, setFormData] = useState({
     nome: '',
     sobrenome: '',
@@ -19,45 +23,43 @@ const Cadastro: React.FC = () => {
     }));
   };
 
-  const handleNextPage = () => {
-    // Redireciona para outra página
-    window.location.href = '/nova-pagina'; // Substitua pelo caminho da sua página
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // Redireciona para o Menu Principal
+    setPage('menu-principal');
   };
 
   return (
     <div>
-      {/* Imagem do logo no topo da página */}
       <div className="image-container">
         <img src={logo} alt="Logo Nutritech" />
       </div>
-
-      {/* Contêiner do formulário */}
       <div className="form-container">
         <h2>Informações de Usuário</h2>
-        <form onSubmit={(e) => e.preventDefault()}>
+        <form onSubmit={handleSubmit}>
           <div className="form-group-row">
-          <div className="form-group">
-            <label htmlFor="nome">Nome:</label>
-            <input
-              type="text"
-              id="nome"
-              name="nome"
-              value={formData.nome}
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="sobrenome">Sobrenome:</label>
-            <input
-              type="text"
-              id="sobrenome"
-              name="sobrenome"
-              value={formData.sobrenome}
-              onChange={handleChange}
-              required
-            />
-          </div>
+            <div className="form-group">
+              <label htmlFor="nome">Nome:</label>
+              <input
+                type="text"
+                id="nome"
+                name="nome"
+                value={formData.nome}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="sobrenome">Sobrenome:</label>
+              <input
+                type="text"
+                id="sobrenome"
+                name="sobrenome"
+                value={formData.sobrenome}
+                onChange={handleChange}
+                required
+              />
+            </div>
           </div>
           <div className="form-group">
             <label htmlFor="email">Email:</label>
@@ -93,9 +95,7 @@ const Cadastro: React.FC = () => {
             />
           </div>
           <div className="button-container">
-          <button type="button" onClick={handleNextPage}>
-            →
-          </button>
+            <button type="submit">Avançar</button>
           </div>
         </form>
       </div>

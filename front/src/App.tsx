@@ -1,49 +1,40 @@
-import './App.css';
-import Cadastro from './pages/Cadastro';
-
-/*function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          NutriTech
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-        </a>
-      </header>
-      </div>
-  );
-}*/
-
 import React, { useState } from 'react';
+import Cadastro from './pages/Cadastro';  
+import InfoPessoal from './pages/Infopessoal';  
+import DefinicaoMetas from './pages/DefinicaoMetas';
+import TermosDeUso from './pages/TermosDeUso';
+import MenuPrincipal from './pages/MenuPrincipal';
 
-// Componentes das páginas
-const HomePage: React.FC = () => <div>Home Page</div>;
-const CadastroPage: React.FC = () => <div><Cadastro></Cadastro> Page</div>;
-
-const App: React.FC = () => {
-  // Estado para controlar a página atual
-  const [page, setPage] = useState<'home' | 'cadastro'>('home');
-
+const BemVindoPage: React.FC<{ setPage: React.Dispatch<React.SetStateAction<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>> }> = ({ setPage }) => {
   return (
     <div>
-      {/* Navegação */}
-      <nav>
-        <button onClick={() => setPage('home')}>Home</button>
-        <button onClick={() => setPage('cadastro')}>Cadastro</button>
-      </nav>
-
-      {/* Conteúdo Condicional */}
-      {page === 'home' && <HomePage />}
-      {page === 'cadastro' && <CadastroPage />}
+      <h1>Página de Boas-Vindas</h1>
+      <button onClick={() => setPage('cadastro')}>Cadastrar</button>
     </div>
   );
 };
-//////////////
+
+const App: React.FC = () => {
+  // Estado para controlar a página atual
+  const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>('bem-vindo');
+
+  return (
+    <div>
+      {/* Navegação Condicional */}
+      {page === 'bem-vindo' && <BemVindoPage setPage={setPage} />}
+      {page === 'cadastro' && <Cadastro setPage={setPage} />}
+      {page === 'info-pessoal' && <InfoPessoal />}
+      {page === 'definicao-metas' && <DefinicaoMetas />}
+      {page === 'termosdeuso' && <TermosDeUso />}
+      {page === 'menu-principal' && <MenuPrincipal setPage={setPage}/>}
+    </div>
+  );
+};
+
 export default App;
+///
+
+/*
+const BemVindoPage: React.FC = () => <div>BemVindo Page</div>;
+const CadastroPage: React.FC = () => <div><Cadastro></Cadastro> Page</div>;
+const InfoPessoalPage: React.FC = () => <div><InfoPessoal></InfoPessoal> Page</div>;*/
