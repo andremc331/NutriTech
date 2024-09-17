@@ -10,7 +10,7 @@ const BemVindoPage: React.FC = () => <div>Página de Boas-Vindas</div>;
 const App: React.FC = () => {
   // Estado para controlar a página atual
   const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>('info-pessoal');
-
+//
   return (
     <div>
       {/* Navegação */}

@@ -10,7 +10,7 @@ const Cadastro: React.FC = () => {
     senha: '',
     confirmarSenha: '',
   });
-
+//
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -23,7 +23,7 @@ const Cadastro: React.FC = () => {
     // Redireciona para outra página
     window.location.href = "./Infopessoal.tsx"; // Substitua pelo caminho da sua página
   };
-
+//
   return (
     <div>
       {/* Imagem do logo no topo da página */}

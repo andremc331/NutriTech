@@ -1,6 +1,6 @@
 import React,{ useState } from "react";
 //import './Info.css'
-
+//
 // Definindo o tipo para os dados do usuário
 interface UserData {
     username: string;
