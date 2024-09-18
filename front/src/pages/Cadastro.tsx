@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Cadastro.css';
+import '../CSS/Cadastro.css';
 import logo from '../logo/logo.nutritech.png.png';
 
 interface CadastroProps {
@@ -25,8 +25,8 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Redireciona para o Menu Principal
-    setPage('menu-principal');
+    // Redireciona para o Info Pessoal
+    setPage('info-pessoal');
   };
 
   return (
