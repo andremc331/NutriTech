@@ -1,9 +1,13 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(90deg,#7E5EC2,#C9B7E6,#F3F3F3);
+    /* background-image: url('../logo/fundo3.png');
+    background-size: cover;
+    background-repeat: no-repeat; */
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100vw;
     height: 100vh;
     margin: 0;
 }
@@ -45,7 +49,7 @@ input[type="number"] {
     position: absolute; /* Torna a posição do bloco dependente do container */
     top: 40%; /* Centraliza verticalmente */
     right: 50px; /* Ajuste a distância da borda direita conforme necessário */
-    flex-direction: column; 
+    /* flex-direction: column;  */
     /* Alinha os rótulos e botões de opção verticalmente */
 
 }
@@ -67,10 +71,10 @@ input[type="number"] {
 .buttons button {
     background-color: #3dc4a7; /* Verde para os botões */
     color: white;
-    padding: 10px 20px;
-    border: none;
+    padding: 20px;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 20px;
 }
 
 .buttons button:hover {
