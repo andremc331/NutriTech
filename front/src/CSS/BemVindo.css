@@ -62,6 +62,7 @@
     color: white;
     padding: 1rem;
     text-align: center;
+
   }
   
   .container-left h1 {
@@ -69,6 +70,7 @@
     color: #fff; /* Altera a cor do texto */
     margin-bottom: 20px; /* Espaço abaixo do título */
     text-align: center; /* Alinha o texto ao centro */
+
   }
   
   .email-label {
@@ -92,6 +94,7 @@
     border: none; /* Remove a borda padrão */
     border-radius: 5px; /* Adiciona bordas arredondadas */
     width: 92%; /* Faz o input ocupar a largura total do container */
+    
   }
   
   /* Estilos para o conteúdo principal */
