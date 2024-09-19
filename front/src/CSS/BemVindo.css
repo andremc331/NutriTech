@@ -1,142 +1,139 @@
 .background {
-    background-image: url('../logo/Background_Image_NutriTech.PNG'); /* Altere o caminho conforme necessário */
-    background-size: cover;
-    background-position: center;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* Estilização global para o corpo da página */
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #C9B7E6;
-  }
-  
-  /* Contêiner direito que organiza o layout do Logo */
-  .logo {
-    width: 352px; /* Ajusta a largura da imagem */
-    height: auto; /* Mantém a proporção da imagem */
-    margin: 80px; /* Adiciona espaço ao redor da imagem */
-    position: absolute;
-    top: 85px;
-    left: 45%;
-  }
-  
-  .container-right h2 {
-    font-size: 2rem; /* Ajusta o tamanho da fonte */
-    color: black; /* Altera a cor do texto */
-    margin-bottom: 20px; /* Espaço abaixo do título */
-    text-align: center; /* Alinha o texto ao centro */
-    position: absolute;
-    top: 350px;
-    left: 46%;
-    letter-spacing: -0.02em; 
-    word-spacing: 0.2em; 
-  }
-  
-  
-  /* Contêiner esquerdo que organiza o layout do Login */
-  .container-left {
-    display: flex;
-    flex-direction: column;
-    min-height: 70vh;
-    padding: 70px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    background-color: #7E5EC2;
-    margin-top: -5px; /* Move para baixo */
-    margin-left: -650px;
-  }
-  
-  /* Estilos para o cabeçalho */
-  .header {
-    background-color: #282c34;
-    color: white;
-    padding: 1rem;
-    text-align: center;
+  background-image: url('../logo/Background_Image_NutriTech.PNG'); /* Altere o caminho conforme necessário */
+  background-size: cover;
+  background-position: center;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
-  }
-  
-  .container-left h1 {
-    font-size: 2rem; /* Ajusta o tamanho da fonte */
-    color: #fff; /* Altera a cor do texto */
-    margin-bottom: 20px; /* Espaço abaixo do título */
-    text-align: center; /* Alinha o texto ao centro */
+/* Estilização global para o corpo da página */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #C9B7E6;
+}
 
-  }
-  
-  .email-label {
-    font-size: 1rem; /* Ajusta o tamanho da fonte */
-    color: #fff; /* Altera a cor do texto */
-    margin-top: 70px; /* Espaço acima do label */
-    display: block; /* Faz com que o label ocupe a largura total */
-  }
-  
-  .password-label {
-    font-size: 1rem; /* Ajusta o tamanho da fonte */
-    color: #fff; /* Altera a cor do texto */
-    margin-top: 10px; /* Espaço acima do label */
-    display: block; /* Faz com que o label ocupe a largura total */
-  }
-  
-  .container-left input {
-    font-size: 1rem; /* Ajusta o tamanho da fonte */
-    padding: 10px; /* Adiciona preenchimento interno */
-    margin-top: 5px; /* Espaço acima do input */
-    border: none; /* Remove a borda padrão */
-    border-radius: 5px; /* Adiciona bordas arredondadas */
-    width: 92%; /* Faz o input ocupar a largura total do container */
-    
-  }
-  
-  /* Estilos para o conteúdo principal */
-  .main-Content {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-  }
-  
-  /* Estilos para o botão 1 e 2 */
+/* Contêiner direito que organiza o layout do Logo */
+.logo {
+  width: 352px; /* Ajusta a largura da imagem */
+  height: auto; /* Mantém a proporção da imagem */
+  margin: 80px; /* Adiciona espaço ao redor da imagem */
+  position: absolute;
+  top: 85px;
+  left: 45%;
+}
 
-  .button1 {
-    position: absolute;
-    margin-top: 20px; /* Move para baixo */
-    margin-left: 30px; /* Move para a direita */
-    background-color: #21D29D;
-    border: none;
-    color: black;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    width: 100%;
-  }
+.container-right h2 {
+  font-size: 2rem; /* Ajusta o tamanho da fonte */
+  color: black; /* Altera a cor do texto */
+  margin-bottom: 20px; /* Espaço abaixo do título */
+  text-align: center; /* Alinha o texto ao centro */
+  position: absolute;
+  top: 350px;
+  left: 46%;
+  letter-spacing: -0.02em; 
+  word-spacing: 0.2em; 
+}
 
-  .button1:hover {
-    background-color: #21a1f1;
-  }
 
-  .button2 {
-    background-color: #21D29D;
-    border: none;
-    color: black;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    width: 80%;
-  }
-  
-  .button2:hover {
-    background-color: #21a1f1;
-  }
+/* Contêiner esquerdo que organiza o layout do Login */
+.container-left {
+  display: flex;
+  flex-direction: column;
+  min-height: 70vh;
+  padding: 70px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  background-color: #7E5EC2;
+  margin-top: -5px; /* Move para baixo */
+  margin-left: -650px;
+}
+
+/* Estilos para o cabeçalho */
+.header {
+  background-color: #282c34;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+.container-left h1 {
+  font-size: 2rem; /* Ajusta o tamanho da fonte */
+  color: #fff; /* Altera a cor do texto */
+  margin-bottom: 20px; /* Espaço abaixo do título */
+  text-align: center; /* Alinha o texto ao centro */
+}
+
+.email-label {
+  font-size: 1rem; /* Ajusta o tamanho da fonte */
+  color: #fff; /* Altera a cor do texto */
+  margin-top: 70px; /* Espaço acima do label */
+  display: block; /* Faz com que o label ocupe a largura total */
+}
+
+.password-label {
+  font-size: 1rem; /* Ajusta o tamanho da fonte */
+  color: #fff; /* Altera a cor do texto */
+  margin-top: 10px; /* Espaço acima do label */
+  display: block; /* Faz com que o label ocupe a largura total */
+}
+
+.container-left input {
+  font-size: 1rem; /* Ajusta o tamanho da fonte */
+  padding: 10px; /* Adiciona preenchimento interno */
+  margin-top: 5px; /* Espaço acima do input */
+  border: none; /* Remove a borda padrão */
+  border-radius: 5px; /* Adiciona bordas arredondadas */
+  width: 92%; /* Faz o input ocupar a largura total do container */
+}
+
+/* Estilos para o conteúdo principal */
+.main-Content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+/* Estilos para o botão 1 e 2 */
+
+.button1 {
+  position: absolute;
+  margin-top: 20px; /* Move para baixo */
+  margin-left: 30px; /* Move para a direita */
+  background-color: #21D29D;
+  border: none;
+  color: black;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  width: 100px;
+}
+
+.button1:hover {
+  background-color: #21a1f1;
+}
+
+.button2 {
+  background-color: #21D29D;
+  border: none;
+  color: black;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+  width: 80%;
+}
+
+.button2:hover {
+  background-color: #21a1f1;
+}
