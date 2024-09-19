@@ -70,6 +70,8 @@
 ![image](https://github.com/user-attachments/assets/2af0fa17-3d54-4b9d-9a92-5075b282b52b)
 
 # WIREFRAME
+![image](https://github.com/user-attachments/assets/d8b41093-f3ff-47f1-b354-925d03a70968)
+
 
 # 🔗 LINKS
 
