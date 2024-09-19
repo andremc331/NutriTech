@@ -5,8 +5,8 @@
 <div>
  
  <h1>DESCRIÇÃO</h1>
- <h1>  |       DESAFIO       |    
-|O objetivo é especificar e construir uma aplicação web que permita aos usuários registrar e monitorar a ingestão diária de calorias e nutrientes, auxiliando no controle da alimentação e na manutenção da saúde. </h1>
+|       DESAFIO       |    
+|O objetivo é especificar e construir uma aplicação web que permita aos usuários registrar e monitorar a ingestão diária de calorias e nutrientes, auxiliando no controle da alimentação e na manutenção da saúde.
 </div>
 
 
