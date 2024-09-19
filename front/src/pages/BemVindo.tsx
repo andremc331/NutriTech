@@ -11,7 +11,9 @@ export default function BemVindo({ setPage }: BemVindoProps) {
             <div className="container-right">
                 <img src={logo} alt="Logo NutriTech" className="logo" />
                 <h2>O MELHOR PARA A SUA SAÚDE</h2>
+                <button className="button1" onClick={() => setPage('cadastro')}>Clique aqui</button>
             </div>
+            
             <div className="container-left">
                 <h1>Login</h1>
                 <label className="email-label">Email:</label>
@@ -19,7 +21,7 @@ export default function BemVindo({ setPage }: BemVindoProps) {
                 <label className="password-label">Senha:</label>
                 <input type="password" className="password-input" />
                 <main className="main-Content">
-                    <button className="button" onClick={() => setPage('cadastro')}>Clique aqui</button>
+                    <button className="button2" onClick={() => setPage('cadastro')}>Clique aqui</button>
                 </main>
             </div>
         </div>
