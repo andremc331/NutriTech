@@ -63,7 +63,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 |Como usuario eu quero| Dieta que controle a ingestão de proteínas, carboidratos, gorduras, vitaminas e minerais | O acompanhamento nutricional é vital para o manejo adequado da condição e para evitar complicações de saúde.
 |Como usuario eu quero| Acompanhar o progresso da minha dieta | Demonstra o desempenho e atividade de forma a motivar o usuário e o mesmo poder comparar seu desempenho.
 
-
+-------------------------------------------------------------------------------------------------
 
 # BD RELACIONAL
 ![BD RELACIONAL](https://github.com/user-attachments/assets/0842f93f-c560-4950-8e48-0a4171a46c4c)
