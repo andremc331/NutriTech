@@ -104,6 +104,9 @@
   /* Estilos para o botão 1 e 2 */
 
   .button1 {
+    position: absolute;
+    margin-top: 20px; /* Move para baixo */
+    margin-left: 30px; /* Move para a direita */
     background-color: #21D29D;
     border: none;
     color: black;
