@@ -24,8 +24,8 @@
     height: auto; /* Mantém a proporção da imagem */
     margin: 80px; /* Adiciona espaço ao redor da imagem */
     position: absolute;
-    top: 60px;
-    left: 40%;
+    top: 85px;
+    left: 45%;
   }
   
   .container-right h2 {
@@ -35,9 +35,9 @@
     text-align: center; /* Alinha o texto ao centro */
     position: absolute;
     top: 350px;
-    left: 42%;
+    left: 46%;
     letter-spacing: -0.02em; 
-    word-spacing: -0.1em; 
+    word-spacing: 0.2em; 
   }
   
   
@@ -45,15 +45,13 @@
   .container-left {
     display: flex;
     flex-direction: column;
-    min-height: 60vh;
-    padding: 20px;
+    min-height: 70vh;
+    padding: 70px;
     border-radius: 20px;
     box-sizing: border-box;
     background-color: #7E5EC2;
-    position: absolute;
-    top: 120px;
-    left: 230px;
-    width: 300px;
+    margin-top: -5px; /* Move para baixo */
+    margin-left: -650px;
   }
   
   /* Estilos para o cabeçalho */
@@ -106,8 +104,12 @@
     padding: 2rem;
   }
   
-  /* Estilos para o botão */
-  .button {
+  /* Estilos para o botão 1 e 2 */
+
+  .button1 {
+    position: absolute;
+    margin-top: 20px; /* Move para baixo */
+    margin-left: 30px; /* Move para a direita */
     background-color: #21D29D;
     border: none;
     color: black;
@@ -116,8 +118,25 @@
     cursor: pointer;
     border-radius: 4px;
     transition: background-color 0.3s;
+    width: 100%;
+  }
+
+  .button1:hover {
+    background-color: #21a1f1;
+  }
+
+  .button2 {
+    background-color: #21D29D;
+    border: none;
+    color: black;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+    width: 80%;
   }
   
-  .button:hover {
+  .button2:hover {
     background-color: #21a1f1;
   }
