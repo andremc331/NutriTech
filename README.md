@@ -4,11 +4,13 @@
 <img src='./front/src/logo/logo.nutritech.png.png' widht='200'/>
 <div>
 
+-----------------------------------------------------------------------------------
  
  <h1>DESCRIÇÃO:</h1>    
 O objetivo é especificar e construir uma aplicação web que permita aos usuários registrar e monitorar a ingestão diária de calorias e nutrientes, auxiliando no controle da alimentação e na manutenção da saúde.
 </div>
 
+-----------------------------------------------------------------------------------
 
 # 🗂️SPRINTS
 | Sprint  | Datas   | Relatórios                                     |
@@ -16,8 +18,6 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 |  1  | :calendar:  ➡ (20/09/2024) |
 |  2  | :calendar:  ➡ (08/10/2024) |
 |  3  | :calendar:  ➡ (08/11/2024  |
-
-
 
 |       RESTRIÇÕES DE PROJETO E TECNOLOGIA      |          
 | - As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:     
@@ -27,6 +27,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | 4.	Documentação: GitHub;     
 | 5.	Usar alguma ferramenta de gestão para gerenciar o backlog do produto. 
 
+------------------------------------------------------------------------------------
 
 # 📑PRODUCT BACKLOG
 |  Requisitos Funcionais       |
@@ -54,6 +55,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | -SITUAÇÃO(STATUS) OK.                                                                                                
 | INSERÇÃO DE CARDÁPIO (todos alimentos / produtos consumíveis que serão compatíveis com as dietas).
 
+-----------------------------------------------------------------------------------
 
 # USER STORIES
 |Ator          |Ação                         |Motivo                        |
@@ -68,13 +70,17 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 # BD RELACIONAL
 ![BD RELACIONAL](https://github.com/user-attachments/assets/0842f93f-c560-4950-8e48-0a4171a46c4c)
 
+-----------------------------------------------------------------------------------
 
 # BURNDOWN SP1
 ![image](https://github.com/user-attachments/assets/2af0fa17-3d54-4b9d-9a92-5075b282b52b)
 
+-----------------------------------------------------------------------------------
+
 # WIREFRAME
 ![image](https://github.com/user-attachments/assets/d8b41093-f3ff-47f1-b354-925d03a70968)
 
+-----------------------------------------------------------------------------------
 
 # 🔗 LINKS
 
