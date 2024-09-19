@@ -62,11 +62,12 @@
 |Como usuario eu quero| Acompanhar o progresso da minha dieta | Demonstra o desempenho e atividade de forma a motivar o usuário e o mesmo poder comparar seu desempenho.
 
 
-# BANCO DE DADOS RELACIONAL
+
+# BD RELACIONAL
 ![BD RELACIONAL](https://github.com/user-attachments/assets/0842f93f-c560-4950-8e48-0a4171a46c4c)
 
 
-# BURNDOWN
+# BURNDOWN SP1
 ![image](https://github.com/user-attachments/assets/2af0fa17-3d54-4b9d-9a92-5075b282b52b)
 
 # WIREFRAME
