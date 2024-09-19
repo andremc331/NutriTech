@@ -62,6 +62,10 @@
 |Como usuario eu quero| Acompanhar o progresso da minha dieta | Demonstra o desempenho e atividade de forma a motivar o usuário e o mesmo poder comparar seu desempenho.
 
 
+# BANCO DE DADOS RELACIONAL
+![BD RELACIONAL](https://github.com/user-attachments/assets/0842f93f-c560-4950-8e48-0a4171a46c4c)
+
+
 # BURNDOWN
 ![image](https://github.com/user-attachments/assets/2af0fa17-3d54-4b9d-9a92-5075b282b52b)
 
@@ -70,7 +74,7 @@
 # 🔗 LINKS
 
 ### 🧮 TRELLO 
-[Clique Aqui]()
+[Clique Aqui](https://trello.com/b/Q0Z9B3GN/hightech)
 
 ### 📖 REQUISITOS DO CLIENTE
 [Clique Aqui]()
@@ -82,7 +86,7 @@
 [Clique Aqui]()
 
 ### 🎨 FIGMA
-[Clique Aqui]()
+[Clique Aqui](https://www.figma.com/design/csGwtJwjsN7gELjbUGDzEb/NutriTech)
 
 
 # :computer: EQUIPE
