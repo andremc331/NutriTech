@@ -63,7 +63,7 @@
 
 
 # BURNDOWN
-
+![image](https://github.com/user-attachments/assets/2af0fa17-3d54-4b9d-9a92-5075b282b52b)
 
 # WIREFRAME
 
