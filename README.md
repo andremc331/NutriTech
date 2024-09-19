@@ -80,7 +80,7 @@
 [Clique Aqui](https://trello.com/b/Q0Z9B3GN/hightech)
 
 ### 📖 REQUISITOS DO CLIENTE
-[Clique Aqui]()
+[Clique Aqui](https://docs.google.com/document/d/1qVPnMpCE-d-vICMM7N69L6WKyPXC7qskSgLMa3oR7ss/edit)
 
 ### 🖌️ CORES
 [Clique Aqui]()
