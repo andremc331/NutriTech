@@ -105,8 +105,8 @@ body {
 
 .button1 {
   position: absolute;
-  margin-top: 20px; /* Move para baixo */
-  margin-left: 30px; /* Move para a direita */
+  margin-top: 517px; /* Move para baixo */
+  margin-left: 70px; /* Move para a direita */
   background-color: #21D29D;
   border: none;
   color: black;
@@ -115,7 +115,7 @@ body {
   cursor: pointer;
   border-radius: 4px;
   transition: background-color 0.3s;
-  width: 100px;
+  width: 200px;
 }
 
 .button1:hover {
