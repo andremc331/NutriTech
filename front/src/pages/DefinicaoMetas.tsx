@@ -2,7 +2,11 @@ import React, { useRef } from "react";
 import '../CSS/DefinicaoMetas.css';
 import logo from '../logo/logo.nutritech.png.png';
 
-const DefinicaoMetas: React.FC = () => {
+interface DefinicaoMetasProps {
+  setPage: React.Dispatch<React.SetStateAction<"bem-vindo" | "cadastro" | "info-pessoal" | "definicao-metas" | "termosdeuso" | "menu-principal">>;
+}
+
+const DefinicaoMetas: React.FC<DefinicaoMetasProps> = ({ setPage }) => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -22,46 +26,52 @@ const DefinicaoMetas: React.FC = () => {
       <div className="image-container">
         <img src={logo} alt="Logo Nutritech" />
       </div>
-    <div className="form-container">
-      <h2>Definição de Metas</h2>
-      {/* Formulário que envolve os quadrados */}
-      <form>
-        {/* Botão para rolar à esquerda */}
-        <button type="button" className="nav-button left" onClick={scrollLeft}>
-          &lt;
-        </button>
+    <div>
+      {/* Formulário envolvido pelo contêiner roxo */}
+      <div className="form-container">
+        <h2>Definição de Metas</h2>
+        <form>
+          <button type="button" className="nav-button left" onClick={scrollLeft}>
+            &lt;
+          </button>
 
-        <div className="carousel" ref={carouselRef}>
-          <div className="card">
-            <h3>Ganhar ou Perder Peso</h3>
-            <div className="button-group">
-              <button type="button" className="minus-button">-</button>
-              <button type="button" className="plus-button">+</button>
+          <div className="carousel" ref={carouselRef}>
+            <div className="card">
+              <h3>Ganhar ou Perder Peso</h3>
+              <div className="button-group">
+                <button type="button" className="minus-button">-</button>
+                <button type="button" className="plus-button">+</button>
+              </div>
+            </div>
+            <div className="card">
+              <h3>Monitore seu problema alimentar</h3>
+            </div>
+            <div className="card">
+              <h3>Auxiliar</h3>
+            </div>
+            <div className="card">
+              <h3>Quadrado Indefinido 1</h3>
+            </div>
+            <div className="card">
+              <h3>Quadrado Indefinido 2</h3>
+            </div>
+            <div className="card">
+              <h3>Quadrado Indefinido 3</h3>
             </div>
           </div>
-          <div className="card">
-            <h3>Monitore seu problema alimentar</h3>
-          </div>
-          <div className="card">
-            <h3>Auxiliar</h3>
-          </div>
-          {/* Quadrados indefinidos */}
-          <div className="card">
-            <h3>Quadrado Indefinido 1</h3>
-          </div>
-          <div className="card">
-            <h3>Quadrado Indefinido 2</h3>
-          </div>
-          <div className="card">
-            <h3>Quadrado Indefinido 3</h3>
-          </div>
-        </div>
 
-        {/* Botão para rolar à direita */}
-        <button type="button" className="nav-button right" onClick={scrollRight}>
-          &gt;
+          <button type="button" className="nav-button right" onClick={scrollRight}>
+            &gt;
+          </button>
+        </form>
+      </div>
+
+      {/* Botão de avançar fora do formulário roxo */}
+      <div className="button-container">
+        <button type="button" className="next-button" onClick={() => setPage('termosdeuso')}>
+          →
         </button>
-      </form>
+      </div>
     </div>
     </div>
   );

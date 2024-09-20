@@ -70,7 +70,7 @@ body{
   }
   
   button {
-    width: 60px; /* Define a largura e altura iguais para criar um quadrado */
+    width: 105px; /* Define a largura e altura iguais para criar um quadrado */
     height: 60px;
     background-color: #21D29D;
     color: white;

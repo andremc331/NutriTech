@@ -20,3 +20,4 @@ const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
 };
 
 export default MenuPrincipal;
+

@@ -29,13 +29,13 @@ body {
 }
 
 .container-right h2 {
-  font-size: 2rem; /* Ajusta o tamanho da fonte */
+  font-size: 3rem; /* Ajusta o tamanho da fonte */
   color: black; /* Altera a cor do texto */
   margin-bottom: 20px; /* Espaço abaixo do título */
   text-align: center; /* Alinha o texto ao centro */
   position: absolute;
-  top: 350px;
-  left: 46%;
+  top: 405px;
+  left: 51%;
   letter-spacing: -0.02em; 
   word-spacing: 0.2em; 
 }
@@ -123,17 +123,25 @@ body {
 }
 
 .button2 {
-  background-color: #21D29D;
-  border: none;
-  color: black;
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-  transition: background-color 0.3s;
-  width: 80%;
+  font-size: 80px; /* Aumenta o tamanho da seta */
+  width: 90px; /* Largura do botão */
+  height: 70px; /* Altura do botão */
+  background-color: #21D29D; /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Remove as bordas */
+  border-radius: 10px; /* Arredonda os cantos */
+  cursor: pointer; /* Aponta que o elemento é clicável */
+  display: flex; /* Para centralizar o conteúdo */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  transition: background-color 0.3s ease; /* Efeito de transição ao passar o mouse */
 }
 
 .button2:hover {
-  background-color: #21a1f1;
+  background-color: #1CA885; /* Cor de fundo ao passar o mouse */
+}
+
+.justified-text {
+  text-align: justify;
+  margin: 0; /* Ajusta a margem se necessário */
 }

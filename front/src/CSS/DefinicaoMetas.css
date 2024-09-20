@@ -1,23 +1,23 @@
-/* Corpo */
+/* Definição geral do corpo */
 body {
   background-color: #7E5EC2;
   margin: 0;
   font-family: 'Roboto', Arial, sans-serif;
 }
+
+/* Logotipo centralizado */
 .image-container {
   text-align: center;
   max-width: 100%;
   margin: 50px auto;
-
 }
 
 .image-container img {
-  width: 300px; /* Ajuste conforme necessário */
-  height: auto; /* Mantém a proporção da imagem */
+  width: 300px;
+  height: auto;
 }
 
-
-/* Container do formulário, igual ao de cadastro e login */
+/* Container do formulário (igual ao de cadastro e login) */
 .form-container {
   width: 800px;
   margin: 20px auto;
@@ -28,7 +28,7 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Título */
+/* Título da página */
 h2 {
   text-align: left;
   color: white;
@@ -36,12 +36,12 @@ h2 {
   font-weight: bold;
 }
 
-/* Carrossel e quadrados */
+/* Carrossel que envolve os quadrados */
 .carousel {
   display: flex;
   overflow-x: hidden;
   scroll-snap-type: x mandatory;
-  width: 100%; /* Alinhado ao formulário */
+  width: 100%;
   padding: 10px;
 }
 
@@ -116,7 +116,30 @@ h3 {
   right: 10px;
 }
 
-/* Ajustando largura máxima */
+/* Botão Avançar */
+.next-button {
+  width: 60px;
+  height: 60px;
+  background-color: #21D29D;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.next-button:hover {
+  background-color: #1CA885;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-end; /* Alinha o botão à direita */
+  margin-top: 20px; /* Espaçamento entre o formulário e o botão */
+}
+
+
+/* Ajuste para telas menores */
 @media (max-width: 900px) {
   .form-container {
     width: 95%;
