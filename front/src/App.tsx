@@ -17,7 +17,7 @@ const App: React.FC = () => {
             {page === 'cadastro' && <Cadastro setPage={setPage} />}
             {page === 'info-pessoal' && <InfoPessoal setPage={setPage} />}
             {page === 'definicao-metas' && <DefinicaoMetas setPage={setPage} />}
-            {page === 'termosdeuso' && <TermosDeUso />}
+            {page === 'termosdeuso' && <TermosDeUso setPage={setPage}/>}
             {page === 'menu-principal' && <MenuPrincipal setPage={setPage} />}
         </div>
     );
