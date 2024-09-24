@@ -1,54 +1,71 @@
+/* src/Sidebar.css */
 body {
-    background-color: #7E5EC2;
+    font-family: Arial, sans-serif;
     margin: 0;
-    font-family: 'Roboto', Arial, sans-serif;
-    height: 100vh;
-    display: flex;
-}
-
-.menu-principal-container {
-    display: flex;
-    height: 100vh;
-    width: 100%;
-}
-
-.sidebar {
-    width: 170px;
-    background-color: #7d4cdb;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    position: fixed;
-    left: 0;
-    top: 0;
-    bottom: 0;
     padding: 0;
 }
 
-.navigation-button {
-    background-color: #21d29d;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    padding: 15px;
-    margin: 10px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: left;
+.sidebar {
+    width: 85px; /* Largura inicial */
+    height: 100%; /* Altura total da tela */
+    background-color: #333;
+    color: #fff;
+    position: fixed; /* Fixa à esquerda */
+    top: 0; /* Alinha ao topo da tela */
+    left: 0; /* Alinha à esquerda da tela */
+    transition: width 0.3s;
+    overflow: hidden;
+    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
 }
 
-.navigation-button:hover {
-    background-color: #1ca885;
+.sidebar:hover {
+    width: 200px; /* Largura ao expandir */
 }
 
-.content {
-    margin-left: 160px; /* Compensando a largura da barra lateral */
-    flex-grow: 1;
-    padding: 20px;
-    color: white;
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha à esquerda */
+    justify-content: flex-start; /* Alinha ao topo */
+    height: 100%; /* Para ocupar toda a altura */
+    padding: 10px; /* Espaçamento interno */
 }
 
-h1 {
-    font-size: 36px;
-    text-align: center;
+.item {
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    width: 100%; /* Para ocupar toda a largura */
+    margin: 15px 0; /* Espaçamento entre itens */
+    padding: 5px; /* Espaçamento interno */
+    position: relative; /* Para posicionar o pseudo-elemento */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+    border-radius: 5px; /* Bordas arredondadas nos itens */
+}
+
+.item:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse */
+}
+
+.item:hover::after {
+    content: ''; /* Necessário para o pseudo-elemento */
+    position: absolute;
+    right: 0; /* Posiciona à direita do item */
+    top: 0; /* Começa no topo do item */
+    width: 5px; /* Largura da barra */
+    height: 100%; /* Altura igual à do item */
+    background-color: #f39c12; /* Cor da barra */
+}
+
+.icon {
+    font-size: 24px;
+    margin-left: 10px; /* Espaçamento entre texto e ícone */
+}
+
+.text {
+    display: none; /* Inicialmente escondido */
+}
+
+.sidebar:hover .text {
+    display: block; /* Exibe o texto ao passar o mouse */
+    margin-right: 10px; /* Espaçamento entre texto e ícone */
 }
