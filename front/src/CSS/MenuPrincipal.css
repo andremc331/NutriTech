@@ -1,14 +1,22 @@
-/* src/Sidebar.css */
 body {
-    font-family: Arial, sans-serif;
+    background-color: #7E5EC2;
+    font-family: 'Roboto', Arial, sans-serif;
     margin: 0;
     padding: 0;
+    height: 100vh;
+    display: flex;
+}
+
+.menu-principal-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
 }
 
 .sidebar {
     width: 85px; /* Largura inicial */
     height: 100%; /* Altura total da tela */
-    background-color: #5e419e;
+    background-color: #7E5EC2; /* Cor da barra lateral */
     color: #fff;
     position: fixed; /* Fixa à esquerda */
     top: 0; /* Alinha ao topo da tela */
@@ -43,7 +51,7 @@ body {
 }
 
 .item:hover {
-    background-color: #947cc7; /* Cor de fundo ao passar o mouse */
+    background-color: #555; /* Cor de fundo ao passar o mouse */
 }
 
 .item:hover::after {
@@ -53,7 +61,7 @@ body {
     top: 0; /* Começa no topo do item */
     width: 5px; /* Largura da barra */
     height: 100%; /* Altura igual à do item */
-    background-color: #70b85e; /* Cor da barra */
+    background-color: #f39c12; /* Cor da barra */
 }
 
 .icon {
@@ -68,4 +76,53 @@ body {
 .sidebar:hover .text {
     display: block; /* Exibe o texto ao passar o mouse */
     margin-right: 10px; /* Espaçamento entre texto e ícone */
+}
+
+.navigation-button {
+    background-color: transparent; /* Botão transparente */
+    border: none; /* Sem borda */
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.navigation-button i {
+    font-size: 24px; /* Tamanho do ícone */
+}
+
+.navigation-button:hover {
+    background-color: #555; /* Fundo mais escuro ao hover */
+}
+
+.top-bar {
+    background-color: #7d4cdb;
+    width: calc(100% - 85px); /* Compensando a largura da barra lateral */
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 85px; /* Anexa à barra lateral */
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.username {
+    color: white;
+    margin-right: 20px;
+}
+
+.content {
+    margin-left: 85px; /* Compensando a largura da barra lateral */
+    margin-top: 60px; /* Compensando a altura da barra superior */
+    padding: 20px;
+    color: white;
+}
+
+h1 {
+    font-size: 36px;
+    text-align: center;
 }

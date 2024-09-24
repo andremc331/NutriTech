@@ -18,7 +18,7 @@ const App: React.FC = () => {
             {page === 'info-pessoal' && <InfoPessoal setPage={setPage} />}
             {page === 'definicao-metas' && <DefinicaoMetas setPage={setPage} />}
             {page === 'termosdeuso' && <TermosDeUso setPage={setPage}/>}
-            {page === 'menu-principal' && <MenuPrincipal setPage={setPage} />}
+            {page === 'menu-principal' && <MenuPrincipal setPage={setPage} username={''} />}
         </div>
     );
 };
