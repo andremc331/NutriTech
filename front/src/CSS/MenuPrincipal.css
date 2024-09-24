@@ -1,3 +1,4 @@
+<<<<<<< HEAD:front/src/CSS/MenuPrincipal.css
 /* src/Sidebar.css */
 body {
     font-family: Arial, sans-serif;
@@ -69,3 +70,134 @@ body {
     display: block; /* Exibe o texto ao passar o mouse */
     margin-right: 10px; /* Espaçamento entre texto e ícone */
 }
+=======
+body {
+    background-color: #7E5EC2;
+    font-family: 'Roboto', Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+}
+
+.menu-principal-container {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+}
+
+.sidebar {
+    width: 85px; /* Largura inicial */
+    height: 100%; /* Altura total da tela */
+    background-color: #333; /* Cor da barra lateral */
+    color: #fff;
+    position: fixed; /* Fixa à esquerda */
+    top: 0; /* Alinha ao topo da tela */
+    left: 0; /* Alinha à esquerda da tela */
+    transition: width 0.3s;
+    overflow: hidden;
+    border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
+}
+
+.sidebar:hover {
+    width: 200px; /* Largura ao expandir */
+}
+/* */
+.sidebar-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alinha à esquerda */
+    justify-content: flex-start; /* Alinha ao topo */
+    height: 100%; /* Para ocupar toda a altura */
+    padding: 10px; /* Espaçamento interno */
+}
+
+.item {
+    display: flex;
+    align-items: center; /* Alinha verticalmente */
+    width: 100%; /* Para ocupar toda a largura */
+    margin: 15px 0; /* Espaçamento entre itens */
+    padding: 5px; /* Espaçamento interno */
+    position: relative; /* Para posicionar o pseudo-elemento */
+    transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+    border-radius: 5px; /* Bordas arredondadas nos itens */
+}
+
+.item:hover {
+    background-color: #555; /* Cor de fundo ao passar o mouse */
+}
+
+.item:hover::after {
+    content: ''; /* Necessário para o pseudo-elemento */
+    position: absolute;
+    right: 0; /* Posiciona à direita do item */
+    top: 0; /* Começa no topo do item */
+    width: 5px; /* Largura da barra */
+    height: 100%; /* Altura igual à do item */
+    background-color: #f39c12; /* Cor da barra */
+}
+
+.icon {
+    font-size: 24px;
+    margin-left: 10px; /* Espaçamento entre texto e ícone */
+}
+
+.text {
+    display: none; /* Inicialmente escondido */
+}
+
+.sidebar:hover .text {
+    display: block; /* Exibe o texto ao passar o mouse */
+    margin-right: 10px; /* Espaçamento entre texto e ícone */
+}
+
+.navigation-button {
+    background-color: transparent; /* Botão transparente */
+    border: none; /* Sem borda */
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.navigation-button i {
+    font-size: 24px; /* Tamanho do ícone */
+}
+
+.navigation-button:hover {
+    background-color: #555; /* Fundo mais escuro ao hover */
+}
+
+.top-bar {
+    background-color: #7d4cdb;
+    width: calc(100% - 85px); /* Compensando a largura da barra lateral */
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 85px; /* Anexa à barra lateral */
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.username {
+    color: white;
+    margin-right: 20px;
+}
+
+.content {
+    margin-left: 85px; /* Compensando a largura da barra lateral */
+    margin-top: 60px; /* Compensando a altura da barra superior */
+    padding: 20px;
+    color: white;
+}
+
+h1 {
+    font-size: 36px;
+    text-align: center;
+}
+>>>>>>> 14f2062 (termos de uso):src/CSS/MenuPrincipal.css
