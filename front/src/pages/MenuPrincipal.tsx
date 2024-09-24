@@ -7,19 +7,20 @@ interface MenuPrincipalProps {
 
 const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
     return (
-        <div className="menu-principal-container">
-            <div className="sidebar">
-                <nav>
-                    <button className="navigation-button" onClick={() => setPage('bem-vindo')}>Bem-Vindo</button>
-                    <button className="navigation-button" onClick={() => setPage('cadastro')}>Cadastro</button>
-                    <button className="navigation-button" onClick={() => setPage('info-pessoal')}>Info Pessoal</button>
-                    <button className="navigation-button" onClick={() => setPage('definicao-metas')}>Definição de Metas</button>
-                    <button className="navigation-button" onClick={() => setPage('termosdeuso')}>Termos de Uso</button>
-                </nav>
-            </div>
-            <div className="content">
-                <h1>Menu Principal</h1>
-                {/* Conteúdo principal da página pode ser inserido aqui */}
+        <div className="sidebar">
+            <div className="sidebar-content">
+                <div className="item">
+                    <div className="text">Início</div>
+                    <div className="icon">🏠</div>
+                </div>
+                <div className="item">
+                    <div className="text">Buscar</div>
+                    <div className="icon">🔍</div>
+                </div>
+                <div className="item">
+                    <div className="text">Configurações</div>
+                    <div className="icon">⚙️</div>
+                </div>
             </div>
         </div>
     );
