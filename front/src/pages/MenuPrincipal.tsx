@@ -44,14 +44,15 @@ const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage, username }) => {
           className="navigation-button"
           onClick={() => setPage("definicao-metas")}
         >
-          <i className="fas fa-tasks"></i> {/* Ícone de definição de metas */}
+          <div className="text">Metas</div>
+          <div className="icon">⚙️</div>
         </button>
         <button
           className="navigation-button"
           onClick={() => setPage("termosdeuso")}
         >
-          <i className="fas fa-file-contract"></i>{" "}
-          {/* Ícone de termos de uso */}
+          <div className="text">Termos de Uso</div>
+          <div className="icon">⚙️</div>
         </button>
       </div>
 
