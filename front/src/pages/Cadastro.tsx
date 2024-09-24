@@ -22,11 +22,19 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
       [name]: value,
     }));
   };
+  const Verificar=():boolean =>{
+    if(formData.senha !== formData.confirmarSenha){
+      window.alert('As senhas não estão batendo, porfavor verifique se as senhas são correspondentes');
+      return false;
+    }
+    return true;
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Redireciona para o Info Pessoal
+    if(Verificar()){
     setPage('info-pessoal');
+    }
   };
 
   return (

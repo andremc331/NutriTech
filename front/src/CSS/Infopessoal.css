@@ -1,9 +1,6 @@
 body {
     font-family: Arial, sans-serif;
     background: linear-gradient(90deg,#7E5EC2,#C9B7E6,#F3F3F3);
-    /* background-image: url('../logo/fundo3.png');
-    background-size: cover;
-    background-repeat: no-repeat; */
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,6 +16,7 @@ body {
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     position: relative;
+    margin-top: 20px; /* Adiciona espaço acima do formulário */
 }
 
 .container h2 {
@@ -40,7 +38,7 @@ input[type="number"] {
     width: 60%;
     padding: 10px;
     margin-bottom: 15px;
-    border: 1px  solid;
+    border: 1px solid;
     border-radius: 5px;
     box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -49,9 +47,6 @@ input[type="number"] {
     position: absolute; /* Torna a posição do bloco dependente do container */
     top: 40%; /* Centraliza verticalmente */
     right: 50px; /* Ajuste a distância da borda direita conforme necessário */
-    /* flex-direction: column;  */
-    /* Alinha os rótulos e botões de opção verticalmente */
-
 }
 
 .gender label {
@@ -95,11 +90,11 @@ input[type="number"] {
     margin-bottom: 20px;
     text-align: center;
     max-width: 100%;
-    margin: 50px auto;
 }
 
 .logo img {
     width: 300px; /* Ajuste conforme necessário */
     height: auto; /* Mantém a proporção da imagem */
+    margin-bottom: 20px; /* Espaço abaixo da logo para separá-la do formulário */
 }
-  
+
