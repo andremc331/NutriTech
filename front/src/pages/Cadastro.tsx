@@ -1,31 +1,18 @@
-import React, { useState } from "react";
-import "../CSS/Cadastro.css";
-import logo from "../logo/logo.nutritech.png.png";
+import React, { useState } from 'react';
+import '../CSS/Cadastro.css';
+import logo from '../logo/logo.nutritech.png.png';
 
 interface CadastroProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-    >
-  >;
+  setPage: React.Dispatch<React.SetStateAction<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>>;
 }
 
 const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   const [formData, setFormData] = useState({
-    nome: "",
-    sobrenome: "",
-    email: "",
-    senha: "",
-    confirmarSenha: "",
+    nome: '',
+    sobrenome: '',
+    email: '',
+    senha: '',
+    confirmarSenha: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,20 +22,20 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
       [name]: value,
     }));
   };
-  const Verificar = (): boolean => {
-    if (formData.senha !== formData.confirmarSenha) {
-      window.alert(
-        "As senhas não estão batendo, porfavor verifique se as senhas são correspondentes"
-      );
+  const Verificar=():boolean =>{
+    if(formData.senha !== formData.confirmarSenha){
+      window.alert('As senhas não estão batendo, porfavor verifique se as senhas são correspondentes');
       return false;
     }
     return true;
-  };
+  }
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (Verificar()) {
-      setPage("info-pessoal");
+    if(Verificar()){
+      e.preventDefault();
+      console.log('Cadastro do usuário:', formData);
+    setPage('info-pessoal');
     }
   };
 
