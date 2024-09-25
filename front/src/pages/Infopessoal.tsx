@@ -1,12 +1,12 @@
 import { useState } from "react";
-import '../CSS/Infopessoal.css'
+import '../CSS/Infopessoal.css';
 import logo from '../logo/logo.nutritech.png.png';
 
 interface UserData {
     username: string;
     dob: string;
-    height: number;
-    weight: number;
+    height: number|null;
+    weight: number|null;
     gender: string;
 }
 
@@ -18,17 +18,30 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
     const [userData, setUserData] = useState<UserData>({
         username: '',
         dob: '',
-        height: 0,
-        weight: 0,
+        height: null,
+        weight: null,
         gender: '',
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
-        setUserData({
-            ...userData,
-            [name]: value,
-        });
+        if (name === 'height' || name === 'weight') {
+            const numberValue = value ? parseFloat(value) : null;
+            if(numberValue === 0){
+                window.alert('informe um valor valido')
+            }
+            else{setUserData({
+                ...userData,
+                [name]: numberValue,
+            });}
+        } 
+        else {
+            setUserData({
+                ...userData,
+                [name]: value,
+            });
+        }
+        
     };
 
     const handleSubmit = (e: React.FormEvent) => {
@@ -54,6 +67,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                         name="username"
                         value={userData.username}
                         onChange={handleChange}
+                        required
                     />
 
                     <label htmlFor="dob">Data de nascimento:</label>
@@ -63,6 +77,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                         name="dob"
                         value={userData.dob}
                         onChange={handleChange}
+                        required
                     />
 
                     <label htmlFor="height">Altura (cm):</label>
@@ -70,8 +85,9 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                         type="number"
                         id="height"
                         name="height"
-                        value={userData.height}
+                        value={userData.height!==null?userData.height:''}
                         onChange={handleChange}
+                        required
                     />
 
                     <label htmlFor="weight">Peso (kg):</label>
@@ -79,8 +95,9 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                         type="number"
                         id="weight"
                         name="weight"
-                        value={userData.weight}
+                        value={userData.weight!==null?userData.weight:''}
                         onChange={handleChange}
+                        required
                     />
 
                     <div className="gender">
@@ -92,6 +109,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                                 value="Masculino"
                                 checked={userData.gender === 'Masculino'}
                                 onChange={handleChange}
+                                required
                             />
                             Masculino
                         </label>
@@ -102,6 +120,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                                 value="Feminino"
                                 checked={userData.gender === 'Feminino'}
                                 onChange={handleChange}
+                                required
                             />
                             Feminino
                         </label>
@@ -112,6 +131,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                                 value="Prefiro não informar"
                                 checked={userData.gender === 'Prefiro não informar'}
                                 onChange={handleChange}
+                                required
                             />
                             Prefiro não informar
                         </label>
@@ -121,7 +141,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                         <button type="button" className="back" onClick={() => setPage('cadastro')}>
                             Voltar
                         </button>
-                        <button type="submit">Próximo</button>
+                        <button >Próximo</button>
                     </div>
                 </form>
             </div>
