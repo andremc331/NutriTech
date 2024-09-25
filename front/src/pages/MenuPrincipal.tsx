@@ -1,72 +1,54 @@
-import React from "react";
-import "../CSS/MenuPrincipal.css";
+import React from 'react';
+import '../CSS/MenuPrincipal.css';
 
 interface MenuPrincipalProps {
-  setPage: (
-    page:
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "menu-principal"
-  ) => void;
-  username: string; // Recebe o nome de usuário como prop
+    setPage: (
+      page:
+        | "bem-vindo"
+        | "cadastro"
+        | "info-pessoal"
+        | "definicao-metas"
+        | "termosdeuso"
+        | "menu-principal"
+    ) => void;
 }
 
-const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage, username }) => {
-  return (
-    <div className="menu-principal-container">
-      {/* Barra Lateral */}
-      <div className="sidebar">
-        <button
-          className="navigation-button"
-          onClick={() => setPage("bem-vindo")}
-        >
-          <div className="text">Início</div>
-          <div className="icon">🏠</div>
-        </button>
-        <button
-          className="navigation-button"
-          onClick={() => setPage("cadastro")}
-        >
-          <div className="text">Buscar</div>
-          <div className="icon">🔍</div>
-        </button>
-        <button
-          className="navigation-button"
-          onClick={() => setPage("info-pessoal")}
-        >
-          <div className="text">Configurações</div>
-          <div className="icon">⚙️</div>
-        </button>
-        <button
-          className="navigation-button"
-          onClick={() => setPage("definicao-metas")}
-        >
-          <div className="text">Metas</div>
-          <div className="icon">⚙️</div>
-        </button>
-        <button
-          className="navigation-button"
-          onClick={() => setPage("termosdeuso")}
-        >
-          <div className="text">Termos de Uso</div>
-          <div className="icon">⚙️</div>
-        </button>
-      </div>
-
-      {/* Barra Superior */}
-      <div className="top-bar">
-        <span className="username">Olá, {username}</span>
-      </div>
-
-      {/* Conteúdo */}
-      <div className="content">
-        <h1>Menu Principal</h1>
-      </div>
-    </div>
-  );
+const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
+    return (
+        <div className="container-menu">
+            <div className="barra-navegacao">
+                <h1>Nome do usuário</h1>
+                <div className="nav-links">
+                    <button className="nav-button">Link 1</button>
+                    <button className="nav-button">Link 2</button>
+                </div>
+            </div>
+            <div className="sidebar">
+                <div className="sidebar-content">
+                    <button className="item" onClick={() => setPage("bem-vindo")}>
+                        <div className="text">Início</div>
+                        <div className="icon">🏠</div>
+                    </button>
+                    <button className="item" onClick={() => setPage("bem-vindo")}>
+                        <div className="text">Histórico</div>
+                        <div className="icon">🔍</div>
+                    </button>
+                    <button className="item" onClick={() => setPage("bem-vindo")}>
+                        <div className="text">Cardápio</div>
+                        <div className="icon">⚙️</div>
+                    </button>
+                    <button className="item" onClick={() => setPage("bem-vindo")}>
+                        <div className="text">Gráficos</div>
+                        <div className="icon">⚙️</div>
+                    </button>
+                    <button className="item" onClick={() => setPage("bem-vindo")}>
+                        <div className="text">Perfil</div>
+                        <div className="icon">⚙️</div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
 };
 
 export default MenuPrincipal;
