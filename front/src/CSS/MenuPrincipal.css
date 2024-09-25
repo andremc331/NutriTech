@@ -32,7 +32,7 @@
 
 .sidebar {
     width: 100px; /* Largura inicial */
-    height: calc(100% - 80px); /* Ajusta a altura da sidebar */
+    height: calc(100% - 60px); /* Ajusta a altura da sidebar */
     background-color: #714D95;
     color: #fff;
     position: fixed; /* Fixa à esquerda */
