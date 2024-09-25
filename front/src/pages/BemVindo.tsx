@@ -9,7 +9,11 @@ interface BemVindoProps {
       | "info-pessoal"
       | "definicao-metas"
       | "termosdeuso"
-      | "menu-principal"
+      | "home"
+      | "cardapio"
+      | "historico"
+      | "metas"
+      | "configuracoes"
     >
   >;
 }
@@ -38,7 +42,7 @@ export default function BemVindo({ setPage }: BemVindoProps) {
         <label className="password-label">Senha:</label>
         <input type="password" className="password-input" />
         <main className="main-Content">
-          <button className="button2" onClick={() => setPage("menu-principal")}>
+          <button className="button2" onClick={() => setPage("home")}>
             &gt;
           </button>
         </main>

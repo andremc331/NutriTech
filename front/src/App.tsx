@@ -4,29 +4,29 @@ import Cadastro from './pages/Cadastro';
 import InfoPessoal from './pages/Infopessoal';
 import DefinicaoMetas from './pages/DefinicaoMetas';
 import TermosDeUso from './pages/TermosDeUso';
-import MenuPrincipal from './pages/MenuPrincipal';
+import Home from './pages/Home';
+import Cardapio from './pages/Cardapio';
+import Historico from './pages/Historico';
+import Metas from './pages/Metas';
+import Configuracoes from './pages/Configuracoes';
 
 const App: React.FC = () => {
-    // Estado para controlar a página atual
-    const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'menu-principal'>('bem-vindo');
+    const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'home' | 'cardapio' | 'historico' | 'metas' | 'configuracoes'>('bem-vindo');
 
     return (
         <div>
-            {/* Navegação Condicional */}
             {page === 'bem-vindo' && <BemVindo setPage={setPage} />}
             {page === 'cadastro' && <Cadastro setPage={setPage} />}
             {page === 'info-pessoal' && <InfoPessoal setPage={setPage} />}
             {page === 'definicao-metas' && <DefinicaoMetas setPage={setPage} />}
-            {page === 'termosdeuso' && <TermosDeUso setPage={setPage}/>}
-            {page === 'menu-principal' && <MenuPrincipal setPage={setPage} username={''} />}
+            {page === 'termosdeuso' && <TermosDeUso setPage={setPage} />}
+            {page === 'home' && <Home setPage={setPage} />}
+            {page === 'cardapio' && <Cardapio setPage={setPage} />}
+            {page === 'historico' && <Historico setPage={setPage} />}
+            {page === 'metas' && <Metas setPage={setPage} />}
+            {page === 'configuracoes' && <Configuracoes setPage={setPage} />}
         </div>
     );
 };
 
 export default App;
-///
-
-/*
-const BemVindoPage: React.FC = () => <div>BemVindo Page</div>;
-const CadastroPage: React.FC = () => <div><Cadastro></Cadastro> Page</div>;
-const InfoPessoalPage: React.FC = () => <div><InfoPessoal></InfoPessoal> Page</div>;*/

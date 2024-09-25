@@ -2,19 +2,19 @@ import React from 'react';
 import '../CSS/Home.css';
 
 interface MenuPrincipalProps {
-  setPage: (
-    page:
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-  ) => void;
+    setPage: (
+      page:
+        | "bem-vindo"
+        | "cadastro"
+        | "info-pessoal"
+        | "definicao-metas"
+        | "termosdeuso"
+        | "home"
+        | "cardapio"
+        | "historico"
+        | "metas"
+        | "configuracoes"
+    ) => void;
 }
 
 const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
@@ -29,7 +29,7 @@ const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
             </div>
             <div className="sidebar">
                 <div className="sidebar-content">
-                <button className="item" onClick={() => setPage("home")}>
+                    <button className="item" onClick={() => setPage("home")}>
                         <div className="text">Home</div>
                         <div className="icon">🏠</div>
                     </button>

@@ -7,7 +7,7 @@ interface ConfiguracoesProps {
 const Configuracoes: React.FC<ConfiguracoesProps> = ({ setPage }) => {
     return (
         <div>
-            <h1>Página de Metas</h1>
+            <h1>Página de Configurações</h1>
             {/* Conteúdo da página */}
         </div>
     );

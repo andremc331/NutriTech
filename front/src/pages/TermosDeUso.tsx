@@ -10,7 +10,11 @@ interface TermosDeUsoProps {
       | "info-pessoal"
       | "definicao-metas"
       | "termosdeuso"
-      | "menu-principal"
+      | "home"
+      | "cardapio"
+      | "historico"
+      | "metas"
+      | "configuracoes"
     >
   >;
 }
@@ -21,7 +25,7 @@ const TermosDeUso: React.FC<TermosDeUsoProps> = ({ setPage }) => {
 
   const handleNextClick = () => {
     if (agreedToTerms && agreedToPrivacy) {
-      setPage("menu-principal"); // Alterar para a próxima página desejada
+      setPage("home"); // Alterar para a próxima página desejada
     } else {
       alert("Você precisa concordar com ambos os termos antes de prosseguir.");
     }
