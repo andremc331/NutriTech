@@ -40,13 +40,13 @@ const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
                         <div className="text">Home</div>
                         <div className="icon">🏠</div>
                     </button>
-                    <button className="item" onClick={() => setPage("historico")}>
-                        <div className="text">Histórico</div>
-                        <div className="icon">🔍</div>
-                    </button>
                     <button className="item" onClick={() => setPage("cardapio")}>
                         <div className="text">Cardápio</div>
                         <div className="icon">⚙️</div>
+                    </button>
+                    <button className="item" onClick={() => setPage("historico")}>
+                        <div className="text">Histórico</div>
+                        <div className="icon">🔍</div>
                     </button>
                     <button className="item" onClick={() => setPage("metas")}>
                         <div className="text">Metas</div>

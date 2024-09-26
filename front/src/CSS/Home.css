@@ -1,3 +1,93 @@
+/* Home.css */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    width: 100%;
+}
+
+.info-box {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.red-box {
+    background-color: #ff6b6b;
+    color: white;
+    display: flex;
+    font-size: 20px;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.blue-box {
+    background-color: #3498db;
+    color: white;
+    display: flex;
+    font-size: 25px;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.white-box {
+    background-color: #ffffff;
+    color: black;
+    border: 1px solid #ddd;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+    margin-bottom: 100px;
+}
+
+/* Estilos para os diferentes textos */
+.meal-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Espaçamento entre os textos */
+}
+
+.meal-type {
+    font-size: 18px; /* Tamanho maior para o tipo de refeição */
+    font-weight: bold; /* Destacar o tipo de refeição */
+    color: #3498db; /* Cor diferenciada */
+}
+
+.meal-time {
+    font-size: 16px; /* Tamanho padrão para o horário */
+    color: #7f8c8d; /* Cor mais suave para o horário */
+}
+
+.meal-items {
+    font-size: 14px; /* Tamanho menor para os itens do prato */
+    line-height: 1.5; /* Espaçamento entre as linhas */
+    color: #2c3e50; /* Cor mais escura para os itens */
+}
+
+.edit-button {
+    margin-top: 10px;
+    width: 60px; /* Reduzi a largura */
+    height: 60px; /* Reduzi a altura */
+    font-size: 30px; /* Reduzi o tamanho do texto */
+    padding: 0px 10px; /* Ajustei o espaçamento interno */
+    border: none;
+    background-color: #ffffff;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+    align-self: flex-start;
+}
+
+.edit-button:hover {
+    background-color: #e67e22;
+}
+
+/* Estilos da barra de navegação e sidebar */
 .container-menu {
     display: flex;
     flex-direction: column; /* Organiza os elementos em coluna */
@@ -56,7 +146,6 @@
     padding: 10px; /* Espaçamento interno */
 }
 
-/* Estilos para os itens da sidebar permanecem inalterados */
 .item {
     display: flex;
     align-items: center; /* Alinha verticalmente */
@@ -97,5 +186,5 @@
 
 .sidebar:hover .text {
     display: block; /* Exibe o texto ao passar o mouse */
-    margin-right: 10px; /* Espaçamento entre texto e ícone */
+    margin-right: 10px; /* Espaçamento entre texto e ícone */ 
 }
