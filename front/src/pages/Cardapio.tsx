@@ -1,5 +1,5 @@
-import React from 'react';
-import '../CSS/Home.css';
+import React, { useState } from 'react';
+import '../CSS/Cardapio.css';
 
 interface MenuPrincipalProps {
   setPage: (
@@ -17,7 +17,14 @@ interface MenuPrincipalProps {
   ) => void;
 }
 
-const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
+const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
+
+    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+
+    const toggleExpand = (index: number) => {
+        setExpandedIndex (expandedIndex === index ? null : index); // Alterna a expansão
+    };
+
     return (
         <div className="container-menu">
             <div className="barra-navegacao">
@@ -51,8 +58,21 @@ const MenuPrincipal: React.FC<MenuPrincipalProps> = ({ setPage }) => {
                     </button>
                 </div>
             </div>
+            <div className="central-content">
+                {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
+                    <div key={index} className="white-box" onClick={() => toggleExpand(index)}>
+                        <div className="item-container">
+                            <span>{item}</span>
+                            <span className="simbolo-mais">+</span>
+                        </div>
+                        <div className={`expanded-content ${expandedIndex === index ? 'expanded' : ''}`}>
+                            {expandedIndex === index && <p>Conteúdo expandido para {item}</p>}
+                        </div>
+                    </div>
+                ))}
+            </div>
         </div>
     );
 };
 
-export default MenuPrincipal;
+export default Cardapio;
