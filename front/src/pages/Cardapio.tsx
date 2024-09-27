@@ -28,7 +28,7 @@ const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
     return (
         <div className="container-menu">
             <div className="barra-navegacao">
-                <h1>Nome do usuário</h1>
+                <h1>Nome de usuário</h1>
                 <div className="nav-links">
                     <button className="nav-button">Link 1</button>
                     <button className="nav-button">Link 2</button>
@@ -40,13 +40,13 @@ const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
                         <div className="text">Home</div>
                         <div className="icon">🏠</div>
                     </button>
-                    <button className="item" onClick={() => setPage("cardapio")}>
-                        <div className="text">Cardápio</div>
-                        <div className="icon">⚙️</div>
-                    </button>
                     <button className="item" onClick={() => setPage("historico")}>
                         <div className="text">Histórico</div>
                         <div className="icon">🔍</div>
+                    </button>
+                    <button className="item" onClick={() => setPage("cardapio")}>
+                        <div className="text">Cardápio</div>
+                        <div className="icon">⚙️</div>
                     </button>
                     <button className="item" onClick={() => setPage("metas")}>
                         <div className="text">Metas</div>

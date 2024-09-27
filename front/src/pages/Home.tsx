@@ -22,7 +22,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
     <div className="container-menu">
       {/* Barra de navegação superior */}
       <div className="barra-navegacao">
-        <h1>Nome do usuário</h1>
+        <h1>Nome de usuário</h1>
         <div className="nav-links">
           <button className="nav-button">Link 1</button>
           <button className="nav-button">Link 2</button>
