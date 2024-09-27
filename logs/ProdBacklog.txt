@@ -1,1 +1,34 @@
 PRODUCT BACKLOG
+
+1- Controle de Calorias e Nutrientes:
+
+Interface intuitiva para registro diário de alimentos.
+
+Banco de dados de alimentos com informações nutricionais detalhadas.
+
+Alertas para limites diários de calorias e nutrientes.
+
+
+
+2- Gerenciamento de Peso e Energia:
+
+Cálculo automático de necessidades calóricas com base em objetivos (perda, ganho ou manutenção de peso).
+
+
+
+3- Dieta Balanceada:
+
+Planos de refeição personalizados com base em preferências e restrições alimentares.
+
+Sugestões de substituições saudáveis para ingredientes.
+
+
+
+4- Progresso da Dieta:
+
+Gráficos e relatórios visuais do progresso de peso e ingestão nutricional.
+
+Comparação de desempenho com metas estabelecidas.
+
+Sistema de recompensas para motivação.
+
