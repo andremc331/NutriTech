@@ -11,11 +11,13 @@
   margin: 10px 10px;
   padding: 100px 140px;
   font-size: 15px;
-  color: #333;
+  color: white;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  transition: background-color 0.3s;
+  transition: transform 0.3s, box-shadow 0.3s; /* Transições para transformações e sombras */
+  position: relative; /* Para o efeito de pseudo-elemento */
+  overflow: hidden; /* Garante que a sobreposição fique dentro do container */
 }
 
 .container-notificacoes {
@@ -24,32 +26,34 @@
   margin: 10px 10px;
   padding: 100px 140px;
   font-size: 15px;
-  color: #333;
+  color: white;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  transition: background-color 0.3s;
 }
 
 .container-seguranca {
+  background-image: url('../logo/tasty-pineapple-still-life.jpg');
+  background-size: cover; /* Faz a imagem cobrir todo o container */
   margin: 10px 10px;
   padding: 100px 140px;
   font-size: 15px;
-  color: #333;
+  color: white;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  transition: background-color 0.3s;
 }
 
 .container-sobre {
+  background-image: url('../logo/berries-2281_1280.jpg');
+  background-size: cover; /* Faz a imagem cobrir todo o container */
   margin: 10px 10px;
   padding: 100px 140px;
   font-size: 15px;
-  color: #333;
+  color: white;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 4px;
-  transition: background-color 0.3s;
 }
+
 
