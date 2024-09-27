@@ -1,0 +1,54 @@
+.container-configuracoes {
+    display: flex;
+    flex-direction: column; /* Coloca os botões em coluna */
+    align-items: center; /* Centraliza os itens horizontalmente */
+    margin: 20px; /* Espaçamento externo */
+  }
+  
+  .container-configuracoes button {
+    border: none; /* Sem borda */
+    border-radius: 5px; /* Bordas arredondadas */
+    padding: 150px 185px; /* Espaçamento interno */
+    margin: 15px 15px; /* Espaçamento entre os botões */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    font-size: 16px; /* Tamanho da fonte */
+    transition: background-color 0.3s; /* Transição suave na mudança de cor */
+  }
+  
+  .button-perfil {
+    background-color: white; /* Verde para o botão de Perfil */
+    color: black; /* Cor do texto */
+  }
+  
+  .button-notificacoes {
+    background-color: white; /* Azul para o botão de Notificações */
+    color: black; /* Cor do texto */
+  }
+  
+  .button-seguranca {
+    background-color: white; /* Vermelho para o botão de Segurança */
+    color: black; /* Cor do texto */
+  }
+  
+  .button-sobre {
+    background-color: white; /* Laranja para o botão de Sobre */
+    color: black; /* Cor do texto */
+  }
+  
+  /* Efeitos de hover para cada botão */
+  .button-perfil:hover {
+    background-color: #45a049; /* Verde mais escuro ao passar o mouse */
+  }
+  
+  .button-notificacoes:hover {
+    background-color: #1976D2; /* Azul mais escuro ao passar o mouse */
+  }
+  
+  .button-seguranca:hover {
+    background-color: #d32f2f; /* Vermelho mais escuro ao passar o mouse */
+  }
+  
+  .button-sobre:hover {
+    background-color: #fb8c00; /* Laranja mais escuro ao passar o mouse */
+  }
+  
