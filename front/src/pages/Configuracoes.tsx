@@ -58,15 +58,15 @@ const Configuracoes: React.FC<MenuPrincipalProps> = ({ setPage }) => {
         </div>
       </div>
       <div className="container-configuracoes">
-        <div className="row">
-          <button className="button-perfil">Perfil</button>
-          <button className="button-notificacoes">Notificações</button>
-        </div>
-        <div className="column">
-          <button className="button-seguranca">Segurança</button>
-          <button className="button-sobre">Sobre</button>
-        </div>
+      <div className="row">
+        <div className="container-perfil">Perfil</div>
+        <div className="container-notificacoes">Notificações</div>
       </div>
+      <div className="column">
+        <div className="container-seguranca">Segurança</div>
+        <div className="container-sobre">Sobre</div>
+      </div>
+    </div>
     </div>
   );
 };
