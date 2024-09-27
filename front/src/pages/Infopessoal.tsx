@@ -40,13 +40,13 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
     const { name, value } = e.target;
     if (name === "height" || name === "weight") {
       const numberValue = value ? parseFloat(value) : null;
-      if (numberValue === 0) {
-        window.alert("informe um valor valido");
+      if (numberValue === null || isNaN(numberValue) || numberValue < 0) {
+        window.alert("Informe um valor válido e positivo");
       } else {
-        setUserData({
-          ...userData,
+        setUserData(prevUserData => ({
+          ...prevUserData,
           [name]: numberValue,
-        });
+        }));
       }
     } else {
       setUserData({
@@ -57,8 +57,13 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Dados do usuário:", userData);
+        e.preventDefault();
+        let conversao={
+          ...userData,
+          height: userData.height?.toFixed(2),
+          weight: userData.weight?.toFixed(2),
+        }
+        console.log('dados de usuario',conversao)
 
     // Muda para a página de definição de metas
     setPage("definicao-metas");
@@ -99,6 +104,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
             name="height"
             value={userData.height !== null ? userData.height : ""}
             onChange={handleChange}
+            placeholder="EX: 1,80 (com uso da virgula)"
             required
           />
 
@@ -109,6 +115,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
             name="weight"
             value={userData.weight !== null ? userData.weight : ""}
             onChange={handleChange}
+            placeholder="EX: 55,80 (com uso da virgula)"
             required
           />
 
