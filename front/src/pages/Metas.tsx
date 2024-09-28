@@ -1,3 +1,5 @@
+import '../CSS/Metas.css'
+
 interface MenuPrincipalProps {
   setPage: (
     page:
