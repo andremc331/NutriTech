@@ -58,15 +58,11 @@ const Configuracoes: React.FC<MenuPrincipalProps> = ({ setPage }) => {
         </div>
       </div>
       <div className="container-configuracoes">
-      <div className="row">
         <div className="container-perfil">Perfil</div>
         <div className="container-notificacoes">Notificações</div>
-      </div>
-      <div className="column">
         <div className="container-seguranca">Segurança</div>
         <div className="container-sobre">Sobre</div>
       </div>
-    </div>
     </div>
   );
 };

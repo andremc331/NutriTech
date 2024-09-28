@@ -1,4 +1,8 @@
 import '../CSS/Metas.css'
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4a907486753bf1c3b782715cb491fa106eab85a4
 interface MenuPrincipalProps {
   setPage: (
     page:

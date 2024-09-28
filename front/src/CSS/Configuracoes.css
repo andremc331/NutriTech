@@ -1,52 +1,76 @@
 .container-configuracoes {
-  display: flex;
-  flex-direction: column; /* Coloca os containers em coluna */
-  align-items: center; /* Centraliza os itens horizontalmente */
-  margin: 20px; /* Espaçamento externo */
-}
-
-.container-configuracoes div {
-  border: none; /* Sem borda */
-  border-radius: 5px; /* Bordas arredondadas */
-  padding: 150px 185px; /* Espaçamento interno */
-  margin: 15px 15px; /* Espaçamento entre os containers */
-  cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
-  font-size: 16px; /* Tamanho da fonte */
-  transition: background-color 0.3s; /* Transição suave na mudança de cor */
-  background-color: white; /* Cor de fundo padrão */
-  color: black; /* Cor do texto */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+  gap: 5px; /* Espaçamento entre os containers */
 }
 
 /* Estilização específica para cada container */
+.container-perfil,
+.container-notificacoes,
+.container-seguranca,
+.container-sobre {
+  font-family:'Times New Roman';
+  background-size: cover; /* Faz a imagem cobrir todo o container */
+  margin: 10px 10px;
+  padding: 100px 140px;
+  font-size: 15px;
+  color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  transition: transform 0.3s, box-shadow 0.3s; /* Transições para transformações e sombras */
+  position: relative; /* Para o efeito de pseudo-elemento */
+  overflow: hidden; /* Garante que a sobreposição fique dentro do container */
+}
+
 .container-perfil {
-  background-color: white; /* Cor padrão */
+  background-image: url('../logo/delicious-mandarin.jpg');
 }
 
 .container-notificacoes {
-  background-color: white; /* Cor padrão */
+  background-image: url('../logo/still-life-recipe-with-plantain-banana.jpg');
 }
 
 .container-seguranca {
-  background-color: white; /* Cor padrão */
+  background-image: url('../logo/tasty-pineapple-still-life.jpg');
 }
 
 .container-sobre {
-  background-color: white; /* Cor padrão */
+  background-image: url('../logo/berries-2281_1280.jpg');
 }
 
-/* Efeitos de hover para cada container */
-.container-perfil:hover {
-  background-color: #45a049; /* Verde mais escuro ao passar o mouse */
-}
-
-.container-notificacoes:hover {
-  background-color: #1976D2; /* Azul mais escuro ao passar o mouse */
-}
-
-.container-seguranca:hover {
-  background-color: #d32f2f; /* Vermelho mais escuro ao passar o mouse */
-}
-
+/* Efeito de hover */
+.container-perfil:hover,
+.container-notificacoes:hover,
+.container-seguranca:hover,
 .container-sobre:hover {
-  background-color: #fb8c00; /* Laranja mais escuro ao passar o mouse */
+  transform: scale(1.05); /* Aumenta o tamanho do container */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Sombra ao passar o mouse */
 }
+
+/* Efeito de sobreposição */
+.container-perfil::after,
+.container-notificacoes::after,
+.container-seguranca::after,
+.container-sobre::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Sobreposição escura */
+  border-radius: 4px; /* Mantém a borda arredondada */
+  opacity: 0; /* Começa invisível */
+  transition: opacity 0.3s; /* Transição suave para a opacidade */
+  z-index: 1; /* Garante que a sobreposição fique acima da imagem de fundo */
+}
+
+.container-perfil:hover::after,
+.container-notificacoes:hover::after,
+.container-seguranca:hover::after,
+.container-sobre:hover::after {
+  opacity: 1; /* Fica visível ao passar o mouse */
+}
+
+
+
