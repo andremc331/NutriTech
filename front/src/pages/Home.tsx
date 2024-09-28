@@ -187,11 +187,14 @@ const Item = styled.button`
       width: 5px; /* Largura da barra */
       height: 100%; /* Altura igual à do item */
       background-color: #21d29d; /* Cor da barra */
+      font-size: 90px;
+
     }
   }
 `;
 
 const Text = styled.div`
+  font-size: 90px;
   overflow: hidden;
 `;
 

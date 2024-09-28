@@ -33,7 +33,7 @@ body {
   color: black; /* Altera a cor do texto */
   margin-bottom: 20px; /* Espaço abaixo do título */
   text-align: center; /* Alinha o texto ao centro */
-  position: absolute;
+  position: relative;
   top: 405px;
   left: 51%;
   letter-spacing: -0.02em; 
