@@ -1,6 +1,7 @@
 import { useState } from "react";
-import "../CSS/Infopessoal.css";
+// import "../CSS/Infopessoal.css";
 import logo from "../logo/logo.nutritech.png.png";
+import styled from 'styled-components';
 
 interface UserData {
   username: string;
@@ -71,24 +72,25 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
 
   return (
     <>
-      <div className="logo">
-        <img src={logo} alt="Nutritech logo" />
-      </div>
-      <div className="container">
-        <h2>Informações de usuário</h2>
+    <Logo>
+      <LogoImage src={logo} alt="Nutritech logo" />
+    </Logo>
+      <Container>
+        <Title>Informações de Usuário</Title>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="username">Nome de usuário:</label>
-          <input
+          <Label htmlFor="username">Nome de usuário:</Label>
+          <Input
             type="text"
             id="username"
             name="username"
             value={userData.username}
             onChange={handleChange}
             required
+            aria-describedby="usernameHelp"
           />
 
-          <label htmlFor="dob">Data de nascimento:</label>
-          <input
+          <Label htmlFor="dob">Data de nascimento:</Label>
+          <Input
             type="date"
             id="dob"
             name="dob"
@@ -97,32 +99,34 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
             required
           />
 
-          <label htmlFor="height">Altura (cm):</label>
-          <input
+          <Label htmlFor="height">Altura (cm):</Label>
+          <Input
             type="number"
             id="height"
             name="height"
             value={userData.height !== null ? userData.height : ""}
             onChange={handleChange}
-            placeholder="EX: 1,80 (com uso da virgula)"
+            placeholder="EX: 1,80 (com uso da vírgula)"
             required
           />
 
-          <label htmlFor="weight">Peso (kg):</label>
-          <input
+          <Label htmlFor="weight">Peso (kg):</Label>
+          <Input
             type="number"
             id="weight"
             name="weight"
             value={userData.weight !== null ? userData.weight : ""}
             onChange={handleChange}
-            placeholder="EX: 55,80 (com uso da virgula)"
+            placeholder="EX: 55,80 (com uso da vírgula)"
             required
           />
 
-          <div className="gender">
-            <label>Gênero:</label>
-            <label>
-              <input
+          <Gender>
+            <Label>Gênero:</Label>
+            <GenderLabel>
+              Masculino
+            </GenderLabel>
+              <GenderInput
                 type="radio"
                 name="gender"
                 value="Masculino"
@@ -130,10 +134,10 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                 onChange={handleChange}
                 required
               />
-              Masculino
-            </label>
-            <label>
-              <input
+            <GenderLabel>
+              Feminino
+            </GenderLabel>
+              <GenderInput
                 type="radio"
                 name="gender"
                 value="Feminino"
@@ -141,10 +145,10 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                 onChange={handleChange}
                 required
               />
-              Feminino
-            </label>
-            <label>
-              <input
+            <GenderLabel>
+              Prefiro não informar
+            </GenderLabel>
+              <GenderInput
                 type="radio"
                 name="gender"
                 value="Prefiro não informar"
@@ -152,24 +156,121 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
                 onChange={handleChange}
                 required
               />
-              Prefiro não informar
-            </label>
-          </div>
+          </Gender>
 
-          <div className="buttons">
-            <button
-              type="button"
-              className="back"
-              onClick={() => setPage("cadastro")}
-            >
+          <ButtonContainer>
+            <BackButton type="button" onClick={() => setPage("cadastro")}>
               Voltar
-            </button>
-            <button>Próximo</button>
-          </div>
+            </BackButton>
+            <Button type="submit">Próximo</Button>
+          </ButtonContainer>
         </form>
-      </div>
+      </Container>
+
     </>
   );
 };
+export const Body = styled.body`
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, #7E5EC2, #C9B7E6, #F3F3F3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+`;
+
+export const Container = styled.div`
+  background-color: #7d4cdb; /* Cor roxa do fundo do formulário */
+  width: 800px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+  margin-top: 20px; /* Adiciona espaço acima do formulário */
+`;
+
+export const Title = styled.h2`
+  color: white;
+  text-align: center;
+  margin-bottom: 20px;
+`;
+
+export const Label = styled.label`
+  color: white;
+  font-size: 14px;
+  margin-bottom: 5px;
+  display: block;
+`;
+
+export const Input = styled.input`
+  width: 60%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid;
+  border-radius: 5px;
+`;
+
+ const Gender = styled.div`
+  position: absolute; /* Torna a posição do bloco dependente do container */
+  top: 35%; /* Centraliza verticalmente */
+  right: 100px; /* Ajuste a distância da borda direita conforme necessário */
+  display: flex; /* Altera de flexbox para flex */
+  flex-direction: column;
+  gap: 5px; /* Espaçamento entre os elementos */
+  text-align: center;
+`;
+
+ const GenderLabel = styled.label`
+  /* display: flex; 
+  align-items: center;  */
+  color: white; /* Cor do texto */
+  float: left;
+`;
+
+ const GenderInput = styled.input`
+  margin-right: 8px; /* Espaço entre o input e o texto do label */
+`;
+
+export const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const Button = styled.button`
+  background-color: #3dc4a7; /* Verde para os botões */
+  color: white;
+  padding: 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 20px;
+
+  &:hover {
+    background-color: #35ac91;
+  }
+`;
+
+export const BackButton = styled(Button)`
+  background-color: #6c63ff; /* Cor de roxo mais escura para o botão de voltar */
+
+  &:hover {
+    background-color: #5a51e1;
+  }
+`;
+
+export const Logo = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+  text-align: center;
+  max-width: 100%;
+`;
+
+export const LogoImage = styled.img`
+  width: 300px; /* Ajuste conforme necessário */
+  height: auto; /* Mantém a proporção da imagem */
+  margin-bottom: 20px; /* Espaço abaixo da logo para separá-la do formulário */
+`;
 
 export default Infopessoal;
