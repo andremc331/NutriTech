@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import '../CSS/Cardapio.css';
+import styled from 'styled-components';
+import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
+
 
 interface MenuPrincipalProps {
   setPage: (
@@ -17,62 +19,197 @@ interface MenuPrincipalProps {
   ) => void;
 }
 
+
+
 const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
+  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
-    const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
+  const toggleExpand = (index: number) => {
+    setExpandedIndex(expandedIndex === index ? null : index); // Alterna a expansão
+  };
 
-    const toggleExpand = (index: number) => {
-        setExpandedIndex (expandedIndex === index ? null : index); // Alterna a expansão
-    };
-
-    return (
-        <div className="container-menu">
-            <div className="barra-navegacao">
-                <h1>Nome de usuário</h1>
-                <div className="nav-links">
-                    <button className="nav-button">Link 1</button>
-                    <button className="nav-button">Link 2</button>
-                </div>
+  return (
+    <ContainerMenu>
+      <BarraNavegacao>
+        <h1>Nome de usuário</h1>
+      </BarraNavegacao>
+      <Sidebar>
+        <SidebarContent>
+          <Item onClick={() => setPage("home")}>
+            <Text>Home</Text>
+            <Icon>🏠</Icon>
+          </Item>
+          <Item onClick={() => setPage("cardapio")}>
+            <Text>Cardápio</Text>
+            <Icon>⚙️</Icon>
+          </Item>
+          <Item onClick={() => setPage("historico")}>
+            <Text>Histórico</Text>
+            <Icon>🔍</Icon>
+          </Item>
+          <Item onClick={() => setPage("metas")}>
+            <Text>Progresso</Text>
+            <Icon>⚙️</Icon>
+          </Item>
+          <Item onClick={() => setPage("configuracoes")}>
+            <Text>Configurações</Text>
+            <Icon>⚙️</Icon>
+          </Item>
+        </SidebarContent>
+      </Sidebar>
+      <CentralContent>
+        {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
+          <WhiteBox key={index} onClick={() => toggleExpand(index)}>
+            <div className="item-container">
+              <span>{item}</span>
+              <SimboloMais>+</SimboloMais>
             </div>
-            <div className="sidebar">
-                <div className="sidebar-content">
-                <button className="item" onClick={() => setPage("home")}>
-                        <div className="text">Home</div>
-                        <div className="icon">🏠</div>
-                    </button>
-                    <button className="item" onClick={() => setPage("historico")}>
-                        <div className="text">Histórico</div>
-                        <div className="icon">🔍</div>
-                    </button>
-                    <button className="item" onClick={() => setPage("cardapio")}>
-                        <div className="text">Cardápio</div>
-                        <div className="icon">⚙️</div>
-                    </button>
-                    <button className="item" onClick={() => setPage("metas")}>
-                        <div className="text">Metas</div>
-                        <div className="icon">⚙️</div>
-                    </button>
-                    <button className="item" onClick={() => setPage("configuracoes")}>
-                        <div className="text">Configurações</div>
-                        <div className="icon">⚙️</div>
-                    </button>
-                </div>
-            </div>
-            <div className="central-content">
-                {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
-                    <div key={index} className="white-box" onClick={() => toggleExpand(index)}>
-                        <div className="item-container">
-                            <span>{item}</span>
-                            <span className="simbolo-mais">+</span>
-                        </div>
-                        <div className={`expanded-content ${expandedIndex === index ? 'expanded' : ''}`}>
-                            {expandedIndex === index && <p>Conteúdo expandido para {item}</p>}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+            <ExpandedContent isExpanded={expandedIndex === index}>
+              {expandedIndex === index && <p>Conteúdo expandido para {item}</p>}
+            </ExpandedContent>
+          </WhiteBox>
+        ))}
+      </CentralContent>
+      {/* Contêiner da Imagem na parte inferior direita */}
+      <ImageContainer>
+      <img src={imgLogoSemFundo} alt="Descrição da Imagem" />      </ImageContainer>
+    </ContainerMenu>
+  );
 };
+
+const ImageContainer = styled.div`
+  position: absolute; /* Posiciona de forma absoluta */
+  bottom: 5px; /* Distância do fundo */
+  right: 20px; /* Distância da direita */
+  z-index: 999; /* Certifica-se de que a imagem fique acima de outros elementos */
+
+  img {
+    max-width: 150px; /* Ajusta o tamanho da imagem conforme necessário */
+    height: auto; /* Mantém a proporção da imagem */
+  }
+`;
+
+const ContainerMenu = styled.div`
+  display: flex;
+  flex-direction: column; /* Organiza os elementos em coluna */
+`;
+
+const BarraNavegacao = styled.div`
+  width: 100%; /* Largura total */
+  height: 80px; /* Altura da barra */
+  background-color: #C9B7E6; /* Cor de fundo */
+  color: #fff; /* Cor do texto */
+  display: flex; /* Usar flexbox */
+  justify-content: space-between; /* Alinhar itens nas extremidades */
+  align-items: center; /* Centraliza verticalmente */
+  padding: 0 20px; /* Espaçamento interno */
+  position: fixed; /* Fixa na parte superior */
+  top: 0; /* Alinha ao topo */
+  left: 0; /* Alinha à esquerda */
+  z-index: 1000; /* Garante que fique acima de outros elementos */
+`;
+
+
+const Sidebar = styled.div`
+  width: 100px; /* Largura inicial */
+  height: calc(100% - 60px); /* Ajusta a altura da sidebar */
+  background-color: #714d95;
+  color: #ffffff;
+  position: fixed; /* Fixa à esquerda */
+  top: 60px; /* Alinha abaixo da barra de navegação */
+  left: 0; /* Alinha à esquerda da tela */
+  transition: width 0.3s;
+  overflow: hidden;
+  border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
+
+  &:hover {
+    width: 270px; /* Largura ao expandir */
+  }
+`;
+
+const SidebarContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinha à esquerda */
+  justify-content: flex-start; /* Alinha ao topo */
+  height: 100%; /* Para ocupar toda a altura */
+  padding: 10px; /* Espaçamento interno */
+`;
+
+const Item = styled.button`
+  display: flex;
+  align-items: center; /* Alinha verticalmente */
+  width: 100%; /* Para ocupar toda a largura */
+  margin: 15px 0; /* Espaçamento entre itens */
+  padding: 10px; /* Ajustado para aumentar a área clicável */
+  position: relative; /* Para posicionar o pseudo-elemento */
+  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
+  border-radius: 5px; /* Bordas arredondadas nos itens */
+  background: transparent; /* Fundo transparente */
+  border: none; /* Remove borda padrão de botões */
+  color: white; /* Cor do texto */
+  cursor: pointer; /* Cursor em forma de ponteiro */
+
+  &:hover {
+    background-color: #947cc7; /* Cor de fundo ao passar o mouse */
+
+    &::after {
+      content: ""; /* Necessário para o pseudo-elemento */
+      position: absolute;
+      right: 0; /* Posiciona à direita do item */
+      top: 0; /* Começa no topo do item */
+      width: 5px; /* Largura da barra */
+      height: 100%; /* Altura igual à do item */
+      background-color: #21d29d; /* Cor da barra */
+    }
+  }
+`;
+
+const Text = styled.div`
+  overflow: hidden;
+`;
+
+const Icon = styled.div`
+  font-size: 24px; /* Tamanho fixo para os ícones */
+  margin-left: 10px; /* Espaçamento entre texto e ícone */
+  margin-right: 20px;
+`;
+
+const CentralContent = styled.div`
+  display: flex;
+  flex-direction: column; /* Organiza em coluna */
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+  height: calc(100vh - 140px); /* Altura da tela menos a altura da barra de navegação e sidebar */
+  margin-top: 60px; /* Espaço abaixo da barra de navegação */
+`;
+
+const WhiteBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  width: 1000px;
+  overflow: hidden; /* Esconde o conteúdo que ultrapassa */
+`;
+
+const ExpandedContent = styled.div<{ isExpanded: boolean }>`
+  max-height: ${(props) => (props.isExpanded ? '150px' : '0')}; /* Altura inicial (escondido) */
+  overflow: hidden; /* Esconde o conteúdo que ultrapassa */
+  background-color: #fff; /* Cor de fundo */
+  padding: ${(props) => (props.isExpanded ? '10px' : '0')}; /* Inicialmente sem padding */
+  border-radius: 5px; /* Bordas arredondadas */
+  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; /* Transições suaves */
+`;
+
+const SimboloMais = styled.span`
+  font-size: 24px; /* Tamanho do símbolo */
+  margin-left: 10px; /* Espaçamento entre o texto e o símbolo */
+`;
 
 export default Cardapio;
