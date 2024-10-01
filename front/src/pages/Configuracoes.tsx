@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "../CSS/Configuracoes.css";
+import styled_Configuracoes from "../styled/styled_Configuracoes";
+const{ ContainerMenu,BarraNavegacao,NavLinks,NavButton,Sidebar,SidebarContent,Item,Text,ContainerConfiguracoes,ContainerPerfil,ContainerNotificacoes,ContainerSeguranca,ContainerSobre}=styled_Configuracoes();
 
 interface MenuPrincipalProps {
   setPage: (
@@ -25,45 +27,45 @@ const Configuracoes: React.FC<MenuPrincipalProps> = ({ setPage }) => {
   };
 
   return (
-    <div className="container-menu">
-      <div className="barra-navegacao">
+    <ContainerMenu>
+      <BarraNavegacao>
         <h1>Nome do usuário</h1>
-        <div className="nav-links">
-          <button className="nav-button">Link 1</button>
-          <button className="nav-button">Link 2</button>
-        </div>
-      </div>
-      <div className="sidebar">
-        <div className="sidebar-content">
-          <button className="item" onClick={() => setPage("home")}>
-            <div className="text">Home</div>
+        <NavLinks>
+          <NavButton>Link 1</NavButton>
+          <NavButton>Link 2</NavButton>
+        </NavLinks>
+      </BarraNavegacao>
+      <Sidebar>
+        <SidebarContent>
+          <Item onClick={() => setPage("home")}>
             <div className="icon">🏠</div>
-          </button>
-          <button className="item" onClick={() => setPage("historico")}>
-            <div className="text">Histórico</div>
+            <Text>Home</Text>
+          </Item>
+          <Item onClick={() => setPage("historico")}>
             <div className="icon">🔍</div>
-          </button>
-          <button className="item" onClick={() => setPage("cardapio")}>
-            <div className="text">Cardápio</div>
+            <Text>Histórico</Text>
+          </Item>
+          <Item onClick={() => setPage("cardapio")}>
             <div className="icon">⚙️</div>
-          </button>
-          <button className="item" onClick={() => setPage("metas")}>
-            <div className="text">Metas</div>
+            <Text>Cardápio</Text>
+          </Item>
+          <Item onClick={() => setPage("metas")}>
             <div className="icon">⚙️</div>
-          </button>
-          <button className="item" onClick={() => setPage("configuracoes")}>
-            <div className="text">Configurações</div>
+            <Text>Metas</Text>
+          </Item>
+          <Item onClick={() => setPage("configuracoes")}>
             <div className="icon">⚙️</div>
-          </button>
-        </div>
-      </div>
-      <div className="container-configuracoes">
-        <div className="container-perfil">Perfil</div>
-        <div className="container-notificacoes">Notificações</div>
-        <div className="container-seguranca">Segurança</div>
-        <div className="container-sobre">Sobre</div>
-      </div>
-    </div>
+            <Text>Configurações</Text>
+          </Item>
+        </SidebarContent>
+      </Sidebar>
+      <ContainerConfiguracoes>
+        <ContainerPerfil>Perfil</ContainerPerfil>
+        <ContainerNotificacoes>Notificações</ContainerNotificacoes>
+        <ContainerSeguranca>Segurança</ContainerSeguranca>
+        <ContainerSobre>Sobre</ContainerSobre>
+      </ContainerConfiguracoes>
+    </ContainerMenu>
   );
 };
 

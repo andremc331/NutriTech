@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 // import "../CSS/TermosDeUso.css";
-import logo from "../logo/logo.nutritech.png.png";
-import styled from "styled-components";
+import logo from "../logo/logo.nutritech.png";
+import styled_TermoDuso from "../styled/styled_TermoDuso";
+const{
+  ButtonContainer, 
+  CheckboxGroup,
+   FormContainer, 
+   ImageContainer, 
+   LogoImage, 
+   NextButton, 
+   TermsContainer, 
+   Title 
+}=styled_TermoDuso();
 
 interface TermosDeUsoProps {
   setPage: React.Dispatch<
@@ -116,78 +126,4 @@ const TermosDeUso: React.FC<TermosDeUsoProps> = ({ setPage }) => {
     </>
   );
 };
-export const Body = styled.body`
-  background-color: #7E5EC2;
-  margin: 0;
-  font-family: 'Roboto', Arial, sans-serif;
-`;
-
-export const ImageContainer = styled.div`
-  text-align: center;
-  max-width: 100%;
-  margin: 50px auto;
-`;
-
-export const LogoImage = styled.img`
-  width: 300px;
-  height: auto;
-`;
-
-export const FormContainer = styled.div`
-  width: 800px;
-  margin: 20px auto;
-  padding: 20px;
-  border: 2px solid #7d4cdb;
-  border-radius: 10px;
-  background-color: #7d4cdb;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-`;
-
-export const Title = styled.h2`
-  text-align: left;
-  color: white;
-  font-size: 40px;
-  font-weight: bold;
-`;
-
-export const TermsContainer = styled.div`
-  max-height: 200px;
-  overflow-y: scroll;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border-radius: 10px;
-  color: black;
-  margin-bottom: 20px;
-`;
-
-export const CheckboxGroup = styled.div`
-  margin-bottom: 20px;
-  color: white;
-  font-size: 18px;
-
-  input {
-    margin-right: 10px;
-  }
-`;
-
-export const ButtonContainer = styled.div`
-  text-align: right;
-  margin-right: 30px;
-`;
-
-export const NextButton = styled.button`
-  width: 60px;
-  height: 60px;
-  background-color: #21d29d;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 26px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #1ca885;
-  }
-`;
-
 export default TermosDeUso;

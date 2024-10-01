@@ -1,5 +1,20 @@
 import React, { useState } from "react";
 import "../CSS/Historico.css";
+import styled_Historico from "../styled/styled_Historico";
+const{
+  ContainerHistorico,
+  BarraNavegacao,
+  PeriodoSelector,
+  PeriodoButton,
+  Sidebar,
+  SidebarContent,
+  Item,
+  WhiteBox,
+  MealInfo,
+  HomeContainer,
+  Text,
+  Icon
+}=styled_Historico();
 
 interface HistoricoProps {
   setPage: (
@@ -21,70 +36,64 @@ const Historico: React.FC<HistoricoProps> = ({ setPage }) => {
   const [periodo, setPeriodo] = useState<"dia" | "semana" | "mes">("dia");
 
   return (
-    <div className="container-historico">
-      {/* Barra de navegação superior */}
-      <div className="barra-navegacao">
+    <ContainerHistorico>
+      <BarraNavegacao>
         <h1>Nome de usuário</h1>
-      </div>
+      </BarraNavegacao>
 
-      {/* Barra lateral */}
-      <div className="sidebar">
-        <div className="sidebar-content">
-          <button className="item" onClick={() => setPage("home")}>
-            <div className="text">Home</div>
-            <div className="icon">🏠</div>
-          </button>
-          <button className="item" onClick={() => setPage("cardapio")}>
-            <div className="text">Cardápio</div>
-            <div className="icon">⚙️</div>
-          </button>
-          <button className="item" onClick={() => setPage("historico")}>
-            <div className="text">Histórico</div>
-            <div className="icon">🔍</div>
-          </button>
-          <button className="item" onClick={() => setPage("metas")}>
-            <div className="text">Progresso</div>
-            <div className="icon">⚙️</div>
-          </button>
-          <button className="item" onClick={() => setPage("configuracoes")}>
-            <div className="text">Configurações</div>
-            <div className="icon">⚙️</div>
-          </button>
-        </div>
-      </div>
+      <Sidebar>
+        <SidebarContent>
+          <Item onClick={() => setPage("home")}>
+            <Text>Home</Text>
+            <Icon>🏠</Icon>
+          </Item>
+          <Item onClick={() => setPage("cardapio")}>
+            <Text>Cardápio</Text>
+            <Icon>⚙️</Icon>
+          </Item>
+          <Item onClick={() => setPage("historico")}>
+            <Text>Histórico</Text>
+            <Icon>🔍</Icon>
+          </Item>
+          <Item onClick={() => setPage("metas")}>
+            <Text>Progresso</Text>
+            <Icon>⚙️</Icon>
+          </Item>
+          <Item onClick={() => setPage("configuracoes")}>
+            <Text>Configurações</Text>
+            <Icon>⚙️</Icon>
+          </Item>
+        </SidebarContent>
+      </Sidebar>
 
-      {/* Conteúdo principal com os contêineres */}
-      <div className="home-container">
-        {/* Seletor de período */}
-        <div className="periodo-seletor">
-          <button
+      <HomeContainer>
+        <PeriodoSelector>
+          <PeriodoButton
             className={periodo === "dia" ? "active" : ""}
             onClick={() => setPeriodo("dia")}
           >
             Dia
-          </button>
+          </PeriodoButton>
           <span className="separador"></span>
-          <button
+          <PeriodoButton
             className={periodo === "semana" ? "active" : ""}
             onClick={() => setPeriodo("semana")}
           >
             Semana
-          </button>
+          </PeriodoButton>
           <span className="separador"></span>
-          <button
+          <PeriodoButton
             className={periodo === "mes" ? "active" : ""}
             onClick={() => setPeriodo("mes")}
           >
             Mês
-          </button>
-        </div>
+          </PeriodoButton>
+        </PeriodoSelector>
 
-        {/* Exibir contêineres de acordo com o período selecionado */}
         {periodo === "dia" && (
           <div className="historico-container">
-            {/* Primeiro contêiner branco */}
-            <div className="white-box">
-              <div className="meal-info">
+            <WhiteBox>
+              <MealInfo>
                 <span className="meal-type">Almoço</span>
                 <span className="meal-time">Horário: 12:20</span>
                 <span className="meal-items">
@@ -93,12 +102,11 @@ const Historico: React.FC<HistoricoProps> = ({ setPage }) => {
                   <p>25g de brócolis</p>
                   <p>Salada verde com azeite de oliva</p>
                 </span>
-              </div>
-            </div>
+              </MealInfo>
+            </WhiteBox>
 
-            {/* Segundo contêiner branco */}
-            <div className="white-box">
-              <div className="meal-info">
+            <WhiteBox>
+              <MealInfo>
                 <span className="meal-type">Café da manhã</span>
                 <span className="meal-time">Horário: 06:30</span>
                 <span className="meal-items">
@@ -108,30 +116,28 @@ const Historico: React.FC<HistoricoProps> = ({ setPage }) => {
                   <p>1 colher de chá de xia</p>
                   <p>200ml de leite desnatado</p>
                 </span>
-              </div>
-            </div>
+              </MealInfo>
+            </WhiteBox>
           </div>
         )}
 
         {periodo === "semana" && (
-          <div className="white-box">
-            <div className="meal-info">
-              {/* Conteúdo da semana */}
+          <WhiteBox>
+            <MealInfo>
               <p>Histórico da semana será exibido aqui...</p>
-            </div>
-          </div>
+            </MealInfo>
+          </WhiteBox>
         )}
 
         {periodo === "mes" && (
-          <div className="white-box">
-            <div className="meal-info">
-              {/* Conteúdo do mês */}
+          <WhiteBox>
+            <MealInfo>
               <p>Histórico do mês será exibido aqui...</p>
-            </div>
-          </div>
+            </MealInfo>
+          </WhiteBox>
         )}
-      </div>
-    </div>
+      </HomeContainer>
+    </ContainerHistorico>
   );
 };
 
