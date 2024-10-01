@@ -1,7 +1,7 @@
 # NUTRITECH
 <div align="middle">
 </div>
-<img src='./front/src/logo/logo.nutritech.png.png' widht='200'/>
+<img src='./front/src/logo/logo.nutritech.png' widht='200'/>
 <div>
 
 -----------------------------------------------------------------------------------
