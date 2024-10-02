@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const styled_BemV = () => {
   const Background = styled.div`
-    background-image: url('../logo/logo.nutritech.png');
+    background-image: url('../logo/logofundo.png');
     background-size: cover;
     background-position: center;
     width: 100vw;
@@ -22,21 +22,20 @@ const styled_BemV = () => {
 
   const Logo = styled.img`
     width: 352px;
-    height: auto;
+    /* height: auto;
     margin: 80px;
     position: absolute;
     top: 85px;
-    left: 45%;
+    left: 45%; */
   `;
 
   const ContainerRightTitle = styled.h2`
     font-size: 3rem;
     color: black;
-    margin-bottom: 20px;
-    text-align: center;
-    position: relative;
-    top: 405px;
-    left: 51%;
+    position: absolute;
+    top: 45%;
+    left: 65%;
+    transform: translate(-50%, -50%); /* Centraliza o elemento */
     letter-spacing: -0.02em;
     word-spacing: 0.2em;
   `;
@@ -100,7 +99,6 @@ const styled_BemV = () => {
 
   const Button1 = styled.button`
     position: absolute;
-    margin-top: 517px;
     margin-left: 70px;
     background-color: #21D29D;
     border: none;
