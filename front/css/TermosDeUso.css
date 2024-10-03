@@ -1,0 +1,74 @@
+body {
+    background-color: #7E5EC2;
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+  }
+  
+  .image-container {
+    text-align: center;
+    max-width: 100%;
+    margin: 50px auto;
+  }
+  
+  .image-container img {
+    width: 300px;
+    height: auto;
+  }
+  
+  .form-container {
+    width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 2px solid #7d4cdb;
+    border-radius: 10px;
+    background-color: #7d4cdb;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  h2 {
+    text-align: left;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+  }
+  
+  /* Área de rolagem dos Termos de Uso */
+  .terms-container {
+    max-height: 200px;
+    overflow-y: scroll;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 10px;
+    color: black;
+    margin-bottom: 20px;
+  }
+  
+  .checkbox-group {
+    margin-bottom: 20px;
+    color: white;
+    font-size: 18px;
+  }
+  
+  .checkbox-group input {
+    margin-right: 10px;
+  }
+  
+  .button-container {
+    text-align: right;
+    margin-right: 30px;
+  }
+  
+  .next-button {
+    width: 60px;
+    height: 60px;
+    background-color: #21d29d;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+  }
+  
+  .next-button:hover {
+    background-color: #1ca885;
+  }
