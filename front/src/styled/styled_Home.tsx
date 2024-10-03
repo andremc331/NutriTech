@@ -13,6 +13,14 @@ const styled_Home=()=>{
   }
 `;
 
+const HomeBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
+  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
+`;
+
  const ContainerMenu = styled.div`
   display: flex;
   flex-direction: column; /* Organiza os elementos em coluna */
@@ -91,7 +99,7 @@ const styled_Home=()=>{
 `;
 
  const Text = styled.div`
-  font-size: 90px;
+  font-size: 20px;
   overflow: hidden;
 `;
 
@@ -118,6 +126,7 @@ const styled_Home=()=>{
   width: 900px;
   height: 150px;
   font-size: 22px;
+  align-self: center;
 
   &.red-box {
     background-color: #ff0000; /* Cor de fundo vermelha */
@@ -131,6 +140,7 @@ const styled_Home=()=>{
     align-items: center; /* Centraliza verticalmente */
     width: 750px;
     font-size: 30px;
+    margin-right: 150px;
   }
 `;
 
@@ -139,10 +149,12 @@ const styled_Home=()=>{
   border-radius: 10px; /* Bordas arredondadas */
   background-color: #fff; /* Fundo branco */
   color: black; /* Cor do texto */
-  position: relative; /* Para posicionar o botão de editar */
+  /* position: relative; Para posicionar o botão de editar (comentado, pois deixa o container branco sobre a barra lateral)*/ 
   width: 750px;
   height: 280px;
   margin-top: 20px;
+  align-self: center;
+  margin-right: 150px;
 `;
 
  const MealInfo = styled.div`
@@ -178,6 +190,7 @@ const styled_Home=()=>{
 `;
 return{
   ImageContainer,
+  HomeBody,
   ContainerMenu,
   BarraNavegacao,
   Sidebar,

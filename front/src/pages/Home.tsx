@@ -3,6 +3,7 @@ import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
 import styled_Home from "../styled/styled_Home";
 const{
   ImageContainer,
+  HomeBody,
   ContainerMenu,
   BarraNavegacao,
   Sidebar,
@@ -37,6 +38,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ setPage }) => {
   return (
+    <HomeBody> 
     <ContainerMenu>
       <BarraNavegacao>
         <h1>Nome de usuário</h1>
@@ -118,6 +120,7 @@ const Home: React.FC<HomeProps> = ({ setPage }) => {
       <ImageContainer>
       <img src={imgLogoSemFundo} alt="Descrição da Imagem" />      </ImageContainer>
     </ContainerMenu>
+    </HomeBody>
   );
 };
 export default Home;

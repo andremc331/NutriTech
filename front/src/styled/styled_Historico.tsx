@@ -122,7 +122,7 @@ const HomeContainer = styled.div`
   margin-left: 120px; /* Espaçamento para a sidebar */
 `;
 const Text = styled.div`
-font-size: 16px;
+font-size: 20px;
 overflow: hidden;
 `;
 

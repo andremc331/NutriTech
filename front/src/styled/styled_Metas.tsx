@@ -103,6 +103,7 @@ const styled_Metas =()=>{
 
  const Text = styled.span`
   display: none;
+  font-size: 20px;
 
   ${Sidebar}:hover & {
     display: block;

@@ -91,6 +91,7 @@ const ImageContainer = styled.div`
 
  const Text = styled.div`
   overflow: hidden;
+  font-size: 20px;
 `;
 
  const Icon = styled.div`

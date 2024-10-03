@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 // ContainerMenu,BarraNavegacao,NavLinks,NavButton,Sidebar,SidebarContent,Item,Text,ContainerConfiguracoes,ContainerPerfil,ContainerNotificacoes,ContainerSeguranca,ContainerSobre
+
 const styled_Configuracoes=()=>{
  const ContainerMenu = styled.div`
  display: flex;
@@ -99,7 +100,7 @@ const NavLinks = styled.div`
 `;
 
  const Text = styled.div`
- font-size: 90px;
+ font-size: 20px;
  overflow: hidden;
 `;
 
