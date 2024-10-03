@@ -105,7 +105,6 @@ const WhiteBox = styled.div`
   border-radius: 10px; /* Bordas arredondadas */
   background-color: #fff; /* Fundo branco */
   color: black; /* Cor do texto */
-  position: relative; /* Para posicionar o botão de editar */
   width: 750px;
   height: 280px;
   margin-top: 20px;
