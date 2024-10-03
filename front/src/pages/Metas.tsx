@@ -1,4 +1,4 @@
-import '../CSS/Metas.css'
+// import '../CSS/Metas.css'
 import styled_Metas from '../styled/styled_Metas';
 const{
   BarraNavegacao, 

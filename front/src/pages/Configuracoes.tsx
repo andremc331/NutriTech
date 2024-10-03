@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../CSS/Configuracoes.css";
+// import "../CSS/Configuracoes.css";
 import styled_Configuracoes from "../styled/styled_Configuracoes";
 const{ ContainerMenu,BarraNavegacao,NavLinks,NavButton,Sidebar,SidebarContent,Item,Text,ContainerConfiguracoes,ContainerPerfil,ContainerNotificacoes,ContainerSeguranca,ContainerSobre}=styled_Configuracoes();
 
@@ -30,10 +30,6 @@ const Configuracoes: React.FC<MenuPrincipalProps> = ({ setPage }) => {
     <ContainerMenu>
       <BarraNavegacao>
         <h1>Nome do usuário</h1>
-        <NavLinks>
-          <NavButton>Link 1</NavButton>
-          <NavButton>Link 2</NavButton>
-        </NavLinks>
       </BarraNavegacao>
       <Sidebar>
         <SidebarContent>

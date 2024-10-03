@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../CSS/Historico.css";
+// import "../CSS/Historico.css";
 import styled_Historico from "../styled/styled_Historico";
 const{
   ContainerHistorico,

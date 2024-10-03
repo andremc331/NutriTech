@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 const styled_Home=()=>{
  const ImageContainer = styled.div`
   position: absolute; /* Posiciona de forma absoluta */
