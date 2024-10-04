@@ -17,7 +17,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 |:-------:| --------------------- |---------------------------------------------- |
 |  1  | :calendar:  ➡ (20/09/2024) |
 |  2  | :calendar:  ➡ (08/10/2024) |
-|  3  | :calendar:  ➡ (08/11/2024  |
+|  3  | :calendar:  ➡ (08/11/2024)  |
 
 |       RESTRIÇÕES DE PROJETO E TECNOLOGIA      |          
 | - As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:     
