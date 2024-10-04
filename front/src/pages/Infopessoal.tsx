@@ -1,8 +1,9 @@
 import { useState } from "react";
-// import "../CSS/Infopessoal.css";
+import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import logo from "../logo/logo.nutritech.png";
 import styled_Infop from "../styled/styled_Infop";
-const{
+
+const {
   BackButton, 
   Button, 
   ButtonContainer, 
@@ -13,9 +14,9 @@ const{
   Input,
   Label,
   Logo,  
-  LogoImage , 
+  LogoImage, 
   Title
-}=styled_Infop()
+} = styled_Infop();
 
 interface UserData {
   username: string;
@@ -25,24 +26,7 @@ interface UserData {
   gender: string;
 }
 
-interface InfopessoalProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-    >
-  >;
-}
-
-const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
+const Infopessoal: React.FC = () => {
   const [userData, setUserData] = useState<UserData>({
     username: "",
     dob: "",
@@ -51,6 +35,8 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
     gender: "",
   });
 
+  const navigate = useNavigate(); // Inicializar o hook useNavigate
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     if (name === "height" || name === "weight") {
@@ -58,7 +44,7 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
       if (numberValue === null || isNaN(numberValue) || numberValue < 0) {
         window.alert("Informe um valor válido e positivo");
       } else {
-        setUserData(prevUserData => ({
+        setUserData((prevUserData) => ({
           ...prevUserData,
           [name]: numberValue,
         }));
@@ -72,23 +58,23 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
   };
 
   const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        let conversao={
-          ...userData,
-          height: userData.height?.toFixed(2),
-          weight: userData.weight?.toFixed(2),
-        }
-        console.log('dados de usuario',conversao)
+    e.preventDefault();
+    let conversao = {
+      ...userData,
+      height: userData.height?.toFixed(2),
+      weight: userData.weight?.toFixed(2),
+    };
+    console.log("dados de usuario", conversao);
 
     // Muda para a página de definição de metas
-    setPage("definicao-metas");
+    navigate("/definicao-metas");
   };
 
   return (
     <>
-    <Logo>
-      <LogoImage src={logo} alt="Nutritech logo" />
-    </Logo>
+      <Logo>
+        <LogoImage src={logo} alt="Nutritech logo" />
+      </Logo>
       <Container>
         <Title>Informações de Usuário</Title>
         <form onSubmit={handleSubmit}>
@@ -137,51 +123,45 @@ const Infopessoal: React.FC<InfopessoalProps> = ({ setPage }) => {
 
           <Gender>
             <Label>Gênero:</Label>
-            <GenderLabel>
-              Masculino
-            </GenderLabel>
-              <GenderInput
-                type="radio"
-                name="gender"
-                value="Masculino"
-                checked={userData.gender === "Masculino"}
-                onChange={handleChange}
-                required
-              />
-            <GenderLabel>
-              Feminino
-            </GenderLabel>
-              <GenderInput
-                type="radio"
-                name="gender"
-                value="Feminino"
-                checked={userData.gender === "Feminino"}
-                onChange={handleChange}
-                required
-              />
-            <GenderLabel>
-              Prefiro não informar
-            </GenderLabel>
-              <GenderInput
-                type="radio"
-                name="gender"
-                value="Prefiro não informar"
-                checked={userData.gender === "Prefiro não informar"}
-                onChange={handleChange}
-                required
-              />
+            <GenderLabel>Masculino</GenderLabel>
+            <GenderInput
+              type="radio"
+              name="gender"
+              value="Masculino"
+              checked={userData.gender === "Masculino"}
+              onChange={handleChange}
+              required
+            />
+            <GenderLabel>Feminino</GenderLabel>
+            <GenderInput
+              type="radio"
+              name="gender"
+              value="Feminino"
+              checked={userData.gender === "Feminino"}
+              onChange={handleChange}
+              required
+            />
+            <GenderLabel>Prefiro não informar</GenderLabel>
+            <GenderInput
+              type="radio"
+              name="gender"
+              value="Prefiro não informar"
+              checked={userData.gender === "Prefiro não informar"}
+              onChange={handleChange}
+              required
+            />
           </Gender>
 
           <ButtonContainer>
-            <BackButton type="button" onClick={() => setPage("cadastro")}>
+            <BackButton type="button" onClick={() => navigate("/cadastro")}>
               Voltar
             </BackButton>
             <Button type="submit">Próximo</Button>
           </ButtonContainer>
         </form>
       </Container>
-
     </>
   );
 };
+
 export default Infopessoal;

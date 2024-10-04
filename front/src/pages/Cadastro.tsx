@@ -1,27 +1,22 @@
 import React, { useState } from "react";
-// import "../CSS/Cadastro.css";
 import logo from "../logo/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-const{ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
+import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
 
-interface CadastroProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-      >
-  >;
-}
+const {
+  ImageContainer,
+  FormContainer,
+  Title,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  ButtonContainer,
+} = styled_Cadastro();
 
-const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
+const Cadastro: React.FC = () => {
+  const navigate = useNavigate(); // Inicializa o hook useNavigate
+
   const [formData, setFormData] = useState({
     nome: "",
     sobrenome: "",
@@ -37,10 +32,11 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
       [name]: value,
     }));
   };
+
   const Verificar = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
       window.alert(
-        "As senhas não estão batendo, porfavor verifique se as senhas são correspondentes"
+        "As senhas não estão batendo, por favor, verifique se as senhas são correspondentes"
       );
       return false;
     }
@@ -50,9 +46,8 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (Verificar()) {
-      e.preventDefault();
       console.log("Cadastro do usuário:", formData);
-      setPage("info-pessoal");
+      navigate("/info-pessoal"); // Redireciona para a página info-pessoal
     }
   };
 
@@ -131,4 +126,3 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
 };
 
 export default Cadastro;
-

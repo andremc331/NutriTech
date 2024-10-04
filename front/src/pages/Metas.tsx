@@ -1,6 +1,7 @@
-// import '../CSS/Metas.css'
 import styled_Metas from '../styled/styled_Metas';
-const{
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+
+const {
   BarraNavegacao, 
   Body, 
   Charts, 
@@ -20,25 +21,11 @@ const{
   Tabs, 
   WeightLossChart, 
   Text
-}=styled_Metas();
+} = styled_Metas();
 
-interface MenuPrincipalProps {
-  setPage: (
-    page:
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-  ) => void;
-}
+const Metas: React.FC = () => {
+  const navigate = useNavigate(); // Inicializar o hook useNavigate
 
-const Metas: React.FC<MenuPrincipalProps> = ({ setPage }) => {
   return (
     <Body>
       <ContainerMenu>
@@ -52,23 +39,23 @@ const Metas: React.FC<MenuPrincipalProps> = ({ setPage }) => {
         <Dashboard>
           <Sidebar>
             <SidebarContent>
-              <Item onClick={() => setPage("home")}>
+              <Item onClick={() => navigate("/home")}>
                 <Text>Home</Text>
                 <Icon>🏠</Icon>
               </Item>
-              <Item onClick={() => setPage("cardapio")}>
+              <Item onClick={() => navigate("/cardapio")}>
                 <Text>Cardápio</Text>
                 <Icon>⚙️</Icon>
               </Item>
-              <Item onClick={() => setPage("historico")}>
+              <Item onClick={() => navigate("/historico")}>
                 <Text>Histórico</Text>
                 <Icon>🔍</Icon>
               </Item>
-              <Item onClick={() => setPage("metas")}>
+              <Item onClick={() => navigate("/metas")}>
                 <Text>Progresso</Text>
                 <Icon>⚙️</Icon>
               </Item>
-              <Item onClick={() => setPage("configuracoes")}>
+              <Item onClick={() => navigate("/configuracoes")}>
                 <Text>Configurações</Text>
                 <Icon>⚙️</Icon>
               </Item>

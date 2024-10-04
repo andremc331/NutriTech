@@ -1,28 +1,25 @@
 import React, { useState } from 'react';
 import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
 import styled_Cardapio from '../styled/styled_Cardapio';
-const{
-  ImageContainer,ContainerMenu,BarraNavegacao,Sidebar,SidebarContent,Item,Text,Icon,CentralContent,WhiteBox,ExpandedContent,SimboloMais}=styled_Cardapio()
+import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
 
-interface MenuPrincipalProps {
-  setPage: (
-    page:
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-  ) => void;
-}
+const {
+  ImageContainer,
+  ContainerMenu,
+  BarraNavegacao,
+  Sidebar,
+  SidebarContent,
+  Item,
+  Text,
+  Icon,
+  CentralContent,
+  WhiteBox,
+  ExpandedContent,
+  SimboloMais,
+} = styled_Cardapio();
 
-
-
-const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
+const Cardapio: React.FC = () => {
+  const navigate = useNavigate(); // Inicializa o hook useNavigate
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const toggleExpand = (index: number) => {
@@ -36,23 +33,23 @@ const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
       </BarraNavegacao>
       <Sidebar>
         <SidebarContent>
-          <Item onClick={() => setPage("home")}>
+          <Item onClick={() => navigate("/home")}>
             <Text>Home</Text>
             <Icon>🏠</Icon>
           </Item>
-          <Item onClick={() => setPage("cardapio")}>
+          <Item onClick={() => navigate("/cardapio")}>
             <Text>Cardápio</Text>
             <Icon>⚙️</Icon>
           </Item>
-          <Item onClick={() => setPage("historico")}>
+          <Item onClick={() => navigate("/historico")}>
             <Text>Histórico</Text>
             <Icon>🔍</Icon>
           </Item>
-          <Item onClick={() => setPage("metas")}>
+          <Item onClick={() => navigate("/metas")}>
             <Text>Progresso</Text>
             <Icon>⚙️</Icon>
           </Item>
-          <Item onClick={() => setPage("configuracoes")}>
+          <Item onClick={() => navigate("/configuracoes")}>
             <Text>Configurações</Text>
             <Icon>⚙️</Icon>
           </Item>
@@ -73,7 +70,8 @@ const Cardapio: React.FC<MenuPrincipalProps> = ({ setPage }) => {
       </CentralContent>
       {/* Contêiner da Imagem na parte inferior direita */}
       <ImageContainer>
-      <img src={imgLogoSemFundo} alt="Descrição da Imagem" />      </ImageContainer>
+        <img src={imgLogoSemFundo} alt="Descrição da Imagem" />
+      </ImageContainer>
     </ContainerMenu>
   );
 };
