@@ -9,6 +9,14 @@ const styled_Metas =()=>{
   padding: 0;
 `;
 
+const MetasBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
+  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
+`;
+
  const ContainerMenu = styled.div`
   display: flex;
   flex-direction: column;
@@ -196,6 +204,7 @@ const styled_Metas =()=>{
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
 return{
+  MetasBody,
   BarraNavegacao, 
   Body, 
   Charts, 

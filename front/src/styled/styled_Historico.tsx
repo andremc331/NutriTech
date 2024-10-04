@@ -6,6 +6,14 @@ const styled_Historico=()=>{
   flex-direction: column;
 `;
 
+const HistoricoBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
+  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
+`;
+
  const BarraNavegacao = styled.div`
   width: 100%;
   height: 80px;
@@ -108,10 +116,13 @@ const WhiteBox = styled.div`
   width: 750px;
   height: 280px;
   margin-top: 20px;
+  align-self: center;
 `;
+
 const MealInfo = styled.div`
   margin-bottom: 20px; /* Espaçamento entre informações da refeição */
 `;
+
 const HomeContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -131,6 +142,7 @@ margin-left: 10px; /* Espaçamento entre texto e ícone */
 margin-right: 20px;
 `;
 return{
+  HistoricoBody,
   ContainerHistorico,
   BarraNavegacao,
   PeriodoSelector,

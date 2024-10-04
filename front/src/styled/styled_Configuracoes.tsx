@@ -8,6 +8,14 @@ const styled_Configuracoes=()=>{
  flex-direction: column; /* Organiza os elementos em coluna */
 `;
 
+const ConfiguracoesBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
+  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
+`;
+
  const BarraNavegacao = styled.div`
  width: 100%; /* Largura total */
  height: 80px; /* Altura da barra */
@@ -161,6 +169,7 @@ const NavLinks = styled.div`
   background-image: url('../logo/berries-2281_1280.jpg');
 `;
 return{
+  ConfiguracoesBody,
   ContainerMenu,
   BarraNavegacao,
   NavLinks,

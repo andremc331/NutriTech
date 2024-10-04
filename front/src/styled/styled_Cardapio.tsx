@@ -13,6 +13,14 @@ const ImageContainer = styled.div`
   }
 `;
 
+const CardapioBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
+  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
+`;
+
  const ContainerMenu = styled.div`
   display: flex;
   flex-direction: column; /* Organiza os elementos em coluna */
@@ -137,6 +145,7 @@ const ImageContainer = styled.div`
   margin-left: 10px; /* Espaçamento entre o texto e o símbolo */
 `;
 return{
+  CardapioBody,
   ImageContainer,
   ContainerMenu,
   BarraNavegacao,
