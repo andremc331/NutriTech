@@ -1,8 +1,9 @@
 import styled from "styled-components";
+import fundo from '../logo/logofundo.png';
 
 const styled_BemV = () => {
   const Background = styled.div`
-    background-image: url('../logo/logofundo.png');
+    background-image: url(${fundo});
     background-size: cover;
     background-position: center;
     width: 100vw;

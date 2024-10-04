@@ -76,7 +76,7 @@ align-items: center; /* Alinha verticalmente */
 width: 100%; /* Para ocupar toda a largura */
 margin: 15px 0; /* Espaçamento entre itens */
 padding: 10px; /* Ajustado para aumentar a área clicável */
-position: relative; /* Para posicionar o pseudo-elemento */
+position: relative;
 transition: background-color 0.3s; /* Transição suave para a cor de fundo */
 border-radius: 5px; /* Bordas arredondadas nos itens */
 background: transparent; /* Fundo transparente */
@@ -105,7 +105,7 @@ const WhiteBox = styled.div`
   border-radius: 10px; /* Bordas arredondadas */
   background-color: #fff; /* Fundo branco */
   color: black; /* Cor do texto */
-  position: relative; /* Para posicionar o botão de editar */
+  /* position: relative;  */
   width: 750px;
   height: 280px;
   margin-top: 20px;

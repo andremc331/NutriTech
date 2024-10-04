@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-// import "../CSS/Cadastro.css";
 import logo from "../logo/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-const{ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
+const{Body,ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
 
 interface CadastroProps {
   setPage: React.Dispatch<
@@ -57,7 +56,7 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   };
 
   return (
-    <div>
+    <Body>
       <ImageContainer>
         <img src={logo} alt="Logo Nutritech" />
       </ImageContainer>
@@ -126,7 +125,7 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
           </ButtonContainer>
         </form>
       </FormContainer>
-    </div>
+    </Body>
   );
 };
 

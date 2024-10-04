@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import './index.css';
-import Infopessoal from './pages/Infopessoal';
-// import './CSS/Infopessoal.css'
+// import Infopessoal from './pages/Infopessoal';
 import App from './App';
 // import './logo/logo.nutritech.fundo.jpeg'
 

@@ -1,10 +1,15 @@
 import styled from "styled-components";
 
-const styled_Cadastro = () => {
+const styled_Cadastro = () => { 
  const Body = styled.body`
   background-color: #7E5EC2;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  overflow: hidden; /* cor de fundo roxa */
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 // Container para a imagem
