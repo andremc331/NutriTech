@@ -1,4 +1,5 @@
 import React from "react";
+import MealChart from "../components/MealChart";
 import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
 import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
@@ -102,6 +103,9 @@ const Home: React.FC = () => {
                 />
               </svg>
             </EditButton>
+            <div className="charts" style={{ flex: '1', position: 'relative', height: '300px', padding: '10px' }}>
+            <MealChart />
+          </div>
           </WhiteBox>
         </HomeContainer>
 

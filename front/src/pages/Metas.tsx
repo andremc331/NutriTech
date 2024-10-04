@@ -1,4 +1,6 @@
 import styled_Metas from '../styled/styled_Metas';
+import ConsumeChart from '../components/ConsumeChart';
+import WeightChart from "../components/WeightChart";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 const {
@@ -75,10 +77,12 @@ const Metas: React.FC = () => {
               <WeightLossChart>
                 <h2>Gráfico de Perda de Peso</h2>
                 <canvas id="weightChart"></canvas>
+                <WeightChart />
               </WeightLossChart>
               <FoodChart>
                 <h2>Gráfico de Consumo Alimentar</h2>
                 <canvas id="foodChart"></canvas>
+                <ConsumeChart />
               </FoodChart>
             </Charts>
 
