@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import logo from "../logo/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-const{ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+
+
+const{Body,ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
 
 const Cadastro: React.FC = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate

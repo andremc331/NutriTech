@@ -5,8 +5,6 @@ import { useNavigate } from "react-router-dom"; // Importa o useNavigate
 const {
   ContainerMenu,
   BarraNavegacao,
-  NavLinks,
-  NavButton,
   Sidebar,
   SidebarContent,
   Item,

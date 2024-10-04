@@ -105,10 +105,6 @@ const WhiteBox = styled.div`
   border-radius: 10px; /* Bordas arredondadas */
   background-color: #fff; /* Fundo branco */
   color: black; /* Cor do texto */
-<<<<<<< HEAD
-  /* position: relative;  */
-=======
->>>>>>> 42483d049c02e27fd85508314b1e8d7ab541864e
   width: 750px;
   height: 280px;
   margin-top: 20px;
