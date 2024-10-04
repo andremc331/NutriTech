@@ -1,8 +1,9 @@
 import React, { useRef } from "react";
-// import "../CSS/DefinicaoMetas.css";
 import logo from "../logo/logo.nutritech.png";
 import styled_Definicao_M from "../styled/styled_Definicao_M";
-const{
+import { useNavigate } from "react-router-dom"; // Importa o useNavigate
+
+const {
   ImageContainer,
   LogoImage,
   FormContainer,
@@ -15,27 +16,11 @@ const{
   NavButton,
   NextButton,
   ButtonContainer,
-  PlusButton
-}=styled_Definicao_M();
+  PlusButton,
+} = styled_Definicao_M();
 
-interface DefinicaoMetasProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-    >
-  >;
-}
-
-const DefinicaoMetas: React.FC<DefinicaoMetasProps> = ({ setPage }) => {
+const DefinicaoMetas: React.FC = () => {
+  const navigate = useNavigate(); // Inicializa o useNavigate
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scrollLeft = () => {
@@ -93,7 +78,7 @@ const DefinicaoMetas: React.FC<DefinicaoMetasProps> = ({ setPage }) => {
         </FormContainer>
 
         <ButtonContainer>
-          <NextButton type="button" onClick={() => setPage("termosdeuso")}>
+          <NextButton type="button" onClick={() => navigate("/termosdeuso")}>
             →
           </NextButton>
         </ButtonContainer>
@@ -101,4 +86,5 @@ const DefinicaoMetas: React.FC<DefinicaoMetasProps> = ({ setPage }) => {
     </>
   );
 };
+
 export default DefinicaoMetas;

@@ -1,26 +1,11 @@
 import React, { useState } from "react";
 import logo from "../logo/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-const{Body,ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
+const{ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
 
-interface CadastroProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-      >
-  >;
-}
+const Cadastro: React.FC = () => {
+  const navigate = useNavigate(); // Inicializa o hook useNavigate
 
-const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   const [formData, setFormData] = useState({
     nome: "",
     sobrenome: "",
@@ -39,7 +24,7 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   const Verificar = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
       window.alert(
-        "As senhas não estão batendo, porfavor verifique se as senhas são correspondentes"
+        "As senhas não estão batendo, por favor, verifique se as senhas são correspondentes"
       );
       return false;
     }
@@ -49,9 +34,8 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (Verificar()) {
-      e.preventDefault();
       console.log("Cadastro do usuário:", formData);
-      setPage("info-pessoal");
+      navigate("/info-pessoal"); // Redireciona para a página info-pessoal
     }
   };
 
@@ -130,4 +114,3 @@ const Cadastro: React.FC<CadastroProps> = ({ setPage }) => {
 };
 
 export default Cadastro;
-

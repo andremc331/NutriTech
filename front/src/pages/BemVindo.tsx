@@ -1,28 +1,25 @@
 // import "../CSS/BemVindo.css";
 import logo from "../logo/logo.nutritech.png";
 import styled_BemV from "../styled/styled_BemV";
-const { Background,Logo,ContainerRightTitle,ContainerLeft,EmailLabel,PasswordLabel,Input,MainContent,Button1,Button2,JustifiedText} = styled_BemV()
+import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
 
+const {
+  Background,
+  Logo,
+  ContainerRightTitle,
+  ContainerLeft,
+  EmailLabel,
+  PasswordLabel,
+  Input,
+  MainContent,
+  Button1,
+  Button2,
+  JustifiedText,
+} = styled_BemV();
 
+export default function BemVindo() {
+  const navigate = useNavigate(); // Inicializa o hook useNavigate
 
-interface BemVindoProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-    >
-  >;
-}
-
-export default function BemVindo({ setPage }: BemVindoProps) {
   return (
     <Background>
       <ContainerRightTitle>
@@ -34,7 +31,8 @@ export default function BemVindo({ setPage }: BemVindoProps) {
           <br />
           SAÚDE!
         </JustifiedText>
-        <Button1 onClick={() => setPage("cadastro")}>COMECE JÁ</Button1>
+        {/* Navegação para a página de cadastro */}
+        <Button1 onClick={() => navigate('/cadastro')}>COMECE JÁ</Button1>
       </ContainerRightTitle>
 
       <ContainerLeft>
@@ -44,7 +42,8 @@ export default function BemVindo({ setPage }: BemVindoProps) {
         <PasswordLabel>Senha:</PasswordLabel>
         <Input type="password" className="password-input" />
         <MainContent>
-          <Button2 onClick={() => setPage("home")}>&gt;</Button2>
+          {/* Navegação para a página home */}
+          <Button2 onClick={() => navigate('/home')}>&gt;</Button2>
         </MainContent>
       </ContainerLeft>
     </Background>

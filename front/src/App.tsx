@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import BemVindo from './pages/BemVindo';
 import Cadastro from './pages/Cadastro';
 import InfoPessoal from './pages/Infopessoal';
@@ -11,21 +12,23 @@ import Metas from './pages/Metas';
 import Configuracoes from './pages/Configuracoes';
 
 const App: React.FC = () => {
-    const [page, setPage] = useState<'bem-vindo' | 'cadastro' | 'info-pessoal' | 'definicao-metas' | 'termosdeuso' | 'home' | 'cardapio' | 'historico' | 'metas' | 'configuracoes'>('bem-vindo');
-
     return (
-        <div>
-            {page === 'bem-vindo' && <BemVindo setPage={setPage} />}
-            {page === 'cadastro' && <Cadastro setPage={setPage} />}
-            {page === 'info-pessoal' && <InfoPessoal setPage={setPage} />}
-            {page === 'definicao-metas' && <DefinicaoMetas setPage={setPage} />}
-            {page === 'termosdeuso' && <TermosDeUso setPage={setPage} />}
-            {page === 'home' && <Home setPage={setPage} />}
-            {page === 'cardapio' && <Cardapio setPage={setPage} />}
-            {page === 'historico' && <Historico setPage={setPage} />}
-            {page === 'metas' && <Metas setPage={setPage} />}
-            {page === 'configuracoes' && <Configuracoes setPage={setPage} />}
-        </div>
+        <Router>
+            <Routes>
+                {/* Define as rotas para cada página */}
+                <Route path="/" element={<Navigate to="/bem-vindo" />} />
+                <Route path="/bem-vindo" element={<BemVindo />} />
+                <Route path="/cadastro" element={<Cadastro />} />
+                <Route path="/info-pessoal" element={<InfoPessoal />} />
+                <Route path="/definicao-metas" element={<DefinicaoMetas />} />
+                <Route path="/termosdeuso" element={<TermosDeUso />} />
+                <Route path="/home" element={<Home />} />
+                <Route path="/cardapio" element={<Cardapio />} />
+                <Route path="/historico" element={<Historico />} />
+                <Route path="/metas" element={<Metas />} />
+                <Route path="/configuracoes" element={<Configuracoes />} />
+            </Routes>
+        </Router>
     );
 };
 

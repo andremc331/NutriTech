@@ -1,25 +1,25 @@
 import React, { useState } from "react";
-// import "../CSS/Configuracoes.css";
 import styled_Configuracoes from "../styled/styled_Configuracoes";
-const{ ContainerMenu,BarraNavegacao,NavLinks,NavButton,Sidebar,SidebarContent,Item,Text,ContainerConfiguracoes,ContainerPerfil,ContainerNotificacoes,ContainerSeguranca,ContainerSobre}=styled_Configuracoes();
+import { useNavigate } from "react-router-dom"; // Importa o useNavigate
 
-interface MenuPrincipalProps {
-  setPage: (
-    page:
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-  ) => void;
-}
+const {
+  ContainerMenu,
+  BarraNavegacao,
+  NavLinks,
+  NavButton,
+  Sidebar,
+  SidebarContent,
+  Item,
+  Text,
+  ContainerConfiguracoes,
+  ContainerPerfil,
+  ContainerNotificacoes,
+  ContainerSeguranca,
+  ContainerSobre,
+} = styled_Configuracoes();
 
-const Configuracoes: React.FC<MenuPrincipalProps> = ({ setPage }) => {
+const Configuracoes: React.FC = () => {
+  const navigate = useNavigate(); // Inicializa o useNavigate
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
 
   const toggleExpand = (index: number) => {
@@ -33,23 +33,23 @@ const Configuracoes: React.FC<MenuPrincipalProps> = ({ setPage }) => {
       </BarraNavegacao>
       <Sidebar>
         <SidebarContent>
-          <Item onClick={() => setPage("home")}>
+          <Item onClick={() => navigate("/home")}>
             <div className="icon">🏠</div>
             <Text>Home</Text>
           </Item>
-          <Item onClick={() => setPage("historico")}>
+          <Item onClick={() => navigate("/historico")}>
             <div className="icon">🔍</div>
             <Text>Histórico</Text>
           </Item>
-          <Item onClick={() => setPage("cardapio")}>
+          <Item onClick={() => navigate("/cardapio")}>
             <div className="icon">⚙️</div>
             <Text>Cardápio</Text>
           </Item>
-          <Item onClick={() => setPage("metas")}>
+          <Item onClick={() => navigate("/metas")}>
             <div className="icon">⚙️</div>
             <Text>Metas</Text>
           </Item>
-          <Item onClick={() => setPage("configuracoes")}>
+          <Item onClick={() => navigate("/configuracoes")}>
             <div className="icon">⚙️</div>
             <Text>Configurações</Text>
           </Item>

@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-// import "../CSS/Historico.css";
 import styled_Historico from "../styled/styled_Historico";
-const{
+import { useNavigate } from "react-router-dom"; // Importar useNavigate
+
+const {
   ContainerHistorico,
   BarraNavegacao,
   PeriodoSelector,
@@ -13,27 +14,12 @@ const{
   MealInfo,
   HomeContainer,
   Text,
-  Icon
-}=styled_Historico();
+  Icon,
+} = styled_Historico();
 
-interface HistoricoProps {
-  setPage: (
-    page:
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-  ) => void;
-}
-
-const Historico: React.FC<HistoricoProps> = ({ setPage }) => {
+const Historico: React.FC = () => {
   const [periodo, setPeriodo] = useState<"dia" | "semana" | "mes">("dia");
+  const navigate = useNavigate(); // Inicializar o hook useNavigate
 
   return (
     <ContainerHistorico>
@@ -43,23 +29,23 @@ const Historico: React.FC<HistoricoProps> = ({ setPage }) => {
 
       <Sidebar>
         <SidebarContent>
-          <Item onClick={() => setPage("home")}>
+          <Item onClick={() => navigate("/home")}>
             <Text>Home</Text>
             <Icon>🏠</Icon>
           </Item>
-          <Item onClick={() => setPage("cardapio")}>
+          <Item onClick={() => navigate("/cardapio")}>
             <Text>Cardápio</Text>
             <Icon>⚙️</Icon>
           </Item>
-          <Item onClick={() => setPage("historico")}>
+          <Item onClick={() => navigate("/historico")}>
             <Text>Histórico</Text>
             <Icon>🔍</Icon>
           </Item>
-          <Item onClick={() => setPage("metas")}>
+          <Item onClick={() => navigate("/metas")}>
             <Text>Progresso</Text>
             <Icon>⚙️</Icon>
           </Item>
-          <Item onClick={() => setPage("configuracoes")}>
+          <Item onClick={() => navigate("/configuracoes")}>
             <Text>Configurações</Text>
             <Icon>⚙️</Icon>
           </Item>

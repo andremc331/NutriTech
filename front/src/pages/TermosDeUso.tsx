@@ -1,42 +1,27 @@
 import React, { useState } from "react";
-// import "../CSS/TermosDeUso.css";
 import logo from "../logo/logo.nutritech.png";
 import styled_TermoDuso from "../styled/styled_TermoDuso";
-const{
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+
+const {
   ButtonContainer, 
   CheckboxGroup,
-   FormContainer, 
-   ImageContainer, 
-   LogoImage, 
-   NextButton, 
-   TermsContainer, 
-   Title 
-}=styled_TermoDuso();
+  FormContainer, 
+  ImageContainer, 
+  LogoImage, 
+  NextButton, 
+  TermsContainer, 
+  Title 
+} = styled_TermoDuso();
 
-interface TermosDeUsoProps {
-  setPage: React.Dispatch<
-    React.SetStateAction<
-      | "bem-vindo"
-      | "cadastro"
-      | "info-pessoal"
-      | "definicao-metas"
-      | "termosdeuso"
-      | "home"
-      | "cardapio"
-      | "historico"
-      | "metas"
-      | "configuracoes"
-    >
-  >;
-}
-
-const TermosDeUso: React.FC<TermosDeUsoProps> = ({ setPage }) => {
+const TermosDeUso: React.FC = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
+  const navigate = useNavigate(); // Inicializar o hook useNavigate
 
   const handleNextClick = () => {
     if (agreedToTerms && agreedToPrivacy) {
-      setPage("home"); // Alterar para a próxima página desejada
+      navigate("/home"); // Navega para a página "home"
     } else {
       alert("Você precisa concordar com ambos os termos antes de prosseguir.");
     }
@@ -126,4 +111,5 @@ const TermosDeUso: React.FC<TermosDeUsoProps> = ({ setPage }) => {
     </>
   );
 };
+
 export default TermosDeUso;
