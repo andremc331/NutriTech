@@ -13,11 +13,11 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 -----------------------------------------------------------------------------------
 
 # 🗂️SPRINTS
-| Sprint  | Datas   | Relatórios                                     |
+| Sprint | Data de Início | Status | Relatórios | 
 |:-------:| --------------------- |---------------------------------------------- |
-|  1  | :calendar:  ➡ (20/09/2024) |
-|  2  | :calendar:  ➡ (08/10/2024) |
-|  3  | :calendar:  ➡ (08/11/2024)  |
+|  1  | :calendar:  ➡ (20/09/2024) | ✅ Concluído |            |
+|  2  | :calendar:  ➡ (08/10/2024) | ⌛ Em Andamento |         |
+|  3  | :calendar:  ➡ (08/11/2024) | ❌ Não iniciado |         |
 
 |       RESTRIÇÕES DE PROJETO E TECNOLOGIA      |          
 | - As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:     
