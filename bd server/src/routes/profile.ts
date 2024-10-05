@@ -8,6 +8,8 @@ routes.post("/", controller.save);
 routes.delete("/", controller.delete);
 
 //aceita qualquer método HTTP ou URL
-routes.use( (_:Request,res:Response) => res.status(404).json({error:"Operação desconhecida com o perfil"}) );
+routes.use((req: Request, res: Response) => {
+    res.status(404).json({ error: "Operação desconhecida com o consumo de alimentos" });
+});
 
 export default routes;

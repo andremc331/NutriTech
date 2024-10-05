@@ -13,6 +13,8 @@ routes.get("/search", controller.listByDescription);
 routes.get("/get", controller.listById);
 
 //aceita qualquer método HTTP ou URL
-routes.use( (_:Request,res:Response) => res.status(404).json({error:"Operação desconhecida com alimentos"}) );
+routes.use((req: Request, res: Response) => {
+    res.status(404).json({ error: "Operação desconhecida com o consumo de alimentos" });
+});
 
 export default routes;

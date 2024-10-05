@@ -14,9 +14,7 @@ const {
   GoalInfo, 
   Header, 
   Icon, 
-  Item, 
-  NavButton, 
-  NavLinks, 
+  Item,  
   Sidebar, 
   SidebarContent, 
   Tab, 
@@ -33,10 +31,6 @@ const Metas: React.FC = () => {
       <ContainerMenu>
         <BarraNavegacao>
           <h1>Nome do usuário</h1>
-          <NavLinks>
-            <NavButton>Link 1</NavButton>
-            <NavButton>Link 2</NavButton>
-          </NavLinks>
         </BarraNavegacao>
         <Dashboard>
           <Sidebar>

@@ -19,8 +19,7 @@ const ContainerRightTitle = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.8); /* Fundo semitransparente para legibilidade */
+  padding: 300px;
   border-radius: 10px;
 `;
 

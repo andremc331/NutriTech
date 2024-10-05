@@ -15,6 +15,8 @@ routes.put("/role", validadeAcess, checkAdm, controller.updateProfile);
 routes.get("/", validadeAcess, checkAdm, controller.list);
 
 //aceita qualquer método HTTP ou URL
-routes.use( (_:Request,res:Response) => res.status(404).json({error:"Operação desconhecida com o usuário"}) );
+routes.use((req: Request, res: Response) => {
+    res.status(404).json({ error: "Operação desconhecida com o consumo de alimentos" });
+});
 
 export default routes;
