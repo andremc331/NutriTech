@@ -41,10 +41,6 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | => adicionar alarmes para as refeições ou lembretes;
 | O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
 | NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
-
-|   Requisitos Não Funcionais                                                                                                                      
-|------------------------------|
-| => criar identidade visual da empresa e criar paleta de cores para o site;
 | INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO; 
 | INSERÇÃO DE USUARIO => nome, email, senha, altura, peso, idade, sexo;              
 | AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):      
@@ -55,6 +51,11 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | -VERIFICAR ESPAÇOS / CAMPOS EM BRANCO;                      
 | -SITUAÇÃO(STATUS) OK.                                                                                                
 | INSERÇÃO DE CARDÁPIO (todos alimentos / produtos consumíveis que serão compatíveis com as dietas).
+
+|   Requisitos Não Funcionais                                                                                                                      
+|------------------------------|
+| => criar identidade visual da empresa;
+| => Escolher paleta de cores para o Site;
 
 -----------------------------------------------------------------------------------
 
