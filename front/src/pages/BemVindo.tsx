@@ -29,14 +29,18 @@ const Logo = styled.img`
 `;
 
 const ContainerLeft = styled.div`
-  flex: 1;  /* Ocupa 50% da largura */
   display: flex;
   flex-direction: column;
-  padding: 40px;
+  align-items: center;
+  width: 17%;
+  height: 500px;
+  padding: 20px;
   background: #7e5ec2;
-  border-radius: 10px;
+  border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
+  margin-top: 200px;
+  margin-left: 200px;
 
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
