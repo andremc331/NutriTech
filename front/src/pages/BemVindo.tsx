@@ -19,13 +19,15 @@ const ContainerRightTitle = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 300px;
+  padding: 5px;
   border-radius: 10px;
+  margin-bottom: 100px;
+  margin-right: 500px;
 `;
 
 const Logo = styled.img`
-  width: 150px;
-  margin-bottom: 20px;
+  width: 250px;
+  margin-bottom: 30px;
 `;
 
 const ContainerLeft = styled.div`
@@ -34,13 +36,13 @@ const ContainerLeft = styled.div`
   align-items: center;
   width: 17%;
   height: 500px;
-  padding: 20px;
+  padding: 10px;
   background: #7e5ec2;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
   margin-top: 200px;
-  margin-left: 200px;
+  margin-left: 500px;
 
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -50,13 +52,13 @@ const ContainerLeft = styled.div`
 const EmailLabel = styled.label`
   margin-top: 20px;
   font-weight: bold;
-  color: #333;
+  color: black;
 `;
 
 const PasswordLabel = styled.label`
   margin-top: 10px;
   font-weight: bold;
-  color: #333;
+  color: black;
 `;
 
 const Input = styled.input`
@@ -87,6 +89,7 @@ const Button1 = styled.button`
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 20px;
 
   &:hover {
     background-color: #0056b3;
