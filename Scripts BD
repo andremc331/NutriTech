@@ -1,0 +1,180 @@
+COMANDOS PARA TESTES
+- INSERT INTO tabela (coluna1, coluna2) VALUES (valor1, valor2);
+- SELECT * FROM tabela WHERE coluna = valor;
+- UPDATE tabela SET coluna = novo_valor WHERE coluna_id = valor_id;
+- DELETE FROM tabela WHERE coluna_id = valor_id;
+
+CREATE TABLE alimento (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  grupo_id INTEGER UNSIGNED NOT NULL,
+  descricao VARCHAR(400) NOT NULL,
+  PRIMARY KEY(id),
+  INDEX Alimento_FKIndex1(grupo_id)
+);
+
+CREATE TABLE Alimento_has_Preparacao (
+  alimento_id INTEGER UNSIGNED NOT NULL,
+  preparacao_id INTEGER UNSIGNED NOT NULL,
+  cardapio_conta_id INTEGER UNSIGNED NOT NULL,
+  cardapio_conta_usuario_id INTEGER UNSIGNED NOT NULL,
+  cardapio_id INTEGER UNSIGNED NOT NULL,
+  energia FLOAT NULL,
+  proteina FLOAT NULL,
+  lipidio FLOAT NULL,
+  carboidrato FLOAT NULL,
+  fibra FLOAT NULL,
+  colesterol FLOAT NULL,
+  agmono FLOAT NULL,
+  agpoli FLOAT NULL,
+  aquilinoleico FLOAT NULL,
+  aqtranstol FLOAT NULL,
+  acucartotal FLOAT NULL,
+  acucaradicao FLOAT NULL,
+  calcio FLOAT NULL,
+  magnesio FLOAT NULL,
+  manganes FLOAT NULL,
+  fosforo FLOAT NULL,
+  ferro FLOAT NULL,
+  sodio FLOAT NULL,
+  sodioadicao FLOAT NULL,
+  potassio FLOAT NULL,
+  cobre FLOAT NULL,
+  zinco FLOAT NULL,
+  selenio FLOAT NULL,
+  retinol FLOAT NULL,
+  vitamina_a FLOAT NULL,
+  tiamina FLOAT NULL,
+  riboflavina FLOAT NULL,
+  niacina FLOAT NULL,
+  niacina_ne FLOAT NULL,
+  piridoxina FLOAT NULL,
+  cobalamina FLOAT NULL,
+  folato FLOAT NULL,
+  vitamina_d FLOAT NULL,
+  vitamina_e FLOAT NULL,
+  vitamina_c FLOAT NULL,
+  PRIMARY KEY(alimento_id, preparacao_id),
+  INDEX Alimento_has_Preparacao_FKIndex1(alimento_id),
+  INDEX Alimento_has_Preparacao_FKIndex2(preparacao_id),
+  INDEX Alimento_has_Preparacao_FKIndex3(cardapio_id, cardapio_conta_usuario_id, cardapio_conta_id)
+);
+
+CREATE TABLE cardapio (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  conta_usuario_id INTEGER UNSIGNED NOT NULL,
+  conta_id INTEGER UNSIGNED NOT NULL,
+  nome CHAR(20) NOT NULL,
+  alimento CHAR(20) NOT NULL,
+  data_dos_cardapios DATETIME NOT NULL,
+  PRIMARY KEY(id, conta_usuario_id, conta_id),
+  INDEX cardapio_FKIndex2(conta_id, conta_usuario_id)
+);
+
+CREATE TABLE conta (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  usuario_id INTEGER UNSIGNED NOT NULL,
+  ind_imc FLOAT NOT NULL,
+  data_de_cadastro DATETIME NOT NULL,
+  PRIMARY KEY(id, usuario_id),
+  INDEX conta_FKIndex1(usuario_id)
+);
+
+CREATE TABLE grupo (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  descricao TEXT NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE metas (
+  metas INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  usuario_id INTEGER UNSIGNED NOT NULL,
+  ganhar INTEGER UNSIGNED NULL,
+  PRIMARY KEY(metas),
+  INDEX metas_FKIndex1(usuario_id)
+);
+
+CREATE TABLE peso (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  conta_usuario_id INTEGER UNSIGNED NOT NULL,
+  conta_id INTEGER UNSIGNED NOT NULL,
+  peso_cadastrado FLOAT NOT NULL,
+  peso_atualizado FLOAT NOT NULL,
+  PRIMARY KEY(id),
+  INDEX peso_FKIndex1(conta_id, conta_usuario_id)
+);
+
+CREATE TABLE preparacao (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  descricao INTEGER UNSIGNED NOT NULL,
+  PRIMARY KEY(id)
+);
+
+CREATE TABLE usuario (
+  id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
+  email VARCHAR(45) NOT NULL,
+  senha VARCHAR(8) NOT NULL,
+  nome CHAR(20) NULL,
+  peso FLOAT NULL,
+  altura FLOAT NULL,
+  idade INT NULL,
+  PRIMARY KEY(id)
+);
+
+//executando TESTES
+
+drop table usuario
+CREATE TABLE usuario (
+  id INTEGER NOT NULL PRIMARY KEY,
+  email VARCHAR(45) NOT NULL,
+  senha VARCHAR(8) NOT NULL,
+  nome CHAR(20) NULL,
+  peso FLOAT NULL,
+  altura FLOAT NULL,
+  idade INT NULL
+);
+INSERT INTO usuario(id,email,senha,nome,peso,altura,idade)
+values(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
+
+-- CREATE TABLE metas (
+-- id integer not null primary key
+--   metas INTEGER NOT NULL,
+--   usuario_id INTEGER UNSIGNED NOT NULL,
+
+--   INDEX metas_FKIndex1(usuario_id)
+-- );
+
+drop table conta
+CREATE TABLE conta (
+  id INTEGER NOT NULL PRIMARY KEY,
+  usuario_id INTEGER NOT NULL,
+  ind_imc FLOAT NOT NULL,
+  data_de_cadastro DATE NOT NULL,
+  FOREIGN KEY(usuario_id) REFERENCES usuario(id)
+);
+INSERT INTO conta(id,usuario_id,ind_imc,data_de_cadastro)
+values(1,1,85.7,'11/08/2000');
+
+drop table peso
+CREATE TABLE peso (
+	id integer not null PRIMARY KEY,          
+    peso_usuario_id INTeger NOT NULL,        
+    pesagem DECIMAL(5, 2) NOT NULL,    
+    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+	foreign key(peso_usuario_id) references usuario(id)
+); 
+insert into peso(id,peso_usuario_id,pesagem,data_registro)values
+(1,1,75.8,'11/08/2000')
+
+drop table cardapio
+CREATE TABLE cardapio (
+  id INTEGER NOT NULL primary key,
+  cardapio_usuario_id INTEGER NOT NULL,
+  cardapio_conta_id INTEGER NOT NULL,
+  alimento CHAR(20) NOT NULL,
+  data_dos_cardapios DATE NOT NULL,
+  foreign key (cardapio_conta_id) references conta(id),
+  foreign key(cardapio_usuario_id) references usuario(id)
+);
+insert into cardapio(id,cardapio_usuario_id,cardapio_conta_id--nome
+					 ,alimento,data_dos_cardapios)
+values(1,1,1,'Banana','11/02/2000');
