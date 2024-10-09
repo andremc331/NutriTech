@@ -1,19 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import logo from '../logo/logo.nutritech.png'; // Logo para o cabeçalho
-import logofundo from '../logo/logofundo.png'; // Logo para o fundo
+import logo from '../logo/logo.nutritech.png';
+import logofundo from '../logo/logofundo.png';
 import { useNavigate } from 'react-router-dom';
 
 const Background = styled.div`
   display: flex;
   height: 100vh;
-  background-image: url(${logofundo});  /* Usando a imagem de fundo */
-  background-size: cover;                /* Faz a imagem cobrir todo o fundo */
-  background-position: center;           /* Centraliza a imagem */
+  background-image: url(${logofundo});
+  background-size: cover;
+  background-position: center;
+  flex-direction: row; /* Alinhamento horizontal dos containers */
+  @media (max-width: 768px) {
+    flex-direction: column; /* Mudança para coluna em telas menores */
+  }
 `;
 
 const ContainerRightTitle = styled.div`
-  flex: 1;  /* Ocupa 50% da largura */
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,31 +25,74 @@ const ContainerRightTitle = styled.div`
   text-align: center;
   padding: 5px;
   border-radius: 10px;
-  margin-bottom: 100px;
-  margin-right: 500px;
+  margin-bottom: 5%;
+  margin-right: 20%;
+
+  @media (max-width: 1024px) {
+    margin-right: 10%;
+  }
+
+  @media (max-width: 768px) {
+    margin-right: 0;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  @media (max-width: 480px) {
+    padding: 10px;
+  }
 `;
 
 const Logo = styled.img`
   width: 250px;
   margin-bottom: 30px;
+
+  @media (max-width: 768px) {
+    width: 200px;
+  }
+
+  @media (max-width: 480px) {
+    width: 150px;
+  }
 `;
 
 const ContainerLeft = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 17%;
+  width: 20%;
   height: 500px;
   padding: 10px;
   background: #7e5ec2;
   border-radius: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
-  margin-top: 200px;
-  margin-left: 500px;
+  margin-top: 10%;
+  margin-left: 25%; /* Ajustar margem para telas pequenas */
 
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+
+  @media (max-width: 1200px) {
+    width: 25%;
+    margin-left: 20px; /* Reduzir margem à esquerda */
+  }
+
+  @media (max-width: 900px) {
+    width: 40%;
+    margin-left: 0;
+    margin-top: 100px;
+  }
+
+  @media (max-width: 600px) {
+    width: 80%;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 400px) {
+    width: 100%;
+    margin-top: 20px;
   }
 `;
 
@@ -67,6 +114,7 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
+  width: 80%; /* Ocupa toda a largura disponível */
 
   &:focus {
     border-color: #007bff;
