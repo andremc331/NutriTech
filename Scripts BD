@@ -1,3 +1,9 @@
+COMANDOS PARA TESTES
+- INSERT INTO tabela (coluna1, coluna2) VALUES (valor1, valor2);
+- SELECT * FROM tabela WHERE coluna = valor;
+- UPDATE tabela SET coluna = novo_valor WHERE coluna_id = valor_id;
+- DELETE FROM tabela WHERE coluna_id = valor_id;
+
 CREATE TABLE alimento (
   id INTEGER UNSIGNED NOT NULL AUTO_INCREMENT,
   grupo_id INTEGER UNSIGNED NOT NULL,
