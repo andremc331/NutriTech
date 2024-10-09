@@ -69,7 +69,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 -------------------------------------------------------------------------------------------------
 
 # BD LÓGICO
-![bd2](https://github.com/user-attachments/assets/3ecae17c-60d0-4a77-891e-50c25179f27d)
+![bdatual](https://github.com/user-attachments/assets/df6f3bac-908a-434f-b980-6c25e32b89d0)
 
 -----------------------------------------------------------------------------------
 
