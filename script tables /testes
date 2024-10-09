@@ -1,0 +1,56 @@
+drop table usuario
+CREATE TABLE usuario (
+  id INTEGER NOT NULL PRIMARY KEY,
+  email VARCHAR(45) NOT NULL,
+  senha VARCHAR(8) NOT NULL,
+  nome CHAR(20) NULL,
+  peso FLOAT NULL,
+  altura FLOAT NULL,
+  idade INT NULL
+);
+INSERT INTO usuario(id,email,senha,nome,peso,altura,idade)
+values(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
+
+-- CREATE TABLE metas (
+-- id integer not null primary key
+--   metas INTEGER NOT NULL,
+--   usuario_id INTEGER UNSIGNED NOT NULL,
+
+--   INDEX metas_FKIndex1(usuario_id)
+-- );
+
+drop table conta
+CREATE TABLE conta (
+  id INTEGER NOT NULL PRIMARY KEY,
+  usuario_id INTEGER NOT NULL,
+  ind_imc FLOAT NOT NULL,
+  data_de_cadastro DATE NOT NULL,
+  FOREIGN KEY(usuario_id) REFERENCES usuario(id)
+);
+INSERT INTO conta(id,usuario_id,ind_imc,data_de_cadastro)
+values(1,1,85.7,'11/08/2000');
+
+drop table peso
+CREATE TABLE peso (
+	id integer not null PRIMARY KEY,          
+    peso_usuario_id INTeger NOT NULL,        
+    pesagem DECIMAL(5, 2) NOT NULL,    
+    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+	foreign key(peso_usuario_id) references usuario(id)
+); 
+insert into peso(id,peso_usuario_id,pesagem,data_registro)values
+(1,1,75.8,'11/08/2000')
+
+drop table cardapio
+CREATE TABLE cardapio (
+  id INTEGER NOT NULL primary key,
+  cardapio_usuario_id INTEGER NOT NULL,
+  cardapio_conta_id INTEGER NOT NULL,
+  alimento CHAR(20) NOT NULL,
+  data_dos_cardapios DATE NOT NULL,
+  foreign key (cardapio_conta_id) references conta(id),
+  foreign key(cardapio_usuario_id) references usuario(id)
+);
+insert into cardapio(id,cardapio_usuario_id,cardapio_conta_id--nome
+					 ,alimento,data_dos_cardapios)
+values(1,1,1,'Banana','11/02/2000');
