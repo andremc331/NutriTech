@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",                        // Versão do JavaScript para o qual você quer compilar
+    "module": "commonjs",                      // Usado para Node.js (CommonJS)
+    "strict": true,                            // Ativa verificações estritas de tipo
+    "esModuleInterop": true,                   // Permite interoperabilidade com módulos ES6
+    "skipLibCheck": true,                      // Pula a verificação de tipos de arquivos de declaração
+    "forceConsistentCasingInFileNames": true,  // Força o uso de letras maiúsculas/minúsculas consistente
+    "outDir": "./dist",                        // Pasta onde os arquivos compilados serão gerados
+    "rootDir": "./src",                        // Pasta onde os arquivos TypeScript estão localizados
+    "resolveJsonModule": true,                 // Permite importar módulos JSON
+    "sourceMap": true,                         // Gera mapas de origem (.map) para facilitar o debug
+    "experimentalDecorators": true,            // Necessário para usar TypeORM com decorators
+    "emitDecoratorMetadata": true              // Necessário para o TypeORM
+  },
+  "include": ["src"],                          // Especifica quais pastas incluir na compilação
+  "exclude": ["node_modules"]                  // Especifica pastas a serem excluídas
+}
