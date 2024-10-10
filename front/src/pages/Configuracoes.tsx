@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styled_Configuracoes from "../styled/styled_Configuracoes";
+import styled from "styled-components"; // Importando styled
+import styled_Configuracoes from '../styled/styled_Configuracoes';
 import { useNavigate } from "react-router-dom"; // Importa o useNavigate
 
 const {
@@ -9,12 +10,41 @@ const {
   SidebarContent,
   Item,
   Text,
-  ContainerConfiguracoes,
-  ContainerPerfil,
-  ContainerNotificacoes,
-  ContainerSeguranca,
-  ContainerSobre,
 } = styled_Configuracoes();
+
+const ContainerConfiguracoes = styled.div`
+  flex: 2;
+  padding: 100px;
+  margin-top: 10%;
+`;
+
+const ContainerPerfil = styled.div`
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+`;
+
+const ContainerNotificacoes = styled.div`
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+`;
+
+const ContainerSeguranca = styled.div`
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+`;
+
+const ContainerSobre = styled.div`
+  margin-bottom: 20px;
+  background: #fff;
+  padding: 15px;
+  border: 1px solid #ccc;
+`;
 
 const Configuracoes: React.FC = () => {
   const navigate = useNavigate(); // Inicializa o useNavigate
