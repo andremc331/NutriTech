@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled_Historico from "../styled/styled_Historico";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 
@@ -17,9 +17,37 @@ const {
   Icon,
 } = styled_Historico();
 
+interface Meal {
+  type: string;
+  time: string;
+  items: string[];
+}
+
 const Historico: React.FC = () => {
   const [periodo, setPeriodo] = useState<"dia" | "semana" | "mes">("dia");
+  const [historico, setHistorico] = useState<Meal[]>([]); // Estado para armazenar o histórico
   const navigate = useNavigate(); // Inicializar o hook useNavigate
+
+  // Função para adicionar um histórico de refeição
+  const adicionarHistorico = (meal: Meal) => {
+    setHistorico([...historico, meal]);
+  };
+
+  // Exemplo de como você poderia adicionar um histórico
+  useEffect(() => {
+    // Adiciona um histórico inicial
+    const mealData: Meal = {
+      type: "Almoço",
+      time: "12:20",
+      items: [
+        "150g de frango grelhado",
+        "1 colher de arroz integral",
+        "25g de brócolis",
+        "Salada verde com azeite de oliva",
+      ],
+    };
+    adicionarHistorico(mealData);
+  }, []);
 
   return (
     <ContainerHistorico>
@@ -78,32 +106,19 @@ const Historico: React.FC = () => {
 
         {periodo === "dia" && (
           <div className="historico-container">
-            <WhiteBox>
-              <MealInfo>
-                <span className="meal-type">Almoço</span>
-                <span className="meal-time">Horário: 12:20</span>
-                <span className="meal-items">
-                  <p>150g de frango grelhado</p>
-                  <p>1 colher de arroz integral</p>
-                  <p>25g de brócolis</p>
-                  <p>Salada verde com azeite de oliva</p>
-                </span>
-              </MealInfo>
-            </WhiteBox>
-
-            <WhiteBox>
-              <MealInfo>
-                <span className="meal-type">Café da manhã</span>
-                <span className="meal-time">Horário: 06:30</span>
-                <span className="meal-items">
-                  <p>2 fatias de pão integral</p>
-                  <p>2 ovos mexidos</p>
-                  <p>1 banana</p>
-                  <p>1 colher de chá de xia</p>
-                  <p>200ml de leite desnatado</p>
-                </span>
-              </MealInfo>
-            </WhiteBox>
+            {historico.map((meal, index) => (
+              <WhiteBox key={index}>
+                <MealInfo>
+                  <span className="meal-type">{meal.type}</span>
+                  <span className="meal-time">Horário: {meal.time}</span>
+                  <span className="meal-items">
+                    {meal.items.map((item, i) => (
+                      <p key={i}>{item}</p>
+                    ))}
+                  </span>
+                </MealInfo>
+              </WhiteBox>
+            ))}
           </div>
         )}
 

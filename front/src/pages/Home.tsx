@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import MealChart from "../components/MealChart";
-import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
+import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
 import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 
@@ -21,11 +21,34 @@ const {
   MealType,
   MealTime,
   MealItems,
-  EditButton
+  EditButton,
 } = styled_Home();
+
+type MealItem =
+  | "150g de frango grelhado"
+  | "1 colher de arroz integral"
+  | "25g de brócolis"
+  | "salada verde com azeite de oliva";
+
+const caloriasPorItem: Record<MealItem, number> = {
+  "150g de frango grelhado": 300,
+  "1 colher de arroz integral": 80,
+  "25g de brócolis": 10,
+  "salada verde com azeite de oliva": 50,
+};
 
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Inicializar o hook useNavigate
+
+  const items: MealItem[] = Object.keys(caloriasPorItem) as MealItem[]; // Fazer a conversão
+
+  // Função recursiva para calcular calorias
+  const calcularCalorias = (items: MealItem[], index: number): number => {
+    if (index < 0) return 0; // Caso base: se o índice é menor que 0, retorne 0
+    return caloriasPorItem[items[index]] + calcularCalorias(items, index - 1); // Recursão
+  };
+
+  const totalCalorias = calcularCalorias(items, items.length - 1); // Total de calorias da refeição
 
   return (
     <HomeBody>
@@ -66,7 +89,9 @@ const Home: React.FC = () => {
           <InfoBox className="red-box">
             <p>IMC: Grau de IMC</p>
             <p>Objetivo: Hipertrofia</p>
-            <p>Kcal indicada por dia: 435 kcal</p>
+            <MealInfo>
+              <p>Kcal indicada por dia: {totalCalorias} kcal</p>
+            </MealInfo>
           </InfoBox>
 
           {/* Retângulo Azul */}
@@ -80,10 +105,9 @@ const Home: React.FC = () => {
               <MealType>Almoço</MealType>
               <MealTime> ⏰ Horário: 12:20</MealTime>
               <MealItems>
-                <p>- 150g de frango grelhado</p>
-                <p>- 1 colher de arroz integral</p>
-                <p>- 25g de brócolis</p>
-                <p>- salada verde com azeite de oliva</p>
+                {items.map((item, index) => (
+                  <p key={index}>- {item}</p>
+                ))}
               </MealItems>
             </MealInfo>
             <EditButton>
@@ -103,9 +127,18 @@ const Home: React.FC = () => {
                 />
               </svg>
             </EditButton>
-            <div className="charts" style={{ flex: '1', position: 'relative', height: '300px', padding: '10px' }}>
-            <MealChart />
-          </div>
+            <div
+              className="charts"
+              style={{
+                flex: "1",
+                position: "relative",
+                height: "300px",
+                padding: "10px",
+              }}
+            >
+              <MealChart />
+            </div>
+            <WhiteBox></WhiteBox>
           </WhiteBox>
         </HomeContainer>
 
