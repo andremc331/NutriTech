@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Logo from "./Logo";
+import Logo from "../logo/img-logo-semfundo.png";
 import UserMenu from "./UserMenu";
 import { useUser } from "../hooks";
 import AdmMenu from "./AdmMenu";

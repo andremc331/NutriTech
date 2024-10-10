@@ -3,6 +3,8 @@ import MealChart from "../components/MealChart";
 import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
 import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { AdmMenu } from "../components";
+import { UserProvider } from "../contexts";
 
 const {
   ImageContainer,
@@ -55,6 +57,10 @@ const Home: React.FC = () => {
       <ContainerMenu>
         <BarraNavegacao>
           <h1>Nome de usuário</h1>
+          <UserProvider>
+            <AdmMenu />
+            {/* Conteúdo da página de administração */}
+          </UserProvider>
         </BarraNavegacao>
 
         {/* Barra lateral */}

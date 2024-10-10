@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import styled_Historico from "../styled/styled_Historico";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { AdmMenu } from "../components";
+import { UserProvider } from "../contexts";
 
 const {
   ContainerHistorico,
@@ -53,6 +55,10 @@ const Historico: React.FC = () => {
     <ContainerHistorico>
       <BarraNavegacao>
         <h1>Nome de usuário</h1>
+        <UserProvider>
+            <AdmMenu />
+            {/* Conteúdo da página de administração */}
+          </UserProvider>
       </BarraNavegacao>
 
       <Sidebar>

@@ -1,9 +1,21 @@
-import React, { useState } from "react";
-import styled from "styled-components"; // Importando styled
-// import styled_Configuracoes from '../styled/styled_Configuracoes';
-import { useNavigate } from "react-router-dom"; // Importa o useNavigate
-import { AdmMenu } from "../components";
-import { UserProvider } from "../contexts";
+import styled from 'styled-components';
+
+const styled_Metas =()=>{
+ const Body = styled.body`
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f5;
+  color: #333;
+  margin: 0;
+  padding: 0;
+`;
+
+const MetasBody = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
+  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
+`;
 
 const ContainerMenu = styled.div`
 display: flex;
@@ -93,89 +105,109 @@ margin-left: 10px; /* Espaçamento entre texto e ícone */
 margin-right: 20px;
 `;
 
-const ContainerConfiguracoes = styled.div`
-  flex: 2;
-  padding: 100px;
-  margin-top: 10%;
+// Container principal
+ const Dashboard = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
 `;
 
-const ContainerPerfil = styled.div`
+ const Content = styled.div`
+  width: calc(100% - 100px);
+  padding: 20px;
+`;
+
+ const Header = styled.div`
+  background-color: #d8c2e1;
+  padding: 10px;
+  border-radius: 10px;
+  text-align: center;
+  color: #6d377e;
+  font-size: 20px;
+  font-weight: bold;
+`;
+
+ const Tabs = styled.div`
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+`;
+
+ const Tab = styled.div`
+  padding: 10px 20px;
+  margin: 0 10px;
+  color: #6d377e;
+  font-weight: bold;
+  cursor: pointer;
+
+  &.active {
+    border-bottom: 2px solid #94c140;
+  }
+`;
+
+ const Charts = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 20px;
-  background: #fff;
-  padding: 15px;
-  border: 1px solid #ccc;
 `;
 
-const ContainerNotificacoes = styled.div`
-  margin-bottom: 20px;
-  background: #fff;
-  padding: 15px;
-  border: 1px solid #ccc;
+ const WeightLossChart = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 60%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+
+  canvas {
+    width: 100%;
+  }
 `;
 
-const ContainerSeguranca = styled.div`
-  margin-bottom: 20px;
-  background: #fff;
-  padding: 15px;
-  border: 1px solid #ccc;
+ const FoodChart = styled.div`
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 30%;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+
+  h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
 `;
 
-const ContainerSobre = styled.div`
-  margin-bottom: 20px;
-  background: #fff;
+ const GoalInfo = styled.div`
+  margin-top: 20px;
+  background-color: white;
   padding: 15px;
-  border: 1px solid #ccc;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 `;
-
-const Configuracoes: React.FC = () => {
-  const navigate = useNavigate(); // Inicializa o useNavigate
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index); // Alterna a expansão
-  };
-
-  return (
-    <ContainerMenu>
-      <BarraNavegacao>
-        <h1>Nome do usuário</h1>
-        <UserProvider>
-            <AdmMenu />
-            {/* Conteúdo da página de administração */}
-          </UserProvider>
-      </BarraNavegacao>
-      <Sidebar>
-        <SidebarContent>
-        <Item onClick={() => navigate("/home")}>
-              <Text>Home</Text>
-              <Icon>🏠</Icon>
-            </Item>
-            <Item onClick={() => navigate("/cardapio")}>
-              <Text>Cardápio</Text>
-              <Icon>⚙️</Icon>
-            </Item>
-            <Item onClick={() => navigate("/historico")}>
-              <Text>Histórico</Text>
-              <Icon>🔍</Icon>
-            </Item>
-            <Item onClick={() => navigate("/metas")}>
-              <Text>Progresso</Text>
-              <Icon>⚙️</Icon>
-            </Item>
-            <Item onClick={() => navigate("/configuracoes")}>
-              <Text>Configurações</Text>
-              <Icon>⚙️</Icon>
-            </Item>
-        </SidebarContent>
-      </Sidebar>
-      <ContainerConfiguracoes>
-        <ContainerPerfil>Perfil</ContainerPerfil>
-        <ContainerNotificacoes>Notificações</ContainerNotificacoes>
-        <ContainerSeguranca>Segurança</ContainerSeguranca>
-        <ContainerSobre>Sobre</ContainerSobre>
-      </ContainerConfiguracoes>
-    </ContainerMenu>
-  );
-};
-
-export default Configuracoes;
+return{
+  MetasBody,
+  BarraNavegacao, 
+  Body, 
+  Charts, 
+  ContainerMenu, 
+  Content, 
+  Dashboard, 
+  FoodChart, 
+  GoalInfo, 
+  Header, 
+  Icon, 
+  Item, 
+  Sidebar, 
+  SidebarContent, 
+  Tab, 
+  Tabs, 
+  WeightLossChart, 
+  Text
+}
+}
+export default  styled_Metas;

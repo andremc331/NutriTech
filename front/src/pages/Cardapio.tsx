@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
+import { AdmMenu } from '../components';
+import { UserProvider } from '../contexts';
 
 const {
   ImageContainer,
@@ -30,6 +32,10 @@ const Cardapio: React.FC = () => {
     <ContainerMenu>
       <BarraNavegacao>
         <h1>Nome de usuário</h1>
+        <UserProvider>
+            <AdmMenu />
+            {/* Conteúdo da página de administração */}
+          </UserProvider>
       </BarraNavegacao>
       <Sidebar>
         <SidebarContent>

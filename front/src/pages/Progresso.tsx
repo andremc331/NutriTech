@@ -1,7 +1,9 @@
-import styled_Metas from '../styled/styled_Metas';
+import styled_Progresso from '../styled/styled_Progresso';
 import ConsumeChart from '../components/ConsumeChart';
 import WeightChart from "../components/WeightChart";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { UserProvider } from '../contexts';
+import { AdmMenu } from '../components';
 
 const {
   BarraNavegacao, 
@@ -21,7 +23,7 @@ const {
   Tabs, 
   WeightLossChart, 
   Text
-} = styled_Metas();
+} = styled_Progresso();
 
 const Metas: React.FC = () => {
   const navigate = useNavigate(); // Inicializar o hook useNavigate
@@ -31,6 +33,10 @@ const Metas: React.FC = () => {
       <ContainerMenu>
         <BarraNavegacao>
           <h1>Nome do usuário</h1>
+          <UserProvider>
+            <AdmMenu />
+            {/* Conteúdo da página de administração */}
+          </UserProvider>
         </BarraNavegacao>
         <Dashboard>
           <Sidebar>

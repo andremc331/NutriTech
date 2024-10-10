@@ -8,7 +8,7 @@ import TermosDeUso from './pages/TermosDeUso';
 import Home from './pages/Home';
 import Cardapio from './pages/Cardapio';
 import Historico from './pages/Historico';
-import Metas from './pages/Metas';
+import Progresso from './pages/Progresso';
 import Configuracoes from './pages/Configuracoes';
 
 const App: React.FC = () => {
@@ -25,7 +25,7 @@ const App: React.FC = () => {
                 <Route path="/home" element={<Home />} />
                 <Route path="/cardapio" element={<Cardapio />} />
                 <Route path="/historico" element={<Historico />} />
-                <Route path="/metas" element={<Metas />} />
+                <Route path="/metas" element={<Progresso />} />
                 <Route path="/configuracoes" element={<Configuracoes />} />
             </Routes>
         </Router>

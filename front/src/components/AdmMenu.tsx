@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useUser } from "../hooks";
 import { Link } from "react-router-dom";
 
+//pagina que exibe o icone com a letra do usuario
+
 export default function AdmMenu() {
     const {token, logout} = useUser();
 
@@ -39,7 +41,7 @@ export default function AdmMenu() {
           <StyledLink to="/adm" onClick={() => setIsOpen(false)}>
             Gestão de usuários
           </StyledLink>
-          <StyledLink to="/settings" onClick={() => setIsOpen(false)}>
+          <StyledLink to="/configuracoes" onClick={() => setIsOpen(false)}>
             Configurações
           </StyledLink>
           <MenuItemBorderTop onClick={ handleLogout }>
@@ -68,11 +70,12 @@ const UserIcon = styled.div`
   justify-content: center;
   font-size: 1.5rem;
   cursor: pointer;
+  margin-right: 80px;
 `;
 
 const DropdownMenu = styled.div`
   position: absolute;
-  right: 0;
+  right: 20px;
   top: 50px;
   background-color: white;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -87,9 +90,11 @@ const MenuItem = styled.div`
   display: flex;
   padding: 10px 20px;
   cursor: pointer;
+  text-decoration: none;
+  color: #551A8B;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #c0bfc2;
   }
 `;
 
@@ -100,11 +105,10 @@ const MenuItemBorderTop = styled(MenuItem)`
 const StyledLink = styled(Link)`
   display: flex;
   padding: 10px 20px;
-  color: inherit; /* Inherits the color from the parent */
   text-decoration: none; /* Removes the underline */
   cursor: pointer;
 
   &:hover {
-    background-color: #f0f0f0;
+    background-color: #c0bfc2;
   }
 `;
