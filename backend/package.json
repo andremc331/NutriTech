@@ -1,8 +1,11 @@
 {
   "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
-    "@types/node": "^22.7.5"
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/node": "^22.7.5",
+    "@types/pg": "^8.11.10"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

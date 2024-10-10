@@ -8,7 +8,7 @@ import { AppDataSource } from "./database/data-source";  // Importe a configura�
 dotenv.config();
 
 // Será usada a porta 3000 se a variável de ambiente não tiver sido definida
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3011;
 
 const app = express(); // Cria o servidor e coloca na variável app
 
@@ -28,7 +28,7 @@ AppDataSource.initialize()
 
     // Inicializa o servidor na porta especificada
     app.listen(PORT, () => {
-      console.log(`Rodando na porta ${PORT}...`);
+      console.log(`Rodando na porta ${3011}...`);
     });
   })
   .catch((error) => {
