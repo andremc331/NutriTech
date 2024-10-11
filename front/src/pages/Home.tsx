@@ -115,7 +115,6 @@ const Home: React.FC = () => {
                   <p key={index}>- {item}</p>
                 ))}
               </MealItems>
-            </MealInfo>
             <EditButton>
               <svg
                 width="45"
@@ -133,17 +132,8 @@ const Home: React.FC = () => {
                 />
               </svg>
             </EditButton>
-            <div
-              className="charts"
-              style={{
-                flex: "1",
-                position: "relative",
-                height: "300px",
-                padding: "10px",
-              }}
-            >
-              <MealChart />
-            </div>
+            <MealChart />
+            </MealInfo>
             <WhiteBox></WhiteBox>
           </WhiteBox>
         </HomeContainer>

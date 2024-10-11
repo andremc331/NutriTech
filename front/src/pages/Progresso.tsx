@@ -76,12 +76,10 @@ const Metas: React.FC = () => {
             <Charts>
               <WeightLossChart>
                 <h2>Gráfico de Perda de Peso</h2>
-                <canvas id="weightChart"></canvas>
                 <WeightChart />
               </WeightLossChart>
               <FoodChart>
                 <h2>Gráfico de Consumo Alimentar</h2>
-                <canvas id="foodChart"></canvas>
                 <ConsumeChart />
               </FoodChart>
             </Charts>

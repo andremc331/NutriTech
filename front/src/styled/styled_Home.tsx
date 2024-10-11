@@ -150,11 +150,13 @@ const HomeBody = styled.div`
   background-color: #fff; /* Fundo branco */
   color: black; /* Cor do texto */
   /* position: relative; Para posicionar o botão de editar (comentado, pois deixa o container branco sobre a barra lateral)*/ 
-  width: 750px;
-  height: 280px;
+  width: 60vw;
+  height: 60vh;
   margin-top: 20px;
+  display; flex;
+  align-items: flex-start;
   align-self: center;
-  margin-right: 150px;
+  
 `;
 
  const MealInfo = styled.div`
@@ -205,7 +207,7 @@ return{
   MealType,
   MealTime,
   MealItems,
-  EditButton
+  EditButton,
 }
 }
 export default styled_Home;

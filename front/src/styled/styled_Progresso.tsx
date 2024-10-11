@@ -150,6 +150,8 @@ margin-right: 20px;
   justify-content: space-between;
   align-items: flex-start;
   margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: auto;
 `;
 
  const WeightLossChart = styled.div`

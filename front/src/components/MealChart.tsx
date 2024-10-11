@@ -8,19 +8,19 @@ import { ApexOptions } from "apexcharts";
 const MealChart = () => {
   const series = [
     {
-      name: "Aves",
+      name: "Proteina",
       data: [150],
     },
     {
-      name: "Cereais",
+      name: "Lipidios",
       data: [85],
     },
     {
-      name: "Leguminosas",
+      name: "Carboidrato",
       data: [25],
     },
     {
-      name: "Hortaliças folhosas",
+      name: "Fibras",
       data: [35],
     },
   ];
