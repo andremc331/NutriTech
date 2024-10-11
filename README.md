@@ -75,7 +75,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 
 # BURNDOWN SP2
  <div align = center>
-  ![image](https://github.com/andremc331/NutriTech/blob/main/Sprints/imagens/Sprint2.PNG)
+ ![image]<img src="https://github.com/andremc331/NutriTech/blob/main/Sprints/imagens/Sprint2.PNG">
  </div>
 
 -----------------------------------------------------------------------------------
