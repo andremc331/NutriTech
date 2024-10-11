@@ -10,6 +10,8 @@ const styled_Infop=()=>{
   width: 100vw;
   height: 100vh;
   margin: 0;
+  display: flex;
+  flex-direction: column; /* Alinhar verticalmente */
 `;
 
  const Container = styled.div`
@@ -20,6 +22,7 @@ const styled_Infop=()=>{
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
   position: relative;
   margin-top: 20px; /* Adiciona espaço acima do formulário */
+  align-self: center;
 `;
 const Title = styled.h2`
   color: white;
