@@ -51,10 +51,10 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | -VERIFICAR ESPAÇOS / CAMPOS EM BRANCO;                      
 | -SITUAÇÃO(STATUS) OK.   
 
-|   Requisitos Não Funcionais                                                                                                                      
+|   Requisitos Não Funcionais  |                                                                                                                 
 |------------------------------|
             
-| TYPESCRIPT, NODE.JS, STYLED COMPONENTS, REACT-ROUTER-DOM;
+| TYPESCRIPT, NODE.JS, STYLED COMPONENTS, REACT-ROUTER-DOM; |
 | PGADMIN; |    
 | VISUAL STUDIO CODE; |     
 | FIGMA; |
