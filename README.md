@@ -74,7 +74,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 -----------------------------------------------------------------------------------
 
 # BURNDOWN SP1
- <img src="Sprints/Graficoseimagens/Sprint2.PNG">
+ ![image](https://github.com/andremc331/NutriTech/blob/main/Sprints/imagens/Sprint2.PNG)
 
 -----------------------------------------------------------------------------------
 
