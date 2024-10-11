@@ -54,11 +54,11 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 |   Requisitos Não Funcionais  |                                                                                                                 
 |------------------------------|
             
-| TYPESCRIPT, NODE.JS, STYLED COMPONENTS, REACT-ROUTER-DOM; |
-| PGADMIN; |    
-| VISUAL STUDIO CODE; |     
-| FIGMA; |
-| TRELLO; |
+| TYPESCRIPT, NODE.JS, STYLED COMPONENTS, REACT-ROUTER-DOM; 
+| PGADMIN;   
+| VISUAL STUDIO CODE;     
+| FIGMA; 
+| TRELLO.
 
 
 -----------------------------------------------------------------------------------
