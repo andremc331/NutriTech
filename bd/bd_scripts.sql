@@ -1,5 +1,6 @@
 # Script para popular o banco com dados iniciais
 
+-- TABELA USUARIO
 CREATE TABLE usuario (
   id INTEGER NOT NULL PRIMARY KEY,
   email VARCHAR(45) NOT NULL,
@@ -9,27 +10,36 @@ CREATE TABLE usuario (
   altura FLOAT NULL,
   idade INT NULL
 );
+
 INSERT INTO usuario(id,email,senha,nome,peso,altura,idade)
-values(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
+VALUES(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
 
-drop table metas
-create domain chk_metas text check (value='Ganhar peso' or value='Perder peso' or value='Manter Peso');
- CREATE TABLE metas (
- id integer not null primary key,
-   metas_usuario_id INTEGER NOT NULL,
-	 metas chk_metas,
-	 foreign key(metas_usuario_id) references usuario(id)
- );
-insert into metas(id,metas_usuario_id,metas)
-values(1,1,'Ganhar Peso')
 
-drop table grupo;
+
+--TABELA METAS
+DROP TABLE metas
+CREATE DOMAIN chk_metas TEXT CHECK(value='Ganhar peso' or value='Perder peso' or value='Manter Peso');
+CREATE TABLE metas (
+	id INTEGER NOT NULL PRIMARY KEY,
+    metas_usuario_id INTEGER NOT NULL,
+    metas chk_metas,
+    FOREIGN KEY(metas_usuario_id) REFERENCES usuario(id)
+);
+
+
+INSERT INTO metas(id,metas_usuario_id,metas)
+VALUES(1,1,'Ganhar Peso')
+
+
+
+--TABELA GRUPO
+DROP TABLE grupo;
 CREATE TABLE grupo (
-  id INTEGER NOT NULL primary key,
+  id INTEGER NOT NULL PRIMARY KEY,
   descricao TEXT NOT NULL
 );
-select * from grupo
-insert into grupo (id,descricao)values
+SELECT * FROM grupo
+INSERT INTO grupo (id,descricao) VALUES
  	(1,'Cereais e leguminosas'),
 	(2,'Hortaliças tuberosas'),
 	(3,'Farinhas, féculas e massas'),
@@ -50,7 +60,11 @@ insert into grupo (id,descricao)values
 	(18,'Óleos e gorduras'),
 	(19,'Miscelâneas');
 
-drop table conta
+
+
+
+--TABELA CONTA
+DROP TABLE conta
 CREATE TABLE conta (
   id INTEGER NOT NULL PRIMARY KEY,
   usuario_id INTEGER NOT NULL,
@@ -59,25 +73,33 @@ CREATE TABLE conta (
   FOREIGN KEY(usuario_id) REFERENCES usuario(id)
 );
 INSERT INTO conta(id,usuario_id,ind_imc,data_de_cadastro)
-values(1,1,85.7,'11/08/2000');
+VALUES(1,1,85.7,'11/08/2000');
 
-drop table peso
+
+
+
+--TABELA PESO
+DROP TABLE peso
 CREATE TABLE peso (
-	id integer not null PRIMARY KEY,          
-    peso_usuario_id INTeger NOT NULL,        
+	id INTEGER NOT NULL PRIMARY KEY,          
+    peso_usuario_id INTEGER NOT NULL,        
     pesagem DECIMAL(5, 2) NOT NULL,    
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-	foreign key(peso_usuario_id) references usuario(id)
+	FOREIGN KEY(peso_usuario_id) REFERENCES usuario(id)
 ); 
-insert into peso(id,peso_usuario_id,pesagem,data_registro)values
+INSERT INTO peso(id,peso_usuario_id,pesagem,data_registro) VALUES
 (1,1,75.8,'11/08/2000')
 
-drop table preparacao
+
+
+
+--TABELA PREPARAÇÃO
+DROP TABLE preparacao
 CREATE TABLE preparacao (
-  id INTEGER NOT NULL primary key,
-  descricao varchar(100) NOT NULL
+  id INTEGER NOT NULL PRIMARY KEY,
+  descricao VARCHAR(100) NOT NULL
 );
-insert into preparacao(id,descricao) values
+INSERT INTO preparacao(id,descricao) VALUES
  	(1,'Cru(a)'),
 	(2,'Cozido(a)'),
 	(3,'Grelhado(a)/brasa/churrasco'),
@@ -95,29 +117,41 @@ insert into preparacao(id,descricao) values
 	(15,'Sopa'),
 	(99,'Não se aplica');
 
-drop table cardapio
-CREATE TABLE cardapio (
-  id INTEGER NOT NULL primary key,
---   cardapio_usuario_id INTEGER NOT NULL,
-  cardapio_conta_id INTEGER NOT NULL,
-	cardapio_preparacao integer not null,
-  alimento CHAR(20) NOT NULL,
-  data_dos_cardapios DATE NOT NULL,
-  foreign key (cardapio_conta_id) references conta(id),
-	foreign key (cardapio_preparacao) references preparacao(id)
-);
-insert into cardapio(id,cardapio_conta_id,cardapio_preparacao,alimento,data_dos_cardapios)
-values(1,1,99,'Banana','11/02/2000');
 
-drop table alimento;
-  CREATE TABLE alimento (
-      id INTEGER NOT NULL primary key,
-      descricao VARCHAR(400) NOT NULL,
-  	grupo_id integer not null, 
-      FOREIGN KEY (grupo_id) REFERENCES grupo(id)
- );
- select * from alimento;
-insert into alimento(id,descricao,grupo_id) values
+
+
+--TABELA CARDAPIO
+DROP TABLE cardapio
+CREATE TABLE cardapio (
+	id INTEGER NOT NULL PRIMARY KEY,
+--cardapio_usuario_id INTEGER NOT NULL,
+	cardapio_conta_id INTEGER NOT NULL,
+	cardapio_preparacao INTEGER NOT NULL,
+	alimento CHAR(20) NOT NULL,
+	data_dos_cardapios DATE NOT NULL,
+	FOREIGN KEY (cardapio_conta_id) REFERENCES conta(id),
+	FOREIGN KEY (cardapio_preparacao) REFERENCES preparacao(id)
+);
+
+INSERT INTO cardapio(id,cardapio_conta_id,cardapio_preparacao,alimento,data_dos_cardapios)
+VALUES(1,1,99,'Banana','11/02/2000');
+
+
+
+
+
+--TABELA ALIMENTO
+DROP TABLE alimento;
+CREATE TABLE alimento (
+    id INTEGER NOT NULL PRIMARY KEY,
+    descricao VARCHAR(400) NOT NULL,
+  	grupo_id INTEGER NOT NULL, 
+    FOREIGN KEY (grupo_id) REFERENCES grupo(id)
+);
+
+
+SELECT * FROM alimento;
+INSERT INTO alimento(id,descricao,grupo_id) VALUES
 	(6300101,'Arroz(polido,parboilizado,agulha,agulhinha,etc.)',1),
 	(6300201,'Arroz integral',1),
 	(6300701,'Milho (em grão)',1),
@@ -1240,56 +1274,64 @@ insert into alimento(id,descricao,grupo_id) values
 	(8579006,'Arroz com ovo',19),
 	(8800109,'Palma',19);
 
-    CREATE TABLE alimento_has_preparacao (
-  id serial primary key,
-      alimento_id integer not null,
-      	preparacao_id integer not null,
-   	FOREIGN KEY (alimento_id) REFERENCES alimento(id),
-	 FOREIGN KEY (preparacao_id) REFERENCES preparacao(id),
-      	energia float null,
-     	proteina float null,
-     	lipidio float null, 
-    	carboidrato float null,
-     	fibra float null,
-     colesterol float null,
-      	agsaturado float null,
-      	agmono float null,
-      	agpoli float null,
-      	aglinoleico float null,
-      	aglinolenico float null,
-      	agtranstotal float null,
-      	acucartotal float null,
-      	acucaradicao float null,
-      	calcio  float null,
-      	magnesio  float null,
-      	manganes  float null,
-     	fosforo  float null,
-     	ferro  float null,
-     	sodio  float null,
-      	sodioadicao  float null,
-      	potassio  float null,
-      	cobre  float null,
-      	zinco  float null,
-      	selenio  float null,
-      	retinol  float null,
-	  	vitamina_a  float null,
-	     	tiamina  float null,
-      	riboflavina  float null,
-      	niacina  float null,
-  	niacina_ne  float null,
-     	piridoxina  float null,
-     		cobalamina  float null,
-   		folato  float null,
-      	vitamina_d  float null,
-      	vitamina_e  float null,
-      	vitamina_c float null
-     );
-	 ALTER SEQUENCE alimento_has_preparacao_id_seq RESTART WITH 1;
-     drop table alimento_has_preparacao;
 
-insert into alimento_has_preparacao
-(alimento_id,preparacao_id,energia,proteina,lipidio, carboidrato,fibra,colesterol,agsaturado,agmono,agpoli,aglinoleico,aglinolenico,agtranstotal,acucartotal,acucaradicao,calcio,magnesio,manganes,fosforo,ferro,sodio,sodioadicao,potassio,cobre,zinco,selenio,retinol,vitamina_a,tiamina,riboflavina,niacina,niacina_ne,piridoxina,cobalamina,folato,vitamina_d,vitamina_e,vitamina_c)
-values
+
+--TABELA ALIMENTO_HAS_PREPARAÇÃO
+CREATE TABLE alimento_has_preparacao (
+	id SERIAL PRIMARY KEY,
+	alimento_id INTEGER NOT NULL,
+    preparacao_id INTEGER NOT NULL,
+   	FOREIGN KEY (alimento_id) REFERENCES alimento(id),
+	FOREIGN KEY (preparacao_id) REFERENCES preparacao(id),
+    energia FLOAT NULL,
+    proteina FLOAT NULL,
+    lipidio FLOAT NULL, 
+    carboidrato FLOAT NULL,
+    fibra FLOAT NULL,
+    colesterol FLOAT NULL,
+    agsaturado FLOAT NULL,
+    agmono FLOAT NULL,
+    agpoli FLOAT NULL,
+    aglinoleico FLOAT NULL,
+    aglinolenico FLOAT NULL,
+    agtranstotal FLOAT NULL,
+    acucartotal FLOAT NULL,
+    acucaradicao FLOAT NULL,
+    calcio  FLOAT NULL,
+    magnesio  FLOAT NULL,
+    manganes  FLOAT NULL,
+    fosforo  FLOAT NULL,
+    ferro  FLOAT NULL,
+    sodio  FLOAT NULL,
+    sodioadicao  FLOAT NULL,
+    potassio  FLOAT NULL,
+    cobre  FLOAT NULL,
+    zinco  FLOAT NULL,
+    selenio  FLOAT NULL,
+    retinol  FLOAT NULL,
+	vitamina_a  FLOAT NULL,
+	tiamina  FLOAT NULL,
+    riboflavina  FLOAT NULL,
+    niacina  FLOAT NULL,
+  	niacina_ne  FLOAT NULL,
+    piridoxina  FLOAT NULL,
+    cobalamina  FLOAT NULL,
+   	folato  FLOAT NULL,
+    vitamina_d  FLOAT NULL,
+    vitamina_e  FLOAT NULL,
+    vitamina_c FLOAT NULL
+);
+
+ALTER SEQUENCE alimento_has_preparacao_id_seq RESTART WITH 1;
+DROP TABLE alimento_has_preparacao;
+
+
+
+INSERT INTO alimento_has_preparacao(
+	alimento_id,preparacao_id,energia,proteina,lipidio, carboidrato,fibra,colesterol,agsaturado,agmono,agpoli,aglinoleico,aglinolenico,agtranstotal,acucartotal,
+	acucaradicao,calcio,magnesio,manganes,fosforo,ferro,sodio,sodioadicao,potassio,cobre,zinco,selenio,retinol,vitamina_a,tiamina,riboflavina,niacina,niacina_ne,
+	piridoxina,cobalamina,folato,vitamina_d,vitamina_e,vitamina_c)
+VALUES
 	(6300101,99,135.62,2.50,1.20,27.78,1.55,0.00,0.35,0.22,0.56,0.56,0.07,0.01,0.00,0.00,3.51,2.23,0.29,17.77,0.08,1.19,382.00,14.53,0.01,0.49,0.45,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.00,0.08,0.00),
 	(6300201,99,130.95,2.56,1.97,25.56,2.72,0.00,0.45,0.62,0.86,0.80,0.08,0.01,0.00,0.00,5.15,58.13,0.62,104.82,0.26,1.23,282.00,74.42,0.02,0.68,0.45,0.00,0.00,0.08,0.00,0.00,0.00,0.08,0.00,0.00,0.00,0.08,0.00),
 	(6300701,1,160.14,3.32,7.18,25.11,4.25,0.00,1.12,1.72,4.01,3.59,0.42,0.03,3.16,0.00,3.15,26.01,0.16,75.00,0.45,244.96,245.00,212.05,0.05,0.61,2.90,0.00,13.17,0.22,0.07,1.61,2.00,0.06,0.00,46.00,0.00,0.57,6.20),
@@ -3261,4 +3303,5 @@ values
 	(8579005,99,130.31,1.55,0.75,28.94,1.57,0.00,0.23,0.16,0.33,0.30,0.04,0.00,0.00,0.00,11.25,14.62,0.18,19.88,0.09,1.09,334.00,57.26,0.01,0.34,0.00,0.00,0.00,0.03,0.00,0.00,0.00,0.02,0.00,0.00,0.00,0.00,5.55),
 	(8579006,99,179.11,8.09,9.43,14.50,0.77,230.44,2.43,3.02,2.82,2.48,0.26,0.02,0.66,0.00,28.93,6.55,0.16,102.36,0.69,67.99,293.50,75.74,0.01,0.81,18.14,91.30,92.03,0.04,0.28,0.04,1.42,0.07,0.60,23.91,0.70,0.81,0.00),
 	(8800109,99,41.95,1.35,3.10,3.28,2.00,0.00,0.48,0.70,1.78,1.57,0.21,0.02,1.27,0.00,164.00,47.00,0.41,16.00,0.50,20.00,0.00,195.00,0.05,0.21,2.10,0.00,22.13,0.01,0.04,0.30,0.53,0.07,0.00,3.00,0.00,0.25,5.30);
- select * from alimento_has_preparacao 
+
+SELECT * FROM alimento_has_preparacao 
