@@ -21,6 +21,18 @@ import TableEatProduct from "./TableEatProduct";
 import TableEatFood from "./TableEatFood";
 import AdmMenu from "./AdmMenu";
 import TableUser from "./TableUser";
+import { api } from '../services/api';
+
+const fetchData = async () => {
+  try {
+    const response = await api.get('/seu-endpoint'); // Chama um endpoint do backend
+    console.log(response.data);
+  } catch (error) {
+    console.error('Erro ao buscar dados:', error);
+  }
+};
+
+fetchData(); // Chama a função para buscar os dados
 
 export {
     AdmMenu,

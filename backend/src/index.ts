@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import routes from "./routes";
 import 'reflect-metadata';
 import { AppDataSource } from "./database/data-source";  // Importe a configuração do banco de dados
+import { validadeAcess } from "./middlewares/index";
 
 dotenv.config();
 
@@ -18,6 +19,9 @@ app.use(express.json());
 // Configura o servidor para receber requisições de qualquer domínio
 app.use(cors());
 
+// Middleware de autenticação global
+app.use(validadeAcess);
+
 // Inicializa a conexão com o banco de dados e só então sobe o servidor
 AppDataSource.initialize()
   .then(() => {
@@ -28,7 +32,7 @@ AppDataSource.initialize()
 
     // Inicializa o servidor na porta especificada
     app.listen(PORT, () => {
-      console.log(`Rodando na porta ${3011}...`);
+      console.log(`Rodando na porta ${PORT}...`);  // Corrigido para usar a variável PORT
     });
   })
   .catch((error) => {
