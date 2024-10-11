@@ -39,22 +39,29 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | INSERÇÃO DE METAS E PROGRESSO
 | => exibição dos objetivos e metas será por meio de gráficos;
 | => adicionar alarmes para as refeições ou lembretes;
-| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS ). 
-| NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA).
-
-|   Requisitos Não Funcionais                                                                                                                      
-|------------------------------|
+| O SISTEMA TEM QUE TER ALGUM DIFERENCIAL ( EX: PROGRESSO DA DIETA, MODO CLARO E NOTURNO, ENTRE OUTROS );
+| NECESSÁRIO ALGUMA FERRAMENTA DE SEGURANÇA (EX:  GERAR CAPTCHA);
 | => criar identidade visual da empresa e criar paleta de cores para o site;
 | INSERÇÃO DE DADOS, MONITORAMENTO, CONTROLE DA ALIMENTAÇÃO; 
-| INSERÇÃO DE USUARIO => nome, email, senha, altura, peso, idade, sexo;              
-| AUTENTICAÇÃO DO USUÁRIO (VALIDAR SENHA):      
+| INSERÇÃO DE USUARIO => nome, email, senha, altura, peso, idade, sexo;  
 | -VERIFICAR SE O USUÁRIO ESTÁ CADASTRADO NO BANCO DE DADOS;  
 | -VERIFICAR SENHA;                                           
 | -VERIFICAR STATUS DO USUÁRIO;                               
 | -VERIFICAR SE É O PRIMEIRO ACESSO AO SISTEMA;                                                                         
 | -VERIFICAR ESPAÇOS / CAMPOS EM BRANCO;                      
-| -SITUAÇÃO(STATUS) OK.                                                                                                
-| INSERÇÃO DE CARDÁPIO (todos alimentos / produtos consumíveis que serão compatíveis com as dietas).
+| -SITUAÇÃO(STATUS) OK.   
+
+|   Requisitos Não Funcionais                                                                                                                      
+|------------------------------|
+            
+| TYPESCRIPT; 
+| PGADMIN;      
+| VISUAL STUDIO CODE;      
+| FIGMA;      
+| TRELLO;
+
+                                                                                             
+| 
 
 -----------------------------------------------------------------------------------
 
