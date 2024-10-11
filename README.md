@@ -58,7 +58,6 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 | PGADMIN; |    
 | VISUAL STUDIO CODE; |     
 | FIGMA; |
-
 | TRELLO; |
 
 
