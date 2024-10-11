@@ -74,7 +74,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 -----------------------------------------------------------------------------------
 
 # BURNDOWN SP1
-![image](Sprints/Graficos e imagens/Sprint2.PNG)
+![image](Sprints/Graficoseimagens/Sprint2.PNG)
 
 -----------------------------------------------------------------------------------
 
