@@ -23,6 +23,33 @@ create domain chk_metas text check (value='Ganhar peso' or value='Perder peso' o
 insert into metas(id,metas_usuario_id,metas)
 values(1,1,'Ganhar Peso')
 
+drop table grupo;
+CREATE TABLE grupo (
+  id INTEGER NOT NULL primary key,
+  descricao TEXT NOT NULL
+);
+select * from grupo
+insert into grupo (id,descricao)values
+ 	(1,'Cereais e leguminosas'),
+	(2,'Hortaliças tuberosas'),
+	(3,'Farinhas, féculas e massas'),
+	(4,'Cocos, castanhas e nozes'),
+	(5,'Hortaliças folhosas, frutosas e outras'),
+	(6,'Frutas'),
+	(7,'Açúcares e produtos de confeitaria'),
+	(8,'Sais e condimentos'),
+	(9,'Carnes e vísceras'),
+	(10,'Pescados e frutos do mar'),
+	(11,'Enlatados e conservas'),
+	(12,'Aves e ovos'),
+	(13,'Laticínios'),
+	(14,'Panificados'),
+	(15,'Carnes industrializadas'),
+	(16,'Bebidas não alcoólicas e infusões'),
+	(17,'Bebidas alcoólicas,'),
+	(18,'Óleos e gorduras'),
+	(19,'Miscelâneas');
+
 drop table conta
 CREATE TABLE conta (
   id INTEGER NOT NULL PRIMARY KEY,
