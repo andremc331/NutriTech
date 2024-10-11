@@ -19,7 +19,8 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 |  2  | :calendar:  ➡ (23/09/2024) | 📆 ➡ (11/10/2024) | ⌛ Em Andamento |            |
 |  3  | :calendar:  ➡ (14/10/2024) | 📆 ➡ (08/11/2024)| ❌ Não iniciado |            |
 
-|       RESTRIÇÕES DE PROJETO E TECNOLOGIA      |          
+|       RESTRIÇÕES DE PROJETO E TECNOLOGIA      |  
+|-----------------------------------------------|
 | - As seguintes restrições devem ser cumpridas no desenvolvimento da aplicação:     
 | 1.	Back end: TypeScript e Node.js;          
 | 2.	Front end: React TypeScript;        
