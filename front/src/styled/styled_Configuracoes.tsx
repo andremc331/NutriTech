@@ -135,11 +135,11 @@ const styled_Configuracoes = () => {
     background-image: url("../logo/delicious-mandarin.jpg");
     background-size: cover;
     margin: 10px;
-    padding: 100px 140px;
+    padding: 100px 350px;
     font-size: 15px;
     color: black;
     border: 1px solid #ddd;
-    border-radius: 4px;
+    border-radius: 15px;
     transition: transform 0.3s, box-shadow 0.3s;
     position: relative;
     overflow: hidden;
