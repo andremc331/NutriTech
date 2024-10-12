@@ -1,163 +1,276 @@
 import styled from "styled-components";
 
-const styled_Cardapio=()=>{
-const ImageContainer = styled.div`
-  position: absolute; /* Posiciona de forma absoluta */
-  bottom: 5px; /* Distância do fundo */
-  right: 20px; /* Distância da direita */
-  z-index: 999; /* Certifica-se de que a imagem fique acima de outros elementos */
+const styled_Cardapio = () => {
+  const ImageContainer = styled.div`
+    position: absolute;
+    bottom: 1px;
+    right: 20px;
+    z-index: 999;
+    
+    img {
+      max-width: 150px;
+      height: auto;
 
-  img {
-    max-width: 150px; /* Ajusta o tamanho da imagem conforme necessário */
-    height: auto; /* Mantém a proporção da imagem */
-  }
-`;
+      @media (max-width: 768px) {
+        max-width: 100px; /* Reduz o tamanho da imagem em telas menores */
+      }
 
-const CardapioBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #f0f0f0; /* Cor de fundo apenas para esta página */
-  min-height: 100vh; /* Garante que a altura ocupe toda a tela */
-`;
-
- const ContainerMenu = styled.div`
-  display: flex;
-  flex-direction: column; /* Organiza os elementos em coluna */
-`;
-
- const BarraNavegacao = styled.div`
-  width: 100%; /* Largura total */
-  height: 80px; /* Altura da barra */
-  background-color: #C9B7E6; /* Cor de fundo */
-  color: #fff; /* Cor do texto */
-  display: flex; /* Usar flexbox */
-  justify-content: space-between; /* Alinhar itens nas extremidades */
-  align-items: center; /* Centraliza verticalmente */
-  padding: 0 20px; /* Espaçamento interno */
-  position: fixed; /* Fixa na parte superior */
-  top: 0; /* Alinha ao topo */
-  left: 0; /* Alinha à esquerda */
-  z-index: 1000; /* Garante que fique acima de outros elementos */
-`;
-
-
- const Sidebar = styled.div`
-  width: 100px; /* Largura inicial */
-  height: calc(100% - 60px); /* Ajusta a altura da sidebar */
-  background-color: #714d95;
-  color: #ffffff;
-  position: fixed; /* Fixa à esquerda */
-  top: 60px; /* Alinha abaixo da barra de navegação */
-  left: 0; /* Alinha à esquerda da tela */
-  transition: width 0.3s;
-  overflow: hidden;
-  border-bottom-right-radius: 15px; /* Arredonda o canto inferior direito */
-
-  &:hover {
-    width: 270px; /* Largura ao expandir */
-  }
-`;
-
- const SidebarContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Alinha à esquerda */
-  justify-content: flex-start; /* Alinha ao topo */
-  height: 100%; /* Para ocupar toda a altura */
-  padding: 10px; /* Espaçamento interno */
-`;
-
- const Item = styled.button`
-  display: flex;
-  align-items: center; /* Alinha verticalmente */
-  width: 100%; /* Para ocupar toda a largura */
-  margin: 15px 0; /* Espaçamento entre itens */
-  padding: 10px; /* Ajustado para aumentar a área clicável */
-  position: relative; /* Para posicionar o pseudo-elemento */
-  transition: background-color 0.3s; /* Transição suave para a cor de fundo */
-  border-radius: 5px; /* Bordas arredondadas nos itens */
-  background: transparent; /* Fundo transparente */
-  border: none; /* Remove borda padrão de botões */
-  color: white; /* Cor do texto */
-  cursor: pointer; /* Cursor em forma de ponteiro */
-
-  &:hover {
-    background-color: #947cc7; /* Cor de fundo ao passar o mouse */
-
-    &::after {
-      content: ""; /* Necessário para o pseudo-elemento */
-      position: absolute;
-      right: 0; /* Posiciona à direita do item */
-      top: 0; /* Começa no topo do item */
-      width: 5px; /* Largura da barra */
-      height: 100%; /* Altura igual à do item */
-      background-color: #21d29d; /* Cor da barra */
+      @media (max-width: 480px) {
+        max-width: 80px; /* Reduz ainda mais em telas muito pequenas */
+      }
     }
-  }
-`;
+  `;
 
- const Text = styled.div`
-  overflow: hidden;
-  font-size: 20px;
-`;
+  const CardapioBody = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+    margin-top: 20px;
+    padding: 20px; /* Adiciona padding para telas menores */
 
- const Icon = styled.div`
-  font-size: 24px; /* Tamanho fixo para os ícones */
-  margin-left: 10px; /* Espaçamento entre texto e ícone */
-  margin-right: 20px;
-`;
+    @media (max-width: 768px) {
+      padding: 15px;
+    }
 
- const CentralContent = styled.div`
-  display: flex;
-  flex-direction: column; /* Organiza em coluna */
-  align-items: center; /* Centraliza horizontalmente */
-  justify-content: center; /* Centraliza verticalmente */
-  height: calc(100vh - 140px); /* Altura da tela menos a altura da barra de navegação e sidebar */
-  margin-top: 60px; /* Espaço abaixo da barra de navegação */
-`;
+    @media (max-width: 480px) {
+      padding: 10px;
+    }
+  `;
 
- const WhiteBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
-  background-color: white;
-  border-radius: 8px;
-  padding: 20px;
-  margin: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  width: 1000px;
-  overflow: hidden; /* Esconde o conteúdo que ultrapassa */
-`;
+  const ContainerMenu = styled.div`
+    display: flex;
+    flex-direction: column;
 
- const ExpandedContent = styled.div<{ isExpanded: boolean }>`
-  max-height: ${(props) => (props.isExpanded ? '150px' : '0')}; /* Altura inicial (escondido) */
-  overflow: hidden; /* Esconde o conteúdo que ultrapassa */
-  background-color: #fff; /* Cor de fundo */
-  padding: ${(props) => (props.isExpanded ? '10px' : '0')}; /* Inicialmente sem padding */
-  border-radius: 5px; /* Bordas arredondadas */
-  transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out; /* Transições suaves */
-`;
+    @media (max-width: 768px) {
+      padding: 10px; /* Ajusta o padding para telas menores */
+    }
+  `;
 
- const SimboloMais = styled.span`
-  font-size: 24px; /* Tamanho do símbolo */
-  margin-left: 10px; /* Espaçamento entre o texto e o símbolo */
-`;
-return{
-  CardapioBody,
-  ImageContainer,
-  ContainerMenu,
-  BarraNavegacao,
-  Sidebar,
-  SidebarContent,
-  Item,
-  Text,
-  Icon,
-  CentralContent,
-  WhiteBox,
-  ExpandedContent,
-  SimboloMais,
-}
-}
+  const BarraNavegacao = styled.div`
+    width: 100%;
+    height: 80px;
+    background-color: #C9B7E6;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+
+    @media (max-width: 768px) {
+      height: 70px; /* Reduz a altura da barra em telas menores */
+      padding: 0 15px;
+    }
+
+    @media (max-width: 480px) {
+      height: 60px;
+      padding: 0 10px;
+    }
+  `;
+
+  const Sidebar = styled.div`
+    width: 100px;
+    height: calc(100% - 60px);
+    background-color: #714d95;
+    color: #ffffff;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    transition: width 0.3s;
+    overflow: hidden;
+    border-bottom-right-radius: 15px;
+
+    &:hover {
+      width: 270px;
+    }
+
+    @media (max-width: 768px) {
+      width: 80px;
+
+      &:hover {
+        width: 200px; /* Menos expansão em telas menores */
+      }
+    }
+
+    @media (max-width: 480px) {
+      width: 60px;
+
+      &:hover {
+        width: 160px; /* Expansão ainda menor em telas pequenas */
+      }
+    }
+  `;
+
+  const SidebarContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+    padding: 10px;
+
+    @media (max-width: 768px) {
+      padding: 8px;
+    }
+
+    @media (max-width: 480px) {
+      padding: 5px;
+    }
+  `;
+
+  const Item = styled.button`
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0;
+    padding: 10px;
+    position: relative;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    background: transparent;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #947cc7;
+
+      &::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 5px;
+        height: 100%;
+        background-color: #21d29d;
+      }
+    }
+
+    @media (max-width: 768px) {
+      padding: 8px; /* Reduz o padding em telas menores */
+    }
+
+    @media (max-width: 480px) {
+      padding: 6px;
+    }
+  `;
+
+  const Text = styled.div`
+    overflow: hidden;
+    font-size: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 18px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 16px;
+    }
+  `;
+
+  const Icon = styled.div`
+    font-size: 24px;
+    margin-left: 10px;
+    margin-right: 20px;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+      margin-right: 15px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 18px;
+      margin-right: 10px;
+    }
+  `;
+
+  const CentralContent = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 140px);
+    margin-top: 60px;
+
+    @media (max-width: 768px) {
+      height: calc(100vh - 120px);
+    }
+
+    @media (max-width: 480px) {
+      height: calc(100vh - 100px);
+    }
+  `;
+
+  const WhiteBox = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: white;
+    border-radius: 8px;
+    padding: 10px;
+    margin: 10px;
+    margin-left: 90px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    width: 1000px;
+    overflow: hidden;
+
+    @media (max-width: 1024px) {
+      width: 80%;
+    }
+
+    @media (max-width: 768px) {
+      width: 90%;
+    }
+
+    @media (max-width: 480px) {
+      width: 100%;
+      padding: 15px; /* Ajusta o padding para telas menores */
+    }
+  `;
+
+  const ExpandedContent = styled.div<{ isExpanded: boolean }>`
+    max-height: ${(props) => (props.isExpanded ? '150px' : '0')};
+    overflow: hidden;
+    background-color: #fff;
+    padding: ${(props) => (props.isExpanded ? '20px' : '0')};
+    border-radius: 5px;
+    transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+  `;
+
+  const SimboloMais = styled.span`
+    font-size: 24px;
+    margin-left: 10px;
+
+    @media (max-width: 768px) {
+      font-size: 20px;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 18px;
+    }
+  `;
+
+  return {
+    CardapioBody,
+    ImageContainer,
+    ContainerMenu,
+    BarraNavegacao,
+    Sidebar,
+    SidebarContent,
+    Item,
+    Text,
+    Icon,
+    CentralContent,
+    WhiteBox,
+    ExpandedContent,
+    SimboloMais,
+  };
+};
+
 export default styled_Cardapio;

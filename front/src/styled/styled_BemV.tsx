@@ -1,152 +1,177 @@
 import styled from "styled-components";
-import fundo from '../logo/logofundo.png';
+import logofundo from '../logo/logofundo.png';
 
 const styled_BemV = () => {
   const Background = styled.div`
-    background-image: url(${fundo});
-    background-size: cover;
-    background-position: center;
-    width: 100vw;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  `;
+  display: flex;
+  height: 100vh;
+  background-image: url(${logofundo});
+  background-size: cover;
+  background-position: center;
+  flex-direction: row;
+  @media (max-width: 1024px) {
+    flex-direction: column; /* Mudança para coluna em telas menores */
+  }
+`;
 
-  const GlobalStyle = styled.body`
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #C9B7E6;
-  `;
+const ContainerRightTitle = styled.div`
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 5%;
+  margin-right: 20%;
 
-  const Logo = styled.img`
-    width: 352px;
-    /* height: auto;
-    margin: 80px;
-    position: absolute;
-    top: 85px;
-    left: 45%; */
-  `;
+  @media (max-width: 1024px) {
+    margin-right: 10%;
+  }
 
-  const ContainerRightTitle = styled.h2`
-    font-size: 3rem;
-    color: black;
-    position: absolute;
-    top: 45%;
-    left: 65%;
-    transform: translate(-50%, -50%); /* Centraliza o elemento */
-    letter-spacing: -0.02em;
-    word-spacing: 0.2em;
-  `;
-
-  const ContainerLeft = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 70vh;
-    padding: 70px;
-    border-radius: 20px;
-    box-sizing: border-box;
-    background-color: #7E5EC2;
-    margin-top: -5px;
-    margin-left: -650px;
-  `;
-
-  const Header = styled.header`
-    background-color: #282c34;
-    color: white;
-    padding: 1rem;
-    text-align: center;
-  `;
-
-  const Title = styled.h1`
-    font-size: 2rem;
-    color: #fff;
+  @media (max-width: 768px) {
+    margin-right: 0;
+    width: 100%;
     margin-bottom: 20px;
-    text-align: center;
-  `;
+  }
 
-  const EmailLabel = styled.label`
-    font-size: 1rem;
-    color: #fff;
-    margin-top: 70px;
-    display: block;
-  `;
-
-  const PasswordLabel = styled.label`
-    font-size: 1rem;
-    color: #fff;
-    margin-top: 10px;
-    display: block;
-  `;
-
-  const Input = styled.input`
-    font-size: 1rem;
+  @media (max-width: 480px) {
     padding: 10px;
-    margin-top: 5px;
-    border: none;
-    border-radius: 5px;
-    width: 92%;
-  `;
+  }
+`;
 
-  const MainContent = styled.div`
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-  `;
+const Logo = styled.img`
+  width: 20%; /* Usar percentual para dimensionamento fluído */
+  margin-bottom: 30px;
 
-  const Button1 = styled.button`
-    position: absolute;
-    margin-left: 70px;
-    background-color: #21D29D;
-    border: none;
-    color: black;
-    padding: 0.5rem 1rem;
-    font-size: 1rem;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s;
-    width: 200px;
+  @media (max-width: 768px) {
+    width: 40%;
+  }
 
-    &:hover {
-      background-color: #21a1f1;
-    }
-  `;
+  @media (max-width: 480px) {
+    width: 60%;
+  }
+`;
 
-  const Button2 = styled.button`
-    font-size: 80px;
-    width: 90px;
-    height: 70px;
-    background-color: #21D29D;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
+const ContainerLeft = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 25%;
+  height: auto; /* Adapta-se automaticamente ao conteúdo */
+  padding: 20px;
+  background: #7e5ec2;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  margin-top: 5%;
+  margin-left: 10%;
 
-    &:hover {
-      background-color: #1CA885;
-    }
-  `;
+  &:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
 
-  const JustifiedText = styled.p`
-    text-align: justify;
-    margin: 0;
-  `;
+  @media (max-width: 1200px) {
+    width: 40%;
+    margin-left: 5%;
+  }
+
+  @media (max-width: 768px) {
+    width: 60%;
+    margin-left: 0;
+    margin-top: 50px;
+  }
+
+  @media (max-width: 480px) {
+    width: 80%;
+  }
+`;
+
+const EmailLabel = styled.label`
+  margin-top: 20px;
+  font-weight: bold;
+  color: black;
+`;
+
+const PasswordLabel = styled.label`
+  margin-top: 10px;
+  font-weight: bold;
+  color: black;
+`;
+
+const Input = styled.input`
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 80%;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+`;
+
+const MainContent = styled.div`
+  margin-top: 30px;
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const Button1 = styled.button`
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 20px;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%; /* Botão ocupa toda a largura no mobile */
+  }
+`;
+
+const Button2 = styled.button`
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #218838;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+    padding: 15px; /* Aumenta o tamanho do botão para mobile */
+  }
+`;
+
+const JustifiedText = styled.p`
+  font-size: 24px;
+  font-weight: bold;
+  color: #444;
+  margin: 0;
+  text-align: center; /* Centraliza o texto para melhor legibilidade */
+`;
+
   return {
     Background,
-    GlobalStyle,
     Logo,
     ContainerRightTitle,
     ContainerLeft,
-    Header,
-    Title,
     EmailLabel,
     PasswordLabel,
     Input,

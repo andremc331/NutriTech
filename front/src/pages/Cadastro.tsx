@@ -4,7 +4,7 @@ import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
 
-const{Body,ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
+const{/*Body*/ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
 
 const Cadastro: React.FC = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate
@@ -43,7 +43,7 @@ const Cadastro: React.FC = () => {
   };
 
   return (
-    <Body>
+    <>
       <ImageContainer>
         <img src={logo} alt="Logo Nutritech" />
       </ImageContainer>
@@ -111,8 +111,7 @@ const Cadastro: React.FC = () => {
             <Button type="submit">Avançar</Button>
           </ButtonContainer>
         </form>
-      </FormContainer>
-    </Body>
+      </FormContainer></>
   );
 };
 
