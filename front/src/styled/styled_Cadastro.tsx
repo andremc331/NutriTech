@@ -20,10 +20,10 @@ const styled_Cadastro = () => {
   const ImageContainer = styled.div`
     text-align: center;
     max-width: 100%;
-    margin: 50px auto;
+    margin: 10px auto;
 
     img {
-      width: 250px; /* Ajuste conforme necessário */
+      width: 230px; /* Ajuste conforme necessário */
       height: auto;
 
       @media (max-width: 768px) {
