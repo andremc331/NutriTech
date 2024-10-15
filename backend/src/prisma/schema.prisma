@@ -14,7 +14,7 @@ model Usuario {
   id     Int     @id @default(autoincrement())
   email  String  @unique
   senha  String
-  // Adicione os campos de relação
+  nome   String 
   metas  Meta[]  @relation("UsuarioMeta") // Adiciona a relação com Meta
   contas Conta[] @relation("UsuarioConta") // Adiciona a relação com Conta
   pesos  Peso[]  @relation("UsuarioPeso") // Adiciona a relação com Peso
@@ -22,10 +22,10 @@ model Usuario {
 
 // Modelo para a tabela metas
 model Meta {
-  id        Int     @id @default(autoincrement())
-  descricao String? @db.Text
-  usuarioId Int // Adicione um campo para a chave estrangeira
-  usuario   Usuario @relation("UsuarioMeta", fields: [usuarioId], references: [id]) // Relação com nome
+  id                Int      @id @default(autoincrement())
+  descricao         String?  @db.Text
+  metas_usuario_id  Int      // Campo para a chave estrangeira
+  usuario           Usuario   @relation("UsuarioMeta", fields: [metas_usuario_id], references: [id]) // Configura a relação
 }
 
 // Modelo para a tabela grupo
