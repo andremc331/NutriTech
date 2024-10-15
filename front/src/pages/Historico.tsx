@@ -79,10 +79,6 @@ const Historico: React.FC = () => {
             <Text>Progresso</Text>
             <Icon>⚙️</Icon>
           </Item>
-          <Item onClick={() => navigate("/configuracoes")}>
-            <Text>Configurações</Text>
-            <Icon>⚙️</Icon>
-          </Item>
         </SidebarContent>
       </Sidebar>
 

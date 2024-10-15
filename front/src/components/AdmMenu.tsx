@@ -39,10 +39,16 @@ export default function AdmMenu() {
       {isOpen && (
         <DropdownMenu>
           <StyledLink to="/adm" onClick={() => setIsOpen(false)}>
-            Gestão de usuários
+            Gestão de Usuário
+          </StyledLink>
+          <StyledLink to="/info-pessoal" onClick={() => setIsOpen(false)}>
+            Editar Dados Pessoais
+          </StyledLink>
+          <StyledLink to="/cadastro" onClick={() => setIsOpen(false)}>
+            Editar Informações de Usuário
           </StyledLink>
           <StyledLink to="/configuracoes" onClick={() => setIsOpen(false)}>
-            Configurações
+            Sobre
           </StyledLink>
           <MenuItemBorderTop onClick={ handleLogout }>
             Sair

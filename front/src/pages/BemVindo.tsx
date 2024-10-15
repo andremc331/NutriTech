@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import logo from '../logo/logo.nutritech.png';
 import logofundo from '../logo/logofundo.png';
@@ -166,18 +166,36 @@ const JustifiedText = styled.p`
 `;
 
 const BemVindo: React.FC = () => {
+  const [email, setEmail] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
   const navigate = useNavigate();
+
+  const handleLogin = () => {
+    console.log('Email:', email);
+    console.log('Senha:', senha);
+    navigate('/home');
+  };
 
   return (
     <Background>
       <ContainerLeft>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>
-        <Input type="email" className="email-input" />
+        <Input 
+          type="email" 
+          className="email-input" 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} 
+        />
         <PasswordLabel>Senha:</PasswordLabel>
-        <Input type="password" className="password-input" />
+        <Input 
+          type="password" 
+          className="password-input" 
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)} 
+        />
         <MainContent>
-          <Button2 onClick={() => navigate('/home')}>&gt;</Button2>
+          <Button2 onClick={handleLogin}>&gt;</Button2>
         </MainContent>
       </ContainerLeft>
 
