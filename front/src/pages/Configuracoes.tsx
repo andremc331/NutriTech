@@ -1,60 +1,34 @@
 import React from "react";
+import styled from "styled-components"; // Certifique-se de importar styled
 import styled_Configuracoes from "../styled/styled_Configuracoes";
-import { useNavigate } from "react-router-dom";
 
 const {
   ContainerMenu,
   BarraNavegacao,
-  Sidebar,
-  SidebarContent,
-  Item,
-  Text,
   ContainerConfiguracoes,
-  ContainerPerfil,
-  ContainerNotificacoes,
-  ContainerSeguranca,
-  ContainerSobre,
+  ConfiguracoesBody,
 } = styled_Configuracoes();
 
-const Configuracoes: React.FC = () => {
-  const navigate = useNavigate(); // Inicializa o useNavigate
+// Estilo para a palavra "NutriTech"
+const StyledNutriTech = styled.span`
+  color: #e21dd8; 
+`;
 
+const Configuracoes: React.FC = () => {
   return (
-    <ContainerMenu>
-      <BarraNavegacao>
-        <h1>Nome do usuário</h1>
-      </BarraNavegacao>
-      <Sidebar>
-        <SidebarContent>
-          <Item onClick={() => navigate("/home")}>
-            <div className="icon">🏠</div>
-            <Text>Home</Text>
-          </Item>
-          <Item onClick={() => navigate("/historico")}>
-            <div className="icon">🔍</div>
-            <Text>Histórico</Text>
-          </Item>
-          <Item onClick={() => navigate("/cardapio")}>
-            <div className="icon">⚙️</div>
-            <Text>Cardápio</Text>
-          </Item>
-          <Item onClick={() => navigate("/metas")}>
-            <div className="icon">⚙️</div>
-            <Text>Metas</Text>
-          </Item>
-          <Item onClick={() => navigate("/configuracoes")}>
-            <div className="icon">⚙️</div>
-            <Text>Configurações</Text>
-          </Item>
-        </SidebarContent>
-      </Sidebar>
-      <ContainerConfiguracoes>
-        <ContainerPerfil>Perfil</ContainerPerfil>
-        <ContainerNotificacoes>Notificações</ContainerNotificacoes>
-        <ContainerSeguranca>Segurança</ContainerSeguranca>
-        <ContainerSobre>Sobre</ContainerSobre>
-      </ContainerConfiguracoes>
-    </ContainerMenu>
+    <ConfiguracoesBody>
+      <ContainerMenu>
+        <BarraNavegacao>
+          <h1>Nome do usuário</h1>
+        </BarraNavegacao>
+        <ContainerConfiguracoes>
+          <h1>
+            Sobre a Empresa <StyledNutriTech>NutriTech</StyledNutriTech>
+          </h1>
+          <h2>Somos uma companhia dedicada a criação e fornecimento de softwares destinados ao controle nutricional</h2>
+        </ContainerConfiguracoes>
+      </ContainerMenu>
+    </ConfiguracoesBody>
   );
 };
 
