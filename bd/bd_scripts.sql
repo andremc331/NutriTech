@@ -11,7 +11,7 @@ CREATE TABLE usuario (
   idade INT NULL
 );
 
-INSERT INTO usuario(id,email,senha,nome,peso,altura,idade)
+INSERT INTO "Usuario"(id,email,senha,nome,peso,altura,idade)
 VALUES(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
 
 
@@ -26,10 +26,8 @@ CREATE TABLE metas (
     FOREIGN KEY(metas_usuario_id) REFERENCES usuario(id)
 );
 
-
-INSERT INTO metas(id,metas_usuario_id,metas)
+INSERT INTO "Meta"(id,metas_usuario_id,metas)
 VALUES(1,1,'Ganhar Peso')
-
 
 
 --TABELA GRUPO
@@ -39,7 +37,7 @@ CREATE TABLE grupo (
   descricao TEXT NOT NULL
 );
 SELECT * FROM grupo
-INSERT INTO grupo (id,descricao) VALUES
+INSERT INTO "Grupo" (id,descricao) VALUES
  	(1,'Cereais e leguminosas'),
 	(2,'Hortaliças tuberosas'),
 	(3,'Farinhas, féculas e massas'),
@@ -61,8 +59,6 @@ INSERT INTO grupo (id,descricao) VALUES
 	(19,'Miscelâneas');
 
 
-
-
 --TABELA CONTA
 DROP TABLE conta
 CREATE TABLE conta (
@@ -72,7 +68,7 @@ CREATE TABLE conta (
   data_de_cadastro DATE NOT NULL,
   FOREIGN KEY(usuario_id) REFERENCES usuario(id)
 );
-INSERT INTO conta(id,usuario_id,ind_imc,data_de_cadastro)
+INSERT INTO "Conta"(id,usuario_id,ind_imc,data_de_cadastro)
 VALUES(1,1,85.7,'11/08/2000');
 
 
@@ -87,9 +83,8 @@ CREATE TABLE peso (
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
 	FOREIGN KEY(peso_usuario_id) REFERENCES usuario(id)
 ); 
-INSERT INTO peso(id,peso_usuario_id,pesagem,data_registro) VALUES
+INSERT INTO "Peso"(id,peso_usuario_id,pesagem,data_registro) VALUES
 (1,1,75.8,'11/08/2000')
-
 
 
 
@@ -99,7 +94,7 @@ CREATE TABLE preparacao (
   id INTEGER NOT NULL PRIMARY KEY,
   descricao VARCHAR(100) NOT NULL
 );
-INSERT INTO preparacao(id,descricao) VALUES
+INSERT INTO "Preparacao"(id,descricao) VALUES
  	(1,'Cru(a)'),
 	(2,'Cozido(a)'),
 	(3,'Grelhado(a)/brasa/churrasco'),
@@ -119,7 +114,6 @@ INSERT INTO preparacao(id,descricao) VALUES
 
 
 
-
 --TABELA CARDAPIO
 DROP TABLE cardapio
 CREATE TABLE cardapio (
@@ -133,7 +127,7 @@ CREATE TABLE cardapio (
 	FOREIGN KEY (cardapio_preparacao) REFERENCES preparacao(id)
 );
 
-INSERT INTO cardapio(id,cardapio_conta_id,cardapio_preparacao,alimento,data_dos_cardapios)
+INSERT INTO "Cardapio"(id, cardapio_conta_id, cardapio_preparacao,alimento,data_dos_cardapios)
 VALUES(1,1,99,'Banana','11/02/2000');
 
 
@@ -151,7 +145,7 @@ CREATE TABLE alimento (
 
 
 SELECT * FROM alimento;
-INSERT INTO alimento(id,descricao,grupo_id) VALUES
+INSERT INTO "Alimento"(id,descricao,grupo_id) VALUES
 	(6300101,'Arroz(polido,parboilizado,agulha,agulhinha,etc.)',1),
 	(6300201,'Arroz integral',1),
 	(6300701,'Milho (em grão)',1),
@@ -1327,7 +1321,7 @@ DROP TABLE alimento_has_preparacao;
 
 
 
-INSERT INTO alimento_has_preparacao(
+INSERT INTO "AlimentoHasPreparacao"(
 	alimento_id,preparacao_id,energia,proteina,lipidio, carboidrato,fibra,colesterol,agsaturado,agmono,agpoli,aglinoleico,aglinolenico,agtranstotal,acucartotal,
 	acucaradicao,calcio,magnesio,manganes,fosforo,ferro,sodio,sodioadicao,potassio,cobre,zinco,selenio,retinol,vitamina_a,tiamina,riboflavina,niacina,niacina_ne,
 	piridoxina,cobalamina,folato,vitamina_d,vitamina_e,vitamina_c)

@@ -3,8 +3,7 @@ import logo from "../logo/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
-
-const{/*Body*/ImageContainer,FormContainer,Title,FormGroup,Label,Input,Button,ButtonContainer}=styled_Cadastro()
+const { ImageContainer, FormContainer, Title, FormGroup, Label, Input, Button, ButtonContainer } = styled_Cadastro();
 
 const Cadastro: React.FC = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate
@@ -24,6 +23,7 @@ const Cadastro: React.FC = () => {
       [name]: value,
     }));
   };
+
   const Verificar = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
       window.alert(
@@ -34,11 +34,37 @@ const Cadastro: React.FC = () => {
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
+    // Verifica se as senhas são correspondentes
     if (Verificar()) {
-      console.log("Cadastro do usuário:", formData);
-      navigate("/info-pessoal"); // Redireciona para a página info-pessoal
+      try {
+        // Envia os dados do formulário para a API
+        const response = await fetch('/api/cadastrar', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nome: formData.nome,
+            email: formData.email,
+            senha: formData.senha,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          alert(data.error); // Mostra o erro para o usuário
+        } else {
+          console.log("Cadastro do usuário:", data); // Exibe os dados do usuário no console
+          navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
+        }
+      } catch (error) {
+        console.error("Erro ao cadastrar usuário:", error);
+        alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
+      }
     }
   };
 
@@ -111,7 +137,8 @@ const Cadastro: React.FC = () => {
             <Button type="submit">Avançar</Button>
           </ButtonContainer>
         </form>
-      </FormContainer></>
+      </FormContainer>
+    </>
   );
 };
 
