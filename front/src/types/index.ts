@@ -9,6 +9,7 @@ export interface UserContextProps {
   loading: boolean;
   users: UserProps[] | null;
   token: TokenProps | null;
+  currentUser: UserProps | null; // Adicione esta linha
   profile: ProfileProps | null;
   setToken: (value: TokenProps | null) => void;
   login: (mail: string, password: string) => Promise<void>;
@@ -78,9 +79,11 @@ export interface UserProps {
 }
 
 // Token Properties
-export interface TokenProps extends UserProps {
+export interface TokenProps {
   token: string;
-  user: number;
+  user: UserProps; // Assumindo que UserProps tem as propriedades necessárias
+  alias: string; // Adicionando a propriedade alias
+  mail: string; // Adicionando a propriedade mail
 }
 
 // Profile Properties
@@ -208,6 +211,10 @@ export interface ValueProps {
 // Error Properties
 export interface ErrorProps {
   error: string;
+  token: string;
+  user: UserProps;
+  alias: string;
+  mail: string;
 }
 
 // Provider Properties

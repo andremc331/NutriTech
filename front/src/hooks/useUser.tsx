@@ -1,7 +1,11 @@
 import { useState, useContext, createContext, ReactNode } from "react";
 import user from "../services/User"; // Importando o serviço
-import { TokenProps, UserProps, ErrorProps } from "../types";
+import { TokenProps, UserProps, ErrorProps, ProviderProps } from "../types/index";
 
+// Definindo o contexto do usuário
+const UserContext = createContext<UserContextType | null>(null);
+
+// Tipo para o contexto do usuário
 interface UserContextType {
   currentUser: UserProps | null;
   login: (mail: string, password: string) => Promise<void>;
@@ -11,8 +15,6 @@ interface UserContextType {
   updateMail: (mail: string) => Promise<void>;
   updatePassword: (password: string) => Promise<void>;
 }
-
-const UserContext = createContext<UserContextType | null>(null);
 
 // Hook para usar o contexto do usuário
 export function useUser() {
@@ -24,15 +26,15 @@ export function useUser() {
 }
 
 // Provider para envolver a aplicação e fornecer o contexto do usuário
-export function UserProvider({ children }: { children: ReactNode }) {
+export function UserProvider({ children }: ProviderProps) {
   const [currentUser, setCurrentUser] = useState<UserProps | null>(null);
 
   const login = async (mail: string, password: string) => {
     try {
-      const data = await user.login(mail, password);
-      if ('token' in data) {
-        localStorage.setItem("token", data.token); // Armazena o token localmente
-        setCurrentUser(data.user); // Supondo que o backend retorne o usuário no login
+      const data: TokenProps = await user.login(mail, password);
+      if ('token' in data && 'user' in data) {
+        localStorage.setItem("token", data.token);
+        setCurrentUser(data.user);
       } else {
         throw new Error("Erro no login");
       }
@@ -45,8 +47,8 @@ export function UserProvider({ children }: { children: ReactNode }) {
     try {
       const data = await user.create(alias, mail, password);
       if ('token' in data) {
-        localStorage.setItem("token", data.token); // Armazena o token localmente
-        setCurrentUser(data.user); // Supondo que o backend retorne o usuário no cadastro
+        localStorage.setItem("token", data.token);
+        setCurrentUser(data.user);
       } else {
         throw new Error("Erro na criação do usuário");
       }
@@ -57,7 +59,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     localStorage.removeItem("token");
-    setCurrentUser(null); // Limpa o estado de autenticação
+    setCurrentUser(null);
   };
 
   const updateAlias = async (alias: string) => {
@@ -94,7 +96,17 @@ export function UserProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <UserContext.Provider value={{ currentUser, login, createUser, logout, updateAlias, updateMail, updatePassword }}>
+    <UserContext.Provider
+      value={{
+        currentUser,
+        login,
+        createUser,
+        logout,
+        updateAlias,
+        updateMail,
+        updatePassword,
+      }}
+    >
       {children}
     </UserContext.Provider>
   );
