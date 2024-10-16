@@ -2,22 +2,20 @@ import { Router, Request, Response } from "express";
 import { UserController as controller } from "../controllers";
 import { checkAdm, validadeAcess } from "../middlewares";
 import jwt from "jsonwebtoken"; // Supondo que você use JWT para autenticação
-import 
 
 const routes = Router();
 
 // Rota para criar um novo usuário
 routes.post("/", async (req: Request, res: Response) => {
     try {
-        const newUser = await controller.create(req, res); // Lógica de criação do usuário
+        const newUser = await controller.create(req, res); // O método agora retorna o usuário
         if (newUser) {
-            // Gera um token JWT com os dados do usuário (incluindo alias)
             const token = jwt.sign(
-                { alias: newUser.alias, id: newUser.id }, // Supondo que esses dados estão no usuário criado
-                process.env.JWT_SECRET || "secret_key", // Use sua chave secreta
+                { alias: newUser.alias, id: newUser.id }, 
+                process.env.JWT_SECRET || "secret_key", 
                 { expiresIn: "1h" }
             );
-            res.status(201).json({ token, alias: newUser.alias }); // Retorna o token e alias
+            res.status(201).json({ token, alias: newUser.alias });
         }
     } catch (error) {
         res.status(500).json({ error: "Erro ao criar usuário" });
@@ -28,7 +26,11 @@ routes.post("/", async (req: Request, res: Response) => {
 routes.put("/alias", validadeAcess, async (req: Request, res: Response) => {
     try {
         const updatedUser = await controller.updateAlias(req, res);
-        res.status(200).json({ message: "Alias atualizado com sucesso", alias: updatedUser.alias });
+        if (updatedUser) {
+            res.status(200).json({ message: "Alias atualizado com sucesso", alias: updatedUser.alias });
+        } else {
+            res.status(404).json({ error: "Usuário não encontrado" });
+        }
     } catch (error) {
         res.status(500).json({ error: "Erro ao atualizar alias" });
     }

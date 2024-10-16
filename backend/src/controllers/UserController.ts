@@ -48,39 +48,50 @@ class UserController {
     }
   };
 
-  public create = async (req: Request, res: Response): Promise<void> => {
+  public create = async (req: Request, res: Response): Promise<any> => {
     const { alias, mail, password } = req.body;
 
     if (!alias) {
-      res.json({ error: "Forneça o nome de usuário" });
+        res.json({ error: "Forneça o nome de usuário" });
+        return;
     } else if (!mail) {
-      res.json({ error: "Forneça o e-mail" });
+        res.json({ error: "Forneça o e-mail" });
+        return;
     } else if (!password || password.trim().length < 6) {
-      res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
+        res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
+        return;
     } else {
-      const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+        const hashedPassword = await bcrypt.hash(password, this.saltRounds);
 
-      try {
-        const result: any = await query(
-          `INSERT INTO users(alias,mail,password) 
-          VALUES($1,$2,$3)
-          RETURNING id::varchar, alias, mail, role`,
-          [alias, mail, hashedPassword]
-        );
+        try {
+            const result: any = await query(
+                `INSERT INTO users(alias,mail,password) 
+                VALUES($1,$2,$3)
+                RETURNING id::varchar, alias, mail, role`,
+                [alias, mail, hashedPassword]
+            );
 
-        res.json({ ...result, token: tokenize(result) });
-      } catch (e: any) {
-        if (e.message.includes("duplicate key")) {
-          res.status(409).json({
-            error:
-              "O e-mail fornecido já está em uso. Por favor, forneça um e-mail diferente",
-          });
-        } else {
-          res.status(502).json({ error: e.message });
+            if (result.rows.length > 0) {
+                const user = result.rows[0];
+                // Retorna o usuário e a resposta
+                return user;
+            } else {
+                res.status(400).json({ error: "Erro ao criar o usuário" });
+                return;
+            }
+
+        } catch (e: any) {
+            if (e.message.includes("duplicate key")) {
+                res.status(409).json({
+                    error: "O e-mail fornecido já está em uso. Por favor, forneça um e-mail diferente",
+                });
+            } else {
+                res.status(502).json({ error: e.message });
+            }
+            return;
         }
-      }
     }
-  };
+};
 
   public async list(_: Request, res: Response): Promise<void> {
     try {
@@ -93,29 +104,31 @@ class UserController {
     }
   }
 
-  public async updateAlias(req: Request, res: Response): Promise<void> {
+  public async updateAlias(req: Request, res: Response): Promise<any> {
     const { alias } = req.body;
     const { id } = res.locals;
     if (!alias) {
-      res.json({ error: "Forneça o nome de usuário" });
+        res.json({ error: "Forneça o nome de usuário" });
     } else {
-      try {
-        const result: any = await query(
-          "UPDATE users SET alias=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
-          [id, alias]
-        );
-        if (result.rowcount > 0) {
-          res.json(result.rows);
-        } else if (result.rowcount == 0) {
-          res.json({ error: "Registro inexistente" });
-        } else {
-          res.json(result);
+        try {
+            const result: any = await query(
+                "UPDATE users SET alias=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
+                [id, alias]
+            );
+            if (result.rowcount > 0) {
+                return result.rows[0]; // Retorna o usuário atualizado
+            } else if (result.rowcount == 0) {
+                res.json({ error: "Registro inexistente" });
+                return;
+            } else {
+                return result;
+            }
+        } catch (e: any) {
+            res.status(502).json({ error: e.message });
+            return;
         }
-      } catch (e: any) {
-        res.status(502).json({ error: e.message });
-      }
     }
-  }
+}
 
   public async updateMail(req: Request, res: Response): Promise<void> {
     const { mail } = req.body;
@@ -148,33 +161,30 @@ class UserController {
     }
   }
 
-  public updatePassword = async (
-    req: Request,
-    res: Response
-  ): Promise<void> => {
+  public updatePassword = async (req: Request, res: Response): Promise<void> => {
     const { password } = req.body;
     const { id } = res.locals;
+
     if (!password || password.trim().length < 6) {
-      res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
+        res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
     } else {
-      try {
-        const hashedPassword = await bcrypt.hash(password, this.saltRounds);
-        const result: any = await query(
-          "UPDATE users SET password=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
-          [id, hashedPassword]
-        );
-        if (result.rowcount > 0) {
-          res.json(result.rows);
-        } else if (result.rowcount == 0) {
-          res.json({ error: "Registro inexistente" });
-        } else {
-          res.json(result);
+        try {
+            const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+            const result: any = await query(
+                "UPDATE users SET password=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
+                [id, hashedPassword]
+            );
+
+            if (result.rowCount > 0) {
+                res.json(result.rows[0]);  // Retorna o usuário atualizado
+            } else {
+                res.status(404).json({ error: "Registro inexistente" });
+            }
+        } catch (e: any) {
+            res.status(502).json({ error: e.message });
         }
-      } catch (e: any) {
-        res.status(502).json({ error: e.message });
-      }
     }
-  };
+};
 
   public async updateProfile(req: Request, res: Response): Promise<void> {
     const { id, role } = req.body;

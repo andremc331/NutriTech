@@ -10,6 +10,11 @@ interface User {
   email: string;
 }
 
+interface UserContextType {
+  token: User | null;  // token será um objeto User ou null
+  logout: () => void;  // Adiciona a função logout ao tipo
+}
+
 // Definindo o tipo do token
 interface Token {
   alias: string; // Supondo que o token tenha uma propriedade 'alias'

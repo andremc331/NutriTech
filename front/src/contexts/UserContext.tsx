@@ -12,6 +12,7 @@ import { Profile, User } from "../services";
 import { useNavigate } from "react-router-dom";
 import { loadFromLocalStorage } from "../utils/localStorage";
 import { isErrorProps } from "../utils";
+import user from "../services/User";
 
 //export const UserContext = createContext({} as UserContextProps);
 export const UserContext = createContext<UserContextProps | undefined>(
@@ -39,26 +40,30 @@ export function UserProvider({ children }: ProviderProps) {
   }, [navigate]); // Dependência vazia para garantir que seja executado apenas na montagem
 
   const login = async (mail: string, password: string) => {
-    const response = await User.login(mail, password);
-    if (isErrorProps(response)) {
-      setError(response);
-    } else {
-      setError(null);
-      setToken(response);
-      saveToLocalStorage("user", response);
-      navigate("/"); // Navega para a página inicial após o login
+    try {
+      const data = await user.login(mail, password);
+      if ('token' in data && 'user' in data) {  // Verifica se tanto o token quanto o user estão presentes
+        localStorage.setItem("token", data.token); // Armazena o token localmente
+        setCurrentUser(data.user); // Atualiza o estado com o usuário logado
+      } else {
+        throw new Error("Erro no login");
+      }
+    } catch (error) {
+      console.error("Erro no login:", error);
     }
   };
-
-  const create = async (alias: string, mail: string, password: string) => {
-    const response = await User.create(alias, mail, password);
-    if (isErrorProps(response)) {
-      setError(response);
-    } else {
-      setError(null);
-      setToken(response);
-      saveToLocalStorage("user", response);
-      navigate("/"); // Navega para a página inicial após a criação do usuário
+  
+  const createUser = async (alias: string, mail: string, password: string) => {
+    try {
+      const data = await user.create(alias, mail, password);
+      if ('token' in data && 'user' in data) {  // Verifica se tanto o token quanto o user estão presentes
+        localStorage.setItem("token", data.token); // Armazena o token localmente
+        setCurrentUser(data.user); // Atualiza o estado com o novo usuário
+      } else {
+        throw new Error("Erro na criação do usuário");
+      }
+    } catch (error) {
+      console.error("Erro ao criar usuário:", error);
     }
   };
 
@@ -189,7 +194,7 @@ export function UserProvider({ children }: ProviderProps) {
         users,
         login,
         logout,
-        create,
+        createUser,
         getUsers,
         updateRole,
         error,
@@ -205,3 +210,7 @@ export function UserProvider({ children }: ProviderProps) {
     </UserContext.Provider>
   );
 }
+function setCurrentUser(user: unknown) {
+  throw new Error("Function not implemented.");
+}
+
