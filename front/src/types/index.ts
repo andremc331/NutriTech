@@ -7,11 +7,11 @@ import { ReactNode } from "react";
 // User Context
 export interface UserContextProps {
   loading: boolean;
-  users: UserProps[] | null;
-  token: TokenProps | null;
-  currentUser: UserProps | null; // Adicione esta linha
+  token: TokenProps | null; // Corrigido para incluir a estrutura do token
+  currentUser: UserProps | null;
   profile: ProfileProps | null;
-  setToken: (value: TokenProps | null) => void;
+  setToken: (token: TokenProps | null) => void;
+  users: UserProps[] | null;
   login: (mail: string, password: string) => Promise<void>;
   logout: () => void;
   createUser: (alias: string, mail: string, password: string) => Promise<void>;
@@ -221,3 +221,5 @@ export interface ErrorProps {
 export interface ProviderProps {
   children: ReactNode;
 }
+
+export type UserResponse = TokenProps | ErrorProps; 

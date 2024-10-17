@@ -48,46 +48,30 @@ export function ProductProvider({ children }: ProviderProps) {
     return [];
   }
 
-  async function create(
-    description: string,
-    serving_size: number,
-    serving_size_unit: string,
-    quantity_per_serving: number,
-    quantity_per_serving_unit: string,
-    energy: number | null,
-    protein: number | null,
-    carbohydrate: number | null,
-    sugar: number | null,
-    dietary_fiber: number | null,
-    total_fat: number | null,
-    saturated_fat: number | null,
-    trans_fat: number | null,
-    calcium: number | null,
-    sodium: number | null
-  ): Promise<boolean> {
+  async function create(productData: ProductNutrientsProps): Promise<boolean> {
     try {
       const response = await Product.create(
-        description,
-        serving_size,
-        serving_size_unit,
-        quantity_per_serving,
-        quantity_per_serving_unit,
-        energy,
-        protein,
-        carbohydrate,
-        sugar,
-        dietary_fiber,
-        total_fat,
-        saturated_fat,
-        trans_fat,
-        calcium,
-        sodium
+        productData.description,
+        productData.serving_size,
+        productData.serving_size_unit,
+        productData.quantity_per_serving,
+        productData.quantity_per_serving_unit,
+        productData.energy,
+        productData.protein,
+        productData.carbohydrate,
+        productData.sugar,
+        productData.dietary_fiber,
+        productData.total_fat,
+        productData.saturated_fat,
+        productData.trans_fat,
+        productData.calcium,
+        productData.sodium
       );
       if (isErrorProps(response)) {
         setError(response);
         return false;
       } else {
-        getUserProducts();
+        await getUserProducts(); // Usar await para garantir que os produtos sejam recarregados antes de retornar
         setError(null);
         return true;
       }
@@ -96,49 +80,32 @@ export function ProductProvider({ children }: ProviderProps) {
       return false;
     }
   }
-
-  async function update(
-    id: string,
-    description: string,
-    serving_size: number,
-    serving_size_unit: string,
-    quantity_per_serving: number,
-    quantity_per_serving_unit: string,
-    energy: number | null,
-    protein: number | null,
-    carbohydrate: number | null,
-    sugar: number | null,
-    dietary_fiber: number | null,
-    total_fat: number | null,
-    saturated_fat: number | null,
-    trans_fat: number | null,
-    calcium: number | null,
-    sodium: number | null
-  ): Promise<boolean> {
+  
+  async function update(id: string, productData: ProductNutrientsProps): Promise<boolean> {
     try {
       const response = await Product.update(
         id,
-        description,
-        serving_size,
-        serving_size_unit,
-        quantity_per_serving,
-        quantity_per_serving_unit,
-        energy,
-        protein,
-        carbohydrate,
-        sugar,
-        dietary_fiber,
-        total_fat,
-        saturated_fat,
-        trans_fat,
-        calcium,
-        sodium
+        productData.description,
+        productData.serving_size,
+        productData.serving_size_unit,
+        productData.quantity_per_serving,
+        productData.quantity_per_serving_unit,
+        productData.energy,
+        productData.protein,
+        productData.carbohydrate,
+        productData.sugar,
+        productData.dietary_fiber,
+        productData.total_fat,
+        productData.saturated_fat,
+        productData.trans_fat,
+        productData.calcium,
+        productData.sodium
       );
       if (isErrorProps(response)) {
         setError(response);
         return false;
       } else {
-        getUserProducts();
+        await getUserProducts(); // Usar await para garantir que os produtos sejam recarregados antes de retornar
         setError(null);
         return true;
       }

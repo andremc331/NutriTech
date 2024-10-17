@@ -1,4 +1,4 @@
-import { ErrorProps, TokenProps, UserProps } from "../types";
+import { ErrorProps, TokenProps, UserProps, UserResponse } from "../types";
 import axios from "axios";
 
 // Criação da instância do axios com a URL base
@@ -17,7 +17,7 @@ api.interceptors.request.use((config) => {
 
 class User {
   // Função para login do usuário
-  async login(mail: string, password: string): Promise<TokenProps | ErrorProps> {
+  async login(mail: string, password: string): Promise<UserResponse> {
     try {
       const { data } = await api.post("/login", { mail, password });
       return data;
@@ -27,7 +27,7 @@ class User {
   }
 
   // Função para criar um novo usuário
-  async create(alias: string, mail: string, password: string): Promise<TokenProps | ErrorProps> {
+  async create(alias: string, mail: string, password: string): Promise<UserResponse> {
     try {
       const { data } = await api.post("/user", { alias, mail, password });
       return data;

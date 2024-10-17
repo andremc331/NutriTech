@@ -14,8 +14,8 @@ import { UserProvider } from './contexts';
 
 const App: React.FC = () => {
     return (
-        <UserProvider>
             <Router>
+                <UserProvider>
                 <Routes>
                     {/* Define as rotas para cada página */}
                     <Route path="/" element={<Navigate to="/bem-vindo" />} />
@@ -30,8 +30,8 @@ const App: React.FC = () => {
                     <Route path="/metas" element={<Progresso />} />
                     <Route path="/configuracoes" element={<Configuracoes />} />
                 </Routes>
+                </UserProvider>
             </Router>
-        </UserProvider>
     );
 };
 

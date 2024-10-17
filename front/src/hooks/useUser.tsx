@@ -1,12 +1,12 @@
 import { useState, useContext, createContext, ReactNode } from "react";
 import user from "../services/User"; // Importando o serviço
-import { TokenProps, UserProps, ErrorProps, ProviderProps } from "../types/index";
+import { TokenProps, UserProps, ErrorProps, ProviderProps, UserResponse } from "../types/index";
 
 // Definindo o contexto do usuário
 const UserContext = createContext<UserContextType | null>(null);
 
 // Tipo para o contexto do usuário
-interface UserContextType {
+export interface UserContextType {
   currentUser: UserProps | null;
   login: (mail: string, password: string) => Promise<void>;
   createUser: (alias: string, mail: string, password: string) => Promise<void>;
@@ -14,6 +14,7 @@ interface UserContextType {
   updateAlias: (alias: string) => Promise<void>;
   updateMail: (mail: string) => Promise<void>;
   updatePassword: (password: string) => Promise<void>;
+  token: () => string | null; // Alterando para retornar o token
 }
 
 // Hook para usar o contexto do usuário
@@ -31,18 +32,20 @@ export function UserProvider({ children }: ProviderProps) {
 
   const login = async (mail: string, password: string) => {
     try {
-      const data: TokenProps = await user.login(mail, password);
-      if ('token' in data && 'user' in data) {
+      const data: UserResponse = await user.login(mail, password);
+      
+      // Verifique se data é do tipo TokenProps
+      if ('token' in data) {
         localStorage.setItem("token", data.token);
         setCurrentUser(data.user);
       } else {
-        throw new Error("Erro no login");
+        // Para o caso de que data não corresponda a nenhum dos tipos esperados
+        throw new Error("Erro inesperado no login");
       }
     } catch (error) {
       console.error("Erro no login:", error);
-    }
+    }  
   };
-
   const createUser = async (alias: string, mail: string, password: string) => {
     try {
       const data = await user.create(alias, mail, password);
@@ -62,37 +65,53 @@ export function UserProvider({ children }: ProviderProps) {
     setCurrentUser(null);
   };
 
-  const updateAlias = async (alias: string) => {
-    try {
-      const updatedUser = await user.updateAlias(alias);
-      if (!("error" in updatedUser)) {
-        setCurrentUser(updatedUser);
-      }
-    } catch (error) {
-      console.error("Erro ao atualizar o alias:", error);
+ const updateAlias = async (alias: string) => {
+  try {
+    const updatedUser = await user.updateAlias(alias);
+    
+    // Verifique se updatedUser é do tipo UserProps
+    if ('id' in updatedUser) { // Verifique se tem uma propriedade que só UserProps teria
+      setCurrentUser(updatedUser);
+    } else {
+      // Se não, assumimos que é um erro
+      throw new Error(updatedUser.error || "Erro ao atualizar o alias");
     }
-  };
+  } catch (error) {
+    console.error("Erro ao atualizar o alias:", error);
+  }
+};
 
-  const updateMail = async (mail: string) => {
-    try {
-      const updatedUser = await user.updateMail(mail);
-      if (!("error" in updatedUser)) {
-        setCurrentUser(updatedUser);
-      }
-    } catch (error) {
-      console.error("Erro ao atualizar o email:", error);
+const updateMail = async (mail: string) => {
+  try {
+    const updatedUser = await user.updateMail(mail);
+    
+    if ('id' in updatedUser) {
+      setCurrentUser(updatedUser);
+    } else {
+      throw new Error(updatedUser.error || "Erro ao atualizar o email");
     }
-  };
+  } catch (error) {
+    console.error("Erro ao atualizar o email:", error);
+  }
+};
 
-  const updatePassword = async (password: string) => {
-    try {
-      const updatedUser = await user.updatePassword(password);
-      if (!("error" in updatedUser)) {
-        setCurrentUser(updatedUser);
-      }
-    } catch (error) {
-      console.error("Erro ao atualizar a senha:", error);
+const updatePassword = async (password: string) => {
+  try {
+    const updatedUser = await user.updatePassword(password);
+    
+    if ('id' in updatedUser) {
+      setCurrentUser(updatedUser);
+    } else {
+      throw new Error(updatedUser.error || "Erro ao atualizar a senha");
     }
+  } catch (error) {
+    console.error("Erro ao atualizar a senha:", error);
+  }
+};
+
+  // Função para obter o token
+  const token = () => {
+    return localStorage.getItem("token");
   };
 
   return (
@@ -105,6 +124,7 @@ export function UserProvider({ children }: ProviderProps) {
         updateAlias,
         updateMail,
         updatePassword,
+        token,
       }}
     >
       {children}
