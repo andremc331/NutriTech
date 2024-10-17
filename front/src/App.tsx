@@ -10,7 +10,7 @@ import Cardapio from './pages/Cardapio';
 import Historico from './pages/Historico';
 import Progresso from './pages/Progresso';
 import Configuracoes from './pages/Configuracoes';
-import { UserProvider } from './contexts';
+import { UserProvider } from './hooks/useUser';
 
 const App: React.FC = () => {
     return (

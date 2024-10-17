@@ -39,21 +39,24 @@ export function UserProvider({ children }: ProviderProps) {
   const login = async (mail: string, password: string) => {
     try {
       const data = await user.login(mail, password);
-      if ('token' in data && 'user' in data) {  
+      if (data.token && data.user) {
         localStorage.setItem("token", data.token);
   
-        // Cria um objeto TokenProps com todas as propriedades necessárias
+        // Cria um objeto TokenProps corretamente
         const tokenData: TokenProps = {
           token: data.token,
-          user: data.user, // Incluindo o usuário retornado
-          alias: data.user.alias, // Supondo que o alias esteja dentro do objeto user
-          mail: data.user.mail, // Supondo que o email esteja dentro do objeto user
+          user: {
+            id: data.user.id,
+            alias: data.user.alias || "", // Proteção contra undefined no alias
+            mail: data.user.mail || "",   // Proteção contra undefined no mail
+            role: data.user.role || "",    // Proteção contra undefined no role
+          },
         };
-        
-        setCurrentUser(data.user);
+  
+        setCurrentUser(data.user); // Mantenha currentUser se necessário
         setToken(tokenData); // Atualiza o token com o objeto correto
       } else {
-        throw new Error("Erro no login");
+        throw new Error("Erro no login: token ou usuário inválido");
       }
     } catch (error) {
       console.error("Erro no login:", error);
@@ -63,21 +66,24 @@ export function UserProvider({ children }: ProviderProps) {
   const createUser = async (alias: string, mail: string, password: string) => {
     try {
       const data = await user.create(alias, mail, password);
-      if ('token' in data && 'user' in data) {  
+      if (data.token && data.user) {
         localStorage.setItem("token", data.token);
   
-        // Cria um objeto TokenProps com todas as propriedades necessárias
+        // Cria um objeto TokenProps corretamente
         const tokenData: TokenProps = {
           token: data.token,
-          user: data.user, // Incluindo o usuário retornado
-          alias: data.user.alias, // Supondo que o alias esteja dentro do objeto user
-          mail: data.user.mail, // Supondo que o email esteja dentro do objeto user
+          user: {
+            id: data.user.id,
+            alias: data.user.alias || "",
+            mail: data.user.mail || "",
+            role: data.user.role || "",
+          },
         };
-        
-        setCurrentUser(data.user);
+  
+        setCurrentUser(data.user); // Mantenha currentUser se necessário
         setToken(tokenData); // Atualiza o token com o objeto correto
       } else {
-        throw new Error("Erro na criação do usuário");
+        throw new Error("Erro na criação do usuário: token ou usuário inválido");
       }
     } catch (error) {
       console.error("Erro ao criar usuário:", error);

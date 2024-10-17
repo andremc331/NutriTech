@@ -81,9 +81,13 @@ export interface UserProps {
 // Token Properties
 export interface TokenProps {
   token: string;
-  user: UserProps; // Assumindo que UserProps tem as propriedades necessárias
-  alias: string; // Adicionando a propriedade alias
-  mail: string; // Adicionando a propriedade mail
+  user: {
+    id: string;
+    alias: string;
+    mail: string;
+    role: string;
+    // Outras propriedades opcionais
+  };
 }
 
 // Profile Properties
@@ -211,10 +215,10 @@ export interface ValueProps {
 // Error Properties
 export interface ErrorProps {
   error: string;
-  token: string;
-  user: UserProps;
-  alias: string;
-  mail: string;
+  token?: string; // Opcional, pois em erros o token pode não estar presente
+  user?: UserProps; // Opcional, pois em erros o usuário pode não estar presente
+  alias?: string;
+  mail?: string;
 }
 
 // Provider Properties

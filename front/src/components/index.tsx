@@ -1,3 +1,4 @@
+import React, { useEffect, useState } from "react";
 import Error from "./Error";
 import InputSearch from "./InputSearch";
 import Header from "./Header";
@@ -23,17 +24,40 @@ import AdmMenu from "./AdmMenu";
 import TableUser from "./TableUser";
 import { api } from '../services/api';
 
-const fetchData = async () => {
-  try {
-    const response = await api.get('/seu-endpoint'); // Chama um endpoint do backend
-    console.log(response.data);
-  } catch (error) {
-    console.error('Erro ao buscar dados:', error);
-  }
+const DataFetchingComponent = () => {
+    const [data, setData] = useState(null);
+    const [error, setError] = useState(null);
+
+    const fetchData = async () => {
+        try {
+            const response = await api.get('/seu-endpoint'); // Chama um endpoint do backend
+            setData(response.data); // Armazena os dados no estado
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+            setError('Erro ao buscar dados');
+        }
+    };
+
+    useEffect(() => {
+        fetchData(); // Chama a função para buscar os dados quando o componente é montado
+    }, []);
+
+    return (
+        <div>
+            <Header />
+            {error && <Error message={error} />} {/* Exibe uma mensagem de erro se houver */}
+            {data ? (
+                <ListFood data={data} /> // Renderiza a lista de alimentos se os dados estiverem disponíveis
+            ) : (
+                <p>Carregando dados...</p> // Exibe um carregando enquanto os dados estão sendo buscados
+            )}
+        </div>
+    );
 };
 
-fetchData(); // Chama a função para buscar os dados
+export default DataFetchingComponent;
 
+// Exportando os componentes
 export {
     AdmMenu,
     Button,
@@ -58,4 +82,4 @@ export {
     TableEatFood,
     TableUser,
     UserMenu
-}
+};

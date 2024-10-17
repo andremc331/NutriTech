@@ -19,20 +19,20 @@ class User {
   // Função para login do usuário
   async login(mail: string, password: string): Promise<UserResponse> {
     try {
-      const { data } = await api.post("/login", { mail, password });
-      return data;
+      const response = await api.post('/login', { mail, password });
+      return response.data as TokenProps;
     } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+      return { error: 'Erro na requisição de login' };
     }
   }
 
-  // Função para criar um novo usuário
+  // Função para criar um usuário
   async create(alias: string, mail: string, password: string): Promise<UserResponse> {
     try {
-      const { data } = await api.post("/user", { alias, mail, password });
-      return data;
+      const response = await api.post('/createUser', { alias, mail, password });
+      return response.data as TokenProps;
     } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+      return { error: 'Erro na criação do usuário' };
     }
   }
 
