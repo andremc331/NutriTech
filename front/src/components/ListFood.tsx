@@ -6,12 +6,13 @@ export default function ListFood() {
   const { pageFoods, getFoodsByPage, getById } = useFood();
 
   if (!pageFoods || pageFoods.items.length === 0) {
-    return <></>;
+    return <></>; // Retorna vazio se não houver alimentos
   }
 
-  // obtém a quantidade de páginas
+  // Calcula o total de páginas
   const pageTotal = Math.ceil(pageFoods.total / pageFoods.pagesize);
 
+  // Mapeia os itens da página atual para renderizar a lista
   const lines = pageFoods.items.map((item, index) => (
     <LineSld key={index} onClick={() => getById(item.id)}>
       {item.description}
@@ -34,7 +35,7 @@ export default function ListFood() {
           disabled={pageFoods.page === 1}
         />
         <NumberSld>
-          {pageFoods.page} | {pageTotal}{" "}
+          {pageFoods.page} | {pageTotal}
         </NumberSld>
         <NavigateButton
           label=">"
@@ -84,7 +85,7 @@ const BottomSld = styled.div`
   align-items: center;
   font-weight: bold;
   padding: 10px 10px 5px 10px;
-  border-top: 1px solid #F5F5F5;
+  border-top: 1px solid #f5f5f5;
 `;
 
 const NumberSld = styled.div`
