@@ -2,39 +2,23 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routes from "./routes";
-import 'reflect-metadata';
-import { AppDataSource } from "./database/data-source";  // Importe a configuração do banco de dados
-import { validadeAcess } from "./middlewares/index";
-
 dotenv.config();
 
-// Será usada a porta 3000 se a variável de ambiente não tiver sido definida
+// será usado 3000 se a variável de ambiente não tiver sido definida
 const PORT = process.env.PORT || 3011;
 
-const app = express(); // Cria o servidor e coloca na variável app
+const app = express(); // cria o servidor e coloca na variável app
 
-// Suportar parâmetros JSON no body da requisição
+// suportar parâmetros JSON no body da requisição
 app.use(express.json());
 
-// Configura o servidor para receber requisições de qualquer domínio
+// configura o servidor para receber requisições de qualquer domínio
 app.use(cors());
 
-// Middleware de autenticação global
-app.use(validadeAcess);
+// inicializa o servidor na porta especificada
+app.listen(PORT, () => {
+    console.log(`Rodando na porta ${PORT}...`);
+});
 
-// Inicializa a conexão com o banco de dados e só então sobe o servidor
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Conexão com o banco de dados estabelecida!");
-
-    // Define as rotas
-    app.use(routes);
-
-    // Inicializa o servidor na porta especificada
-    app.listen(PORT, () => {
-      console.log(`Rodando na porta ${PORT}...`);  // Corrigido para usar a variável PORT
-    });
-  })
-  .catch((error) => {
-    console.error("Erro ao conectar ao banco de dados:", error);
-  });
+// define a rota para o pacote /routes
+app.use(routes);

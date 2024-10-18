@@ -1,40 +1,50 @@
 # Script para popular o banco com dados iniciais
 
-select * from "Usuario"
+create DATABASE bdnutrient;
+
+select * from users
 
 -- TABELA USUARIO
-CREATE TABLE "Usuario" (
-  id INTEGER NOT NULL PRIMARY KEY,
+DROP TABLE IF EXISTS conta, users, meta, grupo, cardapio, peso, alimento, preparacao, alimento_has_preparacao;
+
+CREATE TYPE enum_sex AS ENUM ('female', 'male');
+CREATE TYPE enum_role AS ENUM ('user', 'adm');
+
+ALTER COLUMN senha TYPE VARCHAR(200);
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
   email VARCHAR(45) NOT NULL,
-  senha VARCHAR(8) NOT NULL,
-  nome CHAR(20) NULL,
+  senha VARCHAR(200) NOT NULL,
+  nome CHAR(50) NULL,
+  role enum_role NOT NULL DEFAULT 'user',
   peso FLOAT NULL,
   altura FLOAT NULL,
   idade INT NULL
 );
 
-INSERT INTO "Usuario"(id,email,senha,nome,peso,altura,idade)
+INSERT INTO users(id,email,senha,nome,peso,altura,idade)
 VALUES(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
 
 
 
 --TABELA METAS
-DROP TABLE "Meta"
+DROP TABLE meta
 CREATE DOMAIN chk_metas TEXT CHECK(value='Ganhar peso' or value='Perder peso' or value='Manter Peso');
 CREATE TABLE "Meta" (
 	id INTEGER NOT NULL PRIMARY KEY,
     metas_usuario_id INTEGER NOT NULL,
     metas chk_metas,
-    FOREIGN KEY(metas_usuario_id) REFERENCES "Usuario"(id)
+    FOREIGN KEY(metas_usuario_id) REFERENCES users(id)
 );
 
-INSERT INTO "Meta"(id,metas_usuario_id,metas)
+INSERT INTO meta(id,metas_usuario_id,metas)
 VALUES(1,1,'Ganhar peso')
 
 
 --TABELA GRUPO
 DROP TABLE grupo;
-CREATE TABLE "Grupo" (
+CREATE TABLE grupo (
   id INTEGER NOT NULL PRIMARY KEY,
   descricao TEXT NOT NULL
 );
@@ -63,14 +73,14 @@ INSERT INTO "Grupo" (id,descricao) VALUES
 
 --TABELA CONTA
 DROP TABLE conta
-CREATE TABLE "Conta" (
+CREATE TABLE conta (
   id INTEGER NOT NULL PRIMARY KEY,
   usuario_id INTEGER NOT NULL,
   ind_imc FLOAT NOT NULL,
   data_de_cadastro DATE NOT NULL,
-  FOREIGN KEY(usuario_id) REFERENCES "Usuario"(id)
+  FOREIGN KEY(usuario_id) REFERENCES conta(id)
 );
-INSERT INTO "Conta"(id,usuario_id,ind_imc,data_de_cadastro)
+INSERT INTO conta(id,usuario_id,ind_imc,data_de_cadastro)
 VALUES(1,1,85.7,'11/08/2000');
 
 
@@ -78,26 +88,26 @@ VALUES(1,1,85.7,'11/08/2000');
 
 --TABELA PESO
 DROP TABLE peso
-select * from "Peso"
-CREATE TABLE "Peso" (
+select * from peso
+CREATE TABLE peso (
 	id INTEGER NOT NULL PRIMARY KEY,          
     peso_usuario_id INTEGER NOT NULL,        
     pesagem DECIMAL(5, 2) NOT NULL,    
     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-	FOREIGN KEY(peso_usuario_id) REFERENCES "Usuario"(id)
+	FOREIGN KEY(peso_usuario_id) REFERENCES users(id)
 ); 
-INSERT INTO "Peso"(id,peso_usuario_id,pesagem,data_registro) VALUES
+INSERT INTO peso(id,peso_usuario_id,pesagem,data_registro) VALUES
 (1,1,75.8,'11/08/2000')
 
 
 
 --TABELA PREPARAÇÃO
 DROP TABLE preparacao
-CREATE TABLE "Preparacao" (
+CREATE TABLE preparacao (
   id INTEGER NOT NULL PRIMARY KEY,
   descricao VARCHAR(100) NOT NULL
 );
-INSERT INTO "Preparacao"(id,descricao) VALUES
+INSERT INTO preparacao(id,descricao) VALUES
  	(1,'Cru(a)'),
 	(2,'Cozido(a)'),
 	(3,'Grelhado(a)/brasa/churrasco'),
@@ -119,18 +129,18 @@ INSERT INTO "Preparacao"(id,descricao) VALUES
 
 --TABELA CARDAPIO
 DROP TABLE cardapio
-CREATE TABLE "Cardapio" (
+CREATE TABLE cardapio (
 	id INTEGER NOT NULL PRIMARY KEY,
 --cardapio_usuario_id INTEGER NOT NULL,
 	cardapio_conta_id INTEGER NOT NULL,
 	cardapio_preparacao INTEGER NOT NULL,
 	alimento CHAR(20) NOT NULL,
 	data_dos_cardapios DATE NOT NULL,
-	FOREIGN KEY (cardapio_conta_id) REFERENCES "Conta"(id),
-	FOREIGN KEY (cardapio_preparacao) REFERENCES "Preparacao"(id)
+	FOREIGN KEY (cardapio_conta_id) REFERENCES conta(id),
+	FOREIGN KEY (cardapio_preparacao) REFERENCES preparacao(id)
 );
 
-INSERT INTO "Cardapio"(id, cardapio_conta_id, cardapio_preparacao,alimento,data_dos_cardapios)
+INSERT INTO cardapio(id, cardapio_conta_id, cardapio_preparacao,alimento,data_dos_cardapios)
 VALUES(1,1,99,'Banana','11/02/2000');
 
 
@@ -139,16 +149,16 @@ VALUES(1,1,99,'Banana','11/02/2000');
 
 --TABELA ALIMENTO
 DROP TABLE alimento;
-CREATE TABLE "Alimento" (
+CREATE TABLE alimento (
     id INTEGER NOT NULL PRIMARY KEY,
     descricao VARCHAR(400) NOT NULL,
   	grupo_id INTEGER NOT NULL, 
-    FOREIGN KEY (grupo_id) REFERENCES "Grupo"(id)
+    FOREIGN KEY (grupo_id) REFERENCES grupo(id)
 );
 
 
-SELECT * FROM "Alimento";
-INSERT INTO "Alimento"(id,descricao,grupo_id) VALUES
+SELECT * FROM alimento;
+INSERT INTO alimento(id,descricao,grupo_id) VALUES
 	(6300101,'Arroz(polido,parboilizado,agulha,agulhinha,etc.)',1),
 	(6300201,'Arroz integral',1),
 	(6300701,'Milho (em grão)',1),
@@ -1274,12 +1284,12 @@ INSERT INTO "Alimento"(id,descricao,grupo_id) VALUES
 
 
 --TABELA ALIMENTO_HAS_PREPARAÇÃO
-CREATE TABLE "AlimentoHasPreparacao" (
+CREATE TABLE alimento_has_preparacao (
 	id SERIAL PRIMARY KEY,
 	alimento_id INTEGER NOT NULL,
     preparacao_id INTEGER NOT NULL,
-   	FOREIGN KEY (alimento_id) REFERENCES "Alimento"(id),
-	FOREIGN KEY (preparacao_id) REFERENCES "Preparacao"(id),
+   	FOREIGN KEY (alimento_id) REFERENCES alimento(id),
+	FOREIGN KEY (preparacao_id) REFERENCES preparacao(id),
     energia FLOAT NULL,
     proteina FLOAT NULL,
     lipidio FLOAT NULL, 
@@ -1319,12 +1329,12 @@ CREATE TABLE "AlimentoHasPreparacao" (
     vitamina_c FLOAT NULL
 );
 
-ALTER SEQUENCE "AlimentoHasPreparacao_id_seq" RESTART WITH 1;
+ALTER SEQUENCE "alimento_has_preparacao_id_seq" RESTART WITH 1;
 DROP TABLE alimento_has_preparacao;
 
 
 
-INSERT INTO "AlimentoHasPreparacao"(
+INSERT INTO alimento_has_preparacao(
 	alimento_id,preparacao_id,energia,proteina,lipidio, carboidrato,fibra,colesterol,agsaturado,agmono,agpoli,aglinoleico,aglinolenico,agtranstotal,acucartotal,
 	acucaradicao,calcio,magnesio,manganes,fosforo,ferro,sodio,sodioadicao,potassio,cobre,zinco,selenio,retinol,vitamina_a,tiamina,riboflavina,niacina,niacina_ne,
 	piridoxina,cobalamina,folato,vitamina_d,vitamina_e,vitamina_c)

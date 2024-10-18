@@ -1,18 +1,17 @@
 import React, { useState } from "react";
 import logo from "../logo/logo.nutritech.png";
-import styled_Cadastro from "../styled/styled_Cadastro";
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
-
-const { ImageContainer, FormContainer, Title, FormGroup, Label, Input, Button, ButtonContainer } = styled_Cadastro();
+import { useNavigate } from 'react-router-dom';
+import styled from "styled-components"; 
+import { useUser } from '../hooks'; // Substitua pelo caminho correto do seu hook
 
 const Cadastro: React.FC = () => {
-  const navigate = useNavigate(); // Inicializa o hook useNavigate
+  const navigate = useNavigate(); 
+  const { create, error, setError } = useUser(); // Hook personalizado para gerenciar o usuário
 
   const [formData, setFormData] = useState({
-    nome: "",
-    sobrenome: "",
-    email: "",
-    senha: "",
+    nome: "Ana Maria",
+    email: "aba@teste.com",
+    senha: "123456",
     confirmarSenha: "",
   });
 
@@ -26,9 +25,7 @@ const Cadastro: React.FC = () => {
 
   const Verificar = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
-      window.alert(
-        "As senhas não estão batendo, por favor, verifique se as senhas são correspondentes"
-      );
+      window.alert("As senhas não estão batendo, por favor, verifique se as senhas são correspondentes");
       return false;
     }
     return true;
@@ -39,31 +36,21 @@ const Cadastro: React.FC = () => {
     
     // Verifica se as senhas são correspondentes
     if (Verificar()) {
-      try {
-        // Envia os dados do formulário para a API
-        const response = await fetch('/api/cadastrar', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nome: formData.nome,
-            email: formData.email,
-            senha: formData.senha,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          alert(data.error); // Mostra o erro para o usuário
-        } else {
-          console.log("Cadastro do usuário:", data); // Exibe os dados do usuário no console
+      if (!formData.nome) {
+        setError({ error: "Forneça o seu nome de usuário" });
+      } else if (!formData.email) {
+        setError({ error: "Forneça o e-mail" });
+      } else if (!formData.senha) {
+        setError({ error: "Forneça a senha" });
+      } else {
+        try {
+          // Envia os dados do formulário para a API
+          await create(formData.nome, formData.email, formData.senha);
           navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
+        } catch (error) {
+          console.error("Erro ao cadastrar usuário:", error);
+          alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
         }
-      } catch (error) {
-        console.error("Erro ao cadastrar usuário:", error);
-        alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
       }
     }
   };
@@ -75,8 +62,9 @@ const Cadastro: React.FC = () => {
       </ImageContainer>
       <FormContainer>
         <Title>Informações de Usuário</Title>
+        {error && <ErrorMessage>{error.error}</ErrorMessage>} {/* Mensagem de erro */}
         <form onSubmit={handleSubmit}>
-          <div className="form-group-row">
+          <FormGroupRow>
             <FormGroup>
               <Label htmlFor="nome">Nome:</Label>
               <Input
@@ -88,18 +76,7 @@ const Cadastro: React.FC = () => {
                 required
               />
             </FormGroup>
-            <FormGroup>
-              <Label htmlFor="sobrenome">Sobrenome:</Label>
-              <Input
-                type="text"
-                id="sobrenome"
-                name="sobrenome"
-                value={formData.sobrenome}
-                onChange={handleChange}
-                required
-              />
-            </FormGroup>
-          </div>
+          </FormGroupRow>
           <FormGroup>
             <Label htmlFor="email">Email:</Label>
             <Input
@@ -114,7 +91,7 @@ const Cadastro: React.FC = () => {
           <FormGroup>
             <Label htmlFor="senha">Senha:</Label>
             <Input
-              type="password"
+              type="senha"
               id="senha"
               name="senha"
               value={formData.senha}
@@ -125,7 +102,7 @@ const Cadastro: React.FC = () => {
           <FormGroup>
             <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
             <Input
-              type="password"
+              type="senha"
               id="confirmarSenha"
               name="confirmarSenha"
               value={formData.confirmarSenha}
@@ -134,7 +111,7 @@ const Cadastro: React.FC = () => {
             />
           </FormGroup>
           <ButtonContainer>
-            <Button type="submit">Avançar</Button>
+            <NavigationButton type="submit">Avançar</NavigationButton>
           </ButtonContainer>
         </form>
       </FormContainer>
@@ -143,3 +120,141 @@ const Cadastro: React.FC = () => {
 };
 
 export default Cadastro;
+
+// Styled components dentro do mesmo arquivo
+
+const ImageContainer = styled.div`
+  text-align: center;
+  max-width: 100%;
+  margin: 10px auto;
+
+  img {
+    width: 230px;
+    height: auto;
+
+    @media (max-width: 768px) {
+      width: 200px;
+    }
+
+    @media (max-width: 480px) {
+      width: 150px;
+    }
+  }
+`;
+
+const FormContainer = styled.div`
+  width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 2px solid #7d4cdb;
+  border-radius: 10px;
+  background-color: #7d4cdb;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+
+  @media (max-width: 1024px) {
+    width: 600px;
+  }
+
+  @media (max-width: 768px) {
+    width: 90%;
+  }
+
+  @media (max-width: 480px) {
+    width: 100%;
+  }
+`;
+
+const Title = styled.h2`
+  text-align: left;
+  color: white;
+  font-family: Anton, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 24px;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  color: red; /* Estilo para mensagens de erro */
+  margin-bottom: 15px;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 15px;
+`;
+
+const Label = styled.label`
+  display: block;
+  margin-bottom: 5px;
+  color: white;
+  font-size: 18px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 14px;
+  }
+`;
+
+const Input = styled.input`
+  width: 50%;
+  padding: 8px;
+  box-sizing: border-box;
+  border: 1px solid #000000;
+  border-radius: 4px;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
+`;
+
+const FormGroupRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const NavigationButton = styled.button`
+  width: 150px;
+  height: 50px;
+  background-color: #21d29d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #1ca885;
+  }
+
+  @media (max-width: 768px) {
+    width: 120px;
+    height: 45px;
+    font-size: 14px;
+  }
+
+  @media (max-width: 480px) {
+    width: 100px;
+    height: 40px;
+    font-size: 12px;
+  }
+`;

@@ -20,7 +20,6 @@ import { UserProvider } from "./contexts";
 
 const App: React.FC = () => {
   return (
-    <Router>
       <BrowserRouter>
         <UserProvider>
           <Routes>
@@ -39,7 +38,6 @@ const App: React.FC = () => {
           </Routes>
         </UserProvider>
       </BrowserRouter>
-    </Router>
   );
 };
 

@@ -2,45 +2,45 @@ import { ErrorProps, TokenProps, UserProps } from "../types";
 import { api } from "./api";
 
 class User {
-  async login(mail: string, password: string ): Promise<TokenProps | ErrorProps> {
+  async login(email: string, senha: string ): Promise<TokenProps | ErrorProps> {
     try {
-      const { data } = await api.post("/login", { mail, password });
+      const { data } = await api.post("/login", { email, senha });
       return data;
     } catch (error: any) {
       return error;
     }
   }
 
-  async create(alias:string, mail: string, password: string): Promise<TokenProps | ErrorProps> {
+  async create(nome:string, email: string, senha: string): Promise<TokenProps | ErrorProps> {
     try {
-      const { data } = await api.post("/user", { alias, mail, password });
+      const { data } = await api.post("/user", { nome, email, senha });
       return data;
     } catch (error: any) {
       return error;
     }
   }
 
-  async updateAlias(alias:string): Promise<UserProps | ErrorProps> {
+  async updateAlias(nome:string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/alias", { alias });
+      const { data } = await api.put("/user/nome", { nome });
       return data;
     } catch (error: any) {
       return error;
     }
   }
 
-  async updateMail(mail:string): Promise<UserProps | ErrorProps> {
+  async updateMail(email:string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/mail", { mail });
+      const { data } = await api.put("/user/email", { email });
       return data;
     } catch (error: any) {
       return error;
     }
   }
 
-  async updatePassword(password:string): Promise<UserProps | ErrorProps> {
+  async updatePassword(senha:string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/password", { password });
+      const { data } = await api.put("/user/senha", { senha });
       return data;
     } catch (error: any) {
       return error;

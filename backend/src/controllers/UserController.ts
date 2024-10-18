@@ -8,19 +8,19 @@ class UserController {
   private saltRounds = 10;
 
   public login = async (req: Request, res: Response): Promise<void> => {
-    const { mail, password } = req.body;
+    const { email, senha } = req.body;
 
-    if (!mail) {
+    if (!email) {
       res.json({ error: "Forneça o e-mail" });
-    } else if (!password) {
+    } else if (!senha) {
       res.json({ error: "Forneça a senha" });
     } else {
       try {
         const result: any = await query(
-          `SELECT id::varchar, alias, mail, role, password 
+          `SELECT id::varchar, nome, email, role, senha 
           FROM users 
-          WHERE mail=$1`,
-          [mail]
+          WHERE email=$1`,
+          [email]
         );
 
         if (result.length === 0) {
@@ -30,12 +30,12 @@ class UserController {
 
         const user = result[0];
         // Comparar a senha
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(senha, user.senha);
         if (isMatch) {
           const object = {
             id: user.id,
-            alias: user.alias,
-            mail: user.mail,
+            nome: user.nome,
+            email: user.email,
             role: user.role,
           };
           res.json({ ...object, token: tokenize(object) });
@@ -48,55 +48,44 @@ class UserController {
     }
   };
 
-  public create = async (req: Request, res: Response): Promise<any> => {
-    const { alias, mail, password } = req.body;
+  public create = async (req: Request, res: Response): Promise<void> => {
+    const { nome, email,senha } = req.body;
 
-    if (!alias) {
-        res.json({ error: "Forneça o nome de usuário" });
-        return;
-    } else if (!mail) {
-        res.json({ error: "Forneça o e-mail" });
-        return;
-    } else if (!password || password.trim().length < 6) {
-        res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
-        return;
+    if (!nome) {
+      res.json({ error: "Forneça o nome de usuário" });
+    } else if (!email) {
+      res.json({ error: "Forneça o e-mail" });
+    } else if (!senha || senha.trim().length < 6) {
+      res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
     } else {
-        const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+      const hashedPassword = await bcrypt.hash(senha, this.saltRounds);
 
-        try {
-            const result: any = await query(
-                `INSERT INTO users(alias,mail,password) 
-                VALUES($1,$2,$3)
-                RETURNING id::varchar, alias, mail, role`,
-                [alias, mail, hashedPassword]
-            );
+      try {
+        const result: any = await query(
+          `INSERT INTO users(nome,email,senha) 
+          VALUES($1,$2,$3)
+          RETURNING id::varchar, nome, email, role`,
+          [nome, email, hashedPassword]
+        );
 
-            if (result.rows.length > 0) {
-                const user = result.rows[0];
-                // Retorna o usuário e a resposta
-                return user;
-            } else {
-                res.status(400).json({ error: "Erro ao criar o usuário" });
-                return;
-            }
-
-        } catch (e: any) {
-            if (e.message.includes("duplicate key")) {
-                res.status(409).json({
-                    error: "O e-mail fornecido já está em uso. Por favor, forneça um e-mail diferente",
-                });
-            } else {
-                res.status(502).json({ error: e.message });
-            }
-            return;
+        res.json({ ...result, token: tokenize(result) });
+      } catch (e: any) {
+        if (e.message.includes("duplicate key")) {
+          res.status(409).json({
+            error:
+              "O e-mail fornecido já está em uso. Por favor, forneça um e-mail diferente",
+          });
+        } else {
+          res.status(502).json({ error: e.message });
         }
+      }
     }
-};
+  };
 
   public async list(_: Request, res: Response): Promise<void> {
     try {
       const result: any = await query(
-        "SELECT id::varchar,alias,mail,role FROM users ORDER BY mail"
+        "SELECT id::varchar,nome,email,role FROM users ORDER BY email"
       );
       res.json(result);
     } catch (e: any) {
@@ -104,42 +93,40 @@ class UserController {
     }
   }
 
-  public async updateAlias(req: Request, res: Response): Promise<any> {
-    const { alias } = req.body;
+  public async updateAlias(req: Request, res: Response): Promise<void> {
+    const { nome } = req.body;
     const { id } = res.locals;
-    if (!alias) {
-        res.json({ error: "Forneça o nome de usuário" });
+    if (!nome) {
+      res.json({ error: "Forneça o nome de usuário" });
     } else {
-        try {
-            const result: any = await query(
-                "UPDATE users SET alias=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
-                [id, alias]
-            );
-            if (result.rowcount > 0) {
-                return result.rows[0]; // Retorna o usuário atualizado
-            } else if (result.rowcount == 0) {
-                res.json({ error: "Registro inexistente" });
-                return;
-            } else {
-                return result;
-            }
-        } catch (e: any) {
-            res.status(502).json({ error: e.message });
-            return;
+      try {
+        const result: any = await query(
+          "UPDATE users SET nome=$2 WHERE id=$1 RETURNING id::varchar, nome, email, role",
+          [id, nome]
+        );
+        if (result.rowcount > 0) {
+          res.json(result.rows);
+        } else if (result.rowcount == 0) {
+          res.json({ error: "Registro inexistente" });
+        } else {
+          res.json(result);
         }
+      } catch (e: any) {
+        res.status(502).json({ error: e.message });
+      }
     }
-}
+  }
 
   public async updateMail(req: Request, res: Response): Promise<void> {
-    const { mail } = req.body;
+    const { email } = req.body;
     const { id } = res.locals;
-    if (!mail) {
+    if (!email) {
       res.json({ error: "Forneça o e-mail" });
     } else {
       try {
         const result: any = await query(
-          "UPDATE users SET mail=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
-          [id, mail]
+          "UPDATE users SET email=$2 WHERE id=$1 RETURNING id::varchar, nome, email, role",
+          [id, email]
         );
         if (result.rowcount > 0) {
           res.json(result.rows);
@@ -161,37 +148,40 @@ class UserController {
     }
   }
 
-  public updatePassword = async (req: Request, res: Response): Promise<void> => {
-    const { password } = req.body;
+  public updatePassword = async (
+    req: Request,
+    res: Response
+  ): Promise<void> => {
+    const { senha } = req.body;
     const { id } = res.locals;
-
-    if (!password || password.trim().length < 6) {
-        res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
+    if (!senha || senha.trim().length < 6) {
+      res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
     } else {
-        try {
-            const hashedPassword = await bcrypt.hash(password, this.saltRounds);
-            const result: any = await query(
-                "UPDATE users SET password=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
-                [id, hashedPassword]
-            );
-
-            if (result.rowCount > 0) {
-                res.json(result.rows[0]);  // Retorna o usuário atualizado
-            } else {
-                res.status(404).json({ error: "Registro inexistente" });
-            }
-        } catch (e: any) {
-            res.status(502).json({ error: e.message });
+      try {
+        const hashedPassword = await bcrypt.hash(senha, this.saltRounds);
+        const result: any = await query(
+          "UPDATE users SET senha=$2 WHERE id=$1 RETURNING id::varchar, nome, email, role",
+          [id, hashedPassword]
+        );
+        if (result.rowcount > 0) {
+          res.json(result.rows);
+        } else if (result.rowcount == 0) {
+          res.json({ error: "Registro inexistente" });
+        } else {
+          res.json(result);
         }
+      } catch (e: any) {
+        res.status(502).json({ error: e.message });
+      }
     }
-};
+  };
 
   public async updateProfile(req: Request, res: Response): Promise<void> {
     const { id, role } = req.body;
     if (role === "adm" || role === "user") {
       try {
         const r: any = await query(
-          "UPDATE users SET role=$2 WHERE id=$1 RETURNING id::varchar, alias, mail, role",
+          "UPDATE users SET role=$2 WHERE id=$1 RETURNING id::varchar, nome, email, role",
           [id, role]
         );
         if (r.rowcount > 0) {

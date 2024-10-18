@@ -38,8 +38,8 @@ export function UserProvider({ children }: ProviderProps) {
     getProfile();
   }, [navigate]); // Dependência vazia para garantir que seja executado apenas na montagem
 
-  const login = async (mail: string, password: string) => {
-    const response = await User.login(mail, password);
+  const login = async (email: string, senha: string) => {
+    const response = await User.login(email, senha);
     if (isErrorProps(response)) {
       setError(response);
     } else {
@@ -50,8 +50,8 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const create = async (alias: string, mail: string, password: string) => {
-    const response = await User.create(alias, mail, password);
+  const create = async (nome: string, email: string, senha: string) => {
+    const response = await User.create(nome, email, senha);
     if (isErrorProps(response)) {
       setError(response);
     } else {
@@ -69,8 +69,8 @@ export function UserProvider({ children }: ProviderProps) {
     navigate("/"); // Navega para a página de login após o logout
   };
 
-  const updateAlias = async (alias: string): Promise<boolean> => {
-    const response = await User.updateAlias(alias);
+  const updateAlias = async (nome: string): Promise<boolean> => {
+    const response = await User.updateAlias(nome);
 
     if (isErrorProps(response)) {
       setError(response);
@@ -79,7 +79,7 @@ export function UserProvider({ children }: ProviderProps) {
       setError(null);
       if (token) {
         const temp = { ...token };
-        temp.alias = alias;
+        temp.alias = nome;
         setToken(temp);
         saveToLocalStorage("user", temp);
       }
@@ -87,8 +87,8 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const updateMail = async (mail: string): Promise<boolean> => {
-    const response = await User.updateMail(mail);
+  const updateMail = async (email: string): Promise<boolean> => {
+    const response = await User.updateMail(email);
 
     if (isErrorProps(response)) {
       setError(response);
@@ -97,7 +97,7 @@ export function UserProvider({ children }: ProviderProps) {
       setError(null);
       if (token) {
         const temp = { ...token };
-        temp.mail = mail;
+        temp.mail = email;
         setToken(temp);
         saveToLocalStorage("user", temp);
       }
@@ -105,8 +105,8 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const updatePassword = async (password: string): Promise<boolean> => {
-    const response = await User.updatePassword(password);
+  const updatePassword = async (senha: string): Promise<boolean> => {
+    const response = await User.updatePassword(senha);
 
     if (isErrorProps(response)) {
       setError(response);
