@@ -11,6 +11,7 @@ import Historico from './pages/Historico';
 import Progresso from './pages/Progresso';
 import Configuracoes from './pages/Configuracoes';
 import { UserProvider } from './hooks/useUser';
+import GlobalStyles from './styled/styled_Main';
 
 const App: React.FC = () => {
     return (
