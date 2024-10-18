@@ -6,8 +6,8 @@ export default function FoodPane() {
   return (
     <Wrapper>
         <InputSearch placeholder="Pesquise um alimento" />
-        <ListFood />
-    </Wrapper>
+        <ListFood data={[]} />
+        </Wrapper>
   );
 }
 

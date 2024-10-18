@@ -1,56 +1,67 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import cors from 'cors';
+import express from 'express';
+import routes from '../routes'; // Certifique-se de que o caminho está correto
 
 dotenv.config();
 
+const app = express(); // Inicializa o express
+
 const secret = process.env.JWT_SECRET || "";
 
-// Empacota o objeto em uma string codificada
+// Configuração do CORS para permitir o frontend acessar o backend
+app.use(cors({
+  origin: 'http://localhost:3000', // Permite o frontend da porta 3000
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Authorization', 'Content-Type'], // Headers permitidos
+}));
+
+app.use(express.json()); // Permite receber JSON nas requisições
+
+// Suas rotas e middleware continuam aqui
+app.use('/api', routes); // Exemplo de como você usaria as rotas
+
+app.listen(3011, () => {
+  console.log('Backend rodando na porta 3011');
+});
+
+// Middleware para criar um token JWT
 export const tokenize = (object: any) => jwt.sign(object, secret);
 
+// Middleware para verificar a autorização do usuário
 export const validadeAcess = (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // Token enviado pelo cliente no header da requisição
   const authorization: string | undefined = req.headers.authorization;
+  
   if (!authorization) {
     res.send({ error: "Efetue o login para continuar" });
   } else {
     try {
-      // Autorização no formato "Bearer+espaço+token"
       const [, token] = authorization.split(" ");
-      // Decodifica a string codificada
       const decoded = <any>jwt.verify(token, secret);
       if (decoded) {
-        // Salva o objeto com os dados de login na propriedade locals da requisição.
-        // A propriedade locals pode ser acessa em qualquer parte da requisição.
-        res.locals = decoded;
-        // Chama a próxima função da requisição HTTP
-        next(); 
+        res.locals = decoded; // Salva o objeto decodificado em res.locals
+        next(); // Continua para a próxima função
       } else {
         res.send({ error: "Não autorizado" });
       }
     } catch (e: any) {
-      if( e.message == "jwt malformed" ){
-        res.send({ error: "Token inválido" });
-      }
-      else{
-        res.send({ error: e.message });
-      }
+      res.send({ error: e.message === "jwt malformed" ? "Token inválido" : e.message });
     }
   }
 };
 
+// Middleware para verificar se o usuário é administrador
 export const checkAdm = (_: Request, res: Response, next: NextFunction) => {
-  // A propriedade locals possui o objeto com os dados de login
   const { role } = res.locals;
-  if (role == "adm") {
-    // Chama a próxima função da requisição HTTP
-    next();
+  if (role === "adm") {
+    next(); // Continua para a próxima função se o usuário for administrador
   } else {
-    res.send({ error: "Acesso restrito a administrador" });
+    res.status(403).json({ error: "Acesso restrito a administrador" });
   }
 };

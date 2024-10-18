@@ -1,18 +1,32 @@
 import styled from "styled-components";
 import NavigateButton from "./NavigateButton";
+import React from "react";
 import { useFood } from "../hooks";
 
-export default function ListFood() {
+// Interface para representar o alimento com id como string
+interface Food {
+  id: string; // Alterado para string
+  description: string;
+}
+
+// Interface para as props do componente
+interface ListFoodProps {
+  data: Food[]; // Array de alimentos
+}
+
+export default function ListFood({ data }: ListFoodProps) {
   const { pageFoods, getFoodsByPage, getById } = useFood();
 
+  // Se não houver alimentos ou a lista estiver vazia
   if (!pageFoods || pageFoods.items.length === 0) {
-    return <></>;
+    return <></>; // Retorna vazio se não houver alimentos
   }
 
-  // obtém a quantidade de páginas
+  // Calcula a quantidade de páginas
   const pageTotal = Math.ceil(pageFoods.total / pageFoods.pagesize);
 
-  const lines = pageFoods.items.map((item, index) => (
+  // Mapeia os alimentos para exibir
+  const lines = pageFoods.items.map((item: Food, index: number) => (
     <LineSld key={index} onClick={() => getById(item.id)}>
       {item.description}
     </LineSld>
@@ -20,9 +34,11 @@ export default function ListFood() {
 
   return (
     <Wrapper>
+      {/* Renderiza as linhas dos alimentos */}
       {lines}
 
       <BottomSld>
+        {/* Botões de navegação */}
         <NavigateButton
           label="<<"
           click={() => getFoodsByPage(1)}
@@ -34,7 +50,7 @@ export default function ListFood() {
           disabled={pageFoods.page === 1}
         />
         <NumberSld>
-          {pageFoods.page} | {pageTotal}{" "}
+          {pageFoods.page} | {pageTotal}
         </NumberSld>
         <NavigateButton
           label=">"
@@ -51,6 +67,7 @@ export default function ListFood() {
   );
 }
 
+// Estilização com styled-components
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,7 +101,8 @@ const BottomSld = styled.div`
   align-items: center;
   font-weight: bold;
   padding: 10px 10px 5px 10px;
-  border-top: 1px solid #F5F5F5;
+  border-top: 1px solid #f5f5f5;
+  border-top: 1px solid #f5f5f5;
 `;
 
 const NumberSld = styled.div`

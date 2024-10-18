@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import logo from '../logo/logo.nutritech.png';
 import logofundo from '../logo/logofundo.png';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../services/User';
 
 const Background = styled.div`
   display: flex;
@@ -69,6 +70,7 @@ const ContainerLeft = styled.div`
   transition: box-shadow 0.3s ease;
   margin-top: 10%;
   margin-left: 25%; /* Ajustar margem para telas pequenas */
+  font-family: 'Playpen Sans', sans-serif; /* Mudança para a fonte correta */
 
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -170,15 +172,26 @@ const BemVindo: React.FC = () => {
   const [senha, setSenha] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Senha:', senha);
-    navigate('/home');
+  const handleLogin = async () => {
+    try {
+      // Chama a API de login
+      const response = await api.post('/login', { mail: email, password: senha });
+      
+      // Salva o token no localStorage
+      localStorage.setItem('token', response.data.token);
+
+      // Redireciona para a página home
+      navigate('/home');
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      alert('Erro ao efetuar o login. Tente novamente.');
+    }
   };
 
   return (
     <Background>
       <ContainerLeft>
+      <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet"></link>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>
         <Input 

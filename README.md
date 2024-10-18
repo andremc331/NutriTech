@@ -15,9 +15,9 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 # 🗂️SPRINTS
 | Sprint | Data de Início | Data de Entrega | Status | Relatórios | 
 |:-------:| --------------------- |--------------------|---------------------|------------------------- |
-|  1  | :calendar:  ➡ (02/09/2024) | 📆 ➡ (20/09/2024) | ✅ Concluído   |            |
-|  2  | :calendar:  ➡ (23/09/2024) | 📆 ➡ (11/10/2024) | ⌛ Em Andamento |            |
-|  3  | :calendar:  ➡ (14/10/2024) | 📆 ➡ (08/11/2024)| ❌ Não iniciado |            |
+|  1  | :calendar:  ➡ (02/09/2024) | 📆 ➡ (20/09/2024) | ✅ Concluído   |            
+|  2  | :calendar:  ➡ (23/09/2024) | 📆 ➡ (11/10/2024) | ✅ Concluído |            |
+|  3  | :calendar:  ➡ (14/10/2024) | 📆 ➡ (08/11/2024)| ⌛ Em Andamento |            |
 
 |       RESTRIÇÕES DE PROJETO E TECNOLOGIA      |  
 |-----------------------------------------------|

@@ -1,9 +1,19 @@
 import styled from "styled-components";
+import React from "react";
 
-export default function Error({ children }: Props) {
-  return <Wrapper>{children}</Wrapper>;
+// Interface para as props do componente
+interface ErrorProps {
+    message: string;
 }
 
+// Componente funcional com styled-components
+const Error: React.FC<ErrorProps> = ({ message }) => {
+    return <Wrapper>{message}</Wrapper>;
+};
+
+export default Error;
+
+// Estilização usando styled-components
 const Wrapper = styled.div`
   display: flex;
   background-color: rgb(202, 60, 74);
@@ -11,9 +21,7 @@ const Wrapper = styled.div`
   padding: 10px;
   border-radius: 10px;
   margin: 10px;
-`;
-
-interface Props {
-    children: string;
-  }
-  
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+`;  
