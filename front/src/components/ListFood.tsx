@@ -19,7 +19,7 @@ export default function ListFood({ data }: ListFoodProps) {
 
   // Se não houver alimentos ou a lista estiver vazia
   if (!pageFoods || pageFoods.items.length === 0) {
-    return <></>;
+    return <></>; // Retorna vazio se não houver alimentos
   }
 
   // Calcula a quantidade de páginas
@@ -50,7 +50,7 @@ export default function ListFood({ data }: ListFoodProps) {
           disabled={pageFoods.page === 1}
         />
         <NumberSld>
-          {pageFoods.page} | {pageTotal}{" "}
+          {pageFoods.page} | {pageTotal}
         </NumberSld>
         <NavigateButton
           label=">"
@@ -101,6 +101,7 @@ const BottomSld = styled.div`
   align-items: center;
   font-weight: bold;
   padding: 10px 10px 5px 10px;
+  border-top: 1px solid #f5f5f5;
   border-top: 1px solid #f5f5f5;
 `;
 
