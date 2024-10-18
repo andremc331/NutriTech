@@ -69,6 +69,7 @@ const ContainerLeft = styled.div`
   transition: box-shadow 0.3s ease;
   margin-top: 10%;
   margin-left: 25%; /* Ajustar margem para telas pequenas */
+  font-family: 'Playpen Sans', sans-serif; /* Mudança para a fonte correta */
 
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -179,6 +180,7 @@ const BemVindo: React.FC = () => {
   return (
     <Background>
       <ContainerLeft>
+      <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet"></link>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>
         <Input 
