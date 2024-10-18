@@ -178,8 +178,8 @@ const Cardapio: React.FC = () => {
         <LineSld>
           <Button label="Salvar" click={handleSave} />
         </LineSld>
-        {eatProducts.length > 0 && <TableEatProduct items={eatProducts} />}
-        {eatFoods.length > 0 && <TableEatFood items={eatFoods} />}
+        {eatProducts && eatProducts.length > 0 && <TableEatProduct items={eatProducts} />}
+        {eatFoods && eatFoods.length > 0 && <TableEatFood items={eatFoods} />}
       </BodyWrapper>
     </CardapioBody>
   );
