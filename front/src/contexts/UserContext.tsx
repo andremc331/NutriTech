@@ -1,222 +1,135 @@
-import { createContext, useEffect, useState } from "react";
-import { saveToLocalStorage, removeFromLocalStorage } from "../utils";
-import {
-  UserContextProps,
-  ProviderProps,
-  ErrorProps,
-  UserProps,
-  TokenProps,
-  ProfileProps,
-} from "../types";
-import { Profile, User } from "../services";
-import { useNavigate } from "react-router-dom";
-import { loadFromLocalStorage } from "../utils/localStorage";
-import { isErrorProps } from "../utils";
-import user from "../services/User";
+import { createContext, useContext, useEffect, useState } from "react";
+import user from "../services/User"; // Importando o serviço
+import { TokenProps, UserProps, ErrorProps, ProviderProps, UserResponse } from "../types";
+import { saveToLocalStorage, removeFromLocalStorage } from "../utils/localStorage";
+import { isErrorProps } from "../utils/isError";
 
-export const UserContext = createContext<UserContextProps | undefined>(undefined);
+const UserContext = createContext<UserContextType | null>(null);
+
+export const useUser = () => {
+  const context = useContext(UserContext);
+  if (!context) {
+    throw new Error("useUser deve ser usado dentro de um UserProvider");
+  }
+  return context;
+};
+
+export interface UserContextType {
+  currentUser: UserProps | null;
+  login: (mail: string, password: string) => Promise<void>;
+  createUser: (alias: string, mail: string, password: string) => Promise<void>;
+  logout: () => void;
+  updateAlias: (alias: string) => Promise<void>;
+  updateMail: (mail: string) => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
+  token: () => string | null;
+}
 
 export function UserProvider({ children }: ProviderProps) {
+  const [currentUser, setCurrentUser] = useState<UserProps | null>(null);
   const [error, setError] = useState<ErrorProps | null>(null);
-  const [users, setUsers] = useState<UserProps[] | null>(null);
-  const [token, setToken] = useState<TokenProps | null>(null);
-  const [currentUser, setCurrentUser] = useState<UserProps | null>(null); // Estado do usuário
-  const [profile, setProfile] = useState<ProfileProps | null>(null);
-  const [loading, setLoading] = useState(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
-    const data = loadFromLocalStorage("user");
-    if (data) {
-      setToken(data);
-      setLoading(false);
-    } else {
-      setLoading(false);
+    const storedToken = localStorage.getItem("userToken");
+    if (storedToken) {
+      setCurrentUser(JSON.parse(storedToken).user);
     }
-    getProfile();
-  }, [navigate]);
+  }, []);
 
   const login = async (mail: string, password: string) => {
     try {
-      const data = await user.login(mail, password);
-      if (data.token && data.user) {
-        localStorage.setItem("token", data.token);
-  
-        // Cria um objeto TokenProps corretamente
-        const tokenData: TokenProps = {
-          token: data.token,
-          user: {
-            id: data.user.id,
-            alias: data.user.alias || "", // Proteção contra undefined no alias
-            mail: data.user.mail || "",   // Proteção contra undefined no mail
-            role: data.user.role || "",    // Proteção contra undefined no role
-          },
-        };
-  
-        setCurrentUser(data.user); // Mantenha currentUser se necessário
-        setToken(tokenData); // Atualiza o token com o objeto correto
+      const data: UserResponse = await user.login(mail, password);
+      if (data && data.token) {
+        saveToLocalStorage("userToken", data); // Salva o token completo
+        setCurrentUser(data.user);
       } else {
-        throw new Error("Erro no login: token ou usuário inválido");
+        throw new Error("Erro inesperado no login: Token ou usuário inválido.");
       }
     } catch (error) {
       console.error("Erro no login:", error);
+      setError(error as ErrorProps); // Define o erro
     }
   };
-  
+
   const createUser = async (alias: string, mail: string, password: string) => {
     try {
-      const data = await user.create(alias, mail, password);
-      if (data.token && data.user) {
-        localStorage.setItem("token", data.token);
-  
-        // Cria um objeto TokenProps corretamente
-        const tokenData: TokenProps = {
-          token: data.token,
-          user: {
-            id: data.user.id,
-            alias: data.user.alias || "",
-            mail: data.user.mail || "",
-            role: data.user.role || "",
-          },
-        };
-  
-        setCurrentUser(data.user); // Mantenha currentUser se necessário
-        setToken(tokenData); // Atualiza o token com o objeto correto
+      const data: UserResponse = await user.create(alias, mail, password);
+      if (data && data.token) {
+        saveToLocalStorage("userToken", data);
+        setCurrentUser(data.user);
       } else {
-        throw new Error("Erro na criação do usuário: token ou usuário inválido");
+        throw new Error("Erro na criação do usuário: Token ou usuário inválido.");
       }
     } catch (error) {
       console.error("Erro ao criar usuário:", error);
+      setError(error as ErrorProps); // Define o erro
     }
   };
 
   const logout = () => {
-    setError(null);
-    setToken(null);
-    setCurrentUser(null); // Limpa o estado do usuário
-    removeFromLocalStorage("user");
-    navigate("/"); 
+    localStorage.removeItem("userToken");
+    setCurrentUser(null);
   };
 
-  const updateAlias = async (alias: string): Promise<boolean> => {
-    const response = await User.updateAlias(alias);
-    if (isErrorProps(response)) {
-      setError(response);
-      return false;
-    } else {
-      setError(null);
-      if (token) {
-        const temp = { ...token, alias }; // Atualiza alias no token
-        setToken(temp);
-        saveToLocalStorage("user", temp);
+  const updateAlias = async (alias: string) => {
+    try {
+      const updatedUser = await user.updateAlias(alias);
+      if (updatedUser && 'id' in updatedUser) {
+        setCurrentUser(updatedUser);
+      } else {
+        throw new Error("Erro ao atualizar o alias");
       }
-      return true;
+    } catch (error) {
+      console.error("Erro ao atualizar o alias:", error);
+      setError(error as ErrorProps); // Define o erro
     }
   };
 
-  const updateMail = async (mail: string): Promise<boolean> => {
-    const response = await User.updateMail(mail);
-    if (isErrorProps(response)) {
-      setError(response);
-      return false;
-    } else {
-      setError(null);
-      if (token) {
-        const temp = { ...token, mail }; // Atualiza email no token
-        setToken(temp);
-        saveToLocalStorage("user", temp);
+  const updateMail = async (mail: string) => {
+    try {
+      const updatedUser = await user.updateMail(mail);
+      if (updatedUser && 'id' in updatedUser) {
+        setCurrentUser(updatedUser);
+      } else {
+        throw new Error(updatedUser.error || "Erro ao atualizar o email");
       }
-      return true;
+    } catch (error) {
+      console.error("Erro ao atualizar o email:", error);
+      setError(error as ErrorProps); // Define o erro
     }
   };
 
-  const updatePassword = async (password: string): Promise<boolean> => {
-    const response = await User.updatePassword(password);
-    if (isErrorProps(response)) {
-      setError(response);
-      return false;
-    } else {
-      setError(null);
-      return true;
-    }
-  };
-
-  const saveProfile = async (birth_date: string, weight: string, sex: string): Promise<boolean> => {
-    const response = await Profile.save(birth_date, weight, sex);
-    if (isErrorProps(response)) {
-      setError(response);
-      return false;
-    } else {
-      setError(null);
-      setProfile(response);
-      return true;
-    }
-  };
-
-  const getProfile = async (): Promise<void> => {
-    const response = await Profile.list();
-    setProfile(null);
-    if (!isErrorProps(response)) {
-      if (response.length === 1) {
-        setProfile(response[0]);
+  const updatePassword = async (password: string) => {
+    try {
+      const updatedUser = await user.updatePassword(password);
+      if (updatedUser && 'id' in updatedUser) {
+        setCurrentUser(updatedUser);
+      } else {
+        throw new Error(updatedUser.error || "Erro ao atualizar a senha");
       }
+    } catch (error) {
+      console.error("Erro ao atualizar a senha:", error);
+      setError(error as ErrorProps); // Define o erro
     }
   };
 
-  const deleteProfile = async (): Promise<boolean> => {
-    const response = await Profile.delete();
-    if (isErrorProps(response)) {
-      setError(response);
-      return false;
-    } else {
-      setError(null);
-      setProfile(null);
-      return true;
-    }
-  };
-
-  const getUsers = async () => {
-    const response = await User.list();
-    if (isErrorProps(response)) {
-      setError(response);
-    } else {
-      setError(null);
-      setUsers(response);
-    }
-  };
-
-  const updateRole = async (id: string, role: string): Promise<boolean> => {
-    const response = await User.updateRole(id, role);
-    if (!isErrorProps(response)) {
-      getUsers();
-      return true;
-    } else {
-      setError(response);
-      return false;
-    }
+  // Função para obter o token
+  const token = (): string | null => {
+    const storedToken = localStorage.getItem("userToken");
+    return storedToken ? JSON.parse(storedToken).token : null; // Certifique-se de que o valor é uma string ou `null`
   };
 
   return (
     <UserContext.Provider
       value={{
-        loading,
-        token,
         currentUser,
-        profile,
-        setToken,
-        users,
         login,
-        logout,
         createUser,
-        getUsers,
-        updateRole,
-        error,
-        setError,
+        logout,
         updateAlias,
         updateMail,
         updatePassword,
-        saveProfile,
-        deleteProfile,
+        token,
       }}
     >
       {children}

@@ -1,4 +1,4 @@
-import { ErrorProps, TokenProps, UserProps, UserResponse } from "../types";
+import { ErrorProps, TokenProps, UserProps } from "../types";
 import axios from "axios";
 
 // Criação da instância do axios com a URL base
@@ -16,73 +16,78 @@ api.interceptors.request.use((config) => {
 });
 
 class User {
+  // Função para tratar erros
+  private handleError(error: any): ErrorProps {
+    return error.response?.data || { error: 'Erro inesperado' };
+  }
+
   // Função para login do usuário
-  async login(mail: string, password: string): Promise<UserResponse> {
+  async login(mail: string, password: string): Promise<TokenProps | ErrorProps> {
     try {
       const response = await api.post('/login', { mail, password });
-      return response.data as TokenProps;
-    } catch (error: any) {
-      return { error: 'Erro na requisição de login' };
+      return response.data; // Retorna diretamente o TokenProps
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 
   // Função para criar um usuário
-  async create(alias: string, mail: string, password: string): Promise<UserResponse> {
+  async create(alias: string, mail: string, password: string): Promise<TokenProps | ErrorProps> {
     try {
       const response = await api.post('/createUser', { alias, mail, password });
-      return response.data as TokenProps;
-    } catch (error: any) {
-      return { error: 'Erro na criação do usuário' };
+      return response.data; // Retorna diretamente o TokenProps
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 
   // Função para atualizar o alias do usuário
   async updateAlias(alias: string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/alias", { alias });
+      const { data } = await api.put("/api/user/alias", { alias }); // Ajuste na rota
       return data;
-    } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 
   // Função para atualizar o email do usuário
   async updateMail(mail: string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/mail", { mail });
+      const { data } = await api.put("/api/user/mail", { mail }); // Ajuste na rota
       return data;
-    } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 
   // Função para atualizar a senha do usuário
   async updatePassword(password: string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/password", { password });
+      const { data } = await api.put("/api/user/password", { password }); // Ajuste na rota
       return data;
-    } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 
   // Função para listar os usuários
   async list(): Promise<UserProps[] | ErrorProps> {
     try {
-      const { data } = await api.get("/user");
+      const { data } = await api.get("/api/user"); // Ajuste na rota
       return data;
-    } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 
   // Função para atualizar a role de um usuário
   async updateRole(id: string, role: string): Promise<UserProps | ErrorProps> {
     try {
-      const { data } = await api.put("/user/role", { id, role });
+      const { data } = await api.put("/api/user/role", { id, role }); // Ajuste na rota
       return data;
-    } catch (error: any) {
-      return error.response.data; // Retorna o erro da resposta do backend
+    } catch (error) {
+      return this.handleError(error); // Chama a função de tratamento de erro
     }
   }
 }

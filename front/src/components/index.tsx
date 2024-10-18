@@ -23,33 +23,42 @@ import TableEatFood from "./TableEatFood";
 import AdmMenu from "./AdmMenu";
 import TableUser from "./TableUser";
 import { api } from '../services/api';
+import axios from "axios";
 
 const DataFetchingComponent = () => {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+    const [data, setData] = useState<any[]>([]);
+    const [error, setError] = useState<string | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchData = async () => {
+        setIsLoading(true);
         try {
-            const response = await api.get('/seu-endpoint'); // Chama um endpoint do backend
-            setData(response.data); // Armazena os dados no estado
+            const response = await api.get('/seu-endpoint');
+            setData(response.data);
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
-            setError('Erro ao buscar dados');
+            if (axios.isAxiosError(error)) {
+                setError(error.response?.data?.message || 'Erro ao buscar dados');
+            } else {
+                setError('Erro inesperado ao buscar dados');
+            }
+        } finally {
+            setIsLoading(false);
         }
     };
 
     useEffect(() => {
-        fetchData(); // Chama a função para buscar os dados quando o componente é montado
+        fetchData();
     }, []);
 
     return (
         <div>
             <Header />
-            {error && <Error message={error} />} {/* Exibe uma mensagem de erro se houver */}
-            {data ? (
-                <ListFood data={data} /> // Renderiza a lista de alimentos se os dados estiverem disponíveis
+            {error && <Error message={error}>Um erro ocorreu:</Error>} {/* Exibe a mensagem de erro */}
+            {isLoading ? (
+                <p>Carregando dados...</p>
             ) : (
-                <p>Carregando dados...</p> // Exibe um carregando enquanto os dados estão sendo buscados
+                <ListFood data={data} />
             )}
         </div>
     );

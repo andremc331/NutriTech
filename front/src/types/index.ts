@@ -215,6 +215,7 @@ export interface ValueProps {
 // Error Properties
 export interface ErrorProps {
   error: string;
+  message: string;
   token?: string; // Opcional, pois em erros o token pode não estar presente
   user?: UserProps; // Opcional, pois em erros o usuário pode não estar presente
   alias?: string;
@@ -226,4 +227,24 @@ export interface ProviderProps {
   children: ReactNode;
 }
 
-export type UserResponse = TokenProps | ErrorProps; 
+export interface TokenProps {
+  token: string; // Token deve ser uma string
+}
+
+export interface UserProps {
+  id: string;
+  alias: string;
+  mail: string;
+  role: string;
+}
+
+export interface ErrorProps {
+  message: string; // Mensagem de erro
+}
+
+// Definindo UserResponse como uma união de TokenProps e ErrorProps
+export type UserResponse = { user: UserProps } & TokenProps | ErrorProps;
+
+export interface ProviderProps {
+  children: React.ReactNode;
+}
