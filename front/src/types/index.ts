@@ -177,8 +177,8 @@ export interface ProviderProps {
 
 export interface UserProps {
   id: string;
-  alias: string;
-  mail: string;
+  nome: string;
+  email: string;
   role: string;
 }
 

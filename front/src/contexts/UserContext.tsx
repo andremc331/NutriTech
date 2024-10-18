@@ -79,7 +79,7 @@ export function UserProvider({ children }: ProviderProps) {
       setError(null);
       if (token) {
         const temp = { ...token };
-        temp.alias = nome;
+        temp.nome = nome;
         setToken(temp);
         saveToLocalStorage("user", temp);
       }
@@ -97,7 +97,7 @@ export function UserProvider({ children }: ProviderProps) {
       setError(null);
       if (token) {
         const temp = { ...token };
-        temp.mail = email;
+        temp.email = email;
         setToken(temp);
         saveToLocalStorage("user", temp);
       }

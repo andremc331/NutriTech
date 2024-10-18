@@ -25,7 +25,7 @@ export default function TableUser({ users, onProfileChange }: Props) {
       <tbody>
         {users.map((user) => (
           <TrSld key={user.id}>
-            <TdSld>{user.mail}</TdSld>
+            <TdSld>{user.email}</TdSld>
             <TdSld className="fixed-width">
               <SelectSld
                 value={user.role}
