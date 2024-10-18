@@ -6,13 +6,13 @@ import jwt from "jsonwebtoken"; // Supondo que você use JWT para autenticação
 const routes = Router();
 
 // Rota para criar um novo usuário
-routes.post("/", async (req: Request, res: Response) => {
+routes.post("/user", async (req: Request, res: Response) => {
     try {
         const newUser = await controller.create(req, res); // O método agora retorna o usuário
         if (newUser) {
             const token = jwt.sign(
                 { alias: newUser.alias, id: newUser.id }, 
-                process.env.JWT_SECRET || "secret_key", 
+                process.env.JWT_SECRET || "secret-key", 
                 { expiresIn: "1h" }
             );
             res.status(201).json({ token, alias: newUser.alias });

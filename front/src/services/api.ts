@@ -12,10 +12,10 @@ export const api = axios.create({
 // Interceptor de Requisição
 api.interceptors.request.use(
   (config) => {
-    const user = loadFromLocalStorage("user");
-    if (user) {
-      config.headers.Authorization = `Bearer ${user.token}`;
-    }
+    // const user = loadFromLocalStorage("user");
+    // if (user) {
+    //   config.headers.Authorization = `Bearer ${user.token}`;
+    // }
     return config;
   },
   (error) => {

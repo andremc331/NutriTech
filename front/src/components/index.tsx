@@ -24,22 +24,30 @@ import AdmMenu from "./AdmMenu";
 import TableUser from "./TableUser";
 import { api } from '../services/api';
 
-const DataFetchingComponent = () => {
-    const [data, setData] = useState(null);
-    const [error, setError] = useState(null);
+// Interface para representar um alimento
+interface Food {
+    id: string;
+    description: string;
+}
 
+const DataFetchingComponent = () => {
+    const [data, setData] = useState<Food[] | null>(null); // Tipagem do estado de dados
+    const [error, setError] = useState<string | null>(null); // Tipagem do estado de erro
+
+    // Função para buscar os dados do backend
     const fetchData = async () => {
         try {
-            const response = await api.get('/seu-endpoint'); // Chama um endpoint do backend
-            setData(response.data); // Armazena os dados no estado
+            const response = await api.get('/seu-endpoint'); // Chamada ao backend
+            setData(response.data); // Armazenando os dados no estado
         } catch (error) {
             console.error('Erro ao buscar dados:', error);
             setError('Erro ao buscar dados');
         }
     };
 
+    // useEffect para buscar dados ao montar o componente
     useEffect(() => {
-        fetchData(); // Chama a função para buscar os dados quando o componente é montado
+        fetchData();
     }, []);
 
     return (
@@ -57,7 +65,7 @@ const DataFetchingComponent = () => {
 
 export default DataFetchingComponent;
 
-// Exportando os componentes
+// Exportando todos os componentes utilizados no sistema
 export {
     AdmMenu,
     Button,

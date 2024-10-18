@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import logo from '../logo/logo.nutritech.png';
 import logofundo from '../logo/logofundo.png';
 import { useNavigate } from 'react-router-dom';
+import { api } from '../services/User';
 
 const Background = styled.div`
   display: flex;
@@ -170,10 +171,20 @@ const BemVindo: React.FC = () => {
   const [senha, setSenha] = useState<string>('');
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Senha:', senha);
-    navigate('/home');
+  const handleLogin = async () => {
+    try {
+      // Chama a API de login
+      const response = await api.post('/login', { mail: email, password: senha });
+      
+      // Salva o token no localStorage
+      localStorage.setItem('token', response.data.token);
+
+      // Redireciona para a página home
+      navigate('/home');
+    } catch (error) {
+      console.error('Erro ao fazer login:', error);
+      alert('Erro ao efetuar o login. Tente novamente.');
+    }
   };
 
   return (

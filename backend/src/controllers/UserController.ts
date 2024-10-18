@@ -51,44 +51,44 @@ class UserController {
   public create = async (req: Request, res: Response): Promise<any> => {
     const { alias, mail, password } = req.body;
 
+    // Validações iniciais
     if (!alias) {
-        res.json({ error: "Forneça o nome de usuário" });
+        res.status(400).json({ error: "Forneça o nome de usuário" });
         return;
     } else if (!mail) {
-        res.json({ error: "Forneça o e-mail" });
+        res.status(400).json({ error: "Forneça o e-mail" });
         return;
     } else if (!password || password.trim().length < 6) {
-        res.json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
+        res.status(400).json({ error: "Forneça a senha com o mínimo de 6 caracteres" });
         return;
-    } else {
-        const hashedPassword = await bcrypt.hash(password, this.saltRounds);
+    }
 
-        try {
-            const result: any = await query(
-                `INSERT INTO users(alias,mail,password) 
-                VALUES($1,$2,$3)
-                RETURNING id::varchar, alias, mail, role`,
-                [alias, mail, hashedPassword]
-            );
+    const hashedPassword = await bcrypt.hash(password, this.saltRounds);
 
-            if (result.rows.length > 0) {
-                const user = result.rows[0];
-                // Retorna o usuário e a resposta
-                return user;
-            } else {
-                res.status(400).json({ error: "Erro ao criar o usuário" });
-                return;
-            }
+    try {
+        const result: any = await query(
+            `INSERT INTO users(alias,mail,password) 
+            VALUES($1,$2,$3)
+            RETURNING id::varchar, alias, mail, role`,
+            [alias, mail, hashedPassword]
+        );
 
-        } catch (e: any) {
-            if (e.message.includes("duplicate key")) {
-                res.status(409).json({
-                    error: "O e-mail fornecido já está em uso. Por favor, forneça um e-mail diferente",
-                });
-            } else {
-                res.status(502).json({ error: e.message });
-            }
+        if (result.rows.length > 0) {
+            const user = result.rows[0];
+            // Retorna o usuário e a resposta com status 201
+            return user; // Certifique-se de retornar o usuário
+        } else {
+            res.status(400).json({ error: "Erro ao criar o usuário" });
             return;
+        }
+    } catch (e: any) {
+        // Manipulação de erros
+        if (e.message.includes("duplicate key")) {
+            res.status(409).json({
+                error: "O e-mail fornecido já está em uso. Por favor, forneça um e-mail diferente",
+            });
+        } else {
+            res.status(502).json({ error: e.message });
         }
     }
 };
