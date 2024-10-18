@@ -5,13 +5,13 @@ import { useUser } from "../hooks";
 import AdmMenu from "./AdmMenu";
 
 export default function Header() {
-  const { currentUser } = useUser(); // Acesse currentUser em vez de token
+  const {token} = useUser();
 
   return (
     <Wrapper>
-      <Logo />
-      {currentUser && currentUser.role === "user" && <UserMenu />}
-      {currentUser && currentUser.role === "adm" && <AdmMenu />}
+        <Logo />
+        {token && token.role ==="user" && <UserMenu />}
+        {token && token.role ==="adm" && <AdmMenu />}
     </Wrapper>
   );
 }

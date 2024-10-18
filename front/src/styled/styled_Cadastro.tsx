@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const styled_Cadastro = () => {
-  // const Body = styled.body`
+  // const Body = styled.body
   //   background-color: #7E5EC2;
   //   overflow: hidden;
   //   width: 100vw;
@@ -15,7 +15,7 @@ const styled_Cadastro = () => {
   //   @media (max-width: 768px) {
   //     padding: 10px; /* Reduz o padding em telas menores */
   //   }
-  // `;
+  // ;
 
   const ImageContainer = styled.div`
     text-align: center;
@@ -130,7 +130,7 @@ const styled_Cadastro = () => {
   const Button = styled.button`
     width: 105px;
     height: 60px;
-    background-color: #21D29D;
+    background-color: #21d29d;
     color: white;
     border: none;
     border-radius: 10px;
@@ -142,7 +142,7 @@ const styled_Cadastro = () => {
     text-align: center;
 
     &:hover {
-      background-color: #1CA885;
+      background-color: #1ca885;
     }
 
     @media (max-width: 768px) {
@@ -170,7 +170,7 @@ const styled_Cadastro = () => {
   const NavigationButton = styled.button`
     width: 150px;
     height: 50px;
-    background-color: #21D29D;
+    background-color: #21d29d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -180,7 +180,7 @@ const styled_Cadastro = () => {
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #1CA885;
+      background-color: #1ca885;
     }
 
     @media (max-width: 768px) {
@@ -196,6 +196,79 @@ const styled_Cadastro = () => {
     }
   `;
 
+  const LineSld = styled.div`
+    display: flex;
+    flex-direction: row;
+  `;
+
+  const LineInputSld = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  `;
+
+  const LabelSld = styled.label`
+    display: flex;
+    color: #333;
+    padding: 0px;
+    margin: 5px 0px;
+  `;
+
+  const InputSld = styled.input`
+    display: flex;
+    flex: 1;
+    border-radius: 5px;
+    border: none;
+    padding: 8px;
+
+    color: #555;
+    font-weight: 600;
+    font-size: 110%;
+    font-family: roboto;
+    box-sizing: border-box;
+  `;
+
+  const SpacerSld = styled.div`
+    display: flex;
+    width: 20px;
+  `;
+
+  const ItemSld = styled.div<ItemSldProps>`
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 5px 10px;
+
+    &:hover {
+      color: #fff;
+      background-color: rgb(245, 149, 59);
+    }
+
+    background-color: ${(props) =>
+      props.selected ? "rgb(34, 175, 163)" : "transparent"};
+    color: ${(props) => (props.selected ? "#fff" : "#000")};
+  `;
+
+  const ItemWrapperSld = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+  `;
+
+  interface ItemSldProps {
+    selected: boolean;
+  }
+
+  const WrapperSld = styled.div`
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    box-sizing: border-box;
+  `;
+
   return {
     // Body,
     ImageContainer,
@@ -205,9 +278,17 @@ const styled_Cadastro = () => {
     Label,
     Input,
     FormGroupRow,
-    Button,
+    // Button,
     ButtonContainer,
     NavigationButton,
+    InputSld,
+    LabelSld,
+    LineSld,
+    LineInputSld,
+    SpacerSld,
+    ItemSld,
+    ItemWrapperSld,
+    WrapperSld,
   };
 };
 

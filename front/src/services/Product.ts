@@ -2,9 +2,9 @@ import { ErrorProps, ProductNutrientsProps } from "../types";
 import { api } from "./api";
 
 class Product {
-  async search(term: string): Promise<ProductNutrientsProps[] | ErrorProps> {
+  async search(term:string): Promise<ProductNutrientsProps[] | ErrorProps> {
     try {
-      const params = { term };
+      const params = {term};
       const { data } = await api.get("/product/searchbyuser", { params });
       return data;
     } catch (error: any) {
@@ -81,7 +81,8 @@ class Product {
     sodium: number | null
   ): Promise<ProductNutrientsProps | ErrorProps> {
     try {
-      const { data } = await api.put(`/product/${id}`, {
+      const { data } = await api.put("/product", {
+        id,
         description,
         serving_size,
         serving_size_unit,
@@ -104,7 +105,7 @@ class Product {
     }
   }
 
-  async delete(id: string): Promise<ProductNutrientsProps | ErrorProps> {
+  async delete(id:string): Promise<ProductNutrientsProps | ErrorProps> {
     try {
       const { data } = await api.delete(`/product/${id}`);
       return data;

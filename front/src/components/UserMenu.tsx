@@ -1,46 +1,11 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
+import { useUser } from "../hooks";
 import { Link } from "react-router-dom";
 
-// Definindo a interface User
-interface User {
-  id: string;
-  alias: string;
-  email: string;
-}
+export default function UserMenu() {
+    const {token, logout} = useUser();
 
-interface UserContextType {
-  token: User | null;  // token será um objeto User ou null
-  logout: () => void;  // Adiciona a função logout ao tipo
-}
-
-// Definindo o tipo do token
-interface Token {
-  alias: string; // Supondo que o token tenha uma propriedade 'alias'
-}
-
-interface UserContextType {
-  token: User | null;  // token será um objeto User ou null
-}
-
-// Exemplo de uso do useUser
-const useUser = (): UserContextType => {
-  const [token, setToken] = useState<User | null>(null);
-
-  const logout = () => {
-    // lógica de logout
-  };
-
-  return { token, logout };
-};
-
-// Componente User que integra criação de usuário e menu
-export default function User() {
-  const [nome, setNome] = useState('');
-  const [email, setEmail] = useState('');
-  const [senha, setSenha] = useState('');
-  const [token, setToken] = useState<Token | null>(null); // Estado do token tipado corretamente
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -61,58 +26,14 @@ export default function User() {
     };
   }, []);
 
-  // Função para criação de usuário
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post('http://localhost:3011/usuarios', {
-        nome,
-        email,
-        senha,
-      });
-      console.log('Usuário criado:', response.data);
-      setToken(response.data); // Supondo que o backend retorna um token com o alias do usuário
-    } catch (error) {
-      console.error('Erro ao criar usuário:', error);
-    }
-  };
-
   const handleLogout = () => {
     setIsOpen(false);
-    setToken(null); // Limpa o token para simular o logout
-  };
-
-  // Renderiza o formulário de criação de usuário caso não haja um token (usuário não logado)
-  if (!token) {
-    return (
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-        />
-        <button type="submit">Criar Usuário</button>
-      </form>
-    );
+    logout();
   }
 
-  // Renderiza o menu do usuário se o token existir (usuário logado)
   return (
     <Wrapper ref={menuRef}>
-      <UserIcon onClick={toggleMenu}>{token.alias.charAt(0).toUpperCase() || nome.charAt(0).toUpperCase()}</UserIcon>
+      <UserIcon onClick={toggleMenu}>{token?.alias.charAt(0).toUpperCase()}</UserIcon>
       {isOpen && (
         <DropdownMenu>
           <StyledLink to="/eat" onClick={() => setIsOpen(false)}>
@@ -130,7 +51,7 @@ export default function User() {
           <StyledLink to="/settings" onClick={() => setIsOpen(false)}>
             Configurações
           </StyledLink>
-          <MenuItemBorderTop onClick={handleLogout}>
+          <MenuItemBorderTop onClick={ handleLogout }>
             Sair
           </MenuItemBorderTop>
         </DropdownMenu>
@@ -139,7 +60,6 @@ export default function User() {
   );
 }
 
-// Estilos (Styled Components)
 const Wrapper = styled.div`
   position: relative;
   display: flex;
@@ -168,7 +88,7 @@ const DropdownMenu = styled.div`
   border-radius: 5px;
   overflow: hidden;
   box-sizing: border-box;
-  width: max-content;
+  width: max-content; /* Ajusta a largura ao conteúdo */
   z-index: 10;
 `;
 
@@ -189,8 +109,8 @@ const MenuItemBorderTop = styled(MenuItem)`
 const StyledLink = styled(Link)`
   display: flex;
   padding: 10px 20px;
-  color: inherit;
-  text-decoration: none;
+  color: inherit; /* Inherits the color from the parent */
+  text-decoration: none; /* Removes the underline */
   cursor: pointer;
 
   &:hover {

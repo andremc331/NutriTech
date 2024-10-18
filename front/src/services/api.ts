@@ -1,7 +1,6 @@
 import axios from "axios";
-import { loadFromLocalStorage } from "../utils"; // Ajuste o caminho conforme necessário
+import { loadFromLocalStorage } from "../utils";
 
-// Criação da instância do Axios
 export const api = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL || "",
   headers: {
@@ -9,7 +8,7 @@ export const api = axios.create({
   },
 });
 
-// Interceptor de Requisição
+// o interceptor de é chamado a cada requisição
 api.interceptors.request.use(
   (config) => {
     const user = loadFromLocalStorage("user");
@@ -23,15 +22,16 @@ api.interceptors.request.use(
   }
 );
 
-// Interceptor de Resposta
+/*
+O tratamento de erro, configurado no interceptor de resposta do Axios,
+intercepta todas as respostas de requisições e pode lidar com os erros adequadamente.
+*/
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response) {
-      const errorMessage =
-        error.response.data?.error_message ||
-        error.response.data?.error ||
-        "Erro desconhecido no servidor";
+      // Trata erros de resposta
+      const errorMessage = error.response.data?.error_message || error.response.data?.error || "Erro desconhecido no servidor";
       return Promise.reject({ error: errorMessage });
     } else if (error.request) {
       if (error.code === "ECONNABORTED") {
@@ -39,6 +39,7 @@ api.interceptors.response.use(
       } else if (error.code === "ENOTFOUND") {
         return Promise.reject({ error: "Servidor não encontrado" });
       }
+      // Qualquer outra situação onde a requisição foi feita mas não houve resposta
       return Promise.reject({
         error: "Servidor inoperante ou sem conexão de rede",
       });

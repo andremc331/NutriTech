@@ -6,19 +6,19 @@ import {
   Navigate,
   BrowserRouter,
 } from "react-router-dom";
-import BemVindo from "./pages/BemVindo";
-import Cadastro from "./pages/Cadastro";
-import InfoPessoal from "./pages/Infopessoal";
-import DefinicaoMetas from "./pages/DefinicaoMetas";
-import TermosDeUso from "./pages/TermosDeUso";
-import Home from "./pages/Home";
-import Cardapio from "./pages/Cardapio";
-import Historico from "./pages/Historico";
-import Progresso from "./pages/Progresso";
-import Configuracoes from "./pages/Configuracoes";
-import { UserProvider } from "./contexts";
+import BemVindo from "../pages/BemVindo";
+import Cadastro from "../pages/Cadastro";
+import InfoPessoal from "../pages/Infopessoal";
+import DefinicaoMetas from "../pages/DefinicaoMetas";
+import TermosDeUso from "../pages/TermosDeUso";
+import Home from "../pages/Home";
+import Cardapio from "../pages/Cardapio";
+import Historico from "../pages/Historico";
+import Progresso from "../pages/Progresso";
+import Configuracoes from "../pages/Configuracoes";
+import { UserProvider } from "../contexts";
 
-const App: React.FC = () => {
+export default function UserRoutes() {
   return (
     <Router>
       <BrowserRouter>
@@ -42,5 +42,3 @@ const App: React.FC = () => {
     </Router>
   );
 };
-
-export default App;
