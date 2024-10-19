@@ -4,7 +4,6 @@ import styled_Configuracoes from "../styled/styled_Configuracoes";
 
 const {
   ContainerMenu,
-  BarraNavegacao,
   ContainerConfiguracoes,
   ConfiguracoesBody,
 } = styled_Configuracoes();
@@ -18,9 +17,6 @@ const Configuracoes: React.FC = () => {
   return (
     <ConfiguracoesBody>
       <ContainerMenu>
-        <BarraNavegacao>
-          <h1>Nome do usuário</h1>
-        </BarraNavegacao>
         <ContainerConfiguracoes>
           <h1>
             Sobre a Empresa <StyledNutriTech>NutriTech</StyledNutriTech>

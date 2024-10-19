@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import logo from '../logo/logo.nutritech.png';
 import logofundo from '../logo/logofundo.png';
+import { useUser } from '../hooks';
+import { loadFromLocalStorage } from '../utils';
 import { useNavigate } from 'react-router-dom';
+import { Error } from '../components';
 
 const Background = styled.div`
   display: flex;
@@ -10,9 +13,9 @@ const Background = styled.div`
   background-image: url(${logofundo});
   background-size: cover;
   background-position: center;
-  flex-direction: row; /* Alinhamento horizontal dos containers */
+  flex-direction: row;
   @media (max-width: 768px) {
-    flex-direction: column; /* Mudança para coluna em telas menores */
+    flex-direction: column;
   }
 `;
 
@@ -24,33 +27,24 @@ const ContainerRightTitle = styled.div`
   justify-content: center;
   text-align: center;
   padding: 5px;
-  border-radius: 10px;
   margin-bottom: 5%;
   margin-right: 20%;
-
   @media (max-width: 1024px) {
     margin-right: 10%;
   }
-
   @media (max-width: 768px) {
     margin-right: 0;
     width: 100%;
     margin-bottom: 20px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
   }
 `;
 
 const Logo = styled.img`
   width: 250px;
   margin-bottom: 30px;
-
   @media (max-width: 768px) {
     width: 200px;
   }
-
   @media (max-width: 480px) {
     width: 150px;
   }
@@ -96,26 +90,13 @@ const ContainerLeft = styled.div`
   }
 `;
 
-const EmailLabel = styled.label`
-  margin-top: 20px;
-  font-weight: bold;
-  color: black;
-`;
-
-const PasswordLabel = styled.label`
-  margin-top: 10px;
-  font-weight: bold;
-  color: black;
-`;
-
 const Input = styled.input`
   padding: 10px;
   margin-top: 5px;
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  width: 80%; /* Ocupa toda a largura disponível */
-
+  width: 80%;
   &:focus {
     border-color: #007bff;
     box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
@@ -129,7 +110,7 @@ const MainContent = styled.div`
   justify-content: flex-end;
 `;
 
-const Button1 = styled.button`
+const Button = styled.button`
   background-color: #007bff;
   color: white;
   border: none;
@@ -138,23 +119,8 @@ const Button1 = styled.button`
   cursor: pointer;
   transition: background-color 0.3s ease;
   margin-top: 20px;
-
   &:hover {
     background-color: #0056b3;
-  }
-`;
-
-const Button2 = styled.button`
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #218838;
   }
 `;
 
@@ -166,36 +132,50 @@ const JustifiedText = styled.p`
 `;
 
 const BemVindo: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [senha, setSenha] = useState<string>('');
+  const [email, setEmail] = useState<string>('aba@teste.com');
+  const [senha, setSenha] = useState<string>('123456');
+  const { token, setToken, login, error, setError } = useUser();
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    console.log('Email:', email);
-    console.log('Senha:', senha);
-    navigate('/home');
+    if (!email) {
+      setError({ error: "Forneça o e-mail" });
+    } else if (!senha) {
+      setError({ error: "Forneça a senha" });
+    } else {
+      login(email, senha);
+    }
   };
+
+  useEffect(() => {
+    if (!token) {
+      const user = loadFromLocalStorage("user");
+      if (user) {
+        setToken(user);
+        navigate("/");
+      }
+    }
+  }, [token, setToken, navigate]);
 
   return (
     <Background>
       <ContainerLeft>
         <h1>Login</h1>
-        <EmailLabel>Email:</EmailLabel>
+        {error && <Error>{error.error}</Error>}
         <Input 
           type="email" 
-          className="email-input" 
           value={email}
           onChange={(e) => setEmail(e.target.value)} 
+          placeholder="Email"
         />
-        <PasswordLabel>Senha:</PasswordLabel>
         <Input 
           type="password" 
-          className="password-input" 
           value={senha}
           onChange={(e) => setSenha(e.target.value)} 
+          placeholder="Senha"
         />
         <MainContent>
-          <Button2 onClick={handleLogin}>&gt;</Button2>
+          <Button onClick={handleLogin}>&gt;</Button>
         </MainContent>
       </ContainerLeft>
 
@@ -208,7 +188,7 @@ const BemVindo: React.FC = () => {
           <br />
           SAÚDE!
         </JustifiedText>
-        <Button1 onClick={() => navigate('/cadastro')}>COMECE JÁ</Button1>
+        <Button onClick={() => navigate('/cadastro')}>COMECE JÁ</Button>
       </ContainerRightTitle>
     </Background>
   );
