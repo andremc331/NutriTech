@@ -15,7 +15,7 @@ ALTER COLUMN senha TYPE VARCHAR(200);
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(45) NOT NULL,
-  senha VARCHAR(200) NOT NULL,
+  senha VARCHAR(20) NOT NULL,
   nome CHAR(50) NULL,
   role enum_role NOT NULL DEFAULT 'user',
   peso FLOAT NULL,
