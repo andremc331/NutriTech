@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
-import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
+import React, { useState } from "react";
+import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
 import styled from "styled-components";
-import { useNavigate } from 'react-router-dom';
-import { AdmMenu, Error, PopupMessage, InputDatePickerConsumer, Input, TableEatProduct, TableEatFood, Button } from '../components';
-import { useEat } from '../hooks';
-import { FoodProps, ProductNutrientsProps } from '../types';
-import { dateFormat } from '../utils';
+import { useNavigate } from "react-router-dom";
+import {
+  AdmMenu,
+  Error,
+  PopupMessage,
+  InputDatePickerConsumer,
+  Input,
+  TableEatProduct,
+  TableEatFood,
+  Button,
+} from "../components";
+import { useEat } from "../hooks";
+import { FoodProps, ProductNutrientsProps } from "../types";
+import { dateFormat } from "../utils";
 
 const Cardapio: React.FC = () => {
   const navigate = useNavigate();
@@ -14,12 +23,24 @@ const Cardapio: React.FC = () => {
   const [messagePopup, setMessagePopup] = useState("");
   const [term, setTerm] = useState("");
   const [selectedFood, setSelectedFood] = useState<FoodProps | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<ProductNutrientsProps | null>(null);
+  const [selectedProduct, setSelectedProduct] =
+    useState<ProductNutrientsProps | null>(null);
   const [searchType, setSearchType] = useState<string | null>(null);
   const [quantity, setQuantity] = useState("");
   const [date, setDate] = useState<Date | null>(new Date());
 
-  const { products, foods, error, setError, createProduct, createFood, searchFood, searchProduct, eatProducts, eatFoods } = useEat();
+  const {
+    products,
+    foods,
+    error,
+    setError,
+    createProduct,
+    createFood,
+    searchFood,
+    searchProduct,
+    eatProducts,
+    eatFoods,
+  } = useEat();
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index);
@@ -58,9 +79,15 @@ const Cardapio: React.FC = () => {
       } else if (!quantity || isNaN(parseFloat(quantity))) {
         setError({ error: "Forneça a quantidade consumida" });
       } else if (parseFloat(quantity) <= 0) {
-        setError({ error: "A quantidade consumida precisa ser um valor maior que zero" });
+        setError({
+          error: "A quantidade consumida precisa ser um valor maior que zero",
+        });
       } else {
-        const response = await createProduct(selectedProduct.id, dateFormat(date), parseFloat(quantity));
+        const response = await createProduct(
+          selectedProduct.id,
+          dateFormat(date),
+          parseFloat(quantity)
+        );
         if (response) {
           setMessagePopup("Consumo registrado com sucesso");
           setShowPopup(true);
@@ -72,9 +99,15 @@ const Cardapio: React.FC = () => {
       } else if (!quantity || isNaN(parseFloat(quantity))) {
         setError({ error: "Forneça a quantidade consumida" });
       } else if (parseFloat(quantity) <= 0) {
-        setError({ error: "A quantidade consumida precisa ser um valor maior que zero" });
+        setError({
+          error: "A quantidade consumida precisa ser um valor maior que zero",
+        });
       } else {
-        const response = await createFood(selectedFood.id, dateFormat(date), parseFloat(quantity));
+        const response = await createFood(
+          selectedFood.id,
+          dateFormat(date),
+          parseFloat(quantity)
+        );
         if (response) {
           setMessagePopup("Consumo registrado com sucesso");
           setShowPopup(true);
@@ -88,20 +121,29 @@ const Cardapio: React.FC = () => {
   let items = null;
   if (searchType === "product") {
     items = products.map((item) => (
-      <ItemSld key={item.id} onClick={() => setSelectedProduct(item)} selected={selectedProduct?.id === item.id}>
+      <ItemSld
+        key={item.id}
+        onClick={() => setSelectedProduct(item)}
+        selected={selectedProduct?.id === item.id}
+      >
         {item.description} ({item.quantity_per_serving_unit})
       </ItemSld>
     ));
   } else if (searchType === "food") {
     items = foods.map((item) => (
-      <ItemSld key={item.id} onClick={() => setSelectedFood(item)} selected={selectedFood?.id === item.id}>
+      <ItemSld
+        key={item.id}
+        onClick={() => setSelectedFood(item)}
+        selected={selectedFood?.id === item.id}
+      >
         {item.description}
       </ItemSld>
     ));
   }
 
   return (
-    <CardapioBody>
+    <>
+    <BodyWrapper>
       <ContainerMenu>
         <BarraNavegacao>
           <h1>Nome de usuário</h1>
@@ -128,25 +170,33 @@ const Cardapio: React.FC = () => {
           </SidebarContent>
         </Sidebar>
         <CentralContent>
-          {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
+          {[
+            "Café da manhã",
+            "Lanche da manhã",
+            "Almoço",
+            "Lanche da tarde",
+            "Jantar",
+            "Ceia",
+            "Pré-treino",
+            "Pós-treino",
+          ].map((item, index) => (
             <WhiteBox key={index} onClick={() => toggleExpand(index)}>
               <div className="item-container">
                 <span>{item}</span>
                 <SimboloMais>+</SimboloMais>
               </div>
               <ExpandedContent isExpanded={expandedIndex === index}>
-                {expandedIndex === index && <p>Conteúdo expandido para {item}</p>}
+                {expandedIndex === index && (
+                  <p>Conteúdo expandido para {item}</p>
+                )}
               </ExpandedContent>
             </WhiteBox>
           ))}
         </CentralContent>
-      </ContainerMenu>
-      <ImageContainer>
-        <img src={imgLogoSemFundo} alt="Descrição da Imagem" />
-      </ImageContainer>
-      <BodyWrapper>
         {error && <Error>{error.error}</Error>}
-        {showPopup && <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />}
+        {showPopup && (
+          <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />
+        )}
         <LineInputSld>
           <LabelSld>Busca alimento ou produto consumido</LabelSld>
           <InputSld
@@ -178,50 +228,53 @@ const Cardapio: React.FC = () => {
         <LineSld>
           <Button label="Salvar" click={handleSave} />
         </LineSld>
-        {eatProducts && eatProducts.length > 0 && <TableEatProduct items={eatProducts} />}
+        {eatProducts && eatProducts.length > 0 && (
+          <TableEatProduct items={eatProducts} />
+        )}
         {eatFoods && eatFoods.length > 0 && <TableEatFood items={eatFoods} />}
+      
+      </ContainerMenu>
+      <ImageContainer>
+        <img src={imgLogoSemFundo} alt="Descrição da Imagem" />
+      </ImageContainer>
       </BodyWrapper>
-    </CardapioBody>
+    </>
   );
 };
 
-const CardapioBody = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  background-color: #f0f0f0;
-  min-height: 100vh;
-  margin-top: 20px;
-  padding: 20px;
+// const CardapioBody = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   gap: 20px;
+//   background-color: #f0f0f0;
+//   min-height: 100vh;
+//   margin-top: 20px;
+//   padding: 20px;
 
-  @media (max-width: 768px) {
-    padding: 15px;
-  }
+//   @media (max-width: 768px) {
+//     padding: 15px;
+//   }
 
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-`;
+//   @media (max-width: 480px) {
+//     padding: 10px;
+//   }
+// `;
 
 const ImageContainer = styled.div`
-  position: absolute;
-  bottom: 1px;
-  right: 20px;
-  z-index: 999;
+    position: absolute;
+    bottom: 5px;
+    right: 20px;
+    z-index: 999;
 
-  img {
-    max-width: 150px;
-    height: auto;
-
-    @media (max-width: 768px) {
+    img {
       max-width: 100px;
-    }
+      height: auto;
 
-    @media (max-width: 480px) {
-      max-width: 80px;
+      @media (min-width: 768px) {
+        max-width: 150px; /* Ajuste para telas maiores */
+      }
     }
-  }
-`;
+  `;
 
 const ContainerMenu = styled.div`
   display: flex;
@@ -312,8 +365,13 @@ const ExpandedContent = styled.div<{ isExpanded: boolean }>`
 `;
 
 const BodyWrapper = styled.div`
-  margin-top: 20px;
-`;
+  // margin-top: 20px;
+  display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #f0f0f0;
+    min-height: 100vh;
+  `;
 
 const LineInputSld = styled.div`
   display: flex;
