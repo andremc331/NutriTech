@@ -188,7 +188,8 @@ export interface TokenProps extends UserProps {
 
 export interface ProfileProps {
   birth_date: string;
-  weight: string;
+  height: number;
+  weight: number;
   sex: string;
 }
 

@@ -1,54 +1,63 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; 
 import logo from "../logo/logo.nutritech.png";
 import styled from "styled-components";
+import { useUser } from "../hooks";
+import { calculateAge, dateFormat } from "../utils";
+import {
+  InputDatePicker,
+  Select,
+  PopupMessage,
+  Button,
+  Error,
+  Input,
+} from "../components";
 
-type Sexo = "masculino" | "feminino" | "prefiro não informar";
+// Tipos para os dados de usuário
+// type Sexo = "masculino" | "feminino" | "prefiro não informar";
 type NivelAtividade = "sedentario" | "leve" | "moderado" | "intenso" | "muito_intenso";
 
-interface UserData {
-  username: string;
-  dob: string;
-  height: number | null;
-  weight: number | null;
-  gender: Sexo;
-  nivelAtividade: NivelAtividade;
-  idade: number | null;
-}
-
 const Infopessoal: React.FC = () => {
-  const [userData, setUserData] = useState<UserData>({
-    username: "",
-    dob: "",
-    height: null,
-    weight: null,
-    gender: "masculino", // Valor padrão
-    nivelAtividade: "moderado", // Valor padrão
-    idade: null,
-  });
-
+  const [username, setUsername] = useState<string>("");
+  const [height, setHeight] = useState<number | null>(null);
+  const [weight, setWeight] = useState("");
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
+  const [sex, setSex] = useState("");
+  const [nivelAtividade, setNivelAtividade] = useState<NivelAtividade>("moderado");
+  const [idade, setIdade] = useState<number | null>(null);
   const [calorias, setCalorias] = useState<number | null>(null);
+  const [showPopup, setShowPopup] = useState(false);
+  const [messagePopup, setMessagePopup] = useState("");
+  const { profile, saveProfile, deleteProfile, error, setError } = useUser();
+
   const navigate = useNavigate();
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    const { name, value } = e.target;
-    if (name === "height" || name === "weight" || name === "idade") {
-      const numberValue = value ? parseFloat(value) : null;
-      if (numberValue === null || isNaN(numberValue) || numberValue < 0) {
-        window.alert("Informe um valor válido e positivo");
-      } else {
-        setUserData((prevUserData) => ({
-          ...prevUserData,
-          [name]: numberValue,
-        }));
-      }
+  // Função para buscar os dados do profile
+  useEffect(() => {
+    if (profile) {
+      setBirthDate(new Date(`${profile.birth_date} 00:00:00`));
+      setWeight(profile.weight);
+      setSex(profile.sex);
+      setHeight(profile.height || null);
     } else {
-      setUserData({
-        ...userData,
-        [name]: value,
-      });
+      setBirthDate(null);
+      setWeight("");
+      setSex("masculino");
+      setHeight(null);
+    }
+  }, [profile, setError]);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    if (name === "height") {
+      const numberValue = value ? parseFloat(value) : null;
+      setHeight(numberValue);
+    } else if (name === "weight") {
+      setWeight(value);
+    } else if (name === "sex") {
+      setSex(value as string);
+    } else if (name === "nivelAtividade") {
+      setNivelAtividade(value as NivelAtividade);
     }
   };
 
@@ -56,11 +65,11 @@ const Infopessoal: React.FC = () => {
     peso: number,
     altura: number,
     idade: number,
-    sexo: Sexo,
+    sex: string,
     nivelAtividade: NivelAtividade
   ): number => {
     let tmb: number;
-    if (sexo === "masculino") {
+    if (sex === "") {
       tmb = 10 * peso + 6.25 * altura - 5 * idade + 5;
     } else {
       tmb = 10 * peso + 6.25 * altura - 5 * idade - 161;
@@ -77,31 +86,55 @@ const Infopessoal: React.FC = () => {
     return tmb * fatoresAtividade[nivelAtividade];
   };
 
+  const calculateAge = (dateOfBirth: Date): number => {
+    const today = new Date();
+    const age = today.getFullYear() - dateOfBirth.getFullYear();
+    const month = today.getMonth() - dateOfBirth.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < dateOfBirth.getDate())) {
+      return age - 1;
+    }
+    return age;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    let conversao = {
-      ...userData,
-      height: userData.height?.toFixed(2),
-      weight: userData.weight?.toFixed(2),
-    };
-    console.log("dados de usuario", conversao);
 
-    if (userData.weight && userData.height && userData.idade) {
+    // Validação detalhada
+    if (!birthDate) {
+      setError({ error: "Forneça a data de nascimento" });
+    } else if (calculateAge(birthDate) < 1) {
+      setError({ error: "É necessário idade mínima de 1 ano" });
+    } else if (!weight) {
+      setError({ error: "Forneça o peso" });
+    } else if (!height) {
+      setError({ error: "Forneça a altura" });
+    } else if (!idade) {
+      setError({ error: "Forneça a idade" });
+    } else {
       const caloriasCalculadas = calcularCalorias(
-        userData.weight,
-        userData.height,
-        userData.idade,
-        userData.gender,
-        userData.nivelAtividade
+        parseFloat(weight),
+        height,
+        idade,
+        sex,
+        nivelAtividade
       );
       setCalorias(caloriasCalculadas);
-    } else {
-      window.alert(
-        "Por favor, preencha todos os dados necessários para calcular as calorias."
-      );
-    }
 
-    navigate("/definicao-metas");
+      const formattedDate = birthDate.toISOString().split('T')[0];
+      saveProfile(formattedDate, weight, sex);
+      setMessagePopup("Perfil salvo com sucesso");
+      setShowPopup(true);
+      
+      navigate("/definicao-metas");
+    }
+  };
+
+  const handleDelete = async () => {
+    const response = await deleteProfile();
+    if (response) {
+      setMessagePopup("Perfil excluído com sucesso");
+      setShowPopup(true);
+    }
   };
 
   return (
@@ -111,37 +144,25 @@ const Infopessoal: React.FC = () => {
       </Logo>
       <Container>
         <Title>Informações de Usuário</Title>
+        {error && <Error>{error.error}</Error>}
+        {showPopup && (
+          <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />
+        )}
         <form onSubmit={handleSubmit}>
           <Label htmlFor="username">Nome de usuário:</Label>
           <Input
             type="text"
             id="username"
             name="username"
-            value={userData.username}
-            onChange={handleChange}
-            required
-            aria-describedby="usernameHelp"
-          />
-
-          <Label htmlFor="dob">Data de nascimento:</Label>
-          <Input
-            type="date"
-            id="dob"
-            name="dob"
-            value={userData.dob}
-            onChange={handleChange}
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             required
           />
 
-          <Label htmlFor="idade">Idade:</Label>
-          <Input
-            type="number"
-            id="idade"
-            name="idade"
-            value={userData.idade !== null ? userData.idade : ""}
-            onChange={handleChange}
-            placeholder="Informe sua idade"
-            required
+          <InputDatePicker
+            label="Data de nascimento"
+            value={birthDate}
+            setValue={setBirthDate}
           />
 
           <Label htmlFor="height">Altura (cm):</Label>
@@ -149,7 +170,8 @@ const Infopessoal: React.FC = () => {
             type="number"
             id="height"
             name="height"
-            value={userData.height !== null ? userData.height : ""}
+            label="Nome de Usuário"
+            value={height !== null ? height : ""}
             onChange={handleChange}
             placeholder="EX: 180"
             required
@@ -160,65 +182,29 @@ const Infopessoal: React.FC = () => {
             type="number"
             id="weight"
             name="weight"
-            value={userData.weight !== null ? userData.weight : ""}
+            value={weight}
             onChange={handleChange}
-            placeholder="EX: 55"
             required
           />
 
-          <Gender>
-            <Label>Gênero:</Label>
-            <GenderLabel>Masculino</GenderLabel>
-            <GenderInput
-              type="radio"
-              name="gender"
-              value="masculino"
-              checked={userData.gender === "masculino"}
-              onChange={handleChange}
-              required
-            />
-            <GenderLabel>Feminino</GenderLabel>
-            <GenderInput
-              type="radio"
-              name="gender"
-              value="feminino"
-              checked={userData.gender === "feminino"}
-              onChange={handleChange}
-              required
-            />
-            <GenderLabel>Prefiro não informar</GenderLabel>
-            <GenderInput
-              type="radio"
-              name="gender"
-              value="prefiro não informar"
-              checked={userData.gender === "prefiro não informar"}
-              onChange={handleChange}
-              required
-            />
-          </Gender>
-
-          <Label htmlFor="nivelAtividade">Nível de Atividade:</Label>
-          <select
-            name="nivelAtividade"
-            value={userData.nivelAtividade}
-            onChange={handleChange}
-            required
-          >
-            <option value="sedentario">Sedentário</option>
-            <option value="leve">Leve</option>
-            <option value="moderado">Moderado</option>
-            <option value="intenso">Intenso</option>
-            <option value="muito_intenso">Muito Intenso</option>
-          </select>
+          <Label htmlFor="gender">Gênero:</Label>
+          <Select
+            id="gender"
+            label="Gênero"
+            value={sex}
+            setValue={setSex}
+            options={[
+              { value: "masculino", label: "Masculino" },
+              { value: "feminino", label: "Feminino" },
+              { value: "prefiro não informar", label: "Prefiro não informar" },
+            ]}
+          />
 
           <ButtonContainer>
-            <BackButton type="button" onClick={() => navigate("/cadastro")}>
-              Voltar
-            </BackButton>
-            <Button type="submit">Próximo</Button>
+            <Button label="Salvar" click={handleSubmit} />
+            {profile && <Button label="Excluir" click={handleDelete} />}
           </ButtonContainer>
         </form>
-
         {calorias !== null && (
           <p>Calorias diárias recomendadas: {calorias.toFixed(2)}</p>
         )}
@@ -229,12 +215,13 @@ const Infopessoal: React.FC = () => {
 
 export default Infopessoal;
 
+// Estilização mantida de InfoPessoal.tsx
 const Body = styled.div`
   font-family: Arial, sans-serif;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column; 
+  flex-direction: column;
 
   @media (max-width: 768px) {
     padding: 10px;
@@ -280,66 +267,10 @@ const Label = styled.label`
   display: grid;
 `;
 
-const Input = styled.input`
-  width: 60%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid;
-  border-radius: 5px;
-
-  @media (max-width: 768px) {
-    width: 100%;
-  }
-`;
-
-const Gender = styled.div`
-  display: flex;
-  gap: 5px;
-  text-align: center;
-  margin-bottom: 15px;
-  margin-top: 10px;
-
-  @media (max-width: 768px) {
-    flex-direction: row;
-    justify-content: space-around;
-    margin-top: 15px;
-    right: 5px;
-  }
-`;
-
-const GenderLabel = styled.label`
-  color: white;
-`;
-
-const GenderInput = styled.input`
-  margin-left: 10px;
-`;
-
 const ButtonContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
-`;
-
-const Button = styled.button`
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #45a049;
-  }
-`;
-
-const BackButton = styled(Button)`
-  background-color: red;
-
-  &:hover {
-    background-color: #c00;
-  }
 `;
 
 const Logo = styled.div`
