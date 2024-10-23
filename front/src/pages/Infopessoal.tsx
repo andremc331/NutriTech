@@ -1,286 +1,296 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; 
-import logo from "../logo/logo.nutritech.png";
-import styled from "styled-components";
-import { useUser } from "../hooks";
-import { calculateAge, dateFormat } from "../utils";
-import {
-  InputDatePicker,
-  Select,
-  PopupMessage,
-  Button,
-  Error,
-  Input,
-} from "../components";
+// import { useState, useEffect } from "react";
+// import { useNavigate } from "react-router-dom"; 
+// import logo from "../logo/logo.nutritech.png";
+// import styled from "styled-components";
+// import { useUser } from "../hooks";
+// import { calculateAge, dateFormat } from "../utils";
+// import {
+//   InputDatePicker,
+//   Select,
+//   PopupMessage,
+//   Button,
+//   Error,
+//   Input,
+// } from "../components";
 
-// Tipos para os dados de usuário
-// type Sexo = "masculino" | "feminino" | "prefiro não informar";
-type NivelAtividade = "sedentario" | "leve" | "moderado" | "intenso" | "muito_intenso";
+export{}
 
-const Infopessoal: React.FC = () => {
-  const [username, setUsername] = useState<string>("");
-  const [height, setHeight] = useState<number | null>(null);
-  const [weight, setWeight] = useState("");
-  const [birthDate, setBirthDate] = useState<Date | null>(null);
-  const [sex, setSex] = useState("");
-  const [nivelAtividade, setNivelAtividade] = useState<NivelAtividade>("moderado");
-  const [idade, setIdade] = useState<number | null>(null);
-  const [calorias, setCalorias] = useState<number | null>(null);
-  const [showPopup, setShowPopup] = useState(false);
-  const [messagePopup, setMessagePopup] = useState("");
-  const { profile, saveProfile, deleteProfile, error, setError } = useUser();
+// // Tipos para os dados de usuário
+// // type Sexo = "masculino" | "feminino" | "prefiro não informar";
+// type NivelAtividade = "sedentario" | "leve" | "moderado" | "intenso" | "muito_intenso";
 
-  const navigate = useNavigate();
+// const Infopessoal: React.FC = () => {
+//   const [username, setUsername] = useState<string>("");
+//   const [height, setHeight] = useState<number | null>(null);
+//   const [weight, setWeight] = useState<number | null>(null);
+//   const [birthDate, setBirthDate] = useState<Date | null>(null);
+//   const [sex, setSex] = useState("");
+//   const [nivelAtividade, setNivelAtividade] = useState<NivelAtividade>("moderado");
+//   const [age, setAge] = useState<number | null>(null);
+//   const [calorias, setCalorias] = useState<number | null>(null);
+//   const [showPopup, setShowPopup] = useState(false);
+//   const [messagePopup, setMessagePopup] = useState("");
+//   const { profile, saveProfile, deleteProfile, error, setError } = useUser();
 
-  // Função para buscar os dados do profile
-  useEffect(() => {
-    if (profile) {
-      setBirthDate(new Date(`${profile.birth_date} 00:00:00`));
-      setWeight(profile.weight);
-      setSex(profile.sex);
-      setHeight(profile.height || null);
-    } else {
-      setBirthDate(null);
-      setWeight("");
-      setSex("masculino");
-      setHeight(null);
-    }
-  }, [profile, setError]);
+//   const navigate = useNavigate();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    if (name === "height") {
-      const numberValue = value ? parseFloat(value) : null;
-      setHeight(numberValue);
-    } else if (name === "weight") {
-      setWeight(value);
-    } else if (name === "sex") {
-      setSex(value as string);
-    } else if (name === "nivelAtividade") {
-      setNivelAtividade(value as NivelAtividade);
-    }
-  };
+//   // Função para buscar os dados do profile
+//   useEffect(() => {
+//     if (profile) {
+//       setBirthDate(new Date(`${profile.birth_date} 00:00:00`));
+//       setWeight(profile.weight || null);
+//       setSex(profile.sex);
+//       setHeight(profile.height || null);
+//     } else {
+//       setBirthDate(null);
+//       setWeight(null);
+//       setSex("masculino");
+//       setHeight(null);
+//     }
+//   }, [profile, setError]);
 
-  const calcularCalorias = (
-    peso: number,
-    altura: number,
-    idade: number,
-    sex: string,
-    nivelAtividade: NivelAtividade
-  ): number => {
-    let tmb: number;
-    if (sex === "") {
-      tmb = 10 * peso + 6.25 * altura - 5 * idade + 5;
-    } else {
-      tmb = 10 * peso + 6.25 * altura - 5 * idade - 161;
-    }
+//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+//     const { name, value } = e.target;
+//     if (name === "height") {
+//       const numberValue = value ? parseFloat(value) : null;
+//       setHeight(numberValue);
+//     } else if (name === "weight") {
+//       const numberValue = value ? parseFloat(value) : null;
+//       setWeight(numberValue);
+//     } else if (name === "sex") {
+//       setSex(value as string);
+//     } else if (name === "nivelAtividade") {
+//       setNivelAtividade(value as NivelAtividade);
+//     }
+//   };
 
-    const fatoresAtividade: Record<NivelAtividade, number> = {
-      sedentario: 1.2,
-      leve: 1.375,
-      moderado: 1.55,
-      intenso: 1.725,
-      muito_intenso: 1.9,
-    };
+//   const calcularCalorias = (
+//     height: number,
+//     weight: number,
+//     age: number,
+//     sex: string,
+//     nivelAtividade: NivelAtividade
+//   ): number => {
+//     let tmb: number;
+//     if (sex === "") {
+//       tmb = 10 * weight + 6.25 * height - 5 * age + 5;
+//     } else {
+//       tmb = 10 * weight + 6.25 * height - 5 * age - 161;
+//     }
 
-    return tmb * fatoresAtividade[nivelAtividade];
-  };
+//     const fatoresAtividade: Record<NivelAtividade, number> = {
+//       sedentario: 1.2,
+//       leve: 1.375,
+//       moderado: 1.55,
+//       intenso: 1.725,
+//       muito_intenso: 1.9,
+//     };
 
-  const calculateAge = (dateOfBirth: Date): number => {
-    const today = new Date();
-    const age = today.getFullYear() - dateOfBirth.getFullYear();
-    const month = today.getMonth() - dateOfBirth.getMonth();
-    if (month < 0 || (month === 0 && today.getDate() < dateOfBirth.getDate())) {
-      return age - 1;
-    }
-    return age;
-  };
+//     return tmb * fatoresAtividade[nivelAtividade];
+//   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+//   const calculateAge = (dateOfBirth: Date): number => {
+//     const today = new Date();
+//     const age = today.getFullYear() - dateOfBirth.getFullYear();
+//     const month = today.getMonth() - dateOfBirth.getMonth();
+//     if (month < 0 || (month === 0 && today.getDate() < dateOfBirth.getDate())) {
+//       return age - 1;
+//     }
+//     return age;
+//   };
 
-    // Validação detalhada
-    if (!birthDate) {
-      setError({ error: "Forneça a data de nascimento" });
-    } else if (calculateAge(birthDate) < 1) {
-      setError({ error: "É necessário idade mínima de 1 ano" });
-    } else if (!weight) {
-      setError({ error: "Forneça o peso" });
-    } else if (!height) {
-      setError({ error: "Forneça a altura" });
-    } else if (!idade) {
-      setError({ error: "Forneça a idade" });
-    } else {
-      const caloriasCalculadas = calcularCalorias(
-        parseFloat(weight),
-        height,
-        idade,
-        sex,
-        nivelAtividade
-      );
-      setCalorias(caloriasCalculadas);
+//   const handleSubmit = (e: React.FormEvent) => {
+//     e.preventDefault();
 
-      const formattedDate = birthDate.toISOString().split('T')[0];
-      saveProfile(formattedDate, weight, sex);
-      setMessagePopup("Perfil salvo com sucesso");
-      setShowPopup(true);
+//     // Validação detalhada
+//     if (!birthDate) {
+//       setError({ error: "Forneça a data de nascimento" });
+//     } else if (calculateAge(birthDate) < 1) {
+//       setError({ error: "É necessário idade mínima de 1 ano" });
+//     } else if (!weight) {
+//       setError({ error: "Forneça o peso" });
+//     } else if (!height) {
+//       setError({ error: "Forneça a altura" });
+//     } else if (!age) {
+//       setError({ error: "Forneça a idade" });
+//     } else {
+//       const caloriasCalculadas = calcularCalorias(
+//         parseFloat(weight.toString()),
+//         parseFloat(height.toString()),
+//         parseFloat(age.toString()),
+//         sex,
+//         nivelAtividade
+//       );
+//       setCalorias(caloriasCalculadas);
+
+//       const formattedDate = birthDate.toISOString().split('T')[0];
+//       saveProfile(formattedDate, weight.toString(), sex);
+//       setMessagePopup("Perfil salvo com sucesso");
+//       setShowPopup(true);
       
-      navigate("/definicao-metas");
-    }
-  };
+//       navigate("/definicao-metas");
+//     }
+//   };
 
-  const handleDelete = async () => {
-    const response = await deleteProfile();
-    if (response) {
-      setMessagePopup("Perfil excluído com sucesso");
-      setShowPopup(true);
-    }
-  };
+//   const handleDelete = async () => {
+//     const response = await deleteProfile();
+//     if (response) {
+//       setMessagePopup("Perfil excluído com sucesso");
+//       setShowPopup(true);
+//     }
+//   };
 
-  return (
-    <Body>
-      <Logo>
-        <LogoImage src={logo} alt="Nutritech logo" />
-      </Logo>
-      <Container>
-        <Title>Informações de Usuário</Title>
-        {error && <Error>{error.error}</Error>}
-        {showPopup && (
-          <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />
-        )}
-        <form onSubmit={handleSubmit}>
-          <Label htmlFor="username">Nome de usuário:</Label>
-          <Input
-            type="text"
-            id="username"
-            name="username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+//   return (
+//     <Body>
+//       <Logo>
+//         <LogoImage src={logo} alt="Nutritech logo" />
+//       </Logo>
+//       <Container>
+//         <Title>Informações de Usuário</Title>
+//         {error && <Error>{error.error}</Error>}
+//         {showPopup && (
+//           <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />
+//         )}
+//         <form onSubmit={handleSubmit}>
+//           <Label htmlFor="username">Nome de usuário:</Label>
+//           <Input
+//             type="text"
+//             id="username"
+//             name="username"
+//             label="Nome de Usuário"
+//             value={username}
+//             onChange={(e) => setUsername(e.target.value)}
+//             setValue={setUsername}
+//             placeholder=""
+//             required
+//           />
 
-          <InputDatePicker
-            label="Data de nascimento"
-            value={birthDate}
-            setValue={setBirthDate}
-          />
+//           <InputDatePicker
+//             label="Data de nascimento"
+//             value={birthDate}
+//             setValue={setBirthDate}
+//           />
 
-          <Label htmlFor="height">Altura (cm):</Label>
-          <Input
-            type="number"
-            id="height"
-            name="height"
-            label="Nome de Usuário"
-            value={height !== null ? height : ""}
-            onChange={handleChange}
-            placeholder="EX: 180"
-            required
-          />
+//           <Label htmlFor="height">Altura (cm):</Label>
+//           <Input
+//             type="number"
+//             id="height"
+//             name="height"
+//             label="Altura"
+//             value={height !== null ? height : ""}
+//             onChange={handleChange}
+//             setValue={setHeight}
+//             placeholder="EX: 180"
+//             required
+//           />
 
-          <Label htmlFor="weight">Peso (kg):</Label>
-          <Input
-            type="number"
-            id="weight"
-            name="weight"
-            value={weight}
-            onChange={handleChange}
-            required
-          />
+//           <Label htmlFor="weight">Peso (kg):</Label>
+//           <Input
+//             type="number"
+//             id="weight"
+//             name="weight"
+//             label="Peso"
+//             value={weight !== null ? weight : ""}
+//             onChange={handleChange}
+//             setValue={setWeight}
+//             placeholder=""
+//             required
+//           />
 
-          <Label htmlFor="gender">Gênero:</Label>
-          <Select
-            id="gender"
-            label="Gênero"
-            value={sex}
-            setValue={setSex}
-            options={[
-              { value: "masculino", label: "Masculino" },
-              { value: "feminino", label: "Feminino" },
-              { value: "prefiro não informar", label: "Prefiro não informar" },
-            ]}
-          />
+//           <Label htmlFor="gender">Gênero:</Label>
+//           <Select 
+//             id="gender"
+//             label="Gênero"
+//             value={sex}
+//             setValue={setSex}
+//             options={[
+//               { value: "masculino", label: "Masculino" },
+//               { value: "feminino", label: "Feminino" },
+//               { value: "prefiro não informar", label: "Prefiro não informar" },
+//             ]}
+//           />
 
-          <ButtonContainer>
-            <Button label="Salvar" click={handleSubmit} />
-            {profile && <Button label="Excluir" click={handleDelete} />}
-          </ButtonContainer>
-        </form>
-        {calorias !== null && (
-          <p>Calorias diárias recomendadas: {calorias.toFixed(2)}</p>
-        )}
-      </Container>
-    </Body>
-  );
-};
+//           <ButtonContainer>
+//             <Button label="Salvar" click={handleSubmit} />
+//             {profile && <Button label="Excluir" click={handleDelete} />}
+//           </ButtonContainer>
+//         </form>
+//         {calorias !== null && (
+//           <p>Calorias diárias recomendadas: {calorias.toFixed(2)}</p>
+//         )}
+//       </Container>
+//     </Body>
+//   );
+// };
 
-export default Infopessoal;
+// export default Infopessoal;
 
-// Estilização mantida de InfoPessoal.tsx
-const Body = styled.div`
-  font-family: Arial, sans-serif;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+// // Estilização mantida de InfoPessoal.tsx
+// const Body = styled.div`
+//   font-family: Arial, sans-serif;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
 
-  @media (max-width: 768px) {
-    padding: 10px;
-  }
-`;
+//   @media (max-width: 768px) {
+//     padding: 10px;
+//   }
+// `;
 
-const Container = styled.div`
-  background-color: #7d4cdb;
-  width: 800px;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  margin-bottom: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+// const Container = styled.div`
+//   background-color: #7d4cdb;
+//   width: 800px;
+//   padding: 20px;
+//   border-radius: 10px;
+//   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+//   margin-bottom: 20px;
+//   display: flex;
+//   flex-direction: column;
+//   justify-content: center;
 
-  @media (max-width: 1024px) {
-    width: 600px;
-  }
+//   @media (max-width: 1024px) {
+//     width: 600px;
+//   }
 
-  @media (max-width: 768px) {
-    width: 100%;
-    padding: 15px;
-  }
-`;
+//   @media (max-width: 768px) {
+//     width: 100%;
+//     padding: 15px;
+//   }
+// `;
 
-const Title = styled.h2`
-  color: white;
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 24px;
+// const Title = styled.h2`
+//   color: white;
+//   text-align: center;
+//   margin-bottom: 20px;
+//   font-size: 24px;
 
-  @media (max-width: 768px) {
-    font-size: 20px;
-  }
-`;
+//   @media (max-width: 768px) {
+//     font-size: 20px;
+//   }
+// `;
 
-const Label = styled.label`
-  color: white;
-  font-size: 14px;
-  margin-bottom: 5px;
-  display: grid;
-`;
+// const Label = styled.label`
+//   color: white;
+//   font-size: 14px;
+//   margin-bottom: 5px;
+//   display: grid;
+// `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-`;
+// const ButtonContainer = styled.div`
+//   display: flex;
+//   justify-content: space-between;
+//   margin-top: 20px;
+// `;
 
-const Logo = styled.div`
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-`;
+// const Logo = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   margin-bottom: 20px;
+// `;
 
-const LogoImage = styled.img`
-  width: 100%;
-  height: 120px;
-  margin-top: 20px;
-`;
+// const LogoImage = styled.img`
+//   width: 100%;
+//   height: 120px;
+//   margin-top: 20px;
+// `;

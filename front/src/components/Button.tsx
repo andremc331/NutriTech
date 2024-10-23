@@ -24,5 +24,5 @@ export const ButtonSld = styled.button`
 
 interface Props {
   label: string;
-  click: () => void;
+  click: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }

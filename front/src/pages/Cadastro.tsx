@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../logo/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { useUser } from '../hooks'; // Adjust the path as needed
+import {
+  InputDatePicker,
+  Select,
+  PopupMessage,
+  // Button,
+  Error,
+  // Input,
+} from "../components";
+
+
 type Sexo = "masculino" | "feminino" | "prefiro não informar";
 type NivelAtividade = "sedentario" | "leve" | "moderado" | "intenso" | "muito_intenso";
+
 interface UserData {
   username: string;
   dob: string;
@@ -12,11 +23,36 @@ interface UserData {
   weight: number | null;
   gender: Sexo;
   nivelAtividade: NivelAtividade;
-  idade: number | null;
+  age: number | null;
 }
+
 const Cadastro: React.FC = () => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [messagePopup, setMessagePopup] = useState("");
+  const [birthDate, setBirthDate] = useState<Date | null>(null);
+  const [username, setUsername] = useState<string>("");
+  const [height, setHeight] = useState<number | null>(null);
+  const [weight, setWeight] = useState<number | null>(null);
+  const [age, setAge] = useState<number | null>(null);
+  const [calorias, setCalorias] = useState<number | null>(null);
   const navigate = useNavigate();
-  const { create, error, setError } = useUser(); // Custom hook for user management
+  const { profile, saveProfile, deleteProfile, create, error, setError } = useUser(); // Custom hook for user management
+  const [sex, setSex] = useState("");
+
+useEffect(() => {
+  if (profile) {
+    setBirthDate(new Date(`${profile.birth_date} 00:00:00`));
+    setWeight(profile.weight || null);
+    setSex(profile.sex);
+    setHeight(profile.height || null);
+  } else {
+    setBirthDate(null);
+    setWeight(null);
+    setSex("masculino");
+    setHeight(null);
+  }
+}, [profile, setError]);
+
   const [formData, setFormData] = useState({
     nome: "",
     email: "",
@@ -30,12 +66,11 @@ const Cadastro: React.FC = () => {
     weight: null,
     gender: "masculino",
     nivelAtividade: "moderado",
-    idade: null,
+    age: null,
   });
-  const [calorias, setCalorias] = useState<number | null>(null);
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-    if (["height", "weight", "idade"].includes(name)) {
+    if (["height", "weight", "age"].includes(name)) {
       const numberValue = value ? parseFloat(value) : null;
       if (numberValue === null || isNaN(numberValue) || numberValue < 0) {
         window.alert("Informe um valor válido e positivo");
@@ -64,18 +99,19 @@ const Cadastro: React.FC = () => {
     }
     return true;
   };
+  
   const calcularCalorias = (
-    peso: number,
-    altura: number,
-    idade: number,
+    weight: number,
+    height: number,
+    age: number,
     sexo: Sexo,
     nivelAtividade: NivelAtividade
   ): number => {
     let tmb: number;
     if (sexo === "masculino") {
-      tmb = 10 * peso + 6.25 * altura - 5 * idade + 5;
+      tmb = 10 * weight + 6.25 * height - 5 * age + 5;
     } else {
-      tmb = 10 * peso + 6.25 * altura - 5 * idade - 161;
+      tmb = 10 * weight + 6.25 * height - 5 * age - 161;
     }
     const fatoresAtividade: Record<NivelAtividade, number> = {
       sedentario: 1.2,
@@ -86,31 +122,77 @@ const Cadastro: React.FC = () => {
     };
     return tmb * fatoresAtividade[nivelAtividade];
   };
+
+  const calculateAge = (dateOfBirth: Date): number => {
+    const today = new Date();
+    const age = today.getFullYear() - dateOfBirth.getFullYear();
+    const month = today.getMonth() - dateOfBirth.getMonth();
+    if (month < 0 || (month === 0 && today.getDate() < dateOfBirth.getDate())) {
+      return age - 1;
+    }
+    return age;
+  };
+
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (Verificar()) {
+  
+    // Validação detalhada
+    if (!birthDate) {
+      setError({ error: "Forneça a data de nascimento" });
+    } else if (calculateAge(birthDate) < 1) {
+      setError({ error: "É necessário idade mínima de 1 ano" });
+    } else if (!weight) {
+      setError({ error: "Forneça o peso" });
+    } else if (!height) {
+      setError({ error: "Forneça a altura" });
+    } else if (!age) {
+      setError({ error: "Forneça a idade" });
+    } else {
+      // Se os dados do usuário já estiverem presentes, calcular as calorias
+      if (userData.weight && userData.height && userData.age) {
+        const caloriasCalculadas = calcularCalorias(
+          userData.weight,
+          userData.height,
+          userData.age,
+          userData.gender,
+          userData.nivelAtividade
+        );
+        setCalorias(caloriasCalculadas);
+        
+        // Navegar para a próxima página se as calorias foram calculadas
+        navigate("/definicao-metas");
+      } else {
+        window.alert("Por favor, preencha todos os dados necessários para calcular as calorias.");
+        return; // Interrompe a execução se os dados não estiverem completos
+      }
+  
+      // Salvar o perfil
       try {
-        await create(formData.nome, formData.email, formData.senha);
-        navigate("/info-pessoal"); // Redirect after successful registration
+        const formattedDate = birthDate.toISOString().split('T')[0];
+        await saveProfile(formattedDate, weight.toString(), sex);
+        setMessagePopup("Perfil salvo com sucesso");
+        setShowPopup(true);
+        
+        // Navegar para a próxima página após o registro bem-sucedido
+        navigate("/info-pessoal");
       } catch (error) {
-        console.error("Erro ao cadastrar usuário:", error);
-        alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
+        console.error("Erro ao salvar o perfil:", error);
+        alert("Ocorreu um erro ao salvar o perfil. Tente novamente.");
       }
     }
-    if (userData.weight && userData.height && userData.idade) {
-      const caloriasCalculadas = calcularCalorias(
-        userData.weight,
-        userData.height,
-        userData.idade,
-        userData.gender,
-        userData.nivelAtividade
-      );
-      setCalorias(caloriasCalculadas);
-      navigate("/definicao-metas");
-    } else {
-      window.alert("Por favor, preencha todos os dados necessários para calcular as calorias.");
+  };
+
+
+  const handleDelete = async () => {
+    const response = await deleteProfile();
+    if (response) {
+      setMessagePopup("Perfil excluído com sucesso");
+      setShowPopup(true);
     }
   };
+
+
   return (
     <Body>
       <Logo>
@@ -179,7 +261,7 @@ const Cadastro: React.FC = () => {
             type="number"
             id="idade"
             name="idade"
-            value={userData.idade !== null ? userData.idade : ""}
+            value={userData.age !== null ? userData.age : ""}
             onChange={handleChange}
             placeholder="Informe sua idade"
             required

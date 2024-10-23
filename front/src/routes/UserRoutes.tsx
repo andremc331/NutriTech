@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import BemVindo from "../pages/BemVindo";
 import Cadastro from "../pages/Cadastro";
-import InfoPessoal from "../pages/Infopessoal";
+// import InfoPessoal from "../pages/Infopessoal";
 import DefinicaoMetas from "../pages/DefinicaoMetas";
 import TermosDeUso from "../pages/TermosDeUso";
 import Home from "../pages/Home";
@@ -28,7 +28,7 @@ export default function UserRoutes() {
             <Route path="/" element={<Navigate to="/bem-vindo" />} />
             <Route path="/bem-vindo" element={<BemVindo />} />
             <Route path="/cadastro" element={<Cadastro />} />
-            <Route path="/info-pessoal" element={<InfoPessoal />} />
+            {/* <Route path="/info-pessoal" element={<InfoPessoal />} /> */}
             <Route path="/definicao-metas" element={<DefinicaoMetas />} />
             <Route path="/termosdeuso" element={<TermosDeUso />} />
             <Route path="/home" element={<Home />} />

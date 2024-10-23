@@ -220,9 +220,11 @@ const Cardapio: React.FC = () => {
           <Input
             type="number"
             id="weight"
+            name="weight"
             label="Quantidade consumida (colheres, unidades, ...)"
             value={quantity}
             setValue={setQuantity}
+            required
           />
         </LineSld>
         <LineSld>
