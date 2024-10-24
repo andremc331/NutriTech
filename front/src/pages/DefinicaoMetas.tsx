@@ -3,11 +3,13 @@ import axios from "axios"; // Importa o axios
 import logo from "../logo/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components"; // Importa o styled-components diretamente
+import { api } from "../services/api";
 
 const DefinicaoMetas: React.FC = () => {
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [meta, setMeta] = useState(""); // Estado para guardar a meta
+  const [meta, setMeta] = useState<string>(""); // Estado para guardar a meta
+  const [metasUsuarioId, setMetasUsuarioId] = useState<number>(1); // ID do usuário - exemplo para teste
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -24,15 +26,16 @@ const DefinicaoMetas: React.FC = () => {
   // Função para enviar a meta para o backend
   const enviarMeta = async () => {
     try {
-      const response = await axios.post("http://localhost:3011/api/metas", {
-        meta: meta, // A meta que será enviada
+      const response = await api.post("/metas", {
+        metas_usuario_id: metasUsuarioId, // ID do usuário associado
+        metas: meta, // A meta que será enviada, validada pelo domínio
       });
       console.log("Meta salva com sucesso:", response.data);
-    } catch (error) {
-      console.error("Erro ao salvar a meta:", error);
+    } catch (error: any) {
+      console.error("Erro ao salvar a meta:", error.error || "Erro desconhecido");
     }
   };
-
+  
   return (
     <>
       <ImageContainer>
@@ -46,31 +49,47 @@ const DefinicaoMetas: React.FC = () => {
               &lt;
             </NavButton>
             <Carousel ref={carouselRef}>
+              {/* Card para a meta de Ganhar Peso */}
               <Card>
-                <CardTitle>Ganhar ou Perder Peso</CardTitle>
+                <CardTitle>Ganhar Peso</CardTitle>
                 <ButtonGroup>
                   <MinusButton type="button">-</MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setMeta("Ganhar ou Perder Peso")} // Atualiza o estado da meta
+                    onClick={() => setMeta("Ganhar peso")} // Atualiza a meta para "Ganhar peso"
                   >
                     +
                   </PlusButton>
                 </ButtonGroup>
               </Card>
+
+              {/* Card para a meta de Perder Peso */}
               <Card>
-                <CardTitle>Monitore seu problema alimentar</CardTitle>
+                <CardTitle>Perder Peso</CardTitle>
                 <ButtonGroup>
                   <MinusButton type="button">-</MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setMeta("Monitore seu problema alimentar")}
+                    onClick={() => setMeta("Perder peso")} // Atualiza a meta para "Perder peso"
                   >
                     +
                   </PlusButton>
                 </ButtonGroup>
               </Card>
-              {/* Adicione outros cards conforme necessário */}
+
+              {/* Card para a meta de Manter Peso */}
+              <Card>
+                <CardTitle>Manter Peso</CardTitle>
+                <ButtonGroup>
+                  <MinusButton type="button">-</MinusButton>
+                  <PlusButton
+                    type="button"
+                    onClick={() => setMeta("Manter peso")} // Atualiza a meta para "Manter peso"
+                  >
+                    +
+                  </PlusButton>
+                </ButtonGroup>
+              </Card>
             </Carousel>
             <NavButton className="right" type="button" onClick={scrollRight}>
               &gt;
@@ -83,7 +102,7 @@ const DefinicaoMetas: React.FC = () => {
             type="button"
             onClick={() => {
               enviarMeta(); // Envia a meta para o backend
-              navigate("/termosdeuso");
+              navigate("/termosdeuso"); // Navega para a próxima página
             }}
           >
             →
@@ -94,7 +113,6 @@ const DefinicaoMetas: React.FC = () => {
   );
 };
 
-// Styled Components diretamente na página DefinicaoMetas
 const ImageContainer = styled.div`
   text-align: center;
   max-width: 100%;

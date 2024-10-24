@@ -29,7 +29,7 @@ interface UserData {
 const Cadastro: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
-  const [birthDate, setBirthDate] = useState<Date | null>(null);
+  const [birthDate, setBirthDate] = useState<Date | null>(new Date());
   const [username, setUsername] = useState<string>("");
   const [height, setHeight] = useState<number | null>(null);
   const [weight, setWeight] = useState<number | null>(null);
@@ -85,7 +85,15 @@ useEffect(() => {
         ...prevData,
         [name]: value,
       }));
-    } else {
+    } else if (name === "dob") {
+      const selectedDate = new Date(value);
+      setBirthDate(selectedDate); // Atualiza birthDate diretamente
+      setUserData((prevUserData) => ({
+        ...prevUserData,
+        dob: value,
+        age: calculateAge(selectedDate), // Calcula a idade ao selecionar a data de nascimento
+      }));
+     } else {
       setUserData({
         ...userData,
         [name]: value,
@@ -134,7 +142,7 @@ useEffect(() => {
   };
 
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSave = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   
     // Validação detalhada
@@ -142,11 +150,11 @@ useEffect(() => {
       setError({ error: "Forneça a data de nascimento" });
     } else if (calculateAge(birthDate) < 1) {
       setError({ error: "É necessário idade mínima de 1 ano" });
-    } else if (!weight) {
+    } else if (!userData.weight) {
       setError({ error: "Forneça o peso" });
-    } else if (!height) {
+    } else if (!userData.height) {
       setError({ error: "Forneça a altura" });
-    } else if (!age) {
+    } else if (!userData.age) {
       setError({ error: "Forneça a idade" });
     } else {
       // Se os dados do usuário já estiverem presentes, calcular as calorias
@@ -170,7 +178,7 @@ useEffect(() => {
       // Salvar o perfil
       try {
         const formattedDate = birthDate.toISOString().split('T')[0];
-        await saveProfile(formattedDate, weight.toString(), sex);
+        await saveProfile(formattedDate, userData.weight.toString(), sex);
         setMessagePopup("Perfil salvo com sucesso");
         setShowPopup(true);
         
@@ -201,7 +209,7 @@ useEffect(() => {
       <Container>
         <Title>Informações de Usuário</Title>
         {error && <ErrorMessage>{error.error}</ErrorMessage>}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSave}>
           <Label htmlFor="nome">Nome:</Label>
           <Input
             type="text"
@@ -256,11 +264,11 @@ useEffect(() => {
             onChange={handleChange}
             required
           />
-          <Label htmlFor="idade">Idade:</Label>
+          <Label htmlFor="age">Idade:</Label>
           <Input
             type="number"
-            id="idade"
-            name="idade"
+            id="age"
+            name="age"
             value={userData.age !== null ? userData.age : ""}
             onChange={handleChange}
             placeholder="Informe sua idade"

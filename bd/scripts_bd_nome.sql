@@ -15,12 +15,9 @@ ALTER COLUMN senha TYPE VARCHAR(200);
 CREATE TABLE users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(45) NOT NULL,
-  senha VARCHAR(20) NOT NULL,
+  senha VARCHAR(200) NOT NULL,
   nome CHAR(50) NULL,
-  role enum_role NOT NULL DEFAULT 'user',
-  peso FLOAT NULL,
-  altura FLOAT NULL,
-  idade INT NULL
+  role enum_role NOT NULL DEFAULT 'user'
 );
 
 INSERT INTO users(id,email,senha,nome,peso,altura,idade)
@@ -49,7 +46,7 @@ CREATE TABLE grupo (
   descricao TEXT NOT NULL
 );
 SELECT * FROM grupo
-INSERT INTO "Grupo" (id,descricao) VALUES
+INSERT INTO grupo (id,descricao) VALUES
  	(1,'Cereais e leguminosas'),
 	(2,'Hortaliças tuberosas'),
 	(3,'Farinhas, féculas e massas'),
@@ -73,6 +70,8 @@ INSERT INTO "Grupo" (id,descricao) VALUES
 
 --TABELA CONTA
 DROP TABLE conta
+
+select * from conta
 CREATE TABLE conta (
   id INTEGER NOT NULL PRIMARY KEY,
   usuario_id INTEGER NOT NULL,
