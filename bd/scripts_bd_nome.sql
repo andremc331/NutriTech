@@ -13,11 +13,16 @@ CREATE TYPE enum_role AS ENUM ('user', 'adm');
 ALTER COLUMN senha TYPE VARCHAR(200);
 
 CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(45) NOT NULL,
-  senha VARCHAR(200) NOT NULL,
-  nome CHAR(50) NULL,
-  role enum_role NOT NULL DEFAULT 'user'
+  id SERIAL NOT NULL,
+  nome VARCHAR(30) NOT NULL,
+  email VARCHAR(50) NOT NULL,
+  senha VARCHAR(100) NULL,
+  role enum_role NOT NULL DEFAULT 'user',
+  weight FLOAT NULL,
+  height FLOAT NULL,
+  age INT NULL,
+  PRIMARY KEY(id),
+  CONSTRAINT users_email_unique UNIQUE (email)
 );
 
 INSERT INTO users(id,email,senha,nome,peso,altura,idade)
@@ -92,8 +97,10 @@ CREATE TABLE peso (
 	id INTEGER NOT NULL PRIMARY KEY,          
     peso_usuario_id INTEGER NOT NULL,        
     pesagem DECIMAL(5, 2) NOT NULL,    
-    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-	FOREIGN KEY(peso_usuario_id) REFERENCES users(id)
+    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	birth_date DATE NOT NULL,
+    weight FLOAT NOT NULL,
+    sex enum_sex NULL,	FOREIGN KEY(peso_usuario_id) REFERENCES users(id)
 ); 
 INSERT INTO peso(id,peso_usuario_id,pesagem,data_registro) VALUES
 (1,1,75.8,'11/08/2000')

@@ -117,8 +117,8 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const saveProfile = async (birth_date:string, weight:string, sex:string): Promise<boolean> => {
-    const response = await Profile.save(birth_date,weight,sex);
+  const saveProfile = async (peso_usuario_id: number, birth_date:string, weight:string, sex:string): Promise<boolean> => {
+    const response = await Profile.save(peso_usuario_id, birth_date,weight,sex);
 
     if (isErrorProps(response)) {
       setError(response);

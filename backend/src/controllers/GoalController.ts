@@ -6,7 +6,7 @@ export const criarMeta = async (req: Request, res: Response) => {
   const { metas_usuario_id, metas } = req.body;
 
   try {
-    const query = 'INSERT INTO "Meta" (metas_usuario_id, metas) VALUES ($1, $2) RETURNING *';
+    const query = 'INSERT INTO "meta" (metas_usuario_id, metas) VALUES ($1, $2) RETURNING *';
     const values = [metas_usuario_id, metas];
     
     const { rows } = await pool.query(query, values);

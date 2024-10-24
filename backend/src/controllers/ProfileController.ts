@@ -6,7 +6,7 @@ class ProfileController {
     const { id } = res.locals;
     try {
       const result: any = await query(
-        "SELECT TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex FROM profiles WHERE _user=$1",
+        "SELECT TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex FROM peso WHERE _user=$1",
         [id]
       );
 
@@ -29,20 +29,20 @@ class ProfileController {
       try {
         // Verifica se o usuário já possui um perfil cadastrado
         const queryProfile: any = await query(
-          "SELECT birth_date,weight,sex FROM profiles WHERE _user=$1",
+          "SELECT peso_usuario_id, birth_date,weight,sex FROM peso WHERE _user=$1",
           [id]
         );
         if (queryProfile.length === 0) {
           const result: any = await query(
-            `INSERT INTO profiles(_user, birth_date, weight, sex) 
+            `INSERT INTO peso(peso_usuario_id, _user, birth_date, weight, sex) 
                 VALUES($1,$2,$3,$4)
-                RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex`,
+                RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS peso_usuario_id, birth_date, weight, sex`,
             [id, birth_date, weight, sex]
           );
           res.json(result);
         } else {
           const result: any = await query(
-            `UPDATE profiles 
+            `UPDATE peso 
                 SET birth_date=$1, weight=$2, sex=$3 
                 WHERE _user=$4
                 RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex`,
@@ -65,7 +65,7 @@ class ProfileController {
 
     try {
       const result: any = await query(
-        `DELETE FROM profiles WHERE _user = $1 
+        `DELETE FROM peso WHERE _user = $1 
         RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex`,
         [id]
       );

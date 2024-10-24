@@ -17,6 +17,7 @@ export interface UserContextProps {
   updateMail: (email: string) => Promise<boolean>;
   updatePassword: (nome: string) => Promise<boolean>;
   saveProfile: (
+    peso_usuario_id: number,
     birth_date: string,
     weight: string,
     sex: string
@@ -187,9 +188,10 @@ export interface TokenProps extends UserProps {
 }
 
 export interface ProfileProps {
+  peso_usuario_id: number;
   birth_date: string;
-  height: number;
-  weight: number;
+  height: string;
+  weight: string;
   sex: string;
 }
 

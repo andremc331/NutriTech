@@ -3,9 +3,9 @@ import {ProfileController as controller} from "../controllers";
 
 const routes = Router();
 
-routes.get("/", controller.list);
-routes.post("/", controller.save);
-routes.delete("/", controller.delete);
+routes.get("/peso", controller.list);
+routes.post("/peso", controller.save);
+routes.delete("/peso", controller.delete);
 
 //aceita qualquer método HTTP ou URL
 routes.use((req: Request, res: Response) => {
