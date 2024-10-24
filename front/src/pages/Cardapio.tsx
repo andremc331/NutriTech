@@ -1,20 +1,15 @@
 import React, { useState } from 'react';
 import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
+import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
 import styled_Cardapio from '../styled/styled_Cardapio';
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
 import { AdmMenu } from '../components';
 import { UserProvider } from '../contexts';
 
 const {
   CardapioBody,
-  ImageContainer,
-  ContainerMenu,
-  BarraNavegacao,
-  Sidebar,
-  SidebarContent,
-  Item,
-  Text,
-  Icon,
   CentralContent,
   WhiteBox,
   ExpandedContent,
@@ -32,33 +27,43 @@ const Cardapio: React.FC = () => {
   return (
     <CardapioBody>
       <ContainerMenu>
-        <BarraNavegacao>
-          <h1>Nome de usuário</h1>
-          <UserProvider>
-            <AdmMenu />
-            {/* Conteúdo da página de administração */}
-          </UserProvider>
-        </BarraNavegacao>
-        <Sidebar>
-          <SidebarContent>
-            <Item onClick={() => navigate("/home")}>
-              <Text>Home</Text>
-              <Icon>🏠</Icon>
-            </Item>
-            <Item onClick={() => navigate("/cardapio")}>
-              <Text>Cardápio</Text>
-              <Icon>⚙️</Icon>
-            </Item>
-            <Item onClick={() => navigate("/historico")}>
-              <Text>Histórico</Text>
-              <Icon>🔍</Icon>
-            </Item>
-            <Item onClick={() => navigate("/metas")}>
-              <Text>Progresso</Text>
-              <Icon>⚙️</Icon>
-            </Item>
-          </SidebarContent>
-        </Sidebar>
+      <Navbar>
+        <h1>Nome de usuário</h1>
+        <UserProvider>
+          <AdmMenu />
+          {/* Conteúdo da página de administração */}
+        </UserProvider>
+      </Navbar>
+
+      {/* Barra lateral */}
+      <Sidebar>
+        <SidebarContent>
+          <Item onClick={() => navigate("/home")}>
+            <Text>Home</Text>
+            <Icon>
+              <IonIcon icon={Icons.home} />
+            </Icon>
+          </Item>
+          <Item onClick={() => navigate("/cardapio")}>
+            <Text>Cardápio</Text>
+            <Icon>
+              <IonIcon icon={Icons.restaurant} />
+            </Icon>
+          </Item>
+          <Item onClick={() => navigate("/historico")}>
+            <Text>Histórico</Text>
+            <Icon>
+              <IonIcon icon={Icons.nutrition} />
+            </Icon>
+          </Item>
+          <Item onClick={() => navigate("/metas")}>
+            <Text>Progresso</Text>
+            <Icon>
+              <IonIcon icon={Icons.fitness} />
+            </Icon>
+          </Item>
+        </SidebarContent>
+      </Sidebar>
         <CentralContent>
           {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
             <WhiteBox key={index} onClick={() => toggleExpand(index)}>
@@ -74,9 +79,19 @@ const Cardapio: React.FC = () => {
         </CentralContent>
         {/* Contêiner da Imagem na parte inferior direita */}
       </ContainerMenu>
-      <ImageContainer>
-        <img src={imgLogoSemFundo} alt="Descrição da Imagem" />
-      </ImageContainer>
+      
+      {/* <Footer>
+        <div>
+          Copyright © 2024 / 2025 | HighTech
+          <br />
+          Todos os direitos reservados
+        </div>
+
+        <ImgIcon>
+          <img src={imgLogoSemFundo} alt="Logo Nutritech" />
+        </ImgIcon>
+      </Footer> */}
+
     </CardapioBody>
     
   );

@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
+import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
 import styled_Historico from "../styled/styled_Historico";
+import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
 
 const {
   ContainerHistorico,
-  BarraNavegacao,
   PeriodoSelector,
   PeriodoButton,
-  Sidebar,
-  SidebarContent,
-  Item,
   WhiteBox,
   MealInfo,
   HomeContainer,
-  Text,
-  Icon,
 } = styled_Historico();
 
 interface Meal {
@@ -53,34 +51,45 @@ const Historico: React.FC = () => {
 
   return (
     <ContainerHistorico>
-      <BarraNavegacao>
-        <h1>Nome de usuário</h1>
-        <UserProvider>
+      <ContainerMenu>
+        <Navbar>
+          <h1>Nome de usuário</h1>
+          <UserProvider>
             <AdmMenu />
             {/* Conteúdo da página de administração */}
           </UserProvider>
-      </BarraNavegacao>
+        </Navbar>
 
-      <Sidebar>
-        <SidebarContent>
-          <Item onClick={() => navigate("/home")}>
-            <Text>Home</Text>
-            <Icon>🏠</Icon>
-          </Item>
-          <Item onClick={() => navigate("/cardapio")}>
-            <Text>Cardápio</Text>
-            <Icon>⚙️</Icon>
-          </Item>
-          <Item onClick={() => navigate("/historico")}>
-            <Text>Histórico</Text>
-            <Icon>🔍</Icon>
-          </Item>
-          <Item onClick={() => navigate("/metas")}>
-            <Text>Progresso</Text>
-            <Icon>⚙️</Icon>
-          </Item>
-        </SidebarContent>
-      </Sidebar>
+        {/* Barra lateral */}
+        <Sidebar>
+          <SidebarContent>
+            <Item onClick={() => navigate("/home")}>
+              <Text>Home</Text>
+              <Icon>
+                <IonIcon icon={Icons.home} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/cardapio")}>
+              <Text>Cardápio</Text>
+              <Icon>
+                <IonIcon icon={Icons.restaurant} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/historico")}>
+              <Text>Histórico</Text>
+              <Icon>
+                <IonIcon icon={Icons.nutrition} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/metas")}>
+              <Text>Progresso</Text>
+              <Icon>
+                <IonIcon icon={Icons.fitness} />
+              </Icon>
+            </Item>
+          </SidebarContent>
+        </Sidebar>
+      </ContainerMenu>
 
       <HomeContainer>
         <PeriodoSelector>
@@ -140,6 +149,19 @@ const Historico: React.FC = () => {
           </WhiteBox>
         )}
       </HomeContainer>
+
+      {/* <Footer>
+        <div>
+          Copyright © 2024 / 2025 | HighTech
+          <br />
+          Todos os direitos reservados
+        </div>
+        
+        <ImgIcon>
+          <img src={imgLogoSemFundo} alt="Logo Nutritech" />
+        </ImgIcon>
+      </Footer> */}
+
     </ContainerHistorico>
   );
 };

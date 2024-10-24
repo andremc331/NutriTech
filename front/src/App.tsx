@@ -11,12 +11,13 @@ import Historico from './pages/Historico';
 import Progresso from './pages/Progresso';
 import Configuracoes from './pages/Configuracoes';
 import { UserProvider } from './hooks/useUser';
-import GlobalStyles from './styled/styled_Main';
+import { GlobalStyles } from './styled/styled_Main';
 
 const App: React.FC = () => {
     return (
             <Router>
                 <UserProvider>
+                <GlobalStyles />
                 <Routes>
                     {/* Define as rotas para cada página */}
                     <Route path="/" element={<Navigate to="/bem-vindo" />} />
