@@ -91,7 +91,7 @@ const styled_Home = () => {
     height: 40vh;
     margin-top: 20px;
     align-self: center;
-    flex-direction: row;
+    flex-direction: row,
     0 4px 8px rgba(0, 0, 0, 0.2);
 
     @media (min-width: 768px) {
