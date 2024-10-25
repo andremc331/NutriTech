@@ -5,20 +5,15 @@ import logofundo from '../logo/logofundo.png';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 
-interface FormData {
-  email: string;
-  senha: string;
-}
-
 const Background = styled.div`
   display: flex;
   height: 100vh;
   background-image: url(${logofundo});
   background-size: cover;
   background-position: center;
-  flex-direction: row; 
+  flex-direction: row; /* Alinhamento horizontal dos containers */
   @media (max-width: 768px) {
-    flex-direction: column; 
+    flex-direction: column; /* Mudança para coluna em telas menores */
   }
 `;
 
@@ -74,7 +69,8 @@ const ContainerLeft = styled.div`
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   transition: box-shadow 0.3s ease;
   margin-top: 10%;
-  margin-left: 25%; 
+  margin-left: 25%; /* Ajustar margem para telas pequenas */
+  font-family: 'Playpen Sans', sans-serif; /* Mudança para a fonte correta */
 
   &:hover {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
@@ -82,7 +78,7 @@ const ContainerLeft = styled.div`
 
   @media (max-width: 1200px) {
     width: 25%;
-    margin-left: 20px;
+    margin-left: 20px; /* Reduzir margem à esquerda */
   }
 
   @media (max-width: 900px) {
@@ -120,7 +116,7 @@ const Input = styled.input`
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 16px;
-  width: 80%;
+  width: 80%; /* Ocupa toda a largura disponível */
 
   &:focus {
     border-color: #007bff;
@@ -172,53 +168,47 @@ const JustifiedText = styled.p`
 `;
 
 const BemVindo: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({ email: '', senha: '' });
+  const [email, setEmail] = useState<string>('');
+  const [senha, setSenha] = useState<string>('');
   const navigate = useNavigate();
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
 
   const handleLogin = async () => {
     try {
-      const response = await api.post('/login', { 
-        email: formData.email, 
-        senha: formData.senha 
-      });
-
+      // Chama a API de login
+      const response = await api.post('/login', { mail: email, password: senha });
+      
+      // Salva o token no localStorage
       localStorage.setItem('token', response.data.token);
+
+      // Redireciona para a página home
       navigate('/home');
     } catch (error) {
       console.error('Erro ao fazer login:', error);
       alert('Erro ao efetuar o login. Tente novamente.');
     }
   };
-  
 
   return (
     <Background>
       <ContainerLeft>
-        <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet"></link>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>
         <Input 
           type="email" 
-          name="email"
           className="email-input" 
-          value={formData.email}
-          onChange={handleInputChange} 
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} 
         />
         <PasswordLabel>Senha:</PasswordLabel>
         <Input 
           type="password" 
-          name="senha"
           className="password-input" 
-          value={formData.senha}
-          onChange={handleInputChange} 
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)} 
         />
         <MainContent>
-          <Button2 onClick={handleLogin}>Entrar</Button2>
+          <Button2 onClick={handleLogin}>&gt;</Button2>
         </MainContent>
       </ContainerLeft>
 

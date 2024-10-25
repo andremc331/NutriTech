@@ -1,8 +1,8 @@
 import { queryCommitRollback, query, pool } from "./connection";
 
 async function init() {
-    try {
-        await queryCommitRollback(`
+  try {
+    await queryCommitRollback(`
     DO
     $$
     BEGIN
@@ -15,52 +15,26 @@ async function init() {
 
         CREATE TABLE users (
             id SERIAL NOT NULL,
-            nome VARCHAR(30) NOT NULL,
-            email VARCHAR(50) NOT NULL,
-            senha VARCHAR(100) NULL,
+            alias VARCHAR(30) NOT NULL,
+            mail VARCHAR(50) NOT NULL,
+            password VARCHAR(100) NULL,
             role enum_role NOT NULL DEFAULT 'user',
-            peso FLOAT NULL,
-            height FLOAT NULL,
-            age INT NULL,
             PRIMARY KEY(id),
-            CONSTRAINT users_email_unique UNIQUE (email)
+            CONSTRAINT users_mail_unique UNIQUE (mail)
         );
 
-        CREATE TABLE peso (
-	        id SERIAL NOT NULL PRIMARY KEY,          
-            peso_usuario_id INTEGER NOT NULL,        
-            pesagem DECIMAL(5, 2) NOT NULL,    
-            data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	        _user INTEGER NOT NULL,
-	        birth_date DATE NOT NULL,
+        CREATE TABLE profiles (
+            id SERIAL NOT NULL,
+            _user INTEGER NOT NULL,
+            birth_date DATE NOT NULL,
             weight FLOAT NOT NULL,
-            sex enum_sex NULL,	
-	        FOREIGN KEY(_user)
-        	REFERENCES users(id)
-        ); 
-
-        // CREATE TABLE users (
-        //     id SERIAL NOT NULL,
-        //     nome VARCHAR(30) NOT NULL,
-        //     email VARCHAR(50) NOT NULL,
-        //     senha VARCHAR(100) NULL,
-        //     role enum_role NOT NULL DEFAULT 'user',
-        //     PRIMARY KEY(id),
-        //     CONSTRAINT users_email_unique UNIQUE (email)
-        // );
-
-        // CREATE TABLE peso (
-        //     id SERIAL NOT NULL,
-        //     _user INTEGER NOT NULL,
-        //     birth_date DATE NOT NULL,
-        //     weight FLOAT NOT NULL,
-        //     sex enum_sex NULL,
-        //     PRIMARY KEY(id),
-        //     FOREIGN KEY(_user)
-        //         REFERENCES users(id)
-        //         ON DELETE RESTRICT
-        //         ON UPDATE CASCADE
-        // );
+            sex enum_sex NULL,
+            PRIMARY KEY(id),
+            FOREIGN KEY(_user)
+                REFERENCES users(id)
+                ON DELETE RESTRICT
+                ON UPDATE CASCADE
+        );
 
         CREATE TABLE fields (
             id SERIAL NOT NULL,
@@ -173,22 +147,22 @@ async function init() {
     END;
     $$;
     `);
-        // Verifique se a tabela foi criada
-        const result = await query(
-            `SELECT table_name
+    // Verifique se a tabela foi criada
+    const result = await query(
+      `SELECT table_name
         FROM information_schema.tables
         WHERE table_catalog = $1
         AND table_schema = 'public'
         AND table_type = 'BASE TABLE'`,
-            [process.env.DB_NAME]
-        );
-        console.log("Comandos SQL submetidos ao SGBD. Tabelas:", result);
-    } catch (e: any) {
-        console.error("Erro ao submeter comandos SQL:", e.message);
-    } finally {
-        console.log("Finalizado");
-        pool.end();
-    }
+        [process.env.DB_NAME]
+    );
+    console.log("Comandos SQL submetidos ao SGBD. Tabelas:", result);
+  } catch (e: any) {
+    console.error("Erro ao submeter comandos SQL:", e.message);
+  } finally {
+    console.log("Finalizado");
+    pool.end();
+  }
 }
 
 init();

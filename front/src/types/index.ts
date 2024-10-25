@@ -17,12 +17,18 @@ export interface UserContextProps {
   updateMail: (email: string) => Promise<boolean>;
   updatePassword: (nome: string) => Promise<boolean>;
   saveProfile: (
-    peso_usuario_id: number,
     birth_date: string,
     weight: string,
     sex: string
   ) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
+  createPeso: (
+    birth_date: string,
+    weight: string,
+    sex: string,
+    height: string,
+    age: number
+  ) => Promise<boolean>;
 }
 
 export interface FoodContextProps {
@@ -188,7 +194,6 @@ export interface TokenProps extends UserProps {
 }
 
 export interface ProfileProps {
-  peso_usuario_id: number;
   birth_date: string;
   height: string;
   weight: string;

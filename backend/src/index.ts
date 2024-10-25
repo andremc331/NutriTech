@@ -5,7 +5,7 @@ import routes from "./routes";
 dotenv.config();
 
 // será usado 3000 se a variável de ambiente não tiver sido definida
-const PORT = process.env.PORT || 3011;
+const PORT = process.env.PORT || 3000;
 
 const app = express(); // cria o servidor e coloca na variável app
 

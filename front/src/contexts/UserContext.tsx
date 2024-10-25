@@ -13,10 +13,28 @@ import { useNavigate } from "react-router-dom";
 import { loadFromLocalStorage } from "../utils/localStorage";
 import { isErrorProps } from "../utils";
 
-//export const UserContext = createContext({} as UserContextProps);
-export const UserContext = createContext<UserContextProps | undefined>(
-  undefined
-);
+export const UserContext = createContext<UserContextProps | undefined>(undefined);
+
+export const createPeso = async (
+  birth_date: string,
+  weight: string,
+  sex: string,
+  height: string,
+  age: number
+): Promise<boolean> => {
+  try {
+    const response = await Profile.save(birth_date, weight, sex);
+    if (!isErrorProps(response)) {
+      // Adicione lógica aqui, se necessário, como atualizar o estado de perfil
+      return true;
+    } else {
+      return false;
+    }
+  } catch (error) {
+    console.error("Erro ao criar peso:", error);
+    return false;
+  }
+};
 
 export function UserProvider({ children }: ProviderProps) {
   const [error, setError] = useState<ErrorProps | null>(null);
@@ -27,7 +45,6 @@ export function UserProvider({ children }: ProviderProps) {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Carrega as propriedades se elas estiverem salvas no localStorage
     const data = loadFromLocalStorage("user");
     if (data) {
       setToken(data);
@@ -36,7 +53,7 @@ export function UserProvider({ children }: ProviderProps) {
       setLoading(false);
     }
     getProfile();
-  }, [navigate]); // Dependência vazia para garantir que seja executado apenas na montagem
+  }, [navigate]);
 
   const login = async (email: string, senha: string) => {
     const response = await User.login(email, senha);
@@ -46,7 +63,7 @@ export function UserProvider({ children }: ProviderProps) {
       setError(null);
       setToken(response);
       saveToLocalStorage("user", response);
-      navigate("/"); // Navega para a página inicial após o login
+      navigate("/");
     }
   };
 
@@ -58,7 +75,7 @@ export function UserProvider({ children }: ProviderProps) {
       setError(null);
       setToken(response);
       saveToLocalStorage("user", response);
-      navigate("/"); // Navega para a página inicial após a criação do usuário
+      navigate("/");
     }
   };
 
@@ -66,12 +83,11 @@ export function UserProvider({ children }: ProviderProps) {
     setError(null);
     setToken(null);
     removeFromLocalStorage("user");
-    navigate("/"); // Navega para a página de login após o logout
+    navigate("/");
   };
 
   const updateAlias = async (nome: string): Promise<boolean> => {
     const response = await User.updateAlias(nome);
-
     if (isErrorProps(response)) {
       setError(response);
       return false;
@@ -89,7 +105,6 @@ export function UserProvider({ children }: ProviderProps) {
 
   const updateMail = async (email: string): Promise<boolean> => {
     const response = await User.updateMail(email);
-
     if (isErrorProps(response)) {
       setError(response);
       return false;
@@ -107,7 +122,6 @@ export function UserProvider({ children }: ProviderProps) {
 
   const updatePassword = async (senha: string): Promise<boolean> => {
     const response = await User.updatePassword(senha);
-
     if (isErrorProps(response)) {
       setError(response);
       return false;
@@ -117,8 +131,8 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const saveProfile = async (peso_usuario_id: number, birth_date:string, weight:string, sex:string): Promise<boolean> => {
-    const response = await Profile.save(peso_usuario_id, birth_date,weight,sex);
+  const saveProfile = async (birth_date:string, weight:string, sex:string): Promise<boolean> => {
+    const response = await Profile.save(birth_date, weight, sex);
 
     if (isErrorProps(response)) {
       setError(response);
@@ -134,7 +148,7 @@ export function UserProvider({ children }: ProviderProps) {
     const response = await Profile.list();
     setProfile(null);
     if (!isErrorProps(response)) {
-      if( response.length === 1 ){
+      if (response.length === 1) {
         setProfile(response[0]);
       }
     }
@@ -153,9 +167,6 @@ export function UserProvider({ children }: ProviderProps) {
   };
 
   const getUsers = async () => {
-    /*
-    perfil de administardor, para listar os usuários e trocar o perfil para adm/user
-    */
     const response = await User.list();
     if (isErrorProps(response)) {
       setError(response);
@@ -166,9 +177,6 @@ export function UserProvider({ children }: ProviderProps) {
   };
 
   const updateRole = async (id: string, role: string): Promise<boolean> => {
-    /*
-    perfil de administardor, para alterar usuário para adm/user
-    */
     const response = await User.updateRole(id, role);
     if (!isErrorProps(response)) {
       getUsers();
@@ -199,6 +207,7 @@ export function UserProvider({ children }: ProviderProps) {
         updatePassword,
         saveProfile,
         deleteProfile,
+        createPeso
       }}
     >
       {children}
