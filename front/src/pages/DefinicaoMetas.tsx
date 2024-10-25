@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import axios from "axios"; // Importa o axios
-import logo from "../logo/logo.nutritech.png";
+import logo from "../assets/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
 import styled_Definicao_M from "../styled/styled_Definicao_M"; // Importa o styled-components diretamente
 import { api } from "../services/api";

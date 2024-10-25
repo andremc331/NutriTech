@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import MealChart from "../components/MealChart";
-import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
+import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import {
   ContainerMenu,
   Navbar,
@@ -12,8 +12,8 @@ import {
   Footer,
   ImgIcon,
 } from "../styled/styled_Main";
-import imcimg from "../logo/imcimg.png";
-import waterimg from "../logo/waterimg.png";
+import imcimg from "../assets/imcimg.png";
+import waterimg from "../assets/waterimg.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import styled_Home from "../styled/styled_Home";

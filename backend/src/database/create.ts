@@ -15,9 +15,9 @@ async function init() {
 
         CREATE TABLE users (
             id SERIAL NOT NULL,
-            alias VARCHAR(30) NOT NULL,
-            mail VARCHAR(50) NOT NULL,
-            password VARCHAR(100) NULL,
+            nome VARCHAR(30) NOT NULL,
+            email VARCHAR(50) NOT NULL,
+            senha VARCHAR(100) NULL,
             role enum_role NOT NULL DEFAULT 'user',
             PRIMARY KEY(id),
             CONSTRAINT users_mail_unique UNIQUE (mail)

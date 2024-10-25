@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
 import styled_Historico from "../styled/styled_Historico";
-import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
+import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate

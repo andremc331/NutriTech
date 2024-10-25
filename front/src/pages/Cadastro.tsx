@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../logo/logo.nutritech.png";
+import logo from "../assets/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
@@ -36,9 +36,11 @@ const Cadastro: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     // Verifica se as senhas são correspondentes
     if (Verificar()) {
+      console.log("Cadastro do usuário:", formData);
+      navigate("/info-pessoal"); // Redireciona para a página info-pessoal
       try {
         // Envia os dados do formulário para a API
         const response = await fetch('/api/cadastrar', {

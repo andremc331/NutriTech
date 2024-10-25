@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
-import logo from "../logo/logo.nutritech.png";
+import logo from "../assets/logo.nutritech.png";
 import styled_Infop from "../styled/styled_Infop";
 
 const {

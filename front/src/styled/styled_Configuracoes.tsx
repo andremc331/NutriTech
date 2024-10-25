@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import fundosobre from '../logo/fundosobre.png';
+import fundosobre from '../assets/fundosobre.png';
 
 const styled_Configuracoes = () => {
   const ContainerMenu = styled.div`

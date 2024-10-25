@@ -1,6 +1,6 @@
 import { ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
 import styled_Progresso from "../styled/styled_Progresso";
-import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
+import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import ConsumeChart from "../components/ConsumeChart";

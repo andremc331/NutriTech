@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { UserContext } from "../contexts";
+import { UserProps } from "../types";
 
 export default function useUser(){
     const context = useContext(UserContext);

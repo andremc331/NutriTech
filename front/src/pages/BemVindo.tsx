@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import logo from '../logo/logo.nutritech.png';
-import logofundo from '../logo/logofundo.png';
+import logo from '../assets/logo.nutritech.png';
+import logofundo from '../assets/logofundo.png';
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 

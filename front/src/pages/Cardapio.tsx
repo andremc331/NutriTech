@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
+import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
 import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { IonIcon } from "@ionic/react";

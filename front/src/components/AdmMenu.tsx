@@ -33,22 +33,28 @@ export default function AdmMenu() {
 
   return (
     <Wrapper ref={menuRef}>
-      <UserIcon onClick={toggleMenu}>{token?.nome.charAt(0).toUpperCase()}</UserIcon>
-      {isOpen && (
-        <DropdownMenu>
-          <StyledLink to="/adm" onClick={() => setIsOpen(false)}>
-            Gestão de usuários
-          </StyledLink>
-          <StyledLink to="/settings" onClick={() => setIsOpen(false)}>
-            Configurações
-          </StyledLink>
-          <MenuItemBorderTop onClick={ handleLogout }>
-            Sair
-          </MenuItemBorderTop>
-        </DropdownMenu>
-      )}
+        <UserIcon onClick={toggleMenu}>{token?.nome.charAt(0).toUpperCase()}</UserIcon>
+        {isOpen && (
+            <DropdownMenu>
+                <StyledLink to="/adm" onClick={() => setIsOpen(false)}>
+                    Gestão de Usuário
+                </StyledLink>
+                <StyledLink to="/info-pessoal" onClick={() => setIsOpen(false)}>
+                    Editar Dados Pessoais
+                </StyledLink>
+                <StyledLink to="/cadastro" onClick={() => setIsOpen(false)}>
+                    Editar Informações de Usuário
+                </StyledLink>
+                <StyledLink to="/configuracoes" onClick={() => setIsOpen(false)}>
+                    Sobre
+                </StyledLink>
+                <MenuItemBorderTop onClick={handleLogout}>
+                    Sair
+                </MenuItemBorderTop>
+            </DropdownMenu>
+        )}
     </Wrapper>
-  );
+);
 }
 
 const Wrapper = styled.div`

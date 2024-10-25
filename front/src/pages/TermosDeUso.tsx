@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo from "../logo/logo.nutritech.png";
+import logo from "../assets/logo.nutritech.png";
 import styled_TermoDuso from "../styled/styled_TermosDeUso";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 
