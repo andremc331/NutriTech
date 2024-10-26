@@ -10,23 +10,7 @@ const styled_Configuracoes = () => {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    background: linear-gradient(180deg, #f0f0f0, #7e5ec2); /* Degradê */
     min-height: 100vh;
-  `;
-
-  const BarraNavegacao = styled.div`
-    width: 100%;
-    height: 80px;
-    background-color: #611ecccf;
-    color: #ffffff;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 20px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1000;
   `;
 
   const ContainerConfiguracoes = styled.div`
@@ -55,7 +39,6 @@ const styled_Configuracoes = () => {
   return {
     ConfiguracoesBody,
     ContainerMenu,
-    BarraNavegacao,
     ContainerConfiguracoes,
   };
 };
