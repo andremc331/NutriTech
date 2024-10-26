@@ -5,7 +5,7 @@ import { checkAdm, validadeAcess } from "../middlewares";
 const routes = Router();
 
 // Usuário sem login
-routes.post("/", controller.create);
+routes.post("/user", controller.create);
 // Usuário logado
 routes.put("/nome", validadeAcess, controller.updateAlias);
 routes.put("/email", validadeAcess, controller.updateMail);
@@ -16,6 +16,6 @@ routes.get("/", validadeAcess, checkAdm, controller.list);
 
 //aceita qualquer método HTTP ou URL
 routes.use((req: Request, res: Response) => {
-    res.status(404).json({ error: "Operação desconhecida com o consumo de alimentos" });
+    res.status(404).json({ error: "Operação desconhecida com o usuário" });
 });
 export default routes;

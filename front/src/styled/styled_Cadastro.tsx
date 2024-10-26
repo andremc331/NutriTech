@@ -36,6 +36,12 @@ const styled_Cadastro = () => {
     }
   `;
 
+  const ErrorMessage = styled.div`
+  color: red;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+`;
+
   const FormContainer = styled.div`
     width: 800px;
     margin: 20px auto;
@@ -208,6 +214,7 @@ const styled_Cadastro = () => {
     Button,
     ButtonContainer,
     NavigationButton,
+    ErrorMessage
   };
 };
 

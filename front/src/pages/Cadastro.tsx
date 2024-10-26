@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import logo from "../assets/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useUser } from '../hooks'; // Substitua pelo caminho correto do seu hook
 
-const { ImageContainer, FormContainer, Title, FormGroup, Label, Input, Button, ButtonContainer } = styled_Cadastro();
+const { ErrorMessage, ImageContainer, FormContainer, Title, FormGroup, Label, Input, Button, ButtonContainer } = styled_Cadastro();
+
 
 const Cadastro: React.FC = () => {
-  const navigate = useNavigate(); // Inicializa o hook useNavigate
+  const navigate = useNavigate(); 
+  const { create, error, setError } = useUser(); // Hook personalizado para gerenciar o usuário
 
   const [formData, setFormData] = useState({
-    nome: "",
-    sobrenome: "",
-    email: "",
-    senha: "",
+    nome: "Ana Maria",
+    email: "aba@teste.com",
+    senha: "123456",
     confirmarSenha: "",
   });
 
@@ -26,9 +28,7 @@ const Cadastro: React.FC = () => {
 
   const Verificar = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
-      window.alert(
-        "As senhas não estão batendo, por favor, verifique se as senhas são correspondentes"
-      );
+      window.alert("As senhas não estão batendo, por favor, verifique se as senhas são correspondentes");
       return false;
     }
     return true;
@@ -36,36 +36,24 @@ const Cadastro: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
+    
     // Verifica se as senhas são correspondentes
     if (Verificar()) {
-      console.log("Cadastro do usuário:", formData);
-      navigate("/info-pessoal"); // Redireciona para a página info-pessoal
-      try {
-        // Envia os dados do formulário para a API
-        const response = await fetch('/api/cadastrar', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            nome: formData.nome,
-            email: formData.email,
-            senha: formData.senha,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          alert(data.error); // Mostra o erro para o usuário
-        } else {
-          console.log("Cadastro do usuário:", data); // Exibe os dados do usuário no console
+      if (!formData.nome) {
+        setError({ error: "Forneça o seu nome de usuário" });
+      } else if (!formData.email) {
+        setError({ error: "Forneça o e-mail" });
+      } else if (!formData.senha) {
+        setError({ error: "Forneça a senha" });
+      } else {
+        try {
+          // Envia os dados do formulário para a API
+          await create(formData.nome, formData.email, formData.senha);
           navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
+        } catch (error) {
+          console.error("Erro ao cadastrar usuário:", error);
+          alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
         }
-      } catch (error) {
-        console.error("Erro ao cadastrar usuário:", error);
-        alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
       }
     }
   };
@@ -77,8 +65,8 @@ const Cadastro: React.FC = () => {
       </ImageContainer>
       <FormContainer>
         <Title>Informações de Usuário</Title>
+        {error && <ErrorMessage>{error.error}</ErrorMessage>} {/* Mensagem de erro */}
         <form onSubmit={handleSubmit}>
-          <div className="form-group-row">
             <FormGroup>
               <Label htmlFor="nome">Nome:</Label>
               <Input
@@ -90,18 +78,6 @@ const Cadastro: React.FC = () => {
                 required
               />
             </FormGroup>
-            <FormGroup>
-              <Label htmlFor="sobrenome">Sobrenome:</Label>
-              <Input
-                type="text"
-                id="sobrenome"
-                name="sobrenome"
-                value={formData.sobrenome}
-                onChange={handleChange}
-                required
-              />
-            </FormGroup>
-          </div>
           <FormGroup>
             <Label htmlFor="email">Email:</Label>
             <Input
@@ -116,7 +92,7 @@ const Cadastro: React.FC = () => {
           <FormGroup>
             <Label htmlFor="senha">Senha:</Label>
             <Input
-              type="password"
+              type="senha"
               id="senha"
               name="senha"
               value={formData.senha}
@@ -127,7 +103,7 @@ const Cadastro: React.FC = () => {
           <FormGroup>
             <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
             <Input
-              type="password"
+              type="senha"
               id="confirmarSenha"
               name="confirmarSenha"
               value={formData.confirmarSenha}

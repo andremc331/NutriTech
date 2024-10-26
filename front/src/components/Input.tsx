@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export default function Input({ type, id, name, label, value, setValue, onChange, required }: Props) {
+export default function Input({ type, id, label, value, setValue }: Props) {
   return (
     <Wrapper>
       <LabelSld htmlFor={id}>{label}</LabelSld>
@@ -10,8 +10,6 @@ export default function Input({ type, id, name, label, value, setValue, onChange
         onChange={(e) => setValue(e.target.value)}
   // Chame onChange se estiver presente
       id={id}
-      name={name}
-      required={required}
       // placeholder={placeholder}
       />
     </Wrapper>
@@ -44,12 +42,10 @@ const InputSld = styled.input`
 
 interface Props {
   type: string;
-  name: string;
   id: string;
   label: string;
   value: string | number;
   setValue: (value: string) => void;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  required: boolean;
   // placeholder: string;
 }

@@ -20,13 +20,13 @@ async function init() {
             senha VARCHAR(100) NULL,
             role enum_role NOT NULL DEFAULT 'user',
             PRIMARY KEY(id),
-            CONSTRAINT users_mail_unique UNIQUE (mail)
+            CONSTRAINT users_email_unique UNIQUE (email)
         );
 
         CREATE TABLE profiles (
             id SERIAL NOT NULL,
             _user INTEGER NOT NULL,
-            birth_date DATE NOT NULL,
+            dob DATE NOT NULL,
             weight FLOAT NOT NULL,
             sex enum_sex NULL,
             PRIMARY KEY(id),

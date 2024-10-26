@@ -6,7 +6,7 @@ import category from "./category";
 import food from "./food";
 import profile from "./profile";
 import user from "./user";
-import goal from "./goal";
+// import goal from "./goal";
 import product from "./product";
 import eatProduct from "./eatProduct";
 import eatFood from "./eatFood";
@@ -19,13 +19,13 @@ routes.use("/category", category);
 routes.use("/eat/food", validadeAcess, eatFood);
 routes.use("/eat/product", validadeAcess, eatProduct);
 routes.use("/field", field);
-routes.use("./goal", goal);
+// routes.use("./goal", goal);
 routes.use("/product", validadeAcess, product);
 routes.use("/profile", validadeAcess, profile);
 routes.use("/user", user);
 
 //aceita qualquer método HTTP ou URL
 routes.use((req: Request, res: Response) => {
-    res.status(404).json({ error: "Operação desconhecida com o consumo de alimentos" });
+    res.status(404).json({ error: "Operação desconhecida com o usuário" });
 });
 export default routes;
