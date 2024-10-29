@@ -38,12 +38,6 @@ export default function AdmMenu() {
             <UserIcon onClick={toggleMenu}>{currentUser?.alias.charAt(0).toUpperCase()}</UserIcon>
             {isOpen && (
                 <DropdownMenu>
-                    <StyledLink to="/adm" onClick={() => setIsOpen(false)}>
-                        Gestão de Usuário
-                    </StyledLink>
-                    <StyledLink to="/info-pessoal" onClick={() => setIsOpen(false)}>
-                        Editar Dados Pessoais
-                    </StyledLink>
                     <StyledLink to="/cadastro" onClick={() => setIsOpen(false)}>
                         Editar Informações de Usuário
                     </StyledLink>

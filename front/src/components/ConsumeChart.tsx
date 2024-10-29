@@ -21,16 +21,20 @@ const ConsumeChart: React.FC = () => {
     chart: {
       type: 'donut',
     },
+    title: {
+      text: "Consumo Alimentar",
+      align: "left",
+    },
     labels: gruposAlimentares,
+    legend: {
+      show: false, // Remove a legenda
+    },
     responsive: [
       {
         breakpoint: 480,
         options: {
           chart: {
             width: 200,
-          },
-          legend: {
-            position: 'bottom',
           },
         },
       },
@@ -43,7 +47,7 @@ const ConsumeChart: React.FC = () => {
         options={chartOptions}
         series={consumoPercentual}
         type="donut"
-        width="500"
+        width="300"
       />
     </div>
   );

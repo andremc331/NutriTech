@@ -1,9 +1,12 @@
-import { home, restaurant, nutrition, fitness, create } from 'ionicons/icons';
+import { home, restaurant, nutrition, fitness, create, time, add, remove } from 'ionicons/icons';
 
 export const Icons = {
   home,
   restaurant, 
   nutrition, 
   fitness,
-  create
+  create,
+  time,
+  add,
+  remove
 };

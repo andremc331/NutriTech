@@ -1,99 +1,129 @@
-import React, { useState } from 'react';
-import imgLogoSemFundo from '../logo/img-logo-semfundo.png';
-import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
-import styled_Cardapio from '../styled/styled_Cardapio';
+import React, { useState } from "react";
+import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
+import {
+  ContainerBody,
+  ContainerMenu,
+  Navbar,
+  Sidebar,
+  SidebarContent,
+  Icon,
+  Item,
+  Footer,
+  ImgIcon,
+} from "../styled/styled_Main";
+import styled_Cardapio from "../styled/styled_Cardapio";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
-import { useNavigate } from 'react-router-dom'; // Importa o useNavigate
-import { AdmMenu } from '../components';
-import { UserProvider } from '../contexts';
+import { useNavigate } from "react-router-dom"; // Importa o useNavigate
+import { AdmMenu } from "../components";
+import { UserProvider } from "../contexts";
 
-const {
-  CardapioBody,
-  CentralContent,
-  WhiteBox,
-  ExpandedContent,
-  SimboloMais,
-} = styled_Cardapio();
+const { Title, CardBox, Label, Select, Input, Row, ButtonAdd } =
+  styled_Cardapio();
 
 const Cardapio: React.FC = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index); // Alterna a expansão
-  };
 
   return (
-    <CardapioBody>
+    <>
+      {/* Barra de navegação da aplicação */}
       <ContainerMenu>
-      <Navbar>
-        <h1>Nome de usuário</h1>
-        <UserProvider>
-          <AdmMenu />
-          {/* Conteúdo da página de administração */}
-        </UserProvider>
-      </Navbar>
+        <Navbar>
+          <h1>Nome de usuário</h1>
+          <UserProvider>
+            <AdmMenu />
+            {/* Conteúdo da página de administração */}
+          </UserProvider>
+        </Navbar>
 
-      {/* Barra lateral */}
-      <Sidebar>
-        <SidebarContent>
-          <Item onClick={() => navigate("/home")}>
-            <Text>Home</Text>
-            <Icon>
-              <IonIcon icon={Icons.home} />
-            </Icon>
-          </Item>
-          <Item onClick={() => navigate("/cardapio")}>
-            <Text>Cardápio</Text>
-            <Icon>
-              <IonIcon icon={Icons.restaurant} />
-            </Icon>
-          </Item>
-          <Item onClick={() => navigate("/historico")}>
-            <Text>Histórico</Text>
-            <Icon>
-              <IonIcon icon={Icons.nutrition} />
-            </Icon>
-          </Item>
-          <Item onClick={() => navigate("/metas")}>
-            <Text>Progresso</Text>
-            <Icon>
-              <IonIcon icon={Icons.fitness} />
-            </Icon>
-          </Item>
-        </SidebarContent>
-      </Sidebar>
-        <CentralContent>
-          {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
-            <WhiteBox key={index} onClick={() => toggleExpand(index)}>
-              <div className="item-container">
-                <span>{item}</span>
-                <SimboloMais>+</SimboloMais>
-              </div>
-              <ExpandedContent isExpanded={expandedIndex === index}>
-                {expandedIndex === index && <p>Conteúdo expandido para {item}</p>}
-              </ExpandedContent>
-            </WhiteBox>
-          ))}
-        </CentralContent>
-        {/* Contêiner da Imagem na parte inferior direita */}
+        {/* Barra lateral da aplicação */}
+        <Sidebar>
+          <SidebarContent>
+            <Item onClick={() => navigate("/home")}>
+              <Icon>
+                <IonIcon icon={Icons.home} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/cardapio")}>
+              <Icon>
+                <IonIcon icon={Icons.restaurant} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/historico")}>
+              <Icon>
+                <IonIcon icon={Icons.nutrition} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/metas")}>
+              <Icon>
+                <IonIcon icon={Icons.fitness} />
+              </Icon>
+            </Item>
+          </SidebarContent>
+        </Sidebar>
       </ContainerMenu>
-      
-      {/* <Footer>
+      {/* Corpo da aplicação */}
+      <ContainerBody>
+        <Title>Cardápio</Title>
+
+        <CardBox>
+          <Row>
+            <Label>Refeição:</Label>
+            <Select>
+              <option value="">Selecione...</option>
+              <option value="cafe-da-manha">Café da Manhã</option>
+              <option value="lanche-da-manha">Lanche da Manhã</option>
+              <option value="almoco">Almoço</option>
+              <option value="lanche-da-tarde">Lanche da Tarde</option>
+              <option value="jantar">Jantar</option>
+              <option value="ceia">Ceia</option>
+              <option value="pre-treino">Pré Treino</option>
+              <option value="pos-treino">Pós Treino</option>
+            </Select>
+
+            <Label>Data e Hora:</Label>
+            <Input type="datetime-local" />
+          </Row>
+          <Row>
+{/* verificar se é possivel puxar os alimentos diretamente do banco de dados para o select, depois aplicar a função de Busca por caracter */}
+            <Label>Alimento:</Label>
+            <Select>
+              <option value="">Selecione...</option>
+            </Select>
+{/* verificar se é possivel puxar as preparações diretamente do banco de dados para o select, depois aplicar a função de Busca por caracter */}
+            <Label>Preparação:</Label>
+            <Select>
+              <option value="">Selecione...</option>
+            </Select>
+          </Row>
+
+          <Row>
+            <Label>Quantidade:</Label>
+            <Input type="number" min="0" step="1" />
+          
+            <Label>Kg:</Label>
+            <Input type="number" min="0" step="0.01" placeholder="0.00" />
+
+          </Row>
+            <ButtonAdd onClick={() => {/* lógica para adicionar um novo item  */}}>
+              <Icon>
+                <IonIcon icon={Icons.add} />
+              </Icon>
+            </ButtonAdd>
+        </CardBox>
+      </ContainerBody>
+      {/* Rodapé da aplicação */}
+      <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
           <br />
           Todos os direitos reservados
         </div>
-
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
         </ImgIcon>
-      </Footer> */}
-
-    </CardapioBody>
-    
+      </Footer>
+    </>
   );
 };
 
