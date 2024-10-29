@@ -1,8 +1,8 @@
 import { queryCommitRollback, query, pool } from "./connection";
 
 async function init() {
-  try {
-    await queryCommitRollback(`
+    try {
+        await queryCommitRollback(`
     DO
     $$
     BEGIN
@@ -14,19 +14,17 @@ async function init() {
         CREATE TYPE enum_role AS ENUM ('user', 'adm');
 
         CREATE TABLE users (
-            id SERIAL NOT NULL,
-            nome VARCHAR(30) NOT NULL,
-            email VARCHAR(50) NOT NULL,
-            senha VARCHAR(100) NULL,
-            role enum_role NOT NULL DEFAULT 'user',
-            PRIMARY KEY(id),
-            CONSTRAINT users_email_unique UNIQUE (email)
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(45) NOT NULL,
+            senha VARCHAR(200) NOT NULL,
+            nome CHAR(50) NULL,
+            role enum_role NOT NULL DEFAULT 'user'
         );
 
         CREATE TABLE profiles (
             id SERIAL NOT NULL,
             _user INTEGER NOT NULL,
-            dob DATE NOT NULL,
+            birth_date DATE NOT NULL,
             weight FLOAT NOT NULL,
             sex enum_sex NULL,
             PRIMARY KEY(id),
@@ -147,22 +145,22 @@ async function init() {
     END;
     $$;
     `);
-    // Verifique se a tabela foi criada
-    const result = await query(
-      `SELECT table_name
+        // Verifique se a tabela foi criada
+        const result = await query(
+            `SELECT table_name
         FROM information_schema.tables
         WHERE table_catalog = $1
         AND table_schema = 'public'
         AND table_type = 'BASE TABLE'`,
-        [process.env.DB_NAME]
-    );
-    console.log("Comandos SQL submetidos ao SGBD. Tabelas:", result);
-  } catch (e: any) {
-    console.error("Erro ao submeter comandos SQL:", e.message);
-  } finally {
-    console.log("Finalizado");
-    pool.end();
-  }
+            [process.env.DB_NAME]
+        );
+        console.log("Comandos SQL submetidos ao SGBD. Tabelas:", result);
+    } catch (e: any) {
+        console.error("Erro ao submeter comandos SQL:", e.message);
+    } finally {
+        console.log("Finalizado");
+        pool.end();
+    }
 }
 
 init();

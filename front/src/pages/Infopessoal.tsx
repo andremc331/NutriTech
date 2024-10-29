@@ -1,20 +1,17 @@
-import { useEffect, useState } from "react";
-import {
-    Input,
-    // Button,
-    Header,
-    Error,
-    PopupMessage,
-    InputDatePicker,
-    Select,
+import { 
+    Input, 
+    Header, 
+    Error, 
+    PopupMessage, 
+    InputDatePicker, 
+    Select 
 } from "../components";
+// import logo from "../assets/img-logo-semfundo.png"
+import styled_Infop from "../styled/styled_Infop";
 import { useUser } from "../hooks";
 import { calculateAge, dateFormat } from "../utils";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.nutritech.png";
-import styled_Infop from "../styled/styled_Infop";
-
-
+import React, { useEffect, useState } from "react";
 
 const {
     Body,
@@ -53,7 +50,7 @@ const InfoPessoal: React.FC = () => {
 
     useEffect(() => {
         if (profile) {
-            setBirthDate(new Date(`${profile.birth_date} 00:00:00`));
+            setBirthDate(new Date(`${profile.birth_date}`));
             setWeight(profile.weight);
             setSex(profile.sex);
         }
@@ -93,9 +90,9 @@ const InfoPessoal: React.FC = () => {
 
     return (
         <Body>
-            <Logo>
+            {/* <Logo>
                 <LogoImage src={logo} alt="Nutritech logo" />
-            </Logo>
+            </Logo> */}
             <Header />
             {error && <Error>{error.error}</Error>}
             {showPopup && (

@@ -30,29 +30,10 @@ export default function UserMenu() {
     setIsOpen(false);
     logout();
   }
-  
-    const { createPeso } = useUser();
-  
-    const handleCreatePeso = async () => {
-      const success = await createPeso(
-        "1990-01-01", // birth_date
-        "75", // weight
-        "M", // sex
-        "175", // height
-        34 // age
-      );
-      if (success) {
-        console.log("Peso criado com sucesso!");
-      } else {
-        console.log("Falha ao criar o peso.");
-      };
-  
-    return <button onClick={handleCreatePeso}>Criar Peso</button>;
-  }
 
   return (
     <Wrapper ref={menuRef}>
-      <UserIcon onClick={toggleMenu}>{token && token?.nome.charAt(0).toUpperCase()}</UserIcon>
+      <UserIcon onClick={toggleMenu}>{token && token.nome ? token?.nome.charAt(0).toUpperCase() : ""}</UserIcon>
       {isOpen && (
         <DropdownMenu>
           <StyledLink to="/eat" onClick={() => setIsOpen(false)}>

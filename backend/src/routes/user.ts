@@ -5,7 +5,7 @@ import { checkAdm, validadeAcess } from "../middlewares";
 const routes = Router();
 
 // Usuário sem login
-routes.post("/user", controller.create);
+routes.post("/", controller.create);
 // Usuário logado
 routes.put("/nome", validadeAcess, controller.updateAlias);
 routes.put("/email", validadeAcess, controller.updateMail);

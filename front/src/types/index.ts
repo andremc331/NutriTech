@@ -6,29 +6,22 @@ export interface UserContextProps {
   token: TokenProps | null;
   profile: ProfileProps | null;
   setToken: (value: TokenProps | null) => void;
-  login: (email: string, senha: string) => void;
+  login: (mail: string, password: string) => void;
   logout: () => void;
-  create: (nome: string, email: string, senha: string) => void;
+  create: (alias: string, mail: string, password: string) => void;
   getUsers: () => void;
   updateRole: (id: string, role: string) => Promise<boolean>;
   error: ErrorProps | null;
   setError: (error: ErrorProps | null) => void;
-  updateAlias: (nome: string) => Promise<boolean>;
-  updateMail: (email: string) => Promise<boolean>;
-  updatePassword: (nome: string) => Promise<boolean>;
+  updateAlias: (alias: string) => Promise<boolean>;
+  updateMail: (mail: string) => Promise<boolean>;
+  updatePassword: (password: string) => Promise<boolean>;
   saveProfile: (
     birth_date: string,
     weight: string,
     sex: string
   ) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
-  createPeso: (
-    birth_date: string,
-    weight: string,
-    sex: string,
-    height: string,
-    age: number
-  ) => Promise<boolean>;
 }
 
 export interface FoodContextProps {
@@ -195,7 +188,6 @@ export interface TokenProps extends UserProps {
 
 export interface ProfileProps {
   birth_date: string;
-  height: string;
   weight: string;
   sex: string;
 }

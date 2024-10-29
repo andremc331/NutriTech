@@ -2,10 +2,6 @@ import { ErrorProps, ProfileProps } from "../types";
 import { api } from "./api";
 
 class Profile {
-  get() {
-    throw new Error("Method not implemented.");
-  }
-  dob: any;
   async list(): Promise<ProfileProps[] | ErrorProps> {
     try {
       const { data } = await api.get("/profile");
@@ -15,11 +11,11 @@ class Profile {
     }
   }
 
-  async save(dob:string, weight:string, sex:string): Promise<ProfileProps | ErrorProps> {
+  async save(birth_date:string, weight:string, sex:string): Promise<ProfileProps | ErrorProps> {
     try {
-      const { data } = await api.post("/profile", {dob, weight, sex });
+      const { data } = await api.post("/profile", { birth_date, weight, sex });
       return data;
-    } catch (error: any) { 
+    } catch (error: any) {
       return error;
     }
   }

@@ -9,7 +9,6 @@ export default function Header() {
 
   return (
     <Wrapper>
-        <Logo />
         {token && token.role ==="user" && <UserMenu />}
         {token && token.role ==="adm" && <AdmMenu />}
     </Wrapper>
