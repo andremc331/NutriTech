@@ -15,24 +15,27 @@ const styled_Configuracoes = () => {
 
   const ContainerConfiguracoes = styled.div`
     display: flex;
-    flex-direction: column; /* Adicionado para empilhar os itens verticalmente */
+    flex-direction: column; 
     align-items: center;
     position: relative;
-    margin-top: 200px;
-    margin-left: 10px; /* Ajuste conforme necessário */
+    margin-top: 10px;
+    margin-left: 10px;
     z-index: 1;
 
     h1 {
-      margin-bottom: 10px; /* Ajuste conforme necessário */
+      margin-bottom: 10px; 
     }
 
     h2 {
-      margin-top: 10px; /* Adicionada unidade 'px' */
+      width: 1500px;
+      padding-top: 30px;
+      text-align: center;
+      margin-top: 10px;
     }
 
     @media (max-width: 768px) {
-      margin-left: 0; /* Reduz a margem em telas menores */
-      padding: 10px; /* Adiciona padding se necessário */
+      margin-left: 0; 
+      padding: 10px; 
     }
   `;
 
