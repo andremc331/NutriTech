@@ -2,6 +2,10 @@ import { ErrorProps, ProfileProps } from "../types";
 import { api } from "./api";
 
 class Profile {
+  get() {
+    throw new Error("Method not implemented.");
+  }
+  dob: any;
   async list(): Promise<ProfileProps[] | ErrorProps> {
     try {
       const { data } = await api.get("/profile");

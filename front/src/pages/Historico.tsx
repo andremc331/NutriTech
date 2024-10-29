@@ -150,7 +150,7 @@ const Historico: React.FC = () => {
         )}
       </HomeContainer>
 
-      {/* <Footer>
+      <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
           <br />
@@ -160,7 +160,7 @@ const Historico: React.FC = () => {
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
         </ImgIcon>
-      </Footer> */}
+      </Footer>
 
     </ContainerHistorico>
   );

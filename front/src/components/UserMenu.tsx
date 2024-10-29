@@ -52,7 +52,7 @@ export default function UserMenu() {
 
   return (
     <Wrapper ref={menuRef}>
-      <UserIcon onClick={toggleMenu}>{token?.nome.charAt(0).toUpperCase()}</UserIcon>
+      <UserIcon onClick={toggleMenu}>{token && token?.nome.charAt(0).toUpperCase()}</UserIcon>
       {isOpen && (
         <DropdownMenu>
           <StyledLink to="/eat" onClick={() => setIsOpen(false)}>

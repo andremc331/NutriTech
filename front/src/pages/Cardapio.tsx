@@ -80,7 +80,7 @@ const Cardapio: React.FC = () => {
         {/* Contêiner da Imagem na parte inferior direita */}
       </ContainerMenu>
       
-      {/* <Footer>
+      <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
           <br />
@@ -90,7 +90,7 @@ const Cardapio: React.FC = () => {
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
         </ImgIcon>
-      </Footer> */}
+      </Footer>
 
     </CardapioBody>
     

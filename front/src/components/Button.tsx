@@ -23,6 +23,6 @@ export const ButtonSld = styled.button`
 `;
 
 interface Props {
-  label: string;
+  label?: string;
   click: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }

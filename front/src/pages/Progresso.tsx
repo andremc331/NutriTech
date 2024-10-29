@@ -106,7 +106,7 @@ const Metas: React.FC = () => {
         </Content>
       </Dashboard>
 
-      {/* <Footer>
+      <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
           <br />
@@ -116,7 +116,7 @@ const Metas: React.FC = () => {
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
         </ImgIcon>
-      </Footer> */}
+      </Footer>
       
     </Body>
   );

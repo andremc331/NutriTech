@@ -33,7 +33,8 @@ export default function AdmMenu() {
 
   return (
     <Wrapper ref={menuRef}>
-        <UserIcon onClick={toggleMenu}>{token?.nome.charAt(0).toUpperCase()}</UserIcon>
+        <UserIcon onClick={toggleMenu}> {token?.nome ? token.nome.charAt(0).toUpperCase() : "?"}
+        </UserIcon>
         {isOpen && (
             <DropdownMenu>
                 <StyledLink to="/adm" onClick={() => setIsOpen(false)}>
