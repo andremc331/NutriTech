@@ -6,7 +6,6 @@ import {
     InputDatePicker, 
     Select 
 } from "../components";
-// import logo from "../assets/img-logo-semfundo.png"
 import styled_Infop from "../styled/styled_Infop";
 import { useUser } from "../hooks";
 import { calculateAge, dateFormat } from "../utils";
@@ -19,29 +18,18 @@ const {
     Button,
     ButtonContainer,
     Container,
-    Gender,
-    GenderInput,
-    GenderLabel,
-    // Input,
     Label,
-    Logo,
-    LogoImage,
     Title,
 } = styled_Infop();
-
-
-type NivelAtividade = "sedentario" | "leve" | "moderado" | "intenso" | "muito_intenso";
-
 
 const InfoPessoal: React.FC = () => {
     const { profile, saveProfile, deleteProfile, error, setError } = useUser();
     const [birthDate, setBirthDate] = useState<Date | null>(null);
-    const [weight, setWeight] = useState("");
+    const [weight, setWeight] = useState<number | null>(null);
     const [sex, setSex] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [messagePopup, setMessagePopup] = useState("");
     const navigate = useNavigate();
-
 
     const options = [
         { value: "female", label: "Feminino" },
@@ -53,10 +41,9 @@ const InfoPessoal: React.FC = () => {
             setBirthDate(new Date(`${profile.birth_date}`));
             setWeight(profile.weight);
             setSex(profile.sex);
-        }
-        else {
+        } else {
             setBirthDate(null);
-            setWeight("");
+            setWeight(null);
             setSex("");
         }
     }, [profile, setError]);
@@ -66,20 +53,23 @@ const InfoPessoal: React.FC = () => {
             setError({ error: "Forneça a data de nascimento" });
         } else if (calculateAge(birthDate) < 1) {
             setError({ error: "É necessário idade mínima de 1 ano" });
-        } else if (!weight) {
+        } else if (weight === null) {
             setError({ error: "Forneça o peso" });
         } else if (!sex) {
             setError({ error: "Forneça o sexo" });
+        } else if (weight < 0) {
+            window.alert("O valor de peso não pode ser negativo");
         } else {
             const formattedDate = dateFormat(birthDate);
-            const response = await saveProfile(formattedDate, weight, sex);
+            const formattedWeight = weight ? parseFloat(weight.toFixed(2)) : 0; // Formata o peso com duas casas decimais
+            const response = await saveProfile(formattedDate, formattedWeight, sex); // Passa os parâmetros
             if (response) {
                 setMessagePopup("Perfil salvo com sucesso");
                 setShowPopup(true);
             }
         }
     };
-
+    
     const handleDelete = async () => {
         const response = await deleteProfile();
         if (response) {
@@ -90,9 +80,6 @@ const InfoPessoal: React.FC = () => {
 
     return (
         <Body>
-            {/* <Logo>
-                <LogoImage src={logo} alt="Nutritech logo" />
-            </Logo> */}
             <Header />
             {error && <Error>{error.error}</Error>}
             {showPopup && (
@@ -110,9 +97,9 @@ const InfoPessoal: React.FC = () => {
                     type="number"
                     id="weight"
                     label="Peso"
-                    value={weight}
-                    setValue={setWeight}
-                    />
+                    value={weight !== null ? weight : ''} // Convert number to string or empty string if null
+                    setValue={(value) => setWeight(parseFloat(value) || null)} // Convert to float directly
+                />
                 <Select
                     id="sex"
                     label="Sexo"
@@ -121,23 +108,21 @@ const InfoPessoal: React.FC = () => {
                     options={options}
                 />
                 <Label htmlFor="nivelAtividade">Nível de Atividade:</Label>
-          <select
-            name="nivelAtividade"
-            required
-          >
-            <option value="sedentario">Sedentário</option>
-            <option value="leve">Leve</option>
-            <option value="moderado">Moderado</option>
-            <option value="intenso">Intenso</option>
-            <option value="muito_intenso">Muito Intenso</option>
-          </select>
+                <select
+                    name="nivelAtividade"
+                    required
+                >
+                    <option value="sedentario">Sedentário</option>
+                    <option value="leve">Leve</option>
+                    <option value="moderado">Moderado</option>
+                    <option value="intenso">Intenso</option>
+                    <option value="muito_intenso">Muito Intenso</option>
+                </select>
                 <ButtonContainer>
                     <Button onClick={handleSave}>Salvar</Button>
                     {profile && <Button onClick={handleDelete}>Excluir</Button>}
-
                     <BackButton type="button" onClick={() => navigate("/cadastro")}>Voltar</BackButton>
-                    <Button type="submit">Próximo</Button>
-
+                    <Button type="submit" onClick={() => navigate("/termosdeuso")}>Próximo</Button>
                 </ButtonContainer>
             </Container>
         </Body>
