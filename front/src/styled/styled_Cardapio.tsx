@@ -254,7 +254,15 @@ const styled_Cardapio = () => {
     @media (max-width: 480px) {
       font-size: 18px;
     }
-  `;
+  `
+  const Busque = styled.div<{ isExpanded: boolean }>`
+  display: ${props => (props.isExpanded ? 'block' : 'none')};
+  max-height: 200px; /* Defina a altura máxima que você deseja */
+  overflow-y: auto; /* Adiciona o scrollbar se necessário */
+  border: 1px solid #ccc; /* Para visualização */
+  padding: 10px; /* Para espaçamento interno */
+  background-color: white; /* Cor de fundo */
+`;
 
   return {
     CardapioBody,
@@ -270,6 +278,7 @@ const styled_Cardapio = () => {
     WhiteBox,
     ExpandedContent,
     SimboloMais,
+    Busque,
   };
 };
 

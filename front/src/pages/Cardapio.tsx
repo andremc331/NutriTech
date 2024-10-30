@@ -7,13 +7,13 @@ import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom'; 
 import { AdmMenu } from '../components';
 import { UserProvider } from '../contexts';
-import axios from 'axios'; // Adicione esta linha
+import axios from 'axios';
 
 const {
   CardapioBody,
   CentralContent,
   WhiteBox,
-  ExpandedContent,
+  Busque,
   SimboloMais,
 } = styled_Cardapio();
 
@@ -21,7 +21,8 @@ const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [inputValues, setInputValues] = useState<{ [key: number]: string }>({});
-  const [searchResults, setSearchResults] = useState<any[]>([]); // Novo estado para os resultados da busca
+  const [searchResults, setSearchResults] = useState<{ [key: number]: any[] }>({});
+  const [selectedFoods, setSelectedFoods] = useState<{ [key: number]: any[] }>({}); // Novo estado para alimentos selecionados
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index); 
@@ -32,15 +33,23 @@ const Cardapio: React.FC = () => {
   };
 
   const handleSearch = async (index: number) => {
-    const term = inputValues[index]; // Obtém o termo de busca do estado
+    const term = inputValues[index];
     if (term) {
       try {
         const response = await axios.get(`http://localhost:3011/food/search?term=${term}`);
-        setSearchResults(response.data.items); // Atualiza os resultados da busca
+        setSearchResults({ ...searchResults, [index]: response.data.items });
       } catch (error) {
         console.error("Erro ao buscar alimentos:", error);
       }
     }
+  };
+
+  const handleSelectFood = (index: number, food: any) => {
+    const currentSelected = selectedFoods[index] || [];
+    setSelectedFoods({ 
+      ...selectedFoods, 
+      [index]: [...currentSelected, food] // Adiciona o alimento selecionado
+    });
   };
 
   return (
@@ -88,7 +97,7 @@ const Cardapio: React.FC = () => {
                 <span>{item}</span>
                 <SimboloMais>+</SimboloMais>
               </div>
-              <ExpandedContent isExpanded={expandedIndex === index}>
+              <Busque isExpanded={expandedIndex === index}>
                 {expandedIndex === index && (
                 <>
                   <label>Insira os alimentos</label>
@@ -97,22 +106,40 @@ const Cardapio: React.FC = () => {
                     value={inputValues[index] || ''}
                     onChange={(e) => handleInputChange(index, e.target.value)}
                     placeholder={`Detalhes para ${item}`}
-                    onFocus={() => setExpandedIndex(index)} // Mantenha a expansão ao focar
+                    onFocus={() => setExpandedIndex(index)}
                   />
-                  <button onClick={() => handleSearch(index)}>Buscar</button> {/* Botão para buscar alimentos */}
-                  {searchResults.length > 0 && (
+                  <button onClick={() => handleSearch(index)}>Buscar</button>
+                  <label>Quantidade</label>
+                  <input
+                    type='number'
+                    placeholder='Quantidade em kg'
+                  />
+                  {searchResults[index] && searchResults[index].length > 0 && (
                     <div>
-                      <h3>Resultados da Busca:</h3>
                       <ul>
-                        {searchResults.map((food) => (
-                          <li key={food.id}>{food.description}</li>
+                        {searchResults[index].map((food) => (
+                          <li key={food.id}>
+                            {food.description}
+                            <button onClick={() => handleSelectFood(index, food)}>Selecionar</button>
+                          </li>
                         ))}
                       </ul>
                     </div>
                   )}
+                  {selectedFoods[index] && selectedFoods[index].length > 0 && (
+                    <div>
+                      <h3>Alimentos Selecionados:</h3>
+                      <ul>
+                        {selectedFoods[index].map((food) => (
+                          <li key={food.id}>{food.description}</li>
+                        ))}
+                      </ul>
+                      <button>Enviar</button>
+                    </div>
+                  )}
                 </>  
                 )}
-              </ExpandedContent>
+              </Busque>
             </WhiteBox>
           ))}
         </CentralContent>
@@ -134,3 +161,5 @@ const Cardapio: React.FC = () => {
 };
 
 export default Cardapio;
+
+
