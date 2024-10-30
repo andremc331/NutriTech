@@ -7,6 +7,7 @@ import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom'; 
 import { AdmMenu } from '../components';
 import { UserProvider } from '../contexts';
+import axios from 'axios'; // Adicione esta linha
 
 const {
   CardapioBody,
@@ -20,6 +21,7 @@ const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [inputValues, setInputValues] = useState<{ [key: number]: string }>({});
+  const [searchResults, setSearchResults] = useState<any[]>([]); // Novo estado para os resultados da busca
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index); 
@@ -27,6 +29,18 @@ const Cardapio: React.FC = () => {
 
   const handleInputChange = (index: number, value: string) => {
     setInputValues({ ...inputValues, [index]: value });
+  };
+
+  const handleSearch = async (index: number) => {
+    const term = inputValues[index]; // Obtém o termo de busca do estado
+    if (term) {
+      try {
+        const response = await axios.get(`http://localhost:3011/food/search?term=${term}`);
+        setSearchResults(response.data.items); // Atualiza os resultados da busca
+      } catch (error) {
+        console.error("Erro ao buscar alimentos:", error);
+      }
+    }
   };
 
   return (
@@ -85,6 +99,17 @@ const Cardapio: React.FC = () => {
                     placeholder={`Detalhes para ${item}`}
                     onFocus={() => setExpandedIndex(index)} // Mantenha a expansão ao focar
                   />
+                  <button onClick={() => handleSearch(index)}>Buscar</button> {/* Botão para buscar alimentos */}
+                  {searchResults.length > 0 && (
+                    <div>
+                      <h3>Resultados da Busca:</h3>
+                      <ul>
+                        {searchResults.map((food) => (
+                          <li key={food.id}>{food.description}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </>  
                 )}
               </ExpandedContent>

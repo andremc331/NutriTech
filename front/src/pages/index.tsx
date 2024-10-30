@@ -3,11 +3,12 @@
 import Loading from "./Loading";
 import NotFoundPage from "./NotFoundPage";
 import Cardapio from "./Cardapio";
-import ProfilePage from "./InfoPessoal";
 import Configuracoes from "./Configuracoes";
 import Bemvindo from "./BemVindo";
 import Cadastro from "./Cadastro";
 import UserRolePage from "./UserRolePage";
+import InfoPessoal from "./Infopessoal";
+
 
 export {
     // EatPage,
@@ -15,7 +16,7 @@ export {
     Loading,
     NotFoundPage,
     Cardapio,
-    ProfilePage,
+    InfoPessoal,
     Configuracoes,
     Bemvindo,
     Cadastro,
