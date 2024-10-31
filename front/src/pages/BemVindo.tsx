@@ -173,20 +173,32 @@ const BemVindo: React.FC = () => {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
+    // Verifica se os campos de email e senha estão preenchidos
+    if (!email || !senha) {
+      alert('Por favor, preencha todos os campos.');
+      return; // Impede que a função continue se os campos estiverem vazios
+    }
+  
     try {
       // Chama a API de login
       const response = await api.post('/login', { mail: email, password: senha });
-      
-      // Salva o token no localStorage
-      localStorage.setItem('token', response.data.token);
-
-      // Redireciona para a página home
-      navigate('/home');
+  
+      // Verifica se a resposta contém um token de acesso
+      if (response.data.token) {
+        // Salva o token no localStorage
+        localStorage.setItem('token', response.data.token);
+        // Redireciona para a página home
+        navigate('/home');
+      } else {
+        // Caso o login falhe, exibe uma mensagem de erro
+        alert('Email ou senha incorretos.');
+      }
     } catch (error) {
       console.error('Erro ao fazer login:', error);
       alert('Erro ao efetuar o login. Tente novamente.');
     }
   };
+  
 
   return (
     <Background>
