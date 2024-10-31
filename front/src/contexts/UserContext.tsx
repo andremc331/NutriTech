@@ -12,6 +12,7 @@ import { Profile, User } from "../services";
 import { useNavigate } from "react-router-dom";
 import { loadFromLocalStorage } from "../utils/localStorage";
 import { isErrorProps } from "../utils";
+import Goal from "../services/Goal";
 
 // Create the context
 export const UserContext = createContext<UserContextProps | undefined>(undefined);
@@ -162,6 +163,27 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
+  const saveGoal = async (goal: string): Promise<boolean> => {
+    const response = await Goal.saveGoal(goal);
+    if (isErrorProps(response)) {
+      setError(response);
+      return false;
+    } else {
+      setError(null);
+      return true;
+    }
+  };
+  
+  // Obtém as metas
+  const getGoals = async (): Promise<void> => {
+    const response = await Goal.getGoals();
+    if (!isErrorProps(response)) {
+      // Atualize o estado com as metas, se necessário
+    } else {
+      setError(response);
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -182,6 +204,8 @@ export function UserProvider({ children }: ProviderProps) {
         updatePassword,
         saveProfile,
         deleteProfile,
+        saveGoal, // Função para salvar meta
+        getGoals, // Função para obter metas
       }}
     >
       {children}

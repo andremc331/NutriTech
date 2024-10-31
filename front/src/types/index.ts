@@ -23,6 +23,8 @@ export interface UserContextProps {
     // numericWeight:number
   ) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
+  saveGoal: (goal: string) => Promise<boolean>;
+  getGoals: () => Promise<void>;
 }
 
 export interface FoodContextProps {
