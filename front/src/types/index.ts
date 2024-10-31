@@ -18,8 +18,9 @@ export interface UserContextProps {
   updatePassword: (password: string) => Promise<boolean>;
   saveProfile: (
     birth_date: string,
-    weight: string,
-    sex: string
+    weight:number|null,
+    sex: string,
+    // numericWeight:number
   ) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
 }
@@ -188,7 +189,7 @@ export interface TokenProps extends UserProps {
 
 export interface ProfileProps {
   birth_date: string;
-  weight: string;
+  weight: number|null;
   sex: string;
 }
 

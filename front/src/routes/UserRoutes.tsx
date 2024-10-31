@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import BemVindo from "../pages/BemVindo";
 import Cadastro from "../pages/Cadastro";
-import InfoPessoal from "../pages/InfoPessoal";
+
 import DefinicaoMetas from "../pages/DefinicaoMetas";
 import TermosDeUso from "../pages/TermosDeUso";
 import Home from "../pages/Home";
@@ -17,6 +17,7 @@ import Historico from "../pages/Historico";
 import Progresso from "../pages/Progresso";
 import Configuracoes from "../pages/Configuracoes";
 import { UserProvider } from "../contexts";
+import InfoPessoal from "../pages/Infopessoal";
 
 export default function UserRoutes() {
   return (

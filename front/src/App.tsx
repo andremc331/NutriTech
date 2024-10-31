@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import BemVindo from './pages/BemVindo';
 import Cadastro from './pages/Cadastro';
-import InfoPessoal from "../src/pages/InfoPessoal";
+import InfoPessoal from './pages/Infopessoal';
 import DefinicaoMetas from './pages/DefinicaoMetas';
 import TermosDeUso from './pages/TermosDeUso';
 import Home from './pages/Home';
