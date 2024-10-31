@@ -3,6 +3,7 @@ import logo from "../assets/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
 import styled_Definicao_M from "../styled/styled_Definicao_M"; // Importa o styled-components diretamente
 import { api } from "../services/api";
+import { useUser } from "../hooks";
 
 const {
   ImageContainer,
@@ -23,11 +24,14 @@ const {
 } = styled_Definicao_M();
 
 const DefinicaoMetas: React.FC = () => {
+  const { saveGoal, error, setError } = useUser();
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [goal, setGoal] = useState<string>(""); // Estado para guardar a meta
   const [goalsUserId, setGoalsUserId] = useState<number>(1); // ID do usuário - exemplo para teste
-
+  const [showPopup, setShowPopup] = useState(false);
+  const [messagePopup, setMessagePopup] = useState("");
+  
   const scrollLeft = () => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
@@ -42,14 +46,18 @@ const DefinicaoMetas: React.FC = () => {
 
   // Função para enviar a meta para o backend
   const enviarMeta = async () => {
-    try {
-      const response = await api.post("/metas", {
-        goals_user_id: goalsUserId, // ID do usuário associado
-        goals: goal, // A meta validada pelo domínio chk_goals
-      });
-      console.log("Meta salva com sucesso:", response.data);
-    } catch (error: any) {
-      console.error("Erro ao salvar a meta:", error.response?.data || "Erro desconhecido");
+    if (!goalsUserId) {
+      setError({ error: "ID do usuário não fornecido." });
+    } else if (!goal || !['Ganhar peso', 'Perder peso', 'Manter Peso'].includes(goal)) {
+      setError({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter Peso'." });
+    } else {
+      const response = await saveGoal(goal); // Passa a meta para a função no UserContext
+      if (response) {
+        setMessagePopup("Meta salva com sucesso!");
+        setShowPopup(true);
+      } else {
+        setError({ error: "Erro ao salvar a meta." });
+      }
     }
   };
 

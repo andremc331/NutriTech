@@ -1,24 +1,25 @@
-import { ErrorProps, UserProps } from "../types";
+import { ErrorProps, GoalProps } from "../types";
 import { api } from "./api";
 
 class Goal {
-  async saveGoal(goal: string): Promise<UserProps | ErrorProps> {
+  // Ajuste para retornar `GoalProps` específico em vez de `UserProps`
+  async saveGoal(goal: string): Promise<GoalProps | ErrorProps> {
     try {
       const { data } = await api.post("/goals", { goal });
-      return data;
+      return data as GoalProps; // Retorno tipado
     } catch (error: any) {
-      return error.response?.data || error; // Retorna detalhes específicos do erro
+      return error.response?.data || { error: "Erro desconhecido" }; // Retorna detalhes específicos do erro
     }
   }
 
-  async getGoals(): Promise<UserProps[] | ErrorProps> {
+  async getGoals(): Promise<GoalProps[] | ErrorProps> {
     try {
       const { data } = await api.get("/goals");
-      return data;
+      return data as GoalProps[]; // Retorno tipado
     } catch (error: any) {
-      return error.response?.data || error; // Retorna detalhes específicos do erro
+      return error.response?.data || { error: "Erro desconhecido" }; // Retorna detalhes específicos do erro
     }
   }
 }
 
-export default new Goal(); // Exporta uma instância da classe Goal
+export default new Goal();

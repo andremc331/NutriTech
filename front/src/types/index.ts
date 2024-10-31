@@ -185,6 +185,11 @@ export interface UserProps {
   role: string;
 }
 
+export interface GoalProps {
+  id: number;
+  goal: string; // ou outra estrutura que o backend retorna
+}
+
 export interface TokenProps extends UserProps {
   token: string;
 }

@@ -122,7 +122,7 @@ const InfoPessoal: React.FC = () => {
                     <Button onClick={handleSave}>Salvar</Button>
                     {profile && <Button onClick={handleDelete}>Excluir</Button>}
                     <BackButton type="button" onClick={() => navigate("/cadastro")}>Voltar</BackButton>
-                    <Button type="submit" onClick={() => navigate("/termosdeuso")}>Próximo</Button>
+                    <Button type="submit" onClick={() => navigate("/definicao-metas")}>Próximo</Button>
                 </ButtonContainer>
             </Container>
         </Body>
