@@ -1,5 +1,4 @@
 import React, { useRef, useState } from "react";
-import axios from "axios"; // Importa o axios
 import logo from "../assets/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
 import styled_Definicao_M from "../styled/styled_Definicao_M"; // Importa o styled-components diretamente
@@ -19,13 +18,15 @@ const {
   NextButton,
   ButtonContainer,
   PlusButton,
+  SaveButton, // Adiciona o botão de salvar no styled components
+  Button
 } = styled_Definicao_M();
 
 const DefinicaoMetas: React.FC = () => {
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [meta, setMeta] = useState<string>(""); // Estado para guardar a meta
-  const [metasUsuarioId, setMetasUsuarioId] = useState<number>(1); // ID do usuário - exemplo para teste
+  const [goal, setGoal] = useState<string>(""); // Estado para guardar a meta
+  const [goalsUserId, setGoalsUserId] = useState<number>(1); // ID do usuário - exemplo para teste
 
   const scrollLeft = () => {
     if (carouselRef.current) {
@@ -43,15 +44,15 @@ const DefinicaoMetas: React.FC = () => {
   const enviarMeta = async () => {
     try {
       const response = await api.post("/metas", {
-        metas_usuario_id: metasUsuarioId, // ID do usuário associado
-        metas: meta, // A meta que será enviada, validada pelo domínio
+        goals_user_id: goalsUserId, // ID do usuário associado
+        goals: goal, // A meta validada pelo domínio chk_goals
       });
       console.log("Meta salva com sucesso:", response.data);
     } catch (error: any) {
-      console.error("Erro ao salvar a meta:", error.error || "Erro desconhecido");
+      console.error("Erro ao salvar a meta:", error.response?.data || "Erro desconhecido");
     }
   };
-  
+
   return (
     <>
       <ImageContainer>
@@ -69,10 +70,15 @@ const DefinicaoMetas: React.FC = () => {
               <Card>
                 <CardTitle>Ganhar Peso</CardTitle>
                 <ButtonGroup>
-                  <MinusButton type="button">-</MinusButton>
+                  <MinusButton
+                    type="button"
+                    onClick={() => setGoal("")} // Reseta a meta para uma string vazia
+                  >
+                    -
+                  </MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setMeta("Ganhar peso")} // Atualiza a meta para "Ganhar peso"
+                    onClick={() => setGoal("Ganhar peso")} // Atualiza a meta para "Ganhar peso"
                   >
                     +
                   </PlusButton>
@@ -83,10 +89,15 @@ const DefinicaoMetas: React.FC = () => {
               <Card>
                 <CardTitle>Perder Peso</CardTitle>
                 <ButtonGroup>
-                  <MinusButton type="button">-</MinusButton>
+                  <MinusButton
+                    type="button"
+                    onClick={() => setGoal("")} // Reseta a meta para uma string vazia
+                  >
+                    -
+                  </MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setMeta("Perder peso")} // Atualiza a meta para "Perder peso"
+                    onClick={() => setGoal("Perder peso")} // Atualiza a meta para "Perder peso"
                   >
                     +
                   </PlusButton>
@@ -97,10 +108,15 @@ const DefinicaoMetas: React.FC = () => {
               <Card>
                 <CardTitle>Manter Peso</CardTitle>
                 <ButtonGroup>
-                  <MinusButton type="button">-</MinusButton>
+                  <MinusButton
+                    type="button"
+                    onClick={() => setGoal("")} // Reseta a meta para uma string vazia
+                  >
+                    -
+                  </MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setMeta("Manter peso")} // Atualiza a meta para "Manter peso"
+                    onClick={() => setGoal("Manter peso")} // Atualiza a meta para "Manter peso"
                   >
                     +
                   </PlusButton>
@@ -114,12 +130,14 @@ const DefinicaoMetas: React.FC = () => {
         </FormContainer>
 
         <ButtonContainer>
+          <Button
+            onClick={() => enviarMeta()} // Envia a meta para o backend ao clicar em "Salvar"
+          >
+            Salvar
+          </Button>
           <NextButton
             type="button"
-            onClick={() => {
-              enviarMeta(); // Envia a meta para o backend
-              navigate("/termosdeuso"); // Navega para a próxima página
-            }}
+            onClick={() => navigate("/termosdeuso")} // Navega para a próxima página
           >
             →
           </NextButton>

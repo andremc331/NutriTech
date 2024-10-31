@@ -172,6 +172,28 @@ const ButtonContainer = styled.div`
 
 const PlusButton = styled(MinusButton)``;
 
+const SaveButton = styled.div``;
+
+const Button = styled.button`
+    background-color: #3dc4a7;
+    color: white;
+    padding: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 650px;
+
+    &:hover {
+      background-color: #35ac91;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      padding: 12px;
+      
+    }
+  `;
+
 return {
     // Body,
     ImageContainer,
@@ -188,6 +210,8 @@ return {
     ButtonContainer,
     // MediaQuery,
     PlusButton,
+    SaveButton,
+    Button,
   };
 };
 

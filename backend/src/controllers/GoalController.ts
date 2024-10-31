@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
-import {pool, query} from "../database/connection";
+import { pool } from "../database/connection";
 
 // Função para criar uma nova meta
 export const criarMeta = async (req: Request, res: Response) => {
-  const { metas_usuario_id, metas } = req.body;
+  const { goals_user_id, goals } = req.body;
 
   try {
-    const query = 'INSERT INTO "meta" (metas_usuario_id, metas) VALUES ($1, $2) RETURNING *';
-    const values = [metas_usuario_id, metas];
+    const query = 'INSERT INTO "goals" (goals_user_id, goals) VALUES ($1, $2) RETURNING *';
+    const values = [goals_user_id, goals];
     
     const { rows } = await pool.query(query, values);
     const novaMeta = rows[0];

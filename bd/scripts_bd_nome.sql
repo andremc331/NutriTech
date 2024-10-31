@@ -13,17 +13,12 @@ CREATE TYPE enum_role AS ENUM ('user', 'adm');
 ALTER COLUMN senha TYPE VARCHAR(200);
 
 CREATE TABLE users (
-  id SERIAL NOT NULL,
-  nome VARCHAR(30) NOT NULL,
-  email VARCHAR(50) NOT NULL,
-  senha VARCHAR(100) NULL,
-  role enum_role NOT NULL DEFAULT 'user',
-  weight FLOAT NULL,
-  height FLOAT NULL,
-  age INT NULL,
-  PRIMARY KEY(id),
-  CONSTRAINT users_email_unique UNIQUE (email)
-);
+            id SERIAL PRIMARY KEY,
+            email VARCHAR(45) NOT NULL,
+            senha VARCHAR(200) NOT NULL,
+            nome CHAR(50) NULL,
+            role enum_role NOT NULL DEFAULT 'user'
+        );
 
 INSERT INTO users(id,email,senha,nome,peso,altura,idade)
 VALUES(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
@@ -32,13 +27,13 @@ VALUES(1,'victor@gmail.com','11E69g','Victor',75,1.80,20);
 
 --TABELA METAS
 DROP TABLE meta
-CREATE DOMAIN chk_metas TEXT CHECK(value='Ganhar peso' or value='Perder peso' or value='Manter Peso');
-CREATE TABLE "Meta" (
-	id INTEGER NOT NULL PRIMARY KEY,
-    metas_usuario_id INTEGER NOT NULL,
-    metas chk_metas,
-    FOREIGN KEY(metas_usuario_id) REFERENCES users(id)
-);
+CREATE DOMAIN chk_goals TEXT CHECK(value IN ('Ganhar peso', 'Perder peso', 'Manter Peso'));
+        CREATE TABLE goals (
+            id SERIAL PRIMARY KEY,
+            goals_user_id INTEGER NOT NULL,
+            goals chk_goals,
+            FOREIGN KEY (goals_user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
+        );
 
 INSERT INTO meta(id,metas_usuario_id,metas)
 VALUES(1,1,'Ganhar peso')
@@ -92,19 +87,30 @@ VALUES(1,1,85.7,'11/08/2000');
 
 --TABELA PESO
 DROP TABLE peso
-select * from peso
-CREATE TABLE peso (
-	id INTEGER NOT NULL PRIMARY KEY,          
-    peso_usuario_id INTEGER NOT NULL,        
-    pesagem DECIMAL(5, 2) NOT NULL,    
-    data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-	birth_date DATE NOT NULL,
-    weight FLOAT NOT NULL,
-    sex enum_sex NULL,	FOREIGN KEY(peso_usuario_id) REFERENCES users(id)
-); 
-INSERT INTO peso(id,peso_usuario_id,pesagem,data_registro) VALUES
-(1,1,75.8,'11/08/2000')
-
+-- select * from peso
+-- CREATE TABLE peso (
+-- 	id INTEGER NOT NULL PRIMARY KEY,          
+--     peso_usuario_id INTEGER NOT NULL,        
+--     pesagem DECIMAL(5, 2) NOT NULL,    
+--     data_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+-- 	birth_date DATE NOT NULL,
+--     weight FLOAT NOT NULL,
+--     sex enum_sex NULL,	FOREIGN KEY(peso_usuario_id) REFERENCES users(id)
+-- ); 
+-- INSERT INTO peso(id,peso_usuario_id,pesagem,data_registro) VALUES
+-- (1,1,75.8,'11/08/2000')
+CREATE TABLE profiles (
+            id SERIAL NOT NULL,
+            _user INTEGER NOT NULL,
+            birth_date DATE NOT NULL,
+            weight FLOAT NOT NULL,
+            sex enum_sex NULL,
+            PRIMARY KEY(id),
+            FOREIGN KEY(_user)
+                REFERENCES users(id)
+                ON DELETE RESTRICT
+                ON UPDATE CASCADE
+        );
 
 
 --TABELA PREPARAÇÃO
