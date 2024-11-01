@@ -2,9 +2,8 @@ import styled from "styled-components";
 
 const styled_TermoDuso=()=>{
  const Body = styled.body`
-  background-color: #7E5EC2;
   margin: 0;
-  font-family: 'Roboto', Arial, sans-serif;
+  font-family: "Roboto", sans-serif;
 `;
 
  const ImageContainer = styled.div`
@@ -21,28 +20,32 @@ const styled_TermoDuso=()=>{
  const FormContainer = styled.div`
   width: 800px;
   margin: 20px auto;
-  padding: 20px;
+  padding: 30px;
   border: 2px solid #7d4cdb;
-  border-radius: 10px;
-  background-color: #7d4cdb;
+  border-radius: 15px;
+  background-color: var(--color-2);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 `;
 
  const Title = styled.h2`
-  text-align: left;
-  color: white;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
+  color: var(--color-1);
   font-size: 40px;
   font-weight: bold;
+  text-transform: uppercase;
 `;
 
  const TermsContainer = styled.div`
+  font-family: "Roboto", sans-serif;
   max-height: 200px;
   overflow-y: scroll;
-  background-color: #f0f0f0;
+  background-color: var(--color-12);
   padding: 10px;
   border-radius: 10px;
-  color: black;
+  color: var(--color-10);
   margin-bottom: 20px;
+  margin-top: 15px;
 `;
 
   const CheckboxGroup = styled.div`
@@ -55,25 +58,57 @@ const styled_TermoDuso=()=>{
   }
 `;
 
- const ButtonContainer = styled.div`
-  text-align: right;
-  margin-right: 30px;
-`;
+const ButtonContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 
- const NextButton = styled.button`
-  width: 60px;
-  height: 60px;
-  background-color: #21d29d;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 26px;
-  cursor: pointer;
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 10px;
+    }
+  `;
 
-  &:hover {
-    background-color: #1ca885;
-  }
-`;
+  const Button = styled.button`
+    width: 60px;
+    height: 50px;
+    background-color: var(--color-9);
+    color: var(--color-1);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #1ca885;
+    }
+
+    @media (max-width: 768px) {
+      font-size: 16px;
+      padding: 12px;
+    }
+  `;
+
+  const BackButton = styled(Button)`
+    width: 60px;
+    height: 50px;
+    background-color: var(--color-9);
+    color: var(--color-1);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #1ca885;
+    }
+  `;
+
+
 return{
   Body,
   ButtonContainer, 
@@ -81,7 +116,8 @@ return{
    FormContainer, 
    ImageContainer, 
    LogoImage, 
-   NextButton, 
+   Button,
+   BackButton,
    TermsContainer, 
    Title 
 }

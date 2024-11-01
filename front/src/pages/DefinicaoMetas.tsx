@@ -1,41 +1,33 @@
-import React, { useRef, useState } from "react";
-import axios from "axios"; // Importa o axios
+import React, { useState } from "react";
+import axios from "axios";
 import logo from "../logo/logo.nutritech.png";
 import styled_Definicao_M from "../styled/styled_Definicao_M";
+import { Icon } from "../styled/styled_Main";
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 
 const {
-  ImageContainer,
+  Body,
+  Logo,
   LogoImage,
   FormContainer,
   Title,
-  Carousel,
-  Card,
+  Text,
+  CardContainer,
+  CardLoseWeight,
+  CardGainWeight,
+  CardMuscle,
+  CardDiet,
   CardTitle,
-  ButtonGroup,
-  MinusButton,
-  NavButton,
-  NextButton,
+  Button,
+  BackButton,
   ButtonContainer,
-  PlusButton,
 } = styled_Definicao_M();
 
 const DefinicaoMetas: React.FC = () => {
   const navigate = useNavigate();
-  const carouselRef = useRef<HTMLDivElement>(null);
   const [meta, setMeta] = useState(""); // Estado para guardar a meta
-
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
-    }
-  };
 
   // Função para enviar a meta para o backend
   const enviarMeta = async () => {
@@ -51,61 +43,56 @@ const DefinicaoMetas: React.FC = () => {
 
   return (
     <>
-      <ImageContainer>
-        <LogoImage src={logo} alt="Logo Nutritech" />
-      </ImageContainer>
-      <div>
+      <Body>
+        <Logo>
+          <LogoImage src={logo} alt="Nutritech logo" />
+        </Logo>
         <FormContainer>
           <Title>Definição de Metas</Title>
-          <form>
-            <NavButton className="left" type="button" onClick={scrollLeft}>
-              &lt;
-            </NavButton>
-            <Carousel ref={carouselRef}>
-              <Card>
-                <CardTitle>Ganhar ou Perder Peso</CardTitle>
-                <ButtonGroup>
-                  <MinusButton type="button">-</MinusButton>
-                  <PlusButton
-                    type="button"
-                    onClick={() => setMeta("Ganhar ou Perder Peso")} // Atualiza o estado da meta
-                  >
-                    +
-                  </PlusButton>
-                </ButtonGroup>
-              </Card>
-              <Card>
-                <CardTitle>Monitore seu problema alimentar</CardTitle>
-                <ButtonGroup>
-                  <MinusButton type="button">-</MinusButton>
-                  <PlusButton
-                    type="button"
-                    onClick={() => setMeta("Monitore seu problema alimentar")}
-                  >
-                    +
-                  </PlusButton>
-                </ButtonGroup>
-              </Card>
-              {/* Adicione outros cards conforme necessário */}
-            </Carousel>
-            <NavButton className="right" type="button" onClick={scrollRight}>
-              &gt;
-            </NavButton>
-          </form>
+          <CardContainer>
+            <CardLoseWeight>
+              <CardTitle>Perder Peso</CardTitle>
+              <Text>
+                Emagracimento <br/>
+                envolve uma combinação de alimentação equilibrada e atividade física regular. Isso pode incluir reduzir a ingestão de calorias e incorporar exercícios aeróbicos e de resistência na rotina.
+                </Text>
+            </CardLoseWeight>
+            <CardGainWeight>
+              <CardTitle>Ganhar Peso</CardTitle>
+              <Text>
+                Engordar <br/>
+                envolve aumentar a massa muscular e/ou a gordura de maneira saudável. Isso pode ser alcançado por meio de uma dieta rica em calorias e nutrientes, priorizando alimentos como proteínas magras, grãos integrais e gorduras saudáveis. 
+                </Text>
+            </CardGainWeight>
+            <CardMuscle>
+              <CardTitle>Ganhar Massa Muscular</CardTitle>
+              <Text>
+              Hipertrofismo <br/>
+              envolve o aumento da força e volume muscular através de treinamento de resistência e uma nutrição adequada. Isso inclui uma dieta rica em proteínas, carboidratos complexos e gorduras saudáveis.
+              </Text>
+            </CardMuscle>
+            <CardDiet>
+              <CardTitle>Monitorar Dieta</CardTitle>
+              <Text>
+              Educação Alimentar <br/>
+              envolve a conscientização e o registro dos alimentos consumidos diariamente. Isso pode incluir contar calorias, acompanhar a ingestão de macronutrientes e avaliar a qualidade dos alimentos.
+              </Text>
+            </CardDiet>
+          </CardContainer>
+            <ButtonContainer>
+              <BackButton type="button" onClick={() => navigate("/Info-pessoal")}>
+                <Icon>
+                  <IonIcon icon={Icons.chevronBack} />
+                </Icon>
+              </BackButton>
+              <Button type="submit" onClick={() => { enviarMeta(); navigate("/termosdeuso"); }} >
+                <Icon>
+                  <IonIcon icon={Icons.chevronForward} />
+                </Icon>
+              </Button>
+            </ButtonContainer>
         </FormContainer>
-
-        <ButtonContainer>
-          <NextButton
-            type="button"
-            onClick={() => {
-              enviarMeta(); // Envia a meta para o backend
-              navigate("/termosdeuso");
-            }}
-          >
-            →
-          </NextButton>
-        </ButtonContainer>
-      </div>
+      </Body>
     </>
   );
 };

@@ -1,171 +1,25 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled_BemV from '../styled/styled_BemV';
+import { Icon } from "../styled/styled_Main";
 import logo from '../logo/logo.nutritech.png';
-import logofundo from '../logo/logofundo.png';
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/User';
 
-const Background = styled.div`
-  display: flex;
-  height: 100vh;
-  background-image: url(${logofundo});
-  background-size: cover;
-  background-position: center;
-  flex-direction: row; /* Alinhamento horizontal dos containers */
-  @media (max-width: 768px) {
-    flex-direction: column; /* Mudança para coluna em telas menores */
-  }
-`;
-
-const ContainerRightTitle = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 5px;
-  border-radius: 10px;
-  margin-bottom: 5%;
-  margin-right: 20%;
-
-  @media (max-width: 1024px) {
-    margin-right: 10%;
-  }
-
-  @media (max-width: 768px) {
-    margin-right: 0;
-    width: 100%;
-    margin-bottom: 20px;
-  }
-
-  @media (max-width: 480px) {
-    padding: 10px;
-  }
-`;
-
-const Logo = styled.img`
-  width: 250px;
-  margin-bottom: 30px;
-
-  @media (max-width: 768px) {
-    width: 200px;
-  }
-
-  @media (max-width: 480px) {
-    width: 150px;
-  }
-`;
-
-const ContainerLeft = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 20%;
-  height: 500px;
-  padding: 10px;
-  background: #7e5ec2;
-  border-radius: 15px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  transition: box-shadow 0.3s ease;
-  margin-top: 10%;
-  margin-left: 25%; /* Ajustar margem para telas pequenas */
-  font-family: 'Playpen Sans', sans-serif; /* Mudança para a fonte correta */
-
-  &:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-  }
-
-  @media (max-width: 1200px) {
-    width: 25%;
-    margin-left: 20px; /* Reduzir margem à esquerda */
-  }
-
-  @media (max-width: 900px) {
-    width: 40%;
-    margin-left: 0;
-    margin-top: 100px;
-  }
-
-  @media (max-width: 600px) {
-    width: 80%;
-    margin-top: 50px;
-  }
-
-  @media (max-width: 400px) {
-    width: 100%;
-    margin-top: 20px;
-  }
-`;
-
-const EmailLabel = styled.label`
-  margin-top: 20px;
-  font-weight: bold;
-  color: black;
-`;
-
-const PasswordLabel = styled.label`
-  margin-top: 10px;
-  font-weight: bold;
-  color: black;
-`;
-
-const Input = styled.input`
-  padding: 10px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  width: 80%; /* Ocupa toda a largura disponível */
-
-  &:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-    outline: none;
-  }
-`;
-
-const MainContent = styled.div`
-  margin-top: 30px;
-  display: flex;
-  justify-content: flex-end;
-`;
-
-const Button1 = styled.button`
-  background-color: #007bff;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 20px;
-
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const Button2 = styled.button`
-  background-color: #28a745;
-  color: white;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #218838;
-  }
-`;
-
-const JustifiedText = styled.p`
-  font-size: 24px;
-  font-weight: bold;
-  color: #444;
-  margin: 0;
-`;
+const {
+  Background,
+  Logo,
+  ContainerRightTitle,
+  ContainerLeft,
+  EmailLabel,
+  PasswordLabel,
+  Input,
+  MainContent,
+  Button1,
+  Button2,
+  JustifiedText,
+} = styled_BemV();
 
 const BemVindo: React.FC = () => {
   const [email, setEmail] = useState<string>('');
@@ -191,7 +45,6 @@ const BemVindo: React.FC = () => {
   return (
     <Background>
       <ContainerLeft>
-      <link href="https://fonts.googleapis.com/css2?family=Playpen+Sans&display=swap" rel="stylesheet"></link>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>
         <Input 
@@ -208,20 +61,28 @@ const BemVindo: React.FC = () => {
           onChange={(e) => setSenha(e.target.value)} 
         />
         <MainContent>
-          <Button2 onClick={handleLogin}>&gt;</Button2>
+          <Button2 onClick={handleLogin}>
+            <Icon>
+              <IonIcon icon={Icons.chevronForward} />
+            </Icon>
+          </Button2>
         </MainContent>
       </ContainerLeft>
 
       <ContainerRightTitle>
         <Logo src={logo} alt="Logo NutriTech" />
         <JustifiedText>
-          O MELHOR
+          O melhor
           <br />
-          PARA A SUA
+          Para a sua
           <br />
-          SAÚDE!
+          Saúde!
         </JustifiedText>
-        <Button1 onClick={() => navigate('/cadastro')}>COMECE JÁ</Button1>
+        <Button1 onClick={() => navigate('/cadastro')}>COMECE JÁ
+          <Icon>
+            <IonIcon icon={Icons.arrowForward} />
+          </Icon>
+        </Button1>
       </ContainerRightTitle>
     </Background>
   );

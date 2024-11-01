@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import MealChart from "../components/MealChart";
 import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
 import {

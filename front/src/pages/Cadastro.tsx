@@ -1,9 +1,23 @@
 import React, { useState } from "react";
 import logo from "../logo/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { Icon } from "../styled/styled_Main";
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
+import { useNavigate } from "react-router-dom"; // Importar useNavigate
 
-const { ImageContainer, FormContainer, Title, FormGroup, Label, Input, Button, ButtonContainer } = styled_Cadastro();
+const {
+  ImageContainer,
+  FormContainer,
+  Title,
+  FormGroup,
+  FormGroupRow,
+  Label,
+  Input,
+  Button,
+  BackButton,
+  ButtonContainer,
+} = styled_Cadastro();
 
 const Cadastro: React.FC = () => {
   const navigate = useNavigate(); // Inicializa o hook useNavigate
@@ -36,15 +50,15 @@ const Cadastro: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     // Verifica se as senhas são correspondentes
     if (Verificar()) {
       try {
         // Envia os dados do formulário para a API
-        const response = await fetch('/api/cadastrar', {
-          method: 'POST',
+        const response = await fetch("/api/cadastrar", {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({
             nome: formData.nome,
@@ -74,10 +88,10 @@ const Cadastro: React.FC = () => {
         <img src={logo} alt="Logo Nutritech" />
       </ImageContainer>
       <FormContainer>
-        <Title>Informações de Usuário</Title>
+        <Title>Informações de usuário</Title>
         <form onSubmit={handleSubmit}>
-          <div className="form-group-row">
-            <FormGroup>
+          <FormGroupRow>
+            <FormGroup className="form-group">
               <Label htmlFor="nome">Nome:</Label>
               <Input
                 type="text"
@@ -88,7 +102,7 @@ const Cadastro: React.FC = () => {
                 required
               />
             </FormGroup>
-            <FormGroup>
+            <FormGroup className="form-group">
               <Label htmlFor="sobrenome">Sobrenome:</Label>
               <Input
                 type="text"
@@ -99,42 +113,56 @@ const Cadastro: React.FC = () => {
                 required
               />
             </FormGroup>
-          </div>
+          </FormGroupRow>
+
           <FormGroup>
             <Label htmlFor="email">Email:</Label>
             <Input
               type="email"
               id="email"
               name="email"
+              className="email"
               value={formData.email}
               onChange={handleChange}
               required
             />
           </FormGroup>
-          <FormGroup>
-            <Label htmlFor="senha">Senha:</Label>
-            <Input
-              type="password"
-              id="senha"
-              name="senha"
-              value={formData.senha}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
-            <Input
-              type="password"
-              id="confirmarSenha"
-              name="confirmarSenha"
-              value={formData.confirmarSenha}
-              onChange={handleChange}
-              required
-            />
-          </FormGroup>
+
+          <FormGroupRow>
+            <FormGroup className="form-group">
+              <Label htmlFor="senha">Senha:</Label>
+              <Input
+                type="password"
+                id="senha"
+                name="senha"
+                value={formData.senha}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+            <FormGroup className="form-group">
+              <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
+              <Input
+                type="password"
+                id="confirmarSenha"
+                name="confirmarSenha"
+                value={formData.confirmarSenha}
+                onChange={handleChange}
+                required
+              />
+            </FormGroup>
+          </FormGroupRow>
           <ButtonContainer>
-            <Button type="submit">Avançar</Button>
+            <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>
+              <Icon>
+                <IonIcon icon={Icons.chevronBack} />
+              </Icon>
+            </BackButton>
+            <Button type="submit">
+              <Icon>
+                <IonIcon icon={Icons.chevronForward} />
+              </Icon>
+            </Button>
           </ButtonContainer>
         </form>
       </FormContainer>

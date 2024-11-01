@@ -1,7 +1,11 @@
+import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import logo from "../logo/logo.nutritech.png";
 import styled_Infop from "../styled/styled_Infop";
+import { Icon } from "../styled/styled_Main";
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
 
 const {
   Body,
@@ -9,10 +13,12 @@ const {
   Button,
   ButtonContainer,
   Container,
-  Gender,
+  FormRow,
+  GenderContainer,
   GenderInput,
   GenderLabel,
   Input,
+  Select,
   Label,
   Logo,
   LogoImage,
@@ -134,7 +140,7 @@ const Infopessoal: React.FC = () => {
 
   return (
     <>
-    <Body>
+      <Body>
         <Logo>
           <LogoImage src={logo} alt="Nutritech logo" />
         </Logo>
@@ -151,53 +157,61 @@ const Infopessoal: React.FC = () => {
               required
               aria-describedby="usernameHelp"
             />
+            <FormRow>
+              <div>
+                <Label htmlFor="dob">Data de nascimento:</Label>
+                <Input
+                  type="date"
+                  id="dob"
+                  name="dob"
+                  value={userData.dob}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="idade">Idade:</Label>
+                <Input
+                  type="text"
+                  id="idade"
+                  name="idade"
+                  value={userData.idade !== null ? userData.idade : ""}
+                  onChange={handleChange}
+                  placeholder="Informe sua idade"
+                  required
+                />
+              </div>
+            </FormRow>
 
-            <Label htmlFor="dob">Data de nascimento:</Label>
-            <Input
-              type="date"
-              id="dob"
-              name="dob"
-              value={userData.dob}
-              onChange={handleChange}
-              required
-            />
+            <FormRow>
+              <div>
+                <Label htmlFor="height">Altura (cm):</Label>
+                <Input
+                  type="text"
+                  id="height"
+                  name="height"
+                  value={userData.height !== null ? userData.height : ""}
+                  onChange={handleChange}
+                  placeholder="EX: 180"
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="weight">Peso (kg):</Label>
+                <Input
+                  type="text"
+                  id="weight"
+                  name="weight"
+                  value={userData.weight !== null ? userData.weight : ""}
+                  onChange={handleChange}
+                  placeholder="EX: 55"
+                  required
+                />
+              </div>
+            </FormRow>
 
-            <Label htmlFor="idade">Idade:</Label>
-            <Input
-              type="number"
-              id="idade"
-              name="idade"
-              value={userData.idade !== null ? userData.idade : ""}
-              onChange={handleChange}
-              placeholder="Informe sua idade"
-              required
-            />
-
-            <Label htmlFor="height">Altura (cm):</Label>
-            <Input
-              type="number"
-              id="height"
-              name="height"
-              value={userData.height !== null ? userData.height : ""}
-              onChange={handleChange}
-              placeholder="EX: 180"
-              required
-            />
-
-            <Label htmlFor="weight">Peso (kg):</Label>
-            <Input
-              type="number"
-              id="weight"
-              name="weight"
-              value={userData.weight !== null ? userData.weight : ""}
-              onChange={handleChange}
-              placeholder="EX: 55"
-              required
-            />
-
-            <Gender>
-              <Label>Gênero:</Label>
-              <GenderLabel>Masculino</GenderLabel>
+            <GenderContainer>
+              <GenderLabel>Gênero:</GenderLabel>
               <GenderInput
                 type="radio"
                 name="gender"
@@ -205,8 +219,8 @@ const Infopessoal: React.FC = () => {
                 checked={userData.gender === "masculino"}
                 onChange={handleChange}
                 required
-              />
-              <GenderLabel>Feminino</GenderLabel>
+              />{" "}
+              Masculino
               <GenderInput
                 type="radio"
                 name="gender"
@@ -214,8 +228,8 @@ const Infopessoal: React.FC = () => {
                 checked={userData.gender === "feminino"}
                 onChange={handleChange}
                 required
-              />
-              <GenderLabel>Prefiro não informar</GenderLabel>
+              />{" "}
+              Feminino
               <GenderInput
                 type="radio"
                 name="gender"
@@ -223,11 +237,12 @@ const Infopessoal: React.FC = () => {
                 checked={userData.gender === "prefiro não informar"}
                 onChange={handleChange}
                 required
-              />
-            </Gender>
+              />{" "}
+              Prefiro não informar
+            </GenderContainer>
 
             <Label htmlFor="nivelAtividade">Nível de Atividade:</Label>
-            <select
+            <Select
               name="nivelAtividade"
               value={userData.nivelAtividade}
               onChange={handleChange}
@@ -238,13 +253,19 @@ const Infopessoal: React.FC = () => {
               <option value="moderado">Moderado</option>
               <option value="intenso">Intenso</option>
               <option value="muito_intenso">Muito Intenso</option>
-            </select>
+            </Select>
 
             <ButtonContainer>
               <BackButton type="button" onClick={() => navigate("/cadastro")}>
-                Voltar
+                <Icon>
+                  <IonIcon icon={Icons.chevronBack} />
+                </Icon>
               </BackButton>
-              <Button type="submit">Próximo</Button>
+              <Button type="submit">
+                <Icon>
+                  <IonIcon icon={Icons.chevronForward} />
+                </Icon>
+              </Button>
             </ButtonContainer>
           </form>
 
@@ -253,7 +274,7 @@ const Infopessoal: React.FC = () => {
           )}
         </Container>
       </Body>
-      </>
+    </>
   );
 };
 
