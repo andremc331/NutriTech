@@ -7,6 +7,7 @@ import {
   UserProps,
   TokenProps,
   ProfileProps,
+  GoalProps,
 } from "../types";
 import { Profile, User } from "../services";
 import { useNavigate } from "react-router-dom";
@@ -23,6 +24,7 @@ export function UserProvider({ children }: ProviderProps) {
   const [token, setToken] = useState<TokenProps | null>(null);
   const [profile, setProfile] = useState<ProfileProps | null>(null);
   const [loading, setLoading] = useState(true);
+  const [goals, setGoals] = useState<GoalProps[]>([]); 
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -164,23 +166,33 @@ export function UserProvider({ children }: ProviderProps) {
   };
 
   const saveGoal = async (goal: string): Promise<boolean> => {
-    const response = await Goal.saveGoal(goal);
-    if (isErrorProps(response)) {
-      setError(response);
-      return false;
-    } else {
-      setError(null);
-      return true;
+    try {
+      const response = await Goal.saveGoal(goal); // Chame o serviço para salvar a meta
+      if (isErrorProps(response)) {
+        setError(response); // Defina o erro se a resposta indicar um erro
+        return false; // Retorne false em caso de erro
+      }
+      setError(null); // Limpe o erro em caso de sucesso
+      return true; // Retorne true em caso de sucesso
+    } catch (error) {
+      setError({ error: "Erro ao salvar a meta." });
+      return false; // Retorna false em caso de exceção
     }
   };
   
   // Obtém as metas
   const getGoals = async (): Promise<void> => {
-    const response = await Goal.getGoals();
-    if (!isErrorProps(response)) {
-      // Atualize o estado com as metas, se necessário
-    } else {
-      setError(response);
+    try {
+      const response = await Goal.getGoals();
+      if (!isErrorProps(response)) {
+        // Atualize o estado com as metas recebidas
+        // Supondo que você tenha um estado para as metas
+        setGoals(response); // Assumindo que você tenha um estado chamado setGoals
+      } else {
+        setError(response);
+      }
+    } catch (error) {
+      setError({ error: "Erro ao obter as metas." });
     }
   };
 

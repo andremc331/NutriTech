@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import routes from "./routes";
+import { GoalController } from "./controllers";
 dotenv.config();
 
 // será usado 3000 se a variável de ambiente não tiver sido definida
@@ -22,3 +23,5 @@ app.listen(PORT, () => {
 
 // define a rota para o pacote /routes
 app.use(routes);
+
+app.use(routes.post("/goals"))

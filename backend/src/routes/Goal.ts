@@ -3,10 +3,10 @@ import controller from "../controllers/GoalController"; // Importa o GoalControl
 
 const routes = Router();
 
-// Rota para criar uma nova meta
-routes.post("/goals", controller.criarMeta);
 // Rota para obter todas as metas
-routes.get("/goals", controller.listarMetas);
+routes.get("/", controller.getGoals);
+// Rota para criar uma nova meta
+routes.post("/", controller.saveGoal);
 
 // Tratamento para operações desconhecidas na rota de metas
 routes.use((req: Request, res: Response) => {

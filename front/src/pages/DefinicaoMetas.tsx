@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
-import styled_Definicao_M from "../styled/styled_Definicao_M"; // Importa o styled-components diretamente
+import styled_Definicao_M from "../styled/styled_Definicao_M";
 import { api } from "../services/api";
 import { useUser } from "../hooks";
+import { GoalProps } from "../types"; // Assegure-se de que GoalProps está bem definido
 
 const {
   ImageContainer,
@@ -19,19 +20,20 @@ const {
   NextButton,
   ButtonContainer,
   PlusButton,
-  SaveButton, // Adiciona o botão de salvar no styled components
-  Button
+  SaveButton,
+  Button,
 } = styled_Definicao_M();
 
 const DefinicaoMetas: React.FC = () => {
-  const { saveGoal, error, setError } = useUser();
+  const { saveGoal, getGoals, setError } = useUser();
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [goal, setGoal] = useState<string>(""); // Estado para guardar a meta
-  const [goalsUserId, setGoalsUserId] = useState<number>(1); // ID do usuário - exemplo para teste
+  const [goalsUserId, setGoalsUserId] = useState<number>(1); // ID do usuário
+  const [goals, setGoals] = useState<GoalProps[]>([]); 
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
-  
+
   const scrollLeft = () => {
     if (carouselRef.current) {
       carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
@@ -44,23 +46,41 @@ const DefinicaoMetas: React.FC = () => {
     }
   };
 
-  // Função para enviar a meta para o backend
+  useEffect(() => {
+    const fetchGoals = async () => {
+      try {
+        const response = await getGoals();
+        if (Array.isArray(response)) {
+          setGoals(response);
+        } else {
+          setError({ error: "" });
+        }
+      } catch (error) {
+        setError({ error: "Erro ao carregar metas." });
+      }
+    };
+
+    fetchGoals();
+  }, [setError]);
+
   const enviarMeta = async () => {
     if (!goalsUserId) {
       setError({ error: "ID do usuário não fornecido." });
-    } else if (!goal || !['Ganhar peso', 'Perder peso', 'Manter Peso'].includes(goal)) {
+      return;
+    }
+    if (!goal || !['Ganhar peso', 'Perder peso', 'Manter Peso'].includes(goal)) {
       setError({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter Peso'." });
+      return;
+    }
+    const response = await saveGoal(goal);
+    if (response) {
+      setMessagePopup("Meta salva com sucesso!");
+      setShowPopup(true);
     } else {
-      const response = await saveGoal(goal); // Passa a meta para a função no UserContext
-      if (response) {
-        setMessagePopup("Meta salva com sucesso!");
-        setShowPopup(true);
-      } else {
-        setError({ error: "Erro ao salvar a meta." });
-      }
+      setError({ error: "Erro ao salvar a meta." });
     }
   };
-
+  
   return (
     <>
       <ImageContainer>
@@ -86,7 +106,9 @@ const DefinicaoMetas: React.FC = () => {
                   </MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setGoal("Ganhar peso")} // Atualiza a meta para "Ganhar peso"
+                    onClick={() => {
+                      setGoal("Ganhar peso"); // Atualiza a meta para "Ganhar peso"
+                    }}
                   >
                     +
                   </PlusButton>
@@ -105,7 +127,9 @@ const DefinicaoMetas: React.FC = () => {
                   </MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setGoal("Perder peso")} // Atualiza a meta para "Perder peso"
+                    onClick={() => {
+                      setGoal("Perder peso"); // Atualiza a meta para "Perder peso"
+                    }}
                   >
                     +
                   </PlusButton>
@@ -124,7 +148,9 @@ const DefinicaoMetas: React.FC = () => {
                   </MinusButton>
                   <PlusButton
                     type="button"
-                    onClick={() => setGoal("Manter peso")} // Atualiza a meta para "Manter peso"
+                    onClick={() => {
+                      setGoal("Manter peso"); // Atualiza a meta para "Manter peso"
+                    }}
                   >
                     +
                   </PlusButton>
@@ -138,15 +164,8 @@ const DefinicaoMetas: React.FC = () => {
         </FormContainer>
 
         <ButtonContainer>
-          <Button
-            onClick={() => enviarMeta()} // Envia a meta para o backend ao clicar em "Salvar"
-          >
-            Salvar
-          </Button>
-          <NextButton
-            type="button"
-            onClick={() => navigate("/termosdeuso")} // Navega para a próxima página
-          >
+          <Button onClick={enviarMeta}>Salvar</Button>
+          <NextButton type="button" onClick={() => navigate("/termosdeuso")}>
             →
           </NextButton>
         </ButtonContainer>

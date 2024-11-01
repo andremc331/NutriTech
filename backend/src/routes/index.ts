@@ -20,9 +20,9 @@ routes.use("/category", category);
 routes.use("/eat/food", validadeAcess, eatFood);
 routes.use("/eat/product", validadeAcess, eatProduct);
 routes.use("/field", field);
-routes.use("/criarMeta", controller.criarMeta)
-routes.use("/listarMetas", controller.listarMetas)
-routes.use("./goal", goal);
+routes.use("/criarMeta", controller.saveGoal)
+routes.use("/listarMetas", controller.getGoals)
+routes.use("/goal", goal);
 routes.use("/product", validadeAcess, product);
 routes.use("/profile", validadeAcess, profile);
 routes.use("/user", user);

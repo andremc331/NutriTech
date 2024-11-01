@@ -187,7 +187,7 @@ export interface UserProps {
 
 export interface GoalProps {
   id: number;
-  goal: string; // ou outra estrutura que o backend retorna
+  goals: string;
 }
 
 export interface TokenProps extends UserProps {
