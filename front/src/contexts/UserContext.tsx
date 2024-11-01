@@ -165,9 +165,9 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const saveGoal = async (goal: string): Promise<boolean> => {
+  const saveGoal = async (goals: string): Promise<boolean> => {
     try {
-      const response = await Goal.saveGoal(goal); // Chame o serviço para salvar a meta
+      const response = await Goal.saveGoal(goals); // Chame o serviço para salvar a meta
       if (isErrorProps(response)) {
         setError(response); // Defina o erro se a resposta indicar um erro
         return false; // Retorne false em caso de erro

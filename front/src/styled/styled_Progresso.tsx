@@ -37,6 +37,38 @@ left: 0; /* Alinha à esquerda */
 z-index: 1000; /* Garante que fique acima de outros elementos */
 `;
 
+const PeriodoSelector = styled.div`
+margin-top: 50px;
+display: flex;
+justify-content: center;
+margin-bottom: 20px;
+`;
+
+const PeriodoButton = styled.button`
+background: none;
+border: none;
+color: #333;
+font-size: 18px;
+cursor: pointer;
+padding: 10px 20px;
+transition: color 0.3s, border-bottom 0.3s;
+
+&.active {
+  color: #333;
+  border-bottom: 3px solid #333;
+}
+
+&:hover {
+  color: #333;
+  border-bottom: 2px solid #333;
+}
+
+@media (max-width: 600px) {
+  font-size: 16px;
+  padding: 8px 15px;
+}
+`;
+
 const Sidebar = styled.div`
 width: 100px; /* Largura inicial */
 height: calc(100% - 60px); /* Ajusta a altura da sidebar */
@@ -195,6 +227,8 @@ return{
   MetasBody,
   BarraNavegacao, 
   Body, 
+  PeriodoSelector,
+  PeriodoButton,
   Charts, 
   ContainerMenu, 
   Content, 

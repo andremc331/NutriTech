@@ -8,6 +8,8 @@ import Bemvindo from "./BemVindo";
 import Cadastro from "./Cadastro";
 import UserRolePage from "./UserRolePage";
 import InfoPessoal from "./Infopessoal";
+import DefinicaoMetas from "./DefinicaoMetas";
+
 
 
 export {
@@ -20,5 +22,6 @@ export {
     Configuracoes,
     Bemvindo,
     Cadastro,
-    UserRolePage
+    UserRolePage,
+    DefinicaoMetas
 }

@@ -8,6 +8,7 @@ import WeightChart from "../components/WeightChart";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import { UserProvider } from "../contexts";
 import { AdmMenu } from "../components";
+import { useState } from "react";
 
 const {
   Body,
@@ -20,10 +21,15 @@ const {
   Tab,
   Tabs,
   WeightLossChart,
+  PeriodoSelector,
+  PeriodoButton,
 } = styled_Progresso();
 
 const Metas: React.FC = () => {
   const navigate = useNavigate(); // Inicializar o hook useNavigate
+  const [periodo, setPeriodo] = useState<"dia" | "semana" | "mes">("dia");
+  // const [historico, setHistorico] = useState<Meal[]>([]); // Estado para armazenar o histórico
+
 
   return (
     <Body>
@@ -68,11 +74,62 @@ const Metas: React.FC = () => {
       </ContainerMenu>
       <Dashboard>
         <Content>
-          <Tabs>
-            <Tab>Dia</Tab>
-            <Tab className="active">Semana</Tab>
-            <Tab>Mês</Tab>
-          </Tabs>
+        <PeriodoSelector>
+          <PeriodoButton
+            className={periodo === "dia" ? "active" : ""}
+            onClick={() => setPeriodo("dia")}
+          >
+            Dia
+          </PeriodoButton>
+          <span className="separador"></span>
+          <PeriodoButton
+            className={periodo === "semana" ? "active" : ""}
+            onClick={() => setPeriodo("semana")}
+          >
+            Semana
+          </PeriodoButton>
+          <span className="separador"></span>
+          <PeriodoButton
+            className={periodo === "mes" ? "active" : ""}
+            onClick={() => setPeriodo("mes")}
+          >
+            Mês
+          </PeriodoButton>
+        </PeriodoSelector>
+
+        {/* {periodo === "dia" && (
+          <div className="historico-container">
+            {historico.map((meal, index) => (
+              <WhiteBox key={index}>
+                <MealInfo>
+                  <span className="meal-type">{meal.type}</span>
+                  <span className="meal-time">Horário: {meal.time}</span>
+                  <span className="meal-items">
+                    {meal.items.map((item, i) => (
+                      <p key={i}>{item}</p>
+                    ))}
+                  </span>
+                </MealInfo>
+              </WhiteBox>
+            ))}
+          </div>
+        )}
+
+        {periodo === "semana" && (
+          <WhiteBox>
+            <MealInfo>
+              <p>Histórico da semana será exibido aqui...</p>
+            </MealInfo>
+          </WhiteBox>
+        )}
+
+        {periodo === "mes" && (
+          <WhiteBox>
+            <MealInfo>
+              <p>Histórico do mês será exibido aqui...</p>
+            </MealInfo>
+          </WhiteBox>
+        )} */}
 
           <Charts>
             <WeightLossChart>

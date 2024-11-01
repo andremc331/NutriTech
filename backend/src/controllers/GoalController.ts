@@ -17,7 +17,7 @@ class GoalController {
     }
   }
 
-public async saveGoal(req: Request, res: Response): Promise<void> {
+  public async saveGoal(req: Request, res: Response): Promise<void> {
     const { goal } = req.body;
     const { id } = res.locals; // Obtém o ID do usuário autenticado
     console.log("ID do usuário:", id);
@@ -37,8 +37,9 @@ public async saveGoal(req: Request, res: Response): Promise<void> {
       );
       res.status(201).json(result.rows[0]);
     } catch (error: any) {
+      console.error("Erro ao criar meta:", error); // Adiciona log do erro
       res.status(500).json({ error: "Erro ao criar meta." });
-    }
+  }
   }
 }
 

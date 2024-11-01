@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { GoalController, UserController } from "../controllers";
+import { UserController } from "../controllers";
 import { validadeAcess } from "../middlewares";
 import field from "./field";
 import category from "./category";
@@ -10,25 +10,26 @@ import goal from "./goal";
 import product from "./product";
 import eatProduct from "./eatProduct";
 import eatFood from "./eatFood";
-import controller from "../controllers/GoalController";
 
 const routes = Router();
 
+// Rota de login
 routes.post("/login", UserController.login);
+
+// Rotas específicas, com validação de acesso onde necessário
 routes.use("/food", food);
 routes.use("/category", category);
 routes.use("/eat/food", validadeAcess, eatFood);
 routes.use("/eat/product", validadeAcess, eatProduct);
 routes.use("/field", field);
-routes.use("/criarMeta", controller.saveGoal)
-routes.use("/listarMetas", controller.getGoals)
-routes.use("/goal", goal);
+routes.use("/goals", validadeAcess, goal); // Rotas de metas protegidas
 routes.use("/product", validadeAcess, product);
 routes.use("/profile", validadeAcess, profile);
 routes.use("/user", user);
 
-//aceita qualquer método HTTP ou URL
+// Tratamento para rotas desconhecidas
 routes.use((req: Request, res: Response) => {
-    res.status(404).json({ error: "Operação desconhecida com o usuário" });
+    res.status(404).json({ error: "Operação desconhecida. Verifique a URL e o método HTTP." });
 });
+
 export default routes;

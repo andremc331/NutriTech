@@ -3,25 +3,24 @@ import { api } from "./api";
 
 class Goal {
   // Ajuste para retornar `GoalProps` específico em vez de `UserProps`
-  
-  async getGoals(): Promise<GoalProps[] | { error: string }> {
-    try {
-      const { data } = await api.get("/goals");
-      return data as GoalProps[]; // Retorno tipado
-    } catch (error: any) {
-      return { error: error.response?.data || "Erro desconhecido" }; // Retorna um objeto de erro
-    }
-  }
-
-
-async saveGoal(goal: string): Promise<GoalProps | ErrorProps> {
+  async saveGoal(goal: string): Promise<GoalProps | ErrorProps> {
     try {
       const { data } = await api.post("/goals", { goal});
-      return data as GoalProps; // Retorno tipado
+      return data; // Retorno tipado
     } catch (error: any) {
       return error.response?.data || { error: "Erro desconhecido" }; // Retorna detalhes específicos do erro
     }
   }
+
+  async getGoals(): Promise<GoalProps[] | { error: string }> {
+    try {
+      const { data } = await api.get("/goals");
+      return data; // Retorno tipado
+    } catch (error: any) {
+      return { error: error.response?.data || "Erro desconhecido" }; // Retorna um objeto de erro
+    }
+  }
 }
 
-export default new Goal();
+const goal = new Goal();
+export default goal;
