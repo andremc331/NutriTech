@@ -130,8 +130,8 @@ const Cardapio: React.FC = () => {
               <option value="pos-treino">Pós Treino</option>
             </Select>
   
-            <Label>Data e Hora:</Label>
-            <Input type="datetime-local" />
+            {/* <Label>Data e Hora:</Label>
+            <Input type="datetime-local" /> */}
           </Row>
   
           <Row>
@@ -158,6 +158,13 @@ const Cardapio: React.FC = () => {
               </ul>
             </Row>
           )}
+          
+          <Row>
+          <Label>Preparação:</Label>
+            <Select>
+              <option value="">Selecione...</option>
+            </Select>
+          </Row>
           
           <Row>
             <Label>Quantidade:</Label>

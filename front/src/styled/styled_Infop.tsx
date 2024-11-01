@@ -2,15 +2,11 @@ import styled from "styled-components";
 
 const styled_Infop = () => {
   const Body = styled.div`
-    font-family: Arial, sans-serif;
-    /* background: linear-gradient(90deg, #7e5ec2, #c9b7e6, #f3f3f3); */
+    font-family: "Roboto", sans-serif;
     display: flex; /* Alterado para flex */
     justify-content: center;
     align-items: center;
-    /* width: 100vw; */
-    /* height: 100vh; */
-    flex-direction: column; /* Alinhar verticalmente */
-    /* padding: 20px; */
+    flex-direction: column;
 
     @media (max-width: 768px) {
       padding: 10px;
@@ -18,15 +14,15 @@ const styled_Infop = () => {
   `;
 
   const Container = styled.div`
-    background-color: #7d4cdb; 
+    background-color: var(--color-2);
     width: 800px;
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     margin-bottom: 20px;
-    display: flex;  /* Flex para ajustar melhor o conteúdo */
+    display: flex;
     flex-direction: column;
-    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    justify-content: center;
 
     @media (max-width: 1024px) {
       width: 600px;
@@ -39,39 +35,83 @@ const styled_Infop = () => {
   `;
 
   const Title = styled.h2`
-    color: white;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 40px;
+    text-transform: uppercase;
+    color: var(--color-1);
     text-align: center;
     margin-bottom: 20px;
-    font-size: 24px;
 
     @media (max-width: 768px) {
       font-size: 20px;
     }
   `;
 
+  const FormRow = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    & > div {
+      flex: 1;
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0; /* Remove a margem do último item */
+      }
+    }
+
+    @media (max-width: 768px) {
+      flex-direction: column; /* Empilha os elementos em telas menores */
+    }
+  `;
+
   const Label = styled.label`
-    color: white;
+    font-family: "Roboto", sans-serif;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: var(--color-1);
     font-size: 14px;
     margin-bottom: 5px;
     display: grid;
   `;
 
   const Input = styled.input`
-    width: 60%;
+    height: 40px;
+    width: 90%;
     padding: 10px;
     margin-bottom: 15px;
     border: 1px solid;
-    border-radius: 5px;
+    border-radius: 10px;
 
     @media (max-width: 768px) {
       width: 100%; /* O input ocupará toda a largura em telas menores */
     }
   `;
 
+  const Select = styled.select`
+    width: auto; /* Deixa o select ocupar apenas o necessário */
+    height: 40px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #4caf50;
+      outline: none;
+    }
+  `;
+
   const Gender = styled.div`
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
     display: flex;
-    /* flex-direction: column; */
-    gap: 5px;
+    gap: 10px;
     text-align: center;
     margin-bottom: 15px;
     margin-top: 10px;
@@ -84,8 +124,17 @@ const styled_Infop = () => {
     }
   `;
 
+  const GenderContainer = styled.div`
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: var(--color-1);
+    gap: 10px; /* Espaço entre os gêneros e o select */
+  `;
+
   const GenderLabel = styled.label`
-    color: white;
+    color: var(--color-1);
+    margin-right: 5px; /* Espaço entre o label e o input */
   `;
 
   const GenderInput = styled.input`
@@ -104,15 +153,19 @@ const styled_Infop = () => {
   `;
 
   const Button = styled.button`
-    background-color: #3dc4a7;
-    color: white;
-    padding: 15px;
-    border-radius: 5px;
+    width: 60px;
+    height: 50px;
+    background-color: var(--color-9);
+    color: var(--color-1);
+    border: none;
+    border-radius: 10px;
     cursor: pointer;
-    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
-      background-color: #35ac91;
+      background-color: #1ca885;
     }
 
     @media (max-width: 768px) {
@@ -122,10 +175,19 @@ const styled_Infop = () => {
   `;
 
   const BackButton = styled(Button)`
-    background-color: #6c63ff;
+    width: 60px;
+    height: 50px;
+    background-color: var(--color-9);
+    color: var(--color-1);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &:hover {
-      background-color: #5a51e1;
+      background-color: #1ca885;
     }
   `;
 
@@ -157,10 +219,13 @@ const styled_Infop = () => {
     Button,
     ButtonContainer,
     Container,
+    FormRow,
     Gender,
+    GenderContainer,
     GenderInput,
     GenderLabel,
     Input,
+    Select,
     Label,
     Logo,
     LogoImage,
