@@ -1,19 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import MealChart from "../components/MealChart";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import {
-  ContainerMenu,
-  Navbar,
-  Sidebar,
-  SidebarContent,
-  Text,
-  Icon,
-  Item,
-  Footer,
+  ContainerBody, 
+  ContainerMenu, 
+  Navbar, 
+  Sidebar, 
+  SidebarContent, 
+  Icon, 
+  Item, 
+  Footer, 
   ImgIcon,
 } from "../styled/styled_Main";
-import imcimg from "../assets/imcimg.png";
-import waterimg from "../assets/waterimg.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import styled_Home from "../styled/styled_Home";
@@ -22,14 +20,19 @@ import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
 
 const {
-  HomeContainer,
+  InfoBox1, 
+  InfoBox2, 
+  FoodBox, 
+  MealInfo, 
+  MealKcal, 
+  MealType, 
+  Mealtime, 
+  MealItems, 
+  ChartContainer,
+  FoodBoxContainer, 
+  MealTimeContainer, 
+  MealTypeContainer, 
   InfoBoxContainer,
-  InfoBox,
-  WhiteBox,
-  MealInfo,
-  MealType,
-  MealTime,
-  MealItems,
 } = styled_Home();
 
 type MealItem =
@@ -47,7 +50,6 @@ const caloriasPorItem: Record<MealItem, number> = {
 
 const Home: React.FC = () => {
   const navigate = useNavigate(); // Inicializar o hook useNavigate
-
   const items: MealItem[] = Object.keys(caloriasPorItem) as MealItem[]; // Fazer a conversão
 
   // Função recursiva para calcular calorias
@@ -55,114 +57,158 @@ const Home: React.FC = () => {
     if (index < 0) return 0; // Caso base: se o índice é menor que 0, retorne 0
     return caloriasPorItem[items[index]] + calcularCalorias(items, index - 1); // Recursão
   };
-
   const totalCalorias = calcularCalorias(items, items.length - 1); // Total de calorias da refeição
 
+  // Função para calcular o consumo de água
+  const calcularConsumoAgua = (peso: number): string => {
+    const consumo = peso * 35; // Consumo em mililitros
+    const litros = consumo / 1000; // Convertendo para litros
+    return `${litros.toFixed(1).replace('.', ',')} L`; // Formata o resultado
+  };
+  // Exemplo de uso da função
+  const peso = 70; // Substitua pelo peso real da pessoa
+  const consumoAgua = calcularConsumoAgua(peso);
+
+  // Função para calcular o IMC e o grau correspondente
+  const calcularIMC = (peso: number, altura: number): { imc: string; grau: string } => {
+    const imc = peso / (altura * altura); // IMC = peso / (altura * altura)
+    let grau = '';
+    // Determinando o grau de IMC com base na tabela
+    if (imc < 16) {
+    grau = 'Magreza grave';
+    } else if (imc >= 16 && imc < 16.9) {
+      grau = 'Magreza moderada';
+    } else if (imc >= 17 && imc < 18.5) {
+      grau = 'Magreza leve';
+    } else if (imc >= 18.6 && imc < 24.9) {
+      grau = 'Peso ideal';
+    } else if (imc >= 25 && imc < 29.9) {
+      grau = 'Sobrepeso';
+    } else if (imc >= 30 && imc < 34.9) {
+      grau = 'Obesidade grau I';
+    } else if (imc >= 35 && imc < 39.9) {
+      grau = 'Obesidade grau II';
+    } else {
+      grau = 'Obesidade grau III ou superior';
+    }
+    return { imc: imc.toFixed(1).replace('.', ','), grau }; // Retorna IMC formatado e grau
+  };
+  // Exemplo de uso da função
+  const pesoPessoa = 70; // Substitua pelo peso real da pessoa
+  const alturaPessoa = 1.75; // Substitua pela altura real da pessoa em metros
+  const resultadoIMC = calcularIMC(pesoPessoa, alturaPessoa);
+
   return (
-    <ContainerMenu>
-      <Navbar>
-        <h1>Nome de usuário</h1>
-        <UserProvider>
-          <AdmMenu />
-          {/* Conteúdo da página de administração */}
-        </UserProvider>
-      </Navbar>
+    <>
+      {/* Barra de navegação da aplicação */}
+      <ContainerMenu>
+        <Navbar>
+          <h1>Nome de usuário</h1>
+          <UserProvider>
+            <AdmMenu />
+            {/* Conteúdo da página de administração */}
+          </UserProvider>
+        </Navbar>
 
-      {/* Barra lateral */}
-      <Sidebar>
-        <SidebarContent>
-          <Item onClick={() => navigate("/home")}>
-            <Text>Home</Text>
-            <Icon>
-              <IonIcon icon={Icons.home} />
-            </Icon>
-          </Item>
-          <Item onClick={() => navigate("/cardapio")}>
-            <Text>Cardápio</Text>
-            <Icon>
-              <IonIcon icon={Icons.restaurant} />
-            </Icon>
-          </Item>
-          <Item onClick={() => navigate("/historico")}>
-            <Text>Histórico</Text>
-            <Icon>
-              <IonIcon icon={Icons.nutrition} />
-            </Icon>
-          </Item>
-          <Item onClick={() => navigate("/metas")}>
-            <Text>Progresso</Text>
-            <Icon>
-              <IonIcon icon={Icons.fitness} />
-            </Icon>
-          </Item>
-        </SidebarContent>
-      </Sidebar>
-
-      {/* Conteúdo principal com os três contêineres */}
-      <HomeContainer>
+        {/* Barra lateral da aplicação */}
+        <Sidebar>
+          <SidebarContent>
+            <Item onClick={() => navigate("/home")}>
+              <Icon>
+                <IonIcon icon={Icons.home} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/cardapio")}>
+              <Icon>
+                <IonIcon icon={Icons.restaurant} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/historico")}>
+              <Icon>
+                <IonIcon icon={Icons.nutrition} />
+              </Icon>
+            </Item>
+            <Item onClick={() => navigate("/metas")}>
+              <Icon>
+                <IonIcon icon={Icons.fitness} />
+              </Icon>
+            </Item>
+          </SidebarContent>
+        </Sidebar>
+      </ContainerMenu>
+      {/* Corpo da aplicação */}
+      <ContainerBody>
         <InfoBoxContainer>
-          <InfoBox className="red-box">
-            <img src={imcimg} />
+          {/* O resultado do calculo de imc pegando o peso e a altura do usuário no momento do cadastro devem aparecer nesse campo */}
+          <InfoBox1>
             <div className="content">
-              <div className="pair">
-                <label>IMC: </label>
-                <input type="text" placeholder="20,5" />
-              </div>
-              <div className="pair">
-                <label>Grau de IMC: </label>
-                <input type="text" placeholder="Peso ideal" />
-              </div>
-              <div className="pair">
-                <label>Objetivo: </label>
-                <input type="text" placeholder="Hipertrofia" />
-              </div>
-              <MealInfo>
-                <label>Kcal indicada por dia: </label>
-                {totalCalorias}
-              </MealInfo>
-            </div>
-          </InfoBox>
-
-          <InfoBox className="blue-box">
-            <img src={waterimg} />
-            <div className="content">
-              <div className="pair">
-                <label>Litros de água por dia: </label>
-                <input type="text" placeholder="3 L" />
+              <label className="imc-label">IMC</label>
+              <label className="imc">{resultadoIMC.imc}</label>
+              <label className="imc-label">Grau: {resultadoIMC.grau}</label>
+              {/* O objetivo que o usuário definiu no cadastro deve aparecer aqui */}
+              <div className="objetivo-container">
+                <label className="objetivo">Objetivo: </label>
+                <label className="objetivo">Emagrecimento</label>
               </div>
             </div>
-          </InfoBox>
+          </InfoBox1>
+          {/* O resultado do calculo para consumo de água resultante da multiplicação do peso informado pelo usuario vezes 35 deve aparecer nesse campo */}
+          <InfoBox2>
+            <div className="content">
+              <label className="consumo-label">Consumo de água</label>
+              <label className="consumo-agua">{consumoAgua}</label>
+            </div>
+          </InfoBox2>
         </InfoBoxContainer>
-
-        <WhiteBox>
-          <MealInfo>
-            <MealType>Almoço</MealType>
-            <MealTime> ⏰ Horário: 12:20</MealTime>
-            <MealItems>
+        {/* O historico diario da refeições ou alimentos consumidos pelo usuário devem ser mostrados nesse campo */}
+        <FoodBoxContainer>
+          <FoodBox>
+            <MealInfo>
+              <MealTypeContainer>
+                {/* adicionar o tipo de refeição nesse campo */}
+                <MealType>Almoço</MealType> 
+                <Icon>
+                  <IonIcon icon={Icons.create} />
+                </Icon>
+              </MealTypeContainer>
+              {/* adicionar o horario da refeição nesse campo */}
+              <MealTimeContainer>
+                <Icon>
+                  <IonIcon icon={Icons.time} />
+                </Icon>
+                <Mealtime>12:20</Mealtime>
+              </MealTimeContainer>
+              {/* os alimentos devem esntrar nesse campo */}
+              <MealItems>
               {items.map((item, index) => (
                 <p key={index}>- {item}</p>
               ))}
-            </MealItems>
-            <Icon>
-              <IonIcon icon={Icons.create} />
-            </Icon>
-            <MealChart />
-          </MealInfo>
-        </WhiteBox>
-      </HomeContainer>
-
+              </MealItems>
+              {/* o resultado do calculo de calorias deve aparecer nesse campo */}
+              <MealKcal>
+                <label>Total Kcal: </label>
+                {totalCalorias}
+              </MealKcal>
+            </MealInfo>
+              {/* os nutrientes da refeição devem constar no grafico nesse campo */}
+            <ChartContainer>
+              <MealChart />
+            </ChartContainer>
+          </FoodBox>
+        </FoodBoxContainer>
+      </ContainerBody>
+      {/* Rodapé da aplicação */}
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
           <br />
           Todos os direitos reservados
         </div>
-        {/* Contêiner da Imagem na parte inferior direita */}
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
         </ImgIcon>
       </Footer>
-    </ContainerMenu>
+    </>
   );
 };
 
