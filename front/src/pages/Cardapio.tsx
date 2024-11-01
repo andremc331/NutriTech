@@ -21,8 +21,9 @@ const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 
   const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
   const [inputValues, setInputValues] = useState<{ [key: number]: string }>({});
+  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   const [searchResults, setSearchResults] = useState<{ [key: number]: any[] }>({});
-  const [selectedFoods, setSelectedFoods] = useState<{ [key: number]: any[] }>({}); // Novo estado para alimentos selecionados
+  const [selectedFoods, setSelectedFoods] = useState<{ [key: number]: { food: any; quantity: number }[] }>({});
 
   const toggleExpand = (index: number) => {
     setExpandedIndex(expandedIndex === index ? null : index); 
@@ -30,6 +31,10 @@ const Cardapio: React.FC = () => {
 
   const handleInputChange = (index: number, value: string) => {
     setInputValues({ ...inputValues, [index]: value });
+  };
+
+  const handleQuantityChange = (index: number, value: number) => {
+    setQuantities({ ...quantities, [index]: value });
   };
 
   const handleSearch = async (index: number) => {
@@ -45,11 +50,45 @@ const Cardapio: React.FC = () => {
   };
 
   const handleSelectFood = (index: number, food: any) => {
-    const currentSelected = selectedFoods[index] || [];
-    setSelectedFoods({ 
-      ...selectedFoods, 
-      [index]: [...currentSelected, food] // Adiciona o alimento selecionado
-    });
+    const quantity = quantities[index] || 0;
+    if (quantity > 0) {
+      const currentSelected = selectedFoods[index] || [];
+      setSelectedFoods({ 
+        ...selectedFoods, 
+        [index]: [...currentSelected, { food, quantity }]
+      });
+    } else {
+      alert("Por favor, insira uma quantidade válida.");
+    }
+  };
+
+  const handleSendData = async () => {
+    const user = 'YOUR_USER_ID'; // Substitua isso pelo ID do usuário que você está utilizando
+    const promises: any = [];
+
+    for (const index in selectedFoods) {
+      selectedFoods[index].forEach(({ food, quantity }) => {
+        promises.push(
+          axios.post('http://localhost:3011/eat_food/post', { // Ajuste a rota se necessário
+            food: food.id,
+            date: new Date().toISOString().split('T')[0], // Data atual no formato YYYY-MM-DD
+            quantity: quantity,
+          }, {
+            headers: {
+              Authorization: `Bearer YOUR_ACCESS_TOKEN`, // Se necessário
+            }
+          })
+        );
+      });
+    }
+
+    try {
+      await Promise.all(promises);
+      alert("Dados enviados com sucesso!");
+    } catch (error) {
+      console.error("Erro ao enviar os dados:", error);
+      alert("Erro ao enviar os dados. Tente novamente.");
+    }
   };
 
   return (
@@ -90,6 +129,7 @@ const Cardapio: React.FC = () => {
             </Item>
           </SidebarContent>
         </Sidebar>
+
         <CentralContent>
           {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
             <WhiteBox key={index}>
@@ -109,9 +149,12 @@ const Cardapio: React.FC = () => {
                     onFocus={() => setExpandedIndex(index)}
                   />
                   <button onClick={() => handleSearch(index)}>Buscar</button>
+                  <br />
                   <label>Quantidade</label>
                   <input
                     type='number'
+                    value={quantities[index] || ''}
+                    onChange={(e) => handleQuantityChange(index, Number(e.target.value))}
                     placeholder='Quantidade em kg'
                   />
                   {searchResults[index] && searchResults[index].length > 0 && (
@@ -130,11 +173,11 @@ const Cardapio: React.FC = () => {
                     <div>
                       <h3>Alimentos Selecionados:</h3>
                       <ul>
-                        {selectedFoods[index].map((food) => (
-                          <li key={food.id}>{food.description}</li>
+                        {selectedFoods[index].map(({ food, quantity }) => (
+                          <li key={food.id}>{food.description} - {quantity} kg</li>
                         ))}
                       </ul>
-                      <button>Enviar</button>
+                      <button onClick={handleSendData}>Enviar</button> {/* Chama a função para enviar dados */}
                     </div>
                   )}
                 </>  
@@ -161,5 +204,3 @@ const Cardapio: React.FC = () => {
 };
 
 export default Cardapio;
-
-
