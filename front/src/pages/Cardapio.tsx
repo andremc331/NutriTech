@@ -1,6 +1,17 @@
 import React, { useState } from 'react';
 import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
-import { ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, ImgIcon } from "../styled/styled_Main";
+import {
+  ContainerBody,
+  ContainerMenu,
+  Navbar,
+  Sidebar,
+  SidebarContent,
+  Icon,
+  Item,
+  Footer,
+  ImgIcon,
+  CentralContent,
+} from "../styled/styled_Main";
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
@@ -10,53 +21,37 @@ import { UserProvider } from '../contexts';
 import eat from '../services/Eat';
 import axios from 'axios';
 
-const {
-  CardapioBody,
-  CentralContent,
-  WhiteBox,
-  Busque,
-  SimboloMais,
-} = styled_Cardapio();
+const { Title, CardBox, Label, Select, Input, Row, ButtonAdd } =
+  styled_Cardapio();
 const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-  const [inputValues, setInputValues] = useState<{ [key: number]: string }>({});
-  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
-  const [searchResults, setSearchResults] = useState<{ [key: number]: any[] }>({});
-  const [selectedFoods, setSelectedFoods] = useState<{ [key: number]: { food: any; quantity: number }[] }>({});
+  const [inputValue, setInputValue] = useState<string>('');
+  const [quantity, setQuantity] = useState<number>(0);
+  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [selectedFoods, setSelectedFoods] = useState<{ food: any; quantity: number }[]>([]);
 
-  const toggleExpand = (index: number) => {
-    setExpandedIndex(expandedIndex === index ? null : index); 
+  const handleInputChange = (value: string) => {
+    setInputValue(value);
   };
 
-  const handleInputChange = (index: number, value: string) => {
-    setInputValues({ ...inputValues, [index]: value });
+  const handleQuantityChange = (value: number) => {
+    setQuantity(value);
   };
 
-  const handleQuantityChange = (index: number, value: number) => {
-    setQuantities({ ...quantities, [index]: value });
-  };
-
-  const handleSearch = async (index: number) => {
-    const term = inputValues[index];
-    if (term) {
+  const handleSearch = async () => {
+    if (inputValue) {
       try {
-        const response = await axios.get(`http://localhost:3011/food/search?term=${term}`);
-        setSearchResults({ ...searchResults, [index]: response.data.items });
+        const response = await axios.get(`http://localhost:3011/food/search?term=${inputValue}`);
+        setSearchResults(response.data.items);
       } catch (error) {
         console.error("Erro ao buscar alimentos:", error);
       }
     }
   };
 
-  const handleSelectFood = (index: number, food: any) => {
-    const quantity = quantities[index] || 0;
+  const handleSelectFood = (food: any) => {
     if (quantity > 0) {
-      const currentSelected = selectedFoods[index] || [];
-      setSelectedFoods({ 
-        ...selectedFoods, 
-        [index]: [...currentSelected, { food, quantity }]
-      });
+      setSelectedFoods([...selectedFoods, { food, quantity }]);
     } else {
       alert("Por favor, insira uma quantidade válida.");
     }
@@ -66,13 +61,11 @@ const Cardapio: React.FC = () => {
     const date = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
     const promises: Promise<any>[] = [];
 
-    for (const index in selectedFoods) {
-      selectedFoods[index].forEach(({ food, quantity }) => {
-        promises.push(
-          eat.createFood(food.id, date, quantity) // Use the method from the Eat class
-        );
-      });
-    }
+    selectedFoods.forEach(({ food, quantity }) => {
+      promises.push(
+        eat.createFood(food.id, date, quantity) // Use the method from the Eat class
+      );
+    });
 
     try {
       await Promise.all(promises);
@@ -84,7 +77,7 @@ const Cardapio: React.FC = () => {
   };
 
   return (
-    <CardapioBody>
+    <>
       <ContainerMenu>
         <Navbar>
           <h1>Nome de usuário</h1>
@@ -92,99 +85,124 @@ const Cardapio: React.FC = () => {
             <AdmMenu />
           </UserProvider>
         </Navbar>
-
+  
         <Sidebar>
           <SidebarContent>
             <Item onClick={() => navigate("/home")}>
-              <Text>Home</Text>
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
             <Item onClick={() => navigate("/cardapio")}>
-              <Text>Cardápio</Text>
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
             <Item onClick={() => navigate("/historico")}>
-              <Text>Histórico</Text>
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
             <Item onClick={() => navigate("/metas")}>
-              <Text>Progresso</Text>
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
             </Item>
           </SidebarContent>
         </Sidebar>
-
-        <CentralContent>
-          {['Café da manhã', 'Lanche da manhã', 'Almoço', 'Lanche da tarde', 'Jantar', 'Ceia', 'Pré-treino', 'Pós-treino'].map((item, index) => (
-            <WhiteBox key={index}>
-              <div className="item-container" onClick={() => toggleExpand(index)}>
-                <span>{item}</span>
-                <SimboloMais>+</SimboloMais>
-              </div>
-              <Busque isExpanded={expandedIndex === index}>
-                {expandedIndex === index && (
-                  <>
-                    <label>Insira os alimentos</label>
-                    <input
-                      type="text"
-                      value={inputValues[index] || ''}
-                      onChange={(e) => handleInputChange(index, e.target.value)}
-                      placeholder={`Detalhes para ${item}`}
-                      onFocus={() => setExpandedIndex(index)}
-                    />
-                    <button onClick={() => handleSearch(index)}>Buscar</button>
-                    <br />
-                    <label>Quantidade</label>
-                    <input
-                      type='number'
-                      value={quantities[index] || ''}
-                      onChange={(e) => handleQuantityChange(index, Number(e.target.value))}
-                      placeholder='Quantidade em kg'
-                    />
-                    {searchResults[index] && searchResults[index].length > 0 && (
-                      <div>
-                        <ul>
-                          {searchResults[index].map((food) => (
-                            <li key={food.id}>
-                              {food.description}
-                              <button onClick={() => handleSelectFood(index, food)}>Selecionar</button>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    )}
-                    {selectedFoods[index] && selectedFoods[index].length > 0 && (
-                      <div>
-                        <h3>Alimentos Selecionados:</h3>
-                        <ul>
-                          {selectedFoods[index].map(({ food, quantity }) => (
-                            <li key={food.id}>{food.description} - {quantity} kg</li>
-                          ))}
-                        </ul>
-                        <button onClick={handleSendData}>Enviar</button>
-                      </div>
-                    )}
-                  </>
-                )}
-              </Busque>
-            </WhiteBox>
-          ))}
-        </CentralContent>
       </ContainerMenu>
+  
+      <ContainerBody>
+        <Title>Cardápio</Title>
+        
+        <CardBox>
+          <Row>
+            <Label>Refeição:</Label>
+            <Select>
+              <option value="">Selecione...</option>
+              <option value="cafe-da-manha">Café da Manhã</option>
+              <option value="lanche-da-manha">Lanche da Manhã</option>
+              <option value="almoco">Almoço</option>
+              <option value="lanche-da-tarde">Lanche da Tarde</option>
+              <option value="jantar">Jantar</option>
+              <option value="ceia">Ceia</option>
+              <option value="pre-treino">Pré Treino</option>
+              <option value="pos-treino">Pós Treino</option>
+            </Select>
+  
+            <Label>Data e Hora:</Label>
+            <Input type="datetime-local" />
+          </Row>
+  
+          <Row>
+            <Label>Alimento:</Label>
+            <Input
+              type="text"
+              value={inputValue}
+              onChange={(e) => handleInputChange(e.target.value)}
+              placeholder="Buscar alimento..."
+              onFocus={handleSearch}
+            />
+            <button onClick={handleSearch}>Buscar</button>
+          </Row>
 
-      <ImgIcon>
-        <img src={imgLogoSemFundo} alt="Logo Nutritech" />
-      </ImgIcon>
-    </CardapioBody>
+          {searchResults.length > 0 && (
+            <Row>
+              <ul>
+                {searchResults.map((food) => (
+                  <li key={food.id}>
+                    {food.description}
+                    <button onClick={() => handleSelectFood(food)}>Selecionar</button>
+                  </li>
+                ))}
+              </ul>
+            </Row>
+          )}
+          
+          <Row>
+            <Label>Quantidade:</Label>
+            <Input
+              type="number"
+              min="0"
+              step="1"
+              value={quantity || ''}
+              onChange={(e) => handleQuantityChange(Number(e.target.value))}
+              placeholder="Quantidade em kg"
+            />
+          </Row>
+  
+          <ButtonAdd onClick={handleSendData}>
+            <Icon>
+              <IonIcon icon={Icons.add} />
+            </Icon>
+            Enviar
+          </ButtonAdd>
+  
+          {selectedFoods.length > 0 && (
+            <Row>
+              <h3>Alimentos Selecionados:</h3>
+              <ul>
+                {selectedFoods.map(({ food, quantity }) => (
+                  <li key={food.id}>{food.description} - {quantity} kg</li>
+                ))}
+              </ul>
+            </Row>
+          )}
+        </CardBox>
+      </ContainerBody>
+  
+      <Footer>
+        <div>
+          Copyright © 2024 / 2025 | HighTech
+          <br />
+          Todos os direitos reservados
+        </div>
+        <ImgIcon>
+          <img src={imgLogoSemFundo} alt="Logo Nutritech" />
+        </ImgIcon>
+      </Footer>
+    </>
   );
-};
+}
 
 export default Cardapio;
