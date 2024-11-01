@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import logo from "../assets/logo.nutritech.png";
 import { useNavigate } from "react-router-dom";
 import styled_Definicao_M from "../styled/styled_Definicao_M";
-import { api } from "../services/api";
 import { useUser } from "../hooks";
-import { GoalProps } from "../types"; // Assegure-se de que GoalProps está bem definido
+import { GoalProps } from "../types";
 
 const {
   ImageContainer,
@@ -20,7 +19,6 @@ const {
   NextButton,
   ButtonContainer,
   PlusButton,
-  SaveButton,
   Button,
 } = styled_Definicao_M();
 
@@ -28,8 +26,8 @@ const DefinicaoMetas: React.FC = () => {
   const { saveGoal, getGoals, setError } = useUser();
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
-  const [goal, setGoal] = useState<string>(""); // Estado para guardar a meta
-  const [goalsUserId, setGoalsUserId] = useState<number>(1); // ID do usuário
+  const [goal, setGoal] = useState<string>("");
+  const [goalsUserId, setGoalsUserId] = useState<number>(1);
   const [goals, setGoals] = useState<GoalProps[]>([]); 
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
@@ -76,6 +74,7 @@ const DefinicaoMetas: React.FC = () => {
     if (response) {
       setMessagePopup("Meta salva com sucesso!");
       setShowPopup(true);
+      setTimeout(() => setShowPopup(false), 3000); // Fecha o popup após 3 segundos
     } else {
       setError({ error: "Erro ao salvar a meta." });
     }
@@ -94,20 +93,19 @@ const DefinicaoMetas: React.FC = () => {
               &lt;
             </NavButton>
             <Carousel ref={carouselRef}>
-              {/* Card para a meta de Ganhar Peso */}
               <Card>
                 <CardTitle>Ganhar Peso</CardTitle>
                 <ButtonGroup>
                   <MinusButton
                     type="button"
-                    onClick={() => setGoal("")} // Reseta a meta para uma string vazia
+                    onClick={() => setGoal("")}
                   >
                     -
                   </MinusButton>
                   <PlusButton
                     type="button"
                     onClick={() => {
-                      setGoal("Ganhar peso"); // Atualiza a meta para "Ganhar peso"
+                      setGoal("Ganhar peso");
                     }}
                   >
                     +
@@ -115,20 +113,19 @@ const DefinicaoMetas: React.FC = () => {
                 </ButtonGroup>
               </Card>
 
-              {/* Card para a meta de Perder Peso */}
               <Card>
                 <CardTitle>Perder Peso</CardTitle>
                 <ButtonGroup>
                   <MinusButton
                     type="button"
-                    onClick={() => setGoal("")} // Reseta a meta para uma string vazia
+                    onClick={() => setGoal("")}
                   >
                     -
                   </MinusButton>
                   <PlusButton
                     type="button"
                     onClick={() => {
-                      setGoal("Perder peso"); // Atualiza a meta para "Perder peso"
+                      setGoal("Perder peso");
                     }}
                   >
                     +
@@ -136,20 +133,19 @@ const DefinicaoMetas: React.FC = () => {
                 </ButtonGroup>
               </Card>
 
-              {/* Card para a meta de Manter Peso */}
               <Card>
                 <CardTitle>Manter Peso</CardTitle>
                 <ButtonGroup>
                   <MinusButton
                     type="button"
-                    onClick={() => setGoal("")} // Reseta a meta para uma string vazia
+                    onClick={() => setGoal("")}
                   >
                     -
                   </MinusButton>
                   <PlusButton
                     type="button"
                     onClick={() => {
-                      setGoal("Manter peso"); // Atualiza a meta para "Manter peso"
+                      setGoal("Manter peso");
                     }}
                   >
                     +
@@ -169,6 +165,13 @@ const DefinicaoMetas: React.FC = () => {
             →
           </NextButton>
         </ButtonContainer>
+        
+        {/* Popup de confirmação */}
+        {showPopup && (
+          <div className="popup">
+            <p>{messagePopup}</p>
+          </div>
+        )}
       </div>
     </>
   );

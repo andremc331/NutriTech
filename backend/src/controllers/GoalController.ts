@@ -35,11 +35,11 @@ class GoalController {
          RETURNING id, goals`,
         [id, goal]
       );
-      res.status(201).json(result.rows[0]);
+      res.status(201).json(result); // Envia diretamente o objeto result
     } catch (error: any) {
-      console.error("Erro ao criar meta:", error); // Adiciona log do erro
+      console.error("Erro ao criar meta:", error);
       res.status(500).json({ error: "Erro ao criar meta." });
-  }
+    }
   }
 }
 
