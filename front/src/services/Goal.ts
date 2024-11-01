@@ -13,6 +13,7 @@ class Goal {
     }
   }
 
+
 async saveGoal(goal: string): Promise<GoalProps | ErrorProps> {
     try {
       const { data } = await api.post("/goals", { goal});
