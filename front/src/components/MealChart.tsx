@@ -44,9 +44,7 @@ const MealChart = () => {
     xaxis: {
       categories: ["Almoço"],
       labels: {
-        style: {
-          fontSize: "12px",
-        },
+        show: false, // Oculta os rótulos do eixo X
       },
       axisBorder: {
         show: false, // Oculta a linha do eixo X

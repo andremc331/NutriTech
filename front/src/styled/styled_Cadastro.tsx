@@ -36,19 +36,14 @@ const styled_Cadastro = () => {
     }
   `;
 
-  const ErrorMessage = styled.div`
-  color: red;
-  font-size: 0.9em;
-  margin-bottom: 1em;
-`;
-
   const FormContainer = styled.div`
     width: 800px;
     margin: 20px auto;
-    padding: 20px;
+    padding: 30px;
+    margin-top: 10px;
     border: 2px solid #7d4cdb;
-    border-radius: 10px;
-    background-color: #7d4cdb;
+    border-radius: 20px;
+    background-color: var(--color-2);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
     @media (max-width: 1024px) {
@@ -65,11 +60,13 @@ const styled_Cadastro = () => {
   `;
 
   const Title = styled.h2`
-    text-align: left;
-    color: white;
-    font-family: Anton, sans-serif;
-    font-size: 40px;
+    font-family: "Roboto", sans-serif;
     font-weight: bold;
+    font-size: 40px;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    margin-bottom: 20px;
 
     @media (max-width: 768px) {
       font-size: 32px; /* Reduz o tamanho da fonte em telas menores */
@@ -85,10 +82,13 @@ const styled_Cadastro = () => {
   `;
 
   const Label = styled.label`
+    font-family: "Roboto", sans-serif;
+    font-size: 10px;
+    text-transform: uppercase;
     display: block;
     margin-bottom: 5px;
-    color: white;
-    font-size: 18px;
+    color: var(--color-1);
+    font-size: 20px;
 
     @media (max-width: 768px) {
       font-size: 16px;
@@ -100,11 +100,12 @@ const styled_Cadastro = () => {
   `;
 
   const Input = styled.input`
-    width: 50%;
+    width: 100%;
+    height: 40px;
     padding: 8px;
     box-sizing: border-box;
     border: 1px solid #000000;
-    border-radius: 4px;
+    border-radius: 10px;
 
     &.email {
       width: 92%;
@@ -118,37 +119,36 @@ const styled_Cadastro = () => {
   const FormGroupRow = styled.div`
     display: flex;
     justify-content: space-between;
+    margin-bottom: 15px;
 
     .form-group {
       flex: 1;
-      margin-right: -270px;
+      margin-right: 10px; /* Espaço entre os inputs */
+
+      &:last-child {
+        margin-right: 0; /* Remove a margem do último item */
+      }
 
       @media (max-width: 768px) {
         margin-right: 0; /* Remove margens em telas menores */
-      }
-
-      @media (max-width: 480px) {
-        flex-direction: column; /* Empilha os campos em telas muito pequenas */
       }
     }
   `;
 
   const Button = styled.button`
-    width: 105px;
-    height: 60px;
-    background-color: #21D29D;
-    color: white;
+    width: 60px;
+    height: 50px;
+    background-color: var(--color-9);
+    color: var(--color-1);
     border: none;
     border-radius: 10px;
     cursor: pointer;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 26px;
-    text-align: center;
 
     &:hover {
-      background-color: #1CA885;
+      background-color: #1ca885;
     }
 
     @media (max-width: 768px) {
@@ -164,9 +164,26 @@ const styled_Cadastro = () => {
     }
   `;
 
+  const BackButton = styled(Button)`
+    width: 60px;
+    height: 50px;
+    background-color: var(--color-9);
+    color: var(--color-1);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      background-color: #1ca885;
+    }
+  `;
+
   const ButtonContainer = styled.div`
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 
     @media (max-width: 768px) {
       justify-content: center; /* Centraliza os botões em telas menores */
@@ -176,7 +193,7 @@ const styled_Cadastro = () => {
   const NavigationButton = styled.button`
     width: 150px;
     height: 50px;
-    background-color: #21D29D;
+    background-color: #21d29d;
     color: white;
     border: none;
     border-radius: 5px;
@@ -186,7 +203,7 @@ const styled_Cadastro = () => {
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #1CA885;
+      background-color: #1ca885;
     }
 
     @media (max-width: 768px) {
@@ -202,6 +219,12 @@ const styled_Cadastro = () => {
     }
   `;
 
+  const ErrorMessage = styled.div`
+  color: red;
+  font-size: 0.9em;
+  margin-bottom: 1em;
+`;
+
   return {
     // Body,
     ImageContainer,
@@ -212,9 +235,10 @@ const styled_Cadastro = () => {
     Input,
     FormGroupRow,
     Button,
+    BackButton,
     ButtonContainer,
     NavigationButton,
-    ErrorMessage
+    ErrorMessage,
   };
 };
 
