@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 
 export interface UserContextProps {
+  currentUser: UserProps | null;
   loading: boolean;
   users: UserProps[] | null;
   token: TokenProps | null;

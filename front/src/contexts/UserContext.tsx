@@ -25,6 +25,7 @@ export function UserProvider({ children }: ProviderProps) {
   const [profile, setProfile] = useState<ProfileProps | null>(null);
   const [loading, setLoading] = useState(true);
   const [goals, setGoals] = useState<GoalProps[]>([]); 
+  const [currentUser, setCurrentUser] = useState<UserProps | null>(null); // Estado do usuário
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -199,6 +200,7 @@ export function UserProvider({ children }: ProviderProps) {
   return (
     <UserContext.Provider
       value={{
+        currentUser,
         loading,
         token,
         profile,
