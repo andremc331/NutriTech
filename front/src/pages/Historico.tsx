@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, Footer, ImgIcon,} from "../styled/styled_Main";
+import {ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, ImgIcon,} from "../styled/styled_Main";
 import styled_Historico from "../styled/styled_Historico";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { IonIcon } from "@ionic/react";
@@ -47,7 +47,7 @@ const Historico: React.FC = () => {
       ],
     };
     adicionarHistorico(mealData);
-  }, []);
+  }, );
 
   return (
     <ContainerHistorico>
