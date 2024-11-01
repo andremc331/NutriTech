@@ -92,7 +92,7 @@ const InfoPessoal: React.FC = () => {
                     value={birthDate}
                     setValue={setBirthDate}
                 />
-                <label htmlFor="weight">Peso</label>
+                {/* <label htmlFor="weight">Peso</label> */}
                 <Input
                     type="number"
                     id="weight"

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
-import { ContainerMenu, Navbar, Sidebar, SidebarContent, Text, Icon, Item, ImgIcon } from "../styled/styled_Main";
+import { ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, ImgIcon } from "../styled/styled_Main";
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
@@ -16,6 +16,7 @@ const {
   WhiteBox,
   Busque,
   SimboloMais,
+  Text
 } = styled_Cardapio();
 const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 

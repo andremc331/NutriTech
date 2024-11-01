@@ -25,7 +25,7 @@ const WeightChart: React.FC = () => {
     },
     title: {
       text: "Progresso de Peso",
-      align: "left",
+      align: "center",
     },
     xaxis: {
       categories: [
@@ -59,7 +59,12 @@ const WeightChart: React.FC = () => {
 
   return (
     <div>
-      <Chart options={options} series={series} type="line" height={350} />
+      <Chart 
+      options={options} 
+      series={series} 
+      type="line"
+      width="400" 
+      height={250} />
     </div>
   );
 };

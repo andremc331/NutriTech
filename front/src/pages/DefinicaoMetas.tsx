@@ -1,25 +1,38 @@
 import React, { useEffect, useRef, useState } from "react";
+import axios from "axios";
 import logo from "../assets/logo.nutritech.png";
-import { useNavigate } from "react-router-dom";
 import styled_Definicao_M from "../styled/styled_Definicao_M";
+import { Icon } from "../styled/styled_Main";
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks";
 import { GoalProps } from "../types";
 
 const {
   ImageContainer,
+  Carousel,
+  NavButton,
+  Card,
+  ButtonGroup,
+  PlusButton,
+  MinusButton,
+  NextButton,
+  Body,
+  Logo,
   LogoImage,
   FormContainer,
   Title,
-  Carousel,
-  Card,
+  Text,
+  CardContainer,
+  CardLoseWeight,
+  CardGainWeight,
+  CardMuscle,
+  CardDiet,
   CardTitle,
-  ButtonGroup,
-  MinusButton,
-  NavButton,
-  NextButton,
-  ButtonContainer,
-  PlusButton,
   Button,
+  BackButton,
+  ButtonContainer,
 } = styled_Definicao_M();
 
 const DefinicaoMetas: React.FC = () => {
@@ -85,94 +98,74 @@ const DefinicaoMetas: React.FC = () => {
       <ImageContainer>
         <LogoImage src={logo} alt="Logo Nutritech" />
       </ImageContainer>
-      <div>
-        <FormContainer>
-          <Title>Definição de Metas</Title>
-          <form>
-            <NavButton className="left" type="button" onClick={scrollLeft}>
-              &lt;
-            </NavButton>
-            <Carousel ref={carouselRef}>
-              <Card>
-                <CardTitle>Ganhar Peso</CardTitle>
-                <ButtonGroup>
-                  <MinusButton
-                    type="button"
-                    onClick={() => setGoal("")}
-                  >
-                    -
-                  </MinusButton>
-                  <PlusButton
-                    type="button"
-                    onClick={() => {
-                      setGoal("Ganhar peso");
-                    }}
-                  >
-                    +
-                  </PlusButton>
-                </ButtonGroup>
-              </Card>
 
-              <Card>
-                <CardTitle>Perder Peso</CardTitle>
-                <ButtonGroup>
-                  <MinusButton
-                    type="button"
-                    onClick={() => setGoal("")}
-                  >
-                    -
-                  </MinusButton>
-                  <PlusButton
-                    type="button"
-                    onClick={() => {
-                      setGoal("Perder peso");
-                    }}
-                  >
-                    +
-                  </PlusButton>
-                </ButtonGroup>
-              </Card>
+      <FormContainer>
+        <Title>Definição de Metas</Title>
 
-              <Card>
-                <CardTitle>Manter Peso</CardTitle>
-                <ButtonGroup>
-                  <MinusButton
-                    type="button"
-                    onClick={() => setGoal("")}
-                  >
-                    -
-                  </MinusButton>
-                  <PlusButton
-                    type="button"
-                    onClick={() => {
-                      setGoal("Manter peso");
-                    }}
-                  >
-                    +
-                  </PlusButton>
-                </ButtonGroup>
-              </Card>
-            </Carousel>
-            <NavButton className="right" type="button" onClick={scrollRight}>
-              &gt;
-            </NavButton>
-          </form>
-        </FormContainer>
+        <CardContainer>
+          <CardLoseWeight>
+            <CardTitle>Perder Peso</CardTitle>
+            <Text>Emagracimento envolve uma combinação de alimentação equilibrada e atividade física regular...</Text>
+            <ButtonGroup>
+                <MinusButton type="button" onClick={() => setGoal("")}>
+                  -
+                </MinusButton>
+                <PlusButton type="button" onClick={() => setGoal("Perder peso")}>
+                  +
+                </PlusButton>
+              </ButtonGroup>
+          </CardLoseWeight>
+          <CardGainWeight>
+            <CardTitle>Ganhar Peso</CardTitle>
+            
+            <Text>Engordar envolve aumentar a massa muscular e/ou a gordura de maneira saudável...</Text>
+            <ButtonGroup>
+                <MinusButton type="button" onClick={() => setGoal("")}>
+                  -
+                </MinusButton>
+                <PlusButton type="button" onClick={() => setGoal("Ganhar peso")}>
+                  +
+                </PlusButton>
+              </ButtonGroup>
+          </CardGainWeight>
+          <CardMuscle>
+            <CardTitle>Ganhar Massa Muscular</CardTitle>
+            <Text>Hipertrofismo envolve o aumento da força e volume muscular através de treinamento...</Text>
+            <ButtonGroup>
+                <MinusButton type="button" onClick={() => setGoal("")}>
+                  -
+                </MinusButton>
+                <PlusButton type="button" onClick={() => setGoal("Manter peso")}>
+                  +
+                </PlusButton>
+              </ButtonGroup></CardMuscle>
+          <CardDiet>
+            <CardTitle>Monitorar Dieta</CardTitle>
+            <Text>Educação Alimentar envolve a conscientização e o registro dos alimentos consumidos diariamente...</Text>
+          </CardDiet>
+        </CardContainer>
 
         <ButtonContainer>
+          <BackButton type="button" onClick={() => navigate("/Info-pessoal")}>
+            <Icon>
+              <IonIcon icon={Icons.chevronBack} />
+            </Icon>
+          </BackButton>
           <Button onClick={enviarMeta}>Salvar</Button>
-          <NextButton type="button" onClick={() => navigate("/termosdeuso")}>
-            →
-          </NextButton>
+          <Button type="submit" onClick={() => { navigate("/termosdeuso"); }}>
+            <Icon>
+              <IonIcon icon={Icons.chevronForward} />
+            </Icon>
+          </Button>
         </ButtonContainer>
-        
+
         {/* Popup de confirmação */}
         {showPopup && (
           <div className="popup">
             <p>{messagePopup}</p>
           </div>
         )}
-      </div>
+      </FormContainer>
     </>
   );
 };
