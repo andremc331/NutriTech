@@ -64,13 +64,11 @@ const Home: React.FC = () => {
     return `${litros.toFixed(1).replace('.', ',')} L`;
   };
 
-  // Exemplo de uso da função
-  const peso = 70; 
-  const consumoAgua = calcularConsumoAgua(peso);
-
   // Aqui você deve obter peso e altura do usuário do seu banco de dados ou contexto
   const pesoPessoa = 70; // Exemplo, substituir por dados do usuário
   const alturaPessoa = 1.75; // Exemplo, substituir por dados do usuário
+
+  const consumoAgua = calcularConsumoAgua(pesoPessoa);
 
   const calcularIMC = (peso: number, altura: number): { imc: string; grau: string } => {
     const imc = peso / (altura * altura);
