@@ -27,6 +27,7 @@ async function init() {
             birth_date DATE NOT NULL,
             weight FLOAT NOT NULL,
             sex enum_sex NULL,
+            height FLOAT NOT NULL,
             PRIMARY KEY(id),
             FOREIGN KEY(_user)
                 REFERENCES users(id)
