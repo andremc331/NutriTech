@@ -26,6 +26,7 @@ const InfoPessoal: React.FC = () => {
     const { profile, saveProfile, deleteProfile, error, setError } = useUser();
     const [birthDate, setBirthDate] = useState<Date | null>(null);
     const [weight, setWeight] = useState<number | null>(null);
+    const [height, setHeight] = useState<number | null>(null);
     const [sex, setSex] = useState("");
     const [showPopup, setShowPopup] = useState(false);
     const [messagePopup, setMessagePopup] = useState("");
@@ -41,10 +42,12 @@ const InfoPessoal: React.FC = () => {
             setBirthDate(new Date(`${profile.birth_date}`));
             setWeight(profile.weight);
             setSex(profile.sex);
+            setHeight(profile.height);
         } else {
             setBirthDate(null);
             setWeight(null);
             setSex("");
+            setHeight(null);
         }
     }, [profile, setError]);
 
@@ -62,7 +65,8 @@ const InfoPessoal: React.FC = () => {
         } else {
             const formattedDate = dateFormat(birthDate);
             const formattedWeight = weight ? parseFloat(weight.toFixed(2)) : 0; // Formata o peso com duas casas decimais
-            const response = await saveProfile(formattedDate, formattedWeight, sex); // Passa os parâmetros
+            const formattedHeight = height ? parseFloat(height.toFixed(2)) : 0;
+            const response = await saveProfile(formattedDate, formattedWeight, sex, formattedHeight); // Passa os parâmetros
             if (response) {
                 setMessagePopup("Perfil salvo com sucesso");
                 setShowPopup(true);
@@ -91,6 +95,13 @@ const InfoPessoal: React.FC = () => {
                     label="Data de nascimento"
                     value={birthDate}
                     setValue={setBirthDate}
+                />
+                <Input
+                type="number"
+                id="height"
+                label="Altura"
+                value ={height !== null ? height : ''}
+                setValue={(value)=> setHeight(parseFloat(value) || null)}
                 />
                 {/* <label htmlFor="weight">Peso</label> */}
                 <Input

@@ -22,6 +22,7 @@ export interface UserContextProps {
     weight:number|null,
     sex: string,
     // numericWeight:number
+    height:number|null
   ) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
   saveGoal: (goal: string) => Promise<boolean>;
@@ -199,6 +200,7 @@ export interface ProfileProps {
   birth_date: string;
   weight: number|null;
   sex: string;
+  height: number|null; 
 }
 
 export interface EatProductProps {

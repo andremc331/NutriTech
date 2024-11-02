@@ -11,9 +11,9 @@ class Profile {
     }
   }
 
-  async save(birth_date:string, weight:string, sex:string): Promise<ProfileProps | ErrorProps> {
+  async save(birth_date:string, weight:number|null, sex:string, height:number|null): Promise<ProfileProps | ErrorProps> {
     try {
-      const { data } = await api.post("/profile", { birth_date, weight, sex });
+      const { data } = await api.post("/profile", { birth_date, weight, sex, height });
       return data;
     } catch (error: any) {
       return error;
