@@ -14,12 +14,12 @@ import styled_Historico from "../styled/styled_Historico";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { useNavigate } from "react-router-dom"; 
 import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
+import axios from "axios";
 
-const { Title, HistoryboxContainer, HistoryBox, MealInfo, Input, Label } =
-  styled_Historico();
+const { Title, HistoryboxContainer, HistoryBox, MealInfo, Input, Label } = styled_Historico();
 
 interface Meal {
   type: string;
@@ -28,43 +28,34 @@ interface Meal {
 }
 
 const Historico: React.FC = () => {
-  const [historico, setHistorico] = useState<Meal[]>([]); // Estado para armazenar o histórico
-  const navigate = useNavigate(); // Inicializar o hook useNavigate
+  const [historico, setHistorico] = useState<Meal[]>([]);
+  const [loading, setLoading] = useState<boolean>(true); // Estado de carregamento
+  const navigate = useNavigate();
 
-  // Função para adicionar um histórico de refeição
-  const adicionarHistorico = (meal: Meal) => {
-    setHistorico([...historico, meal]);
-  };
-
-  // Exemplo de como você poderia adicionar um histórico
   useEffect(() => {
-    // Adiciona um histórico inicial
-    const mealData: Meal = {
-      type: "Almoço",
-      time: "12:20",
-      items: [
-        "150g de frango grelhado",
-        "1 colher de arroz integral",
-        "25g de brócolis",
-        "Salada verde com azeite de oliva",
-      ],
+    const fetchHistorico = async () => {
+      setLoading(true); // Define que estamos carregando
+      try {
+        const response = await axios.get('http://localhost:3011/historico');
+        setHistorico(response.data);
+      } catch (error) {
+        console.error("Erro ao carregar o histórico:", error);
+      } finally {
+        setLoading(false); // Define que o carregamento terminou
+      }
     };
-    adicionarHistorico(mealData);
+    fetchHistorico();
   }, []);
 
   return (
     <>
-      {/* Barra de navegação da aplicação */}
       <ContainerMenu>
         <Navbar>
           <h1>Nome de usuário</h1>
           <UserProvider>
             <AdmMenu />
-            {/* Conteúdo da página de administração */}
           </UserProvider>
         </Navbar>
-
-        {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
             <Item onClick={() => navigate("/home")}>
@@ -90,7 +81,6 @@ const Historico: React.FC = () => {
           </SidebarContent>
         </Sidebar>
       </ContainerMenu>
-      {/* Corpo da aplicação */}
       <ContainerBody>
         <Title>Histórico</Title>
         <Label>
@@ -104,23 +94,28 @@ const Historico: React.FC = () => {
         <HistoryboxContainer>
           <HistoryBox>
             <MealInfo>
-              {historico.map((meal, index) => (
-                <div key={index}>
-                  <h4>
-                    {meal.type} - {meal.time}
-                  </h4>
-                  <ul>
-                    {meal.items.map((item, i) => (
-                      <li key={i}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
+              {loading ? ( // Exibir loading enquanto carrega
+                <p>Carregando...</p>
+              ) : historico.length > 0 ? ( // Verifica se há histórico
+                historico.map((meal, index) => (
+                  <div key={index}>
+                    <h4>
+                      {meal.type} - {meal.time}
+                    </h4>
+                    <ul>
+                      {meal.items.map((item, i) => (
+                        <li key={i}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))
+              ) : (
+                <p>Nenhum histórico encontrado.</p> // Mensagem quando não há histórico
+              )}
             </MealInfo>
           </HistoryBox>
         </HistoryboxContainer>
       </ContainerBody>
-      {/* Rodapé da aplicação */}
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech

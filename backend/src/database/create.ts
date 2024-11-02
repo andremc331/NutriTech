@@ -34,6 +34,11 @@ async function init() {
                 ON UPDATE CASCADE
         );
 
+        CREATE TABLE groups (
+            id INTEGER NOT NULL PRIMARY KEY,
+            description TEXT NOT NULL
+          );
+
         CREATE TABLE fields (
             id SERIAL NOT NULL,
             name VARCHAR(50) NULL,

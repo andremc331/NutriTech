@@ -36,11 +36,21 @@ export interface FoodContextProps {
   search: (term: string) => Promise<void>;
   getById: (id: string) => Promise<void>;
   setError: (value: ErrorProps | null) => void;
+  historicoData: RefeicaoProps[] | null; // Aqui, historicoData é um array ou null
+  getHistorico: () => Promise<void>; // Função que não recebe parâmetros
+  getHistoricoByDate: (startDate: string, endDate: string) => Promise<void>; // Recebe duas strings
+  getHistoricoByUser: (userId: string) => Promise<void>; // Recebe o id do usuário
 }
 
 export interface FoodProps {
   id: string;
   description: string;
+}
+
+export interface RefeicaoProps{
+  startDate: string, 
+  endDate: string,
+  userId: string
 }
 
 export interface FoodNutrientsProps {

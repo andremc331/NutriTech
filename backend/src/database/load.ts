@@ -1,4 +1,4 @@
-import {pool, queryCommitRollback} from "../database/connection";
+import { pool, queryCommitRollback } from "../database/connection";
 
 async function load() {
   try {
@@ -10,6 +10,27 @@ async function load() {
         TRUNCATE fields CASCADE;
         TRUNCATE foods CASCADE;
         TRUNCATE categories CASCADE;
+
+        INSERT INTO groups (id,description) VALUES
+ 	      (1,'Cereais e leguminosas'),
+	      (2,'Hortaliças tuberosas'),
+	      (3,'Farinhas, féculas e massas'),
+	      (4,'Cocos, castanhas e nozes'),
+	      (5,'Hortaliças folhosas, frutosas e outras'),
+	      (6,'Frutas'),
+	      (7,'Açúcares e produtos de confeitaria'),
+	      (8,'Sais e condimentos'),
+	      (9,'Carnes e vísceras'),
+	      (10,'Pescados e frutos do mar'),
+	      (11,'Enlatados e conservas'),
+	      (12,'Aves e ovos'),
+        (13,'Laticínios'),
+	      (14,'Panificados'),
+        (15,'Carnes industrializadas'),
+        (16,'Bebidas não alcoólicas e infusões'),
+	      (17,'Bebidas alcoólicas,'),
+        (18,'Óleos e gorduras'),
+        (19,'Miscelâneas');
 
         INSERT INTO fields (id,name,unit,field)
         VALUES 

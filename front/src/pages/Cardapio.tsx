@@ -58,21 +58,17 @@ const Cardapio: React.FC = () => {
   };
 
   const handleSendData = async () => {
-    const date = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
-    const promises: Promise<any>[] = [];
-
-    selectedFoods.forEach(({ food, quantity }) => {
-      promises.push(
-        eat.createFood(food.id, date, quantity) // Use the method from the Eat class
-      );
-    });
-
     try {
-      await Promise.all(promises);
+      await axios.post('http://localhost:3011/food', {
+        selectedFoods,
+        date: new Date().toISOString().split('T')[0],
+      });
       alert("Dados enviados com sucesso!");
+      // Opcional: Redirecionar para o histórico ou atualizar estado
+      setSelectedFoods([]); // Limpa os alimentos selecionados após o envio
     } catch (error) {
-      console.error("Erro ao enviar os dados:", error);
-      alert("Erro ao enviar os dados. Tente novamente.");
+      console.error("Erro ao enviar os dados:", error); // Log do erro
+      alert("Erro ao enviar os dados.");
     }
   };
 

@@ -6,10 +6,11 @@ import category from "./category";
 import food from "./food";
 import profile from "./profile";
 import user from "./user";
-import goal from "./goal";
+import goal from "./Goal";
 import product from "./product";
 import eatProduct from "./eatProduct";
 import eatFood from "./eatFood";
+import historico from "./historico";
 
 const routes = Router();
 
@@ -23,6 +24,7 @@ routes.use("/eat/food", validadeAcess, eatFood);
 routes.use("/eat/product", validadeAcess, eatProduct);
 routes.use("/field", field);
 routes.use("/goals", validadeAcess, goal); // Rotas de metas protegidas
+routes.use("/historico", validadeAcess, historico); // Garantindo que a validação de acesso está aplicada aqui
 routes.use("/product", validadeAcess, product);
 routes.use("/profile", validadeAcess, profile);
 routes.use("/user", user);

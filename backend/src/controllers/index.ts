@@ -7,6 +7,7 @@ import GoalController from "./GoalController"
 import ProcuctController from "./ProcuctController";
 import EatFoodController from "./EatFoodController";
 import EatProcuctController from "./EatProcuctController";
+import HistoricoController from "./HistoricoController";
 
 export {
     CategoryController,
@@ -18,4 +19,5 @@ export {
     ProcuctController,
     ProfileController,
     UserController,
+    HistoricoController,
 };
