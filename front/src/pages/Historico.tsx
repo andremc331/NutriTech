@@ -34,14 +34,14 @@ const Historico: React.FC = () => {
 
   useEffect(() => {
     const fetchHistorico = async () => {
-      setLoading(true); // Define que estamos carregando
       try {
         const response = await axios.get('http://localhost:3011/historico');
         setHistorico(response.data);
       } catch (error) {
         console.error("Erro ao carregar o histórico:", error);
+        // Considere adicionar um estado de erro aqui
       } finally {
-        setLoading(false); // Define que o carregamento terminou
+        setLoading(false); // Atualizar o estado de carregamento
       }
     };
     fetchHistorico();

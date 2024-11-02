@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled_BemV from '../styled/styled_BemV';
 import logo from "../assets/logo.nutritech.png"
-import { Icon } from "../styled/styled_Main";
-import { IonIcon } from "@ionic/react";
-import { Icons } from "../components/icons";
+// import { Icon } from "../styled/styled_Main";
+// import { IonIcon } from "@ionic/react";
+// import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom';
 import { api } from '../services/api';
 

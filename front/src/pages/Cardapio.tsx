@@ -1,17 +1,6 @@
 import React, { useState } from 'react';
 import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
-import {
-  ContainerBody,
-  ContainerMenu,
-  Navbar,
-  Sidebar,
-  SidebarContent,
-  Icon,
-  Item,
-  Footer,
-  ImgIcon,
-  CentralContent,
-} from "../styled/styled_Main";
+import { ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, ImgIcon, ContainerBody, Footer } from "../styled/styled_Main";
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
@@ -21,8 +10,15 @@ import { UserProvider } from '../contexts';
 import eat from '../services/Eat';
 import axios from 'axios';
 
-const { Title, CardBox, Label, Select, Input, Row, ButtonAdd } =
-  styled_Cardapio();
+const {
+  Title,
+  CardBox,
+  Label,
+  Select,
+  Input,
+  Row,
+  ButtonAdd,
+} = styled_Cardapio();
 const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 
   const [inputValue, setInputValue] = useState<string>('');

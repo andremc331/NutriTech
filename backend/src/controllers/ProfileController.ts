@@ -17,7 +17,7 @@ class ProfileController {
   }
 
   public async save(req: Request, res: Response): Promise<void> {
-    const { birth_date, weight, sex } = req.body;
+    const { birth_date, weight, sex, height } = req.body;
     const { id } = res.locals;
     if (!birth_date) {
       res.json({ error: "Forneça a sua data de nascimento" });
@@ -25,28 +25,31 @@ class ProfileController {
       res.json({ error: "Forneça o seu peso" });
     } else if (!sex || (sex !== "female" && sex !== "male")) {
       res.json({ error: "Forneça o sexo" });
-    } else {
+    } else if (! height){
+      res.json({error: "Forneça seu peso"});
+    }
+      else {
       try {
         // Verifica se o usuário já possui um perfil cadastrado
         const queryProfile: any = await query(
-          "SELECT birth_date,weight,sex FROM profiles WHERE _user=$1",
+          "SELECT birth_date,weight,sex,height FROM profiles WHERE _user=$1",
           [id]
         );
         if (queryProfile.length === 0) {
           const result: any = await query(
-            `INSERT INTO profiles(_user, birth_date, weight, sex) 
-                VALUES($1,$2,$3,$4)
-                RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex`,
-            [id, birth_date, weight, sex]
+            `INSERT INTO profiles(_user, birth_date, weight, sex, height) 
+                VALUES($1,$2,$3,$4,$5)
+                RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex, height`,
+            [id, birth_date, weight, sex, height]
           );
           res.json(result);
         } else {
           const result: any = await query(
             `UPDATE profiles 
-                SET birth_date=$1, weight=$2, sex=$3 
-                WHERE _user=$4
-                RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex`,
-            [birth_date, weight, sex, id]
+                SET birth_date=$1, weight=$2, sex=$3, height=$4
+                WHERE _user=$5
+                RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex, height`,
+            [birth_date, weight, sex, height,id]
           );
           if (result.rows) {
             res.json(result.rows);
@@ -66,7 +69,7 @@ class ProfileController {
     try {
       const result: any = await query(
         `DELETE FROM profiles WHERE _user = $1 
-        RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex`,
+        RETURNING TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex, height`,
         [id]
       );
       if (result.rowcount > 0) {

@@ -111,9 +111,10 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  const saveProfile = async (birth_date: string, weight: number | null, sex: string): Promise<boolean> => {
-    const weightToSend:any = weight !== null ? weight : 0; // Define um valor padrão se weight for null
-    const response = await Profile.save(birth_date, weightToSend, sex);
+  const saveProfile = async (birth_date: string, weight: number | null, sex: string, height:number|null): Promise<boolean> => {
+    const weightToSend:any = weight !== null ? weight : 0; 
+    const heightToSend:any = height !== null ? height : 0;
+    const response = await Profile.save(birth_date, weightToSend, sex, heightToSend);
     if (isErrorProps(response)) {
         setError(response);
         return false;
