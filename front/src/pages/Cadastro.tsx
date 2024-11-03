@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-import { Icon } from "../styled/styled_Main";
-import { IonIcon } from "@ionic/react";
-import { Icons } from "../components/icons";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks";
 
 const {
@@ -15,16 +12,14 @@ const {
   FormGroupRow,
   Label,
   Input,
-  Button,
-  BackButton,
   ButtonContainer,
   ErrorMessage,
   NavigationButton,
 } = styled_Cadastro();
 
 const Cadastro: React.FC = () => {
-  const navigate = useNavigate(); 
-  const { create, error, setError } = useUser(); // Hook personalizado para gerenciar o usuário
+  const navigate = useNavigate();
+  const { create, error, setError } = useUser();
 
   const [formData, setFormData] = useState({
     nome: "Ana Maria",
@@ -51,8 +46,7 @@ const Cadastro: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
-    // Verifica se as senhas são correspondentes
+
     if (Verificar()) {
       if (!formData.nome) {
         setError({ error: "Forneça o seu nome de usuário" });
@@ -65,13 +59,29 @@ const Cadastro: React.FC = () => {
           // Envia os dados do formulário para a API
           await create(formData.nome, formData.email, formData.senha);
           navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
-        } catch (error) {
-          console.error("Erro ao cadastrar usuário:", error);
-          alert("Ocorreu um erro ao cadastrar o usuário. Tente novamente.");
+        } catch (err) {
+          console.error("Erro ao cadastrar usuário:", err);
+          
+          // Verificando se o erro é do tipo esperado
+          if (isErrorWithResponse(err)) {
+            const response = (err as any).response; // Usando 'any' para garantir acesso seguro
+            if (response && response.status === 409) {
+              setError({ error: "E-mail já cadastrado. Por favor, use outro." });
+            } else {
+              setError({ error: "Erro ao cadastrar. Tente novamente." });
+            }
+          } else {
+            setError({ error: "Ocorreu um erro inesperado. Tente novamente." });
+          }
         }
       }
     }
   };
+
+  // Função de verificação de tipo de erro
+  function isErrorWithResponse(err: unknown): err is { response?: { status: number } } {
+    return typeof err === 'object' && err !== null && 'response' in err;
+  }
 
   return (
     <>
@@ -109,7 +119,7 @@ const Cadastro: React.FC = () => {
           <FormGroup>
             <Label htmlFor="senha">Senha:</Label>
             <Input
-              type="senha"
+              type="password"
               id="senha"
               name="senha"
               value={formData.senha}
@@ -120,7 +130,7 @@ const Cadastro: React.FC = () => {
           <FormGroup>
             <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
             <Input
-              type="senha"
+              type="password"
               id="confirmarSenha"
               name="confirmarSenha"
               value={formData.confirmarSenha}

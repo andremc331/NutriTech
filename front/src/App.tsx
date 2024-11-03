@@ -12,6 +12,7 @@ import Progresso from './pages/Progresso';
 import Configuracoes from './pages/Configuracoes';
 import { UserProvider } from './contexts';
 import { GlobalStyles } from './styled/styled_Main';
+import Captcha from './pages/Captcha';
 
 const App: React.FC = () => {
     return (
@@ -22,6 +23,7 @@ const App: React.FC = () => {
                     {/* Define as rotas para cada página */}
                     <Route path="/" element={<Navigate to="/bem-vindo" />} />
                     <Route path="/bem-vindo" element={<BemVindo />} />
+                    <Route path='/captcha' element={<Captcha/>}/>
                     <Route path="/cadastro" element={<Cadastro />} />
                     <Route path="/info-pessoal" element={<InfoPessoal />} />
                     <Route path="/definicao-metas" element={<DefinicaoMetas />} />
