@@ -23,7 +23,7 @@ const ConsumeChart: React.FC = () => {
     },
     title: {
       text: "Consumo Alimentar",
-      align: "left",
+      align: "center",
     },
     labels: gruposAlimentares,
     legend: {

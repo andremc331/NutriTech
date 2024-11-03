@@ -6,6 +6,7 @@ import {
   Sidebar,
   SidebarContent,
   Icon,
+  Ico,
   Item,
   Footer,
   ImgIcon,
@@ -126,6 +127,10 @@ const Historico: React.FC = () => {
           Copyright © 2024 / 2025 | HighTech
           <br />
           Todos os direitos reservados
+          <br />
+          <Ico>
+            <IonIcon icon={Icons.logoGithub} /> github.com/andremc331/NutriTech
+          </Ico>
         </div>
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />

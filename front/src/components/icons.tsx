@@ -1,9 +1,7 @@
-import { home, restaurant, nutrition, fitness, create, time, add, remove, chevronForward, chevronBack, arrowForward, checkmark } from 'ionicons/icons';
-
-export const Icons = {
+import {
   home,
-  restaurant, 
-  nutrition, 
+  restaurant,
+  nutrition,
   fitness,
   create,
   time,
@@ -12,5 +10,24 @@ export const Icons = {
   chevronForward,
   chevronBack,
   arrowForward,
-  checkmark
+  checkmark,
+  logoGithub,
+  logoLinkedin
+} from "ionicons/icons";
+
+export const Icons = {
+  home,
+  restaurant,
+  nutrition,
+  fitness,
+  create,
+  time,
+  add,
+  remove,
+  chevronForward,
+  chevronBack,
+  arrowForward,
+  checkmark,
+  logoGithub,
+  logoLinkedin
 };

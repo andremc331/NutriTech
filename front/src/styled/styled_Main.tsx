@@ -125,6 +125,13 @@ const Icon = styled.div`
   margin-left: 3px;
 `;
 
+const Ico = styled.div`
+  font-size: 16px;
+  margin-left: 3px;
+  justify-contente: center;
+  align-content: center;
+`;
+
 //Estilo para o rodapé da aplicação
 const Footer = styled.footer`
   position: relative;
@@ -167,6 +174,7 @@ export {
   SidebarContent,
   Item,
   Icon,
+  Ico,
   Footer,
   ImgIcon,
 };

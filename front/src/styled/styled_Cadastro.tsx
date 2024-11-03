@@ -220,7 +220,6 @@ const styled_Cadastro = () => {
   `;
 
   return {
-    // Body,
     ImageContainer,
     FormContainer,
     Title,

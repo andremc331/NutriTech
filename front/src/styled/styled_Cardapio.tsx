@@ -29,20 +29,25 @@ const styled_Cardapio = () => {
 
   const Label = styled.label`
     display: block; 
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    gap: 10px;
     font-size: 14px;
     color: var(--color-1);
   `;
 
   const Input = styled.input`
-    width: 17%;
-    height: 30px;
+    width: 20%;
+    height: 40px;
     padding: 10px;
     border: 2px solid #ccc;
     border-radius: 5px; 
     font-size: 14px;
     transition: border-color 0.3s;
     margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    gap: 10px;
 
     &:focus {
       border-color: #4CAF50;
@@ -82,15 +87,14 @@ const styled_Cardapio = () => {
 
   const Row = styled.div`
     display: flex;
-    gap: 15px;
+    gap: 20px;
     align-items: center;
 
     width: 100%; /* Para ocupar a largura total */
     margin-bottom: 10px; /* Espaço entre as linhas */
   `;
 
-  return {
-   
+  return { 
     Title,
     CardBox,
     Label,

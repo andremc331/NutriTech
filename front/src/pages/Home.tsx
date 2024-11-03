@@ -7,7 +7,8 @@ import {
   Navbar, 
   Sidebar, 
   SidebarContent, 
-  Icon, 
+  Icon,
+  Ico, 
   Item, 
   Footer, 
   ImgIcon,
@@ -167,9 +168,6 @@ const Home: React.FC = () => {
               <MealTypeContainer>
                 {/* adicionar o tipo de refeição nesse campo */}
                 <MealType>Almoço</MealType> 
-                <Icon>
-                  <IonIcon icon={Icons.create} />
-                </Icon>
               </MealTypeContainer>
               {/* adicionar o horario da refeição nesse campo */}
               <MealTimeContainer>
@@ -203,6 +201,10 @@ const Home: React.FC = () => {
           Copyright © 2024 / 2025 | HighTech
           <br />
           Todos os direitos reservados
+          <br />
+          <Ico>
+            <IonIcon icon={Icons.logoGithub} /> github.com/andremc331/NutriTech
+          </Ico>
         </div>
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
