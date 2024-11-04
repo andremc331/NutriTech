@@ -9,6 +9,7 @@ import Cadastro from "./Cadastro";
 import UserRolePage from "./UserRolePage";
 import InfoPessoal from "./Infopessoal";
 import DefinicaoMetas from "./DefinicaoMetas";
+import Captcha from "./Captcha";
 
 
 
@@ -23,5 +24,6 @@ export {
     Bemvindo,
     Cadastro,
     UserRolePage,
-    DefinicaoMetas
+    DefinicaoMetas,
+    Captcha
 }

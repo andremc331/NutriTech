@@ -60,9 +60,15 @@ const InfoPessoal: React.FC = () => {
             setError({ error: "Forneça o peso" });
         } else if (!sex) {
             setError({ error: "Forneça o sexo" });
-        } else if (weight < 0) {
+        }else if (!height){
+            setError({ error: "Forneça sua altura" });
+        } 
+        else if (weight < 0) {
             window.alert("O valor de peso não pode ser negativo");
-        } else {
+        }else if (height !== null && (height < 0 || height > 4)) {
+            window.alert("O valor de altura não pode ser negativo nem maior que 4");
+        } 
+        else {
             const formattedDate = dateFormat(birthDate);
             const formattedWeight = weight ? parseFloat(weight.toFixed(2)) : 0; // Formata o peso com duas casas decimais
             const formattedHeight = height ? parseFloat(height.toFixed(2)) : 0;
