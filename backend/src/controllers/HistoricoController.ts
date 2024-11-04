@@ -2,18 +2,26 @@ import { Request, Response } from "express";
 import { query } from "../database/connection";
 
 class HistoricoController {
-  // Busca todas as refeições no histórico
-  public async getHistorico(req: Request, res: Response): Promise<void> {
+  // Busca todas as refeições no histórico com JOIN para incluir nome do alimento
+  public async getHistoricoWithFoodName(req: Request, res: Response): Promise<void> {
+    const { startDate, endDate } = req.query;
     try {
-      const result = await query('SELECT * FROM eat_foods ORDER BY date DESC'); // Mudança para eat_foods
+      const result = await query(
+        `SELECT ef.date, f.description AS food_name, ef.quantity
+         FROM eat_foods ef
+         JOIN foods f ON ef.food = f.id
+         WHERE ef.date BETWEEN $1 AND $2
+         ORDER BY ef.date DESC`,
+        [startDate, endDate]
+      );
       res.json(result.rows);
     } catch (error: any) {
-      console.error("Erro ao buscar histórico:", error);
-      res.status(500).json({ error: 'Erro ao buscar histórico' });
+      console.error("Erro ao buscar o histórico:", error);
+      res.status(500).json({ error: "Erro ao buscar o histórico de refeições" });
     }
   }
 
-  // Filtra histórico por um intervalo de datas
+  // Busca histórico por um intervalo de datas
   public async getHistoricoByDate(req: Request, res: Response): Promise<void> {
     const { startDate, endDate } = req.query;
 
@@ -24,7 +32,7 @@ class HistoricoController {
 
     try {
       const result = await query(
-        'SELECT * FROM eat_foods WHERE date BETWEEN $1 AND $2 ORDER BY date DESC', // Mudança para eat_foods
+        'SELECT * FROM eat_foods WHERE date BETWEEN $1 AND $2 ORDER BY date DESC',
         [startDate, endDate]
       );
       res.json(result.rows);
@@ -40,7 +48,7 @@ class HistoricoController {
 
     try {
       const result = await query(
-        'SELECT * FROM eat_foods WHERE _user = $1 ORDER BY date DESC', // Mudança para eat_foods e o nome correto da coluna
+        'SELECT * FROM eat_foods WHERE _user = $1 ORDER BY date DESC',
         [userId]
       );
       res.json(result.rows);

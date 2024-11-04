@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import {
   ContainerBody,
   ContainerMenu,
@@ -14,38 +14,46 @@ import styled_Historico from "../styled/styled_Historico";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
-import { UserProvider } from "../contexts";
-import axios from "axios";
+import { UserProvider, FoodContext } from "../contexts";
 
 const { Title, HistoryboxContainer, HistoryBox, MealInfo, Input, Label } = styled_Historico();
 
 interface Meal {
-  type: string;
-  time: string;
-  items: string[];
+  date: string;
+  food_name: string;
+  quantity: number;
 }
 
 const Historico: React.FC = () => {
-  const [historico, setHistorico] = useState<Meal[]>([]);
-  const [loading, setLoading] = useState<boolean>(true); // Estado de carregamento
+  const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(FoodContext);
+  const [historicoData, setHistoricoData] = useState<Meal[] | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchHistorico = async () => {
-      try {
-        const response = await axios.get('http://localhost:3011/historico');
-        setHistorico(response.data);
-      } catch (error) {
-        console.error("Erro ao carregar o histórico:", error);
-        // Considere adicionar um estado de erro aqui
-      } finally {
-        setLoading(false); // Atualizar o estado de carregamento
-      }
+    // Carrega o histórico inicial
+    const fetchInitialHistorico = async () => {
+      setLoading(true);
+      await getHistoricoWithFoodName();
+      setLoading(false);
     };
-    fetchHistorico();
-  }, []);
+
+    fetchInitialHistorico();
+  }, [getHistoricoWithFoodName]);
+
+  const handleFilter = async () => {
+    if (!startDate || !endDate) {
+      alert("Por favor, selecione ambas as datas para filtrar.");
+      return;
+    }
+    setLoading(true);
+    await getHistoricoByDate(startDate, endDate);
+    setLoading(false);
+  };
 
   return (
     <>
@@ -59,63 +67,53 @@ const Historico: React.FC = () => {
         <Sidebar>
           <SidebarContent>
             <Item onClick={() => navigate("/home")}>
-              <Icon>
-                <IonIcon icon={Icons.home} />
-              </Icon>
+              <Icon><IonIcon icon={Icons.home} /></Icon>
             </Item>
             <Item onClick={() => navigate("/cardapio")}>
-              <Icon>
-                <IonIcon icon={Icons.restaurant} />
-              </Icon>
+              <Icon><IonIcon icon={Icons.restaurant} /></Icon>
             </Item>
             <Item onClick={() => navigate("/historico")}>
-              <Icon>
-                <IonIcon icon={Icons.nutrition} />
-              </Icon>
+              <Icon><IonIcon icon={Icons.nutrition} /></Icon>
             </Item>
             <Item onClick={() => navigate("/metas")}>
-              <Icon>
-                <IonIcon icon={Icons.fitness} />
-              </Icon>
+              <Icon><IonIcon icon={Icons.fitness} /></Icon>
             </Item>
           </SidebarContent>
         </Sidebar>
       </ContainerMenu>
+      
       <ContainerBody>
         <Title>Histórico</Title>
         <Label>
-          Data Inicial:
-          <Input type="date" />
+          Data Inicial: 
+          <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
         </Label>
         <Label>
-          Data Final:
-          <Input type="date" />
+          Data Final: 
+          <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
         </Label>
+        <button onClick={handleFilter}>Filtrar</button>
+
         <HistoryboxContainer>
           <HistoryBox>
             <MealInfo>
-              {loading ? ( // Exibir loading enquanto carrega
+              {loading ? (
                 <p>Carregando...</p>
-              ) : historico.length > 0 ? ( // Verifica se há histórico
-                historico.map((meal, index) => (
+              ) : historicoData && historicoData.length > 0 ? (
+                historicoData.map((meal, index) => (
                   <div key={index}>
-                    <h4>
-                      {meal.type} - {meal.time}
-                    </h4>
-                    <ul>
-                      {meal.items.map((item, i) => (
-                        <li key={i}>{item}</li>
-                      ))}
-                    </ul>
+                    <h4>{meal.date}</h4>
+                    <p>{meal.food_name} - {meal.quantity} kg</p>
                   </div>
                 ))
               ) : (
-                <p>Nenhum histórico encontrado.</p> // Mensagem quando não há histórico
+                <p>Nenhum histórico encontrado.</p>
               )}
             </MealInfo>
           </HistoryBox>
         </HistoryboxContainer>
       </ContainerBody>
+      
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech

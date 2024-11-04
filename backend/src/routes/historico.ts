@@ -1,21 +1,21 @@
-import { Router, Request, Response } from "express";
-import { HistoricoController as controller } from "../controllers"; // Ajuste o caminho conforme necessário
+import express, { Request, Response } from "express"; // Importando Request e Response
+import { HistoricoController as controller } from "../controllers";
 import { validadeAcess } from "../middlewares";
 
-const routes = Router();
+const routes = express.Router();
 
-// Rota para buscar todas as refeições no histórico
-routes.get("/", validadeAcess, controller.getHistorico.bind(controller));
+// Rota para buscar todas as refeições com nome do alimento
+routes.get("/", validadeAcess, controller.getHistoricoWithFoodName);
 
-// Rota para filtrar histórico por um intervalo de datas
-routes.get("/by-date", validadeAcess, controller.getHistoricoByDate.bind(controller));
+// Rota para buscar histórico por um intervalo de datas
+routes.get("/data", validadeAcess, controller.getHistoricoByDate);
 
 // Rota para buscar refeições específicas de um usuário
-routes.get("/by-user", validadeAcess, controller.getHistoricoByUser.bind(controller));
+routes.get("/user", validadeAcess, controller.getHistoricoByUser);
 
-// Tratamento para rotas desconhecidas
+// Tratamento para rotas não encontradas
 routes.use((req: Request, res: Response) => {
-    res.status(404).json({ error: "Operação desconhecida com o histórico." });
+    res.status(404).json({ error: "Operação desconhecida na rota de historico. Verifique a URL e o método HTTP." });
 });
 
 export default routes;

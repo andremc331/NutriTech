@@ -5,7 +5,8 @@ import {
   PageProps,
   FoodNutrientsProps,
   ErrorProps,
-  RefeicaoProps, // Importando o tipo para as refeições
+  RefeicaoProps,
+  Meal, // Importando o tipo para as refeições
 } from "../types";
 import { Food } from "../services";
 import historico from "../services/Historico"; // Ajuste o caminho conforme necessário
@@ -17,7 +18,7 @@ export function FoodProvider({ children }: ProviderProps) {
   const [pageFoods, setPageFoods] = useState<PageProps | null>(null);
   const [error, setError] = useState<ErrorProps | null>(null);
   const [food, setFood] = useState<FoodNutrientsProps | null>(null);
-  const [historicoData, setHistoricoData] = useState<RefeicaoProps[] | null>(null); // Estado para o histórico
+  const [historicoData, setHistoricoData] = useState<Meal[] | null>(null);
 
   useEffect(() => {
     getFoodsByPage(1);
@@ -67,41 +68,52 @@ export function FoodProvider({ children }: ProviderProps) {
   }
 
   // Novas funções para gerenciar o histórico
-  async function getHistorico(): Promise<void> {
+  async function getHistoricoWithFoodName(): Promise<void> {
     try {
       const response = await historico.getHistorico();
       if (isErrorProps(response)) {
         setError(response);
       } else {
-        setHistoricoData(response);
+        const historicoItems = response as unknown as RefeicaoProps[];
+        
+        // Verificação de compatibilidade antes de definir como Meal[]
+        const mealData = historicoItems.map(item => ({
+          id: item.id,
+          foodName: item.foodName,
+          quantity: item.quantity,
+          date: item.date,
+          userId: item.userId,
+        })) as Meal[];
+  
+        setHistoricoData(mealData);
         setError(null);
       }
     } catch (e: any) {
       setError(e.message);
     }
   }
-
+  
   async function getHistoricoByDate(startDate: string, endDate: string): Promise<void> {
     try {
       const response = await historico.getHistoricoByDate(startDate, endDate);
       if (isErrorProps(response)) {
         setError(response);
       } else {
-        setHistoricoData(response);
+        setHistoricoData(response as Meal[]); // Cast para Meal[]
         setError(null);
       }
     } catch (e: any) {
       setError(e.message);
     }
   }
-
+  
   async function getHistoricoByUser(userId: string): Promise<void> {
     try {
       const response = await historico.getHistoricoByUser(userId);
       if (isErrorProps(response)) {
         setError(response);
       } else {
-        setHistoricoData(response);
+        setHistoricoData(response as Meal[]); // Cast para Meal[]
         setError(null);
       }
     } catch (e: any) {
@@ -119,7 +131,7 @@ export function FoodProvider({ children }: ProviderProps) {
         getFoodsByPage,
         search,
         getById,
-        getHistorico, // Passando as funções do histórico
+        getHistoricoWithFoodName, // Passando as funções do histórico
         getHistoricoByDate,
         getHistoricoByUser,
         setError,

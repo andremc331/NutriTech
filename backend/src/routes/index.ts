@@ -6,7 +6,7 @@ import category from "./category";
 import food from "./food";
 import profile from "./profile";
 import user from "./user";
-import goal from "./Goal";
+import goal from "./goal";
 import product from "./product";
 import eatProduct from "./eatProduct";
 import eatFood from "./eatFood";

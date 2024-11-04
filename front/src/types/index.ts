@@ -33,25 +33,36 @@ export interface FoodContextProps {
   pageFoods: PageProps | null;
   food: FoodNutrientsProps | null;
   error: ErrorProps | null;
+  historicoData: Meal[] | null; // Atualize aqui para usar Meal[]
   getFoodsByPage: (page: number) => Promise<void>;
   search: (term: string) => Promise<void>;
   getById: (id: string) => Promise<void>;
-  setError: (value: ErrorProps | null) => void;
-  historicoData: RefeicaoProps[] | null; // Aqui, historicoData é um array ou null
-  getHistorico: () => Promise<void>; // Função que não recebe parâmetros
-  getHistoricoByDate: (startDate: string, endDate: string) => Promise<void>; // Recebe duas strings
-  getHistoricoByUser: (userId: string) => Promise<void>; // Recebe o id do usuário
+  getHistoricoWithFoodName: () => Promise<void>;
+  getHistoricoByDate: (startDate: string, endDate: string) => Promise<void>;
+  getHistoricoByUser: (userId: string) => Promise<void>;
+  setError: (error: ErrorProps | null) => void;
 }
+
 
 export interface FoodProps {
   id: string;
   description: string;
 }
 
-export interface RefeicaoProps{
-  startDate: string, 
-  endDate: string,
-  userId: string
+export interface Meal {
+  id: string;
+  foodName: string;
+  quantity: number;
+  date: string;
+  userId: string;
+}
+
+export interface RefeicaoProps {
+  id: string;
+  foodName: string;
+  quantity: number;
+  date: string;
+  userId: string;
 }
 
 export interface FoodNutrientsProps {
