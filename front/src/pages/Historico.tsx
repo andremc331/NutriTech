@@ -123,7 +123,7 @@ const Historico: React.FC = () => {
                   </div>
                 ))
               ) : (
-                <p>Nenhum histórico encontrado.</p>
+                <p>Clique em Filtrar para buscar.</p>
               )}
             </MealInfo>
           </HistoryBox>
