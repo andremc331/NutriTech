@@ -22,6 +22,8 @@ const GlobalStyles = createGlobalStyle`
     --color-10: #000000;/*Preto */
     --color-11: #3f3f3f;/*Cinza */
     --color-12: #cccccc;/*Branco-2*/
+    --color-13: #dc143c;/*Vermelho*/
+    --color-14: #de3163;/*Vermelho-2*/
   }
   
   * {
@@ -125,6 +127,13 @@ const Icon = styled.div`
   margin-left: 3px;
 `;
 
+const Ico = styled.div`
+  font-size: 16px;
+  margin-left: 3px;
+  justify-contente: center;
+  align-content: center;
+`;
+
 //Estilo para o rodapé da aplicação
 const Footer = styled.footer`
   position: relative;
@@ -158,75 +167,7 @@ const ImgIcon = styled.div`
   }
 `;
 
-const CentralContent = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: calc(100vh - 140px);
-    margin-top: 60px;
-
-    @media (max-width: 768px) {
-      height: calc(100vh - 120px);
-    }
-
-    @media (max-width: 480px) {
-      height: calc(100vh - 100px);
-    }
-  `;
-
-  const WhiteBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    background-color: white;
-    border-radius: 8px;
-    padding: 10px;
-    margin: 10px;
-    margin-left: 90px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    width: 1000px;
-    overflow: hidden;
-
-    @media (max-width: 1024px) {
-      width: 80%;
-    }
-
-    @media (max-width: 768px) {
-      width: 90%;
-    }
-
-    @media (max-width: 480px) {
-      width: 100%;
-      padding: 15px; /* Ajusta o padding para telas menores */
-    }
-  `;
-
-  const SimboloMais = styled.span`
-    font-size: 24px;
-    margin-left: 10px;
-
-    @media (max-width: 768px) {
-      font-size: 20px;
-    }
-
-    @media (max-width: 480px) {
-      font-size: 18px;
-    }
-  `
-  const Busque = styled.div<{ isExpanded: boolean }>`
-  display: ${props => (props.isExpanded ? 'block' : 'none')};
-  max-height: 200px; /* Defina a altura máxima que você deseja */
-  overflow-y: auto; /* Adiciona o scrollbar se necessário */
-  border: 1px solid #ccc; /* Para visualização */
-  padding: 10px; /* Para espaçamento interno */
-  background-color: white; /* Cor de fundo */
-`;
-
 export {
-  Busque,
-  SimboloMais,
   ContainerBody,
   GlobalStyles,
   ContainerMenu,
@@ -235,8 +176,7 @@ export {
   SidebarContent,
   Item,
   Icon,
+  Ico,
   Footer,
   ImgIcon,
-  WhiteBox,
-  CentralContent,
 };
