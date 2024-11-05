@@ -3,6 +3,7 @@ import logo from "../assets/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks";
+import Captcha from "./Captcha";
 
 const {
   ImageContainer,
@@ -12,9 +13,7 @@ const {
   FormGroupRow,
   Label,
   Input,
-  ButtonContainer,
   ErrorMessage,
-  NavigationButton,
 } = styled_Cadastro();
 
 const Cadastro: React.FC = () => {
@@ -28,6 +27,8 @@ const Cadastro: React.FC = () => {
     confirmarSenha: "",
   });
 
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false); // Verifica se o Captcha foi validado
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -36,51 +37,51 @@ const Cadastro: React.FC = () => {
     }));
   };
 
-  const Verificar = (): boolean => {
+  // Função para verificar se as senhas são iguais
+  const VerificarSenhas = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
-      window.alert("As senhas não estão batendo, por favor, verifique se as senhas são correspondentes");
+      window.alert("As senhas não estão batendo, por favor, verifique se as senhas são correspondentes.");
       return false;
     }
     return true;
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  // Função para quando o Captcha for validado
+  const handleCadastro = async (): Promise<void> => {
+    // Primeiro, verifica se o Captcha foi validado
+    if (!isCaptchaVerified) {
+      window.alert("Por favor, verifique o CAPTCHA.");
+      return;
+    }
 
-    if (Verificar()) {
-      if (!formData.nome) {
-        setError({ error: "Forneça o seu nome de usuário" });
-      } else if (!formData.email) {
-        setError({ error: "Forneça o e-mail" });
-      } else if (!formData.senha) {
-        setError({ error: "Forneça a senha" });
-      } else {
-        try {
-          // Envia os dados do formulário para a API
-          await create(formData.nome, formData.email, formData.senha);
-          navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
-        } catch (err) {
-          console.error("Erro ao cadastrar usuário:", err);
-          
-          // Verificando se o erro é do tipo esperado
-          if (isErrorWithResponse(err)) {
-            const response = (err as any).response; // Usando 'any' para garantir acesso seguro
-            if (response && response.status === 409) {
-              setError({ error: "E-mail já cadastrado. Por favor, use outro." });
-            } else {
-              setError({ error: "Erro ao cadastrar. Tente novamente." });
-            }
-          } else {
-            setError({ error: "Ocorreu um erro inesperado. Tente novamente." });
-          }
+    // Verifica se as senhas estão iguais
+    if (!VerificarSenhas()) {
+      return; // Já exibe um alerta dentro da função VerificarSenhas se não baterem
+    }
+
+    try {
+      // Envia os dados para a API
+      await create(formData.nome, formData.email, formData.senha);
+      navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
+    } catch (err) {
+      console.error("Erro ao cadastrar usuário:", err);
+      // Verificando se o erro é do tipo esperado
+      if (isErrorWithResponse(err)) {
+        const response = (err as any).response;
+        if (response && response.status === 409) {
+          setError({ error: "E-mail já cadastrado. Por favor, use outro." });
+        } else {
+          setError({ error: "Erro ao cadastrar. Tente novamente." });
         }
+      } else {
+        setError({ error: "Ocorreu um erro inesperado. Tente novamente." });
       }
     }
   };
 
   // Função de verificação de tipo de erro
   function isErrorWithResponse(err: unknown): err is { response?: { status: number } } {
-    return typeof err === 'object' && err !== null && 'response' in err;
+    return typeof err === "object" && err !== null && "response" in err;
   }
 
   return (
@@ -91,7 +92,7 @@ const Cadastro: React.FC = () => {
       <FormContainer>
         <Title>Informações de Usuário</Title>
         {error && <ErrorMessage>{error.error}</ErrorMessage>} {/* Mensagem de erro */}
-        <form onSubmit={handleSubmit}>
+        <form>
           <FormGroupRow>
             <FormGroup>
               <Label htmlFor="nome">Nome:</Label>
@@ -137,10 +138,16 @@ const Cadastro: React.FC = () => {
               onChange={handleChange}
               required
             />
+            {/* Componente Captcha */}
+            <Captcha onVerified={async () => setIsCaptchaVerified(true)} setIsVerified={setIsCaptchaVerified} />
           </FormGroup>
-          <ButtonContainer>
-            <NavigationButton type="submit">Avançar</NavigationButton>
-          </ButtonContainer>
+          
+          {/* Renderiza o botão de cadastro apenas se o CAPTCHA estiver verificado */}
+          {isCaptchaVerified && (
+            <button type="button" onClick={handleCadastro}>
+              Confirmar Cadastro
+            </button>
+          )}
         </form>
       </FormContainer>
     </>

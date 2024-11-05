@@ -25,7 +25,7 @@ const TermosDeUso: React.FC = () => {
 
   const handleNextClick = () => {
     if (agreedToTerms && agreedToPrivacy) {
-      navigate("/Bem-Vindo"); // Navega para a página "home"
+      navigate("/home"); // Navega para a página "home"
     } else {
       alert("Você precisa concordar com ambos os termos antes de prosseguir.");
     }

@@ -87,7 +87,7 @@ const BemVindo: React.FC = () => {
           <br />
           SAÚDE!
         </JustifiedText>
-        <Button1 onClick={() => navigate('/captcha')}>COMECE JÁ</Button1>
+        <Button1 onClick={() => navigate('/cadastro')}>COMECE JÁ</Button1>
       </ContainerRightTitle>
     </Background>
   );

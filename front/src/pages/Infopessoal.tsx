@@ -11,7 +11,6 @@ import { useUser } from "../hooks";
 import { calculateAge, dateFormat } from "../utils";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
-
 const {
     Body,
     BackButton,
@@ -63,9 +62,9 @@ const InfoPessoal: React.FC = () => {
         }else if (!height){
             setError({ error: "Forneça sua altura" });
         } 
-        else if (weight < 0) {
-            window.alert("O valor de peso não pode ser negativo");
-        }else if (height !== null && (height < 0 || height > 4)) {
+        else if (weight <= 0) {
+            window.alert("O valor de peso tem ser maior que zero");
+        }else if (height !== null && (height <= 0 || height > 4)) {
             window.alert("O valor de altura não pode ser negativo nem maior que 4");
         } 
         else {
