@@ -51,6 +51,7 @@ export interface Meal {
   quantity: number;
   date: string;
   userId: string;
+  food_name: string;
 }
 
 export interface RefeicaoProps {
@@ -59,6 +60,7 @@ export interface RefeicaoProps {
   quantity: number;
   date: string;
   userId: string;
+  food_name: string;
 }
 
 export interface FoodNutrientsProps {

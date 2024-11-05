@@ -24,6 +24,7 @@ interface Meal {
   date: string;
   foodName: string;
   quantity: number;
+  food_name: string;
 }
 
 const Historico: React.FC = () => {
@@ -120,6 +121,7 @@ const Historico: React.FC = () => {
                   <div key={index}>
                     <h4>{meal.date}</h4>
                     <p>{meal.foodName} - {meal.quantity} kg</p>
+                    <p>{meal.food_name}</p>
                   </div>
                 ))
               ) : (

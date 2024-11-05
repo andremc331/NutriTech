@@ -14,8 +14,6 @@ import Captcha from "./Captcha";
 
 
 export {
-    // EatPage,
-    // FoodPage,
     Loading,
     NotFoundPage,
     Cardapio,
