@@ -24,7 +24,7 @@ routes.use("/eat/food", validadeAcess, eatFood);
 routes.use("/eat/product", validadeAcess, eatProduct);
 routes.use("/field", field);
 routes.use("/goals", validadeAcess, goal); // Rotas de metas protegidas
-routes.use("/historico", validadeAcess, historico); // Garantindo que a validação de acesso está aplicada aqui
+routes.use("/historico", historico); // Garantindo que a validação de acesso está aplicada aqui
 routes.use("/product", validadeAcess, product);
 routes.use("/profile", validadeAcess, profile);
 routes.use("/user", user);

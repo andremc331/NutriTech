@@ -16,33 +16,40 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
-import { UserProvider, FoodContext } from "../contexts";
+import { UserProvider, EatContext } from "../contexts";
 
 const { Title, HistoryboxContainer, HistoryBox, MealInfo, Input, Label } = styled_Historico();
 
 interface Meal {
   date: string;
-  food_name: string;
+  foodName: string;
   quantity: number;
 }
 
 const Historico: React.FC = () => {
-  const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(FoodContext);
-  const [historicoData, setHistoricoData] = useState<Meal[] | null>(null);
+  const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(EatContext);
+  const [historicoData, setHistoricoData] = useState<Meal[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [startDate, setStartDate] = useState<string>("");
   const [endDate, setEndDate] = useState<string>("");
+  const [error, setError] = useState<string | null>(null); // Estado de erro adicionado
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Carrega o histórico inicial
-    const fetchInitialHistorico = async () => {
+    const fetchInitialHistoricoWithFoodName = async () => {
       setLoading(true);
-      await getHistoricoWithFoodName();
-      setLoading(false);
+      setError(null); // Resetar o erro antes de tentar buscar os dados
+      try {
+        const data = await getHistoricoWithFoodName();
+        setHistoricoData(data);
+      } catch (e: any) {
+        setError("Erro ao carregar o histórico."); // Define uma mensagem de erro
+      } finally {
+        setLoading(false);
+      }
     };
 
-    fetchInitialHistorico();
+    fetchInitialHistoricoWithFoodName();
   }, [getHistoricoWithFoodName]);
 
   const handleFilter = async () => {
@@ -51,8 +58,15 @@ const Historico: React.FC = () => {
       return;
     }
     setLoading(true);
-    await getHistoricoByDate(startDate, endDate);
-    setLoading(false);
+    setError(null); // Resetar o erro antes de tentar buscar os dados
+    try {
+      const data = await getHistoricoByDate(startDate, endDate);
+      setHistoricoData(data);
+    } catch (e: any) {
+      setError("Erro ao aplicar o filtro."); // Define uma mensagem de erro
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -99,11 +113,13 @@ const Historico: React.FC = () => {
             <MealInfo>
               {loading ? (
                 <p>Carregando...</p>
-              ) : historicoData && historicoData.length > 0 ? (
+              ) : error ? (
+                <p>{error}</p> // Exibe a mensagem de erro, se houver
+              ) : historicoData.length > 0 ? (
                 historicoData.map((meal, index) => (
                   <div key={index}>
                     <h4>{meal.date}</h4>
-                    <p>{meal.food_name} - {meal.quantity} kg</p>
+                    <p>{meal.foodName} - {meal.quantity} kg</p>
                   </div>
                 ))
               ) : (

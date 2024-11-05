@@ -33,13 +33,9 @@ export interface FoodContextProps {
   pageFoods: PageProps | null;
   food: FoodNutrientsProps | null;
   error: ErrorProps | null;
-  historicoData: Meal[] | null; // Atualize aqui para usar Meal[]
   getFoodsByPage: (page: number) => Promise<void>;
   search: (term: string) => Promise<void>;
   getById: (id: string) => Promise<void>;
-  getHistoricoWithFoodName: () => Promise<void>;
-  getHistoricoByDate: (startDate: string, endDate: string) => Promise<void>;
-  getHistoricoByUser: (userId: string) => Promise<void>;
   setError: (error: ErrorProps | null) => void;
 }
 
@@ -154,6 +150,10 @@ export interface EatContextProps {
   setDate: (value:Date | null) => void;
   searchFood: (term:string) => Promise<boolean>;
   searchProduct: (term:string) => Promise<boolean>;
+  getHistoricoWithFoodName: () => Promise<Meal[]>; // Altere para retornar Meal[]
+  getHistoricoByDate: (startDate: string, endDate: string) => Promise<Meal[]>;
+  getHistoricoByUser: (userId: string) => Promise<Meal[]>;
+  historicoData: Meal[] | null; // Atualize aqui para usar Meal[]
 }
 
 export interface ProductNutrientsProps {

@@ -4,17 +4,18 @@ import { query } from "../database/connection";
 class HistoricoController {
   // Busca todas as refeições no histórico com JOIN para incluir nome do alimento
   public async getHistoricoWithFoodName(req: Request, res: Response): Promise<void> {
-    const { startDate, endDate } = req.query;
+    const { startDate, endDate, userId } = req.query; // Adiciona userId como parâmetro de consulta
     try {
       const result = await query(
         `SELECT ef.date, f.description AS food_name, ef.quantity
          FROM eat_foods ef
          JOIN foods f ON ef.food = f.id
-         WHERE ef.date BETWEEN $1 AND $2
+         WHERE ef._user = $1 
+           AND ef.date BETWEEN $2 AND $3
          ORDER BY ef.date DESC`,
-        [startDate, endDate]
+        [userId, startDate, endDate]
       );
-      res.json(result.rows);
+      res.json(result);
     } catch (error: any) {
       console.error("Erro ao buscar o histórico:", error);
       res.status(500).json({ error: "Erro ao buscar o histórico de refeições" });
@@ -35,7 +36,7 @@ class HistoricoController {
         'SELECT * FROM eat_foods WHERE date BETWEEN $1 AND $2 ORDER BY date DESC',
         [startDate, endDate]
       );
-      res.json(result.rows);
+      res.json(result);
     } catch (error: any) {
       console.error("Erro ao buscar histórico por data:", error);
       res.status(500).json({ error: 'Erro ao buscar histórico por data' });

@@ -3,7 +3,7 @@ import { api } from "./api";
 
 class Historico {
   // Método para buscar todas as refeições no histórico
-  async getHistorico(): Promise<RefeicaoProps[] | ErrorProps> {
+  async getHistoricoWithFoodName(): Promise<RefeicaoProps[] | ErrorProps> {
     try {
       const { data } = await api.get("/historico"); // Confere se está correto no backend
       return data;
