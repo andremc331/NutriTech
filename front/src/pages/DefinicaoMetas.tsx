@@ -80,16 +80,17 @@ const DefinicaoMetas: React.FC = () => {
             </CardDiet>
           </CardContainer>
             <ButtonContainer>
-              <BackButton type="button" onClick={() => navigate("/Info-pessoal")}>
-                <Icon>
-                  <IonIcon icon={Icons.chevronBack} />
-                </Icon>
-              </BackButton>
-              <Button type="submit" onClick={() => { enviarMeta(); navigate("/termosdeuso"); }} >
-                <Icon>
-                  <IonIcon icon={Icons.chevronForward} />
-                </Icon>
-              </Button>
+            <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>
+              <Icon>
+                <IonIcon icon={Icons.chevronBack} />
+              </Icon>
+              Voltar
+            </BackButton>
+            <Button type="submit">Avançar
+              <Icon>
+                <IonIcon icon={Icons.chevronForward} />
+              </Icon>
+            </Button>
             </ButtonContainer>
         </FormContainer>
       </Body>

@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom"; // Importa o useNavigate
 import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
 
-const { Title, CardBox, Label, Select, Input, Row, ButtonAdd } =
+const { CardBox, Label, Select, Input, Row, ButtonAdd } =
   styled_Cardapio();
 
 const Cardapio: React.FC = () => {
@@ -40,22 +40,22 @@ const Cardapio: React.FC = () => {
         {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
-            <Item onClick={() => navigate("/home")}>
+            <Item onClick={() => navigate("/home")} title="Home">
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/cardapio")}>
+            <Item onClick={() => navigate("/cardapio")} title="Cardapio">
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/historico")}>
+            <Item onClick={() => navigate("/historico")} title="Histórico">
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/metas")}>
+            <Item onClick={() => navigate("/metas")} title="Progresso">
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
@@ -65,8 +65,6 @@ const Cardapio: React.FC = () => {
       </ContainerMenu>
       {/* Corpo da aplicação */}
       <ContainerBody>
-        <Title>Cardápio</Title>
-
         <CardBox>
           <Row>
             <Label>Refeição:</Label>
@@ -106,7 +104,8 @@ const Cardapio: React.FC = () => {
             <Input type="number" min="0" step="0.01" placeholder="0.00" />
 
           </Row>
-            <ButtonAdd onClick={() => {/* lógica para adicionar um novo item  */}}>
+            <ButtonAdd onClick={() => {/* lógica para adicionar um novo item  */}}
+              title="Adicionar">
               <Icon>
                 <IonIcon icon={Icons.add} />
               </Icon>

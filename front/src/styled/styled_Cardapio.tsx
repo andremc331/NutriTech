@@ -2,13 +2,6 @@ import styled from "styled-components";
 
 const styled_Cardapio = () => {
 
-  const Title = styled.h2`
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-size: 50px;
-    text-transform: uppercase;
-  `;
-
   const CardBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -95,7 +88,6 @@ const styled_Cardapio = () => {
   `;
 
   return { 
-    Title,
     CardBox,
     Label,
     Select,

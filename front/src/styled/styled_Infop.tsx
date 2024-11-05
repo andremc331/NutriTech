@@ -153,16 +153,20 @@ const styled_Infop = () => {
   `;
 
   const Button = styled.button`
-    width: 60px;
-    height: 50px;
-    background-color: var(--color-9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: var(--color-5);
+    font-weight: bold;
+    font-size: 18px;
     color: var(--color-1);
     border: none;
+    padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
 
     &:hover {
       background-color: #1ca885;
@@ -175,16 +179,20 @@ const styled_Infop = () => {
   `;
 
   const BackButton = styled(Button)`
-    width: 60px;
-    height: 50px;
-    background-color: var(--color-9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    background-color: var(--color-5);
+    font-weight: bold;
+    font-size: 18px;
     color: var(--color-1);
     border: none;
+    padding: 10px 20px;
     border-radius: 10px;
     cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    transition: background-color 0.3s ease;
+    margin-top: 20px;
 
     &:hover {
       background-color: #1ca885;

@@ -2,15 +2,15 @@ import React from "react";
 import MealChart from "../components/MealChart";
 import imgLogoSemFundo from "../logo/img-logo-semfundo.png";
 import {
-  ContainerBody, 
-  ContainerMenu, 
-  Navbar, 
-  Sidebar, 
-  SidebarContent, 
+  ContainerBody,
+  ContainerMenu,
+  Navbar,
+  Sidebar,
+  SidebarContent,
   Icon,
-  Ico, 
-  Item, 
-  Footer, 
+  Ico,
+  Item,
+  Footer,
   ImgIcon,
 } from "../styled/styled_Main";
 import { IonIcon } from "@ionic/react";
@@ -21,18 +21,18 @@ import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
 
 const {
-  InfoBox1, 
-  InfoBox2, 
-  FoodBox, 
-  MealInfo, 
-  MealKcal, 
-  MealType, 
-  Mealtime, 
-  MealItems, 
+  InfoBox1,
+  InfoBox2,
+  FoodBox,
+  MealInfo,
+  MealKcal,
+  MealType,
+  Mealtime,
+  MealItems,
   ChartContainer,
-  FoodBoxContainer, 
-  MealTimeContainer, 
-  MealTypeContainer, 
+  FoodBoxContainer,
+  MealTimeContainer,
+  MealTypeContainer,
   InfoBoxContainer,
 } = styled_Home();
 
@@ -64,35 +64,38 @@ const Home: React.FC = () => {
   const calcularConsumoAgua = (peso: number): string => {
     const consumo = peso * 35; // Consumo em mililitros
     const litros = consumo / 1000; // Convertendo para litros
-    return `${litros.toFixed(1).replace('.', ',')} L`; // Formata o resultado
+    return `${litros.toFixed(1).replace(".", ",")} L`; // Formata o resultado
   };
   // Exemplo de uso da função
   const peso = 70; // Substitua pelo peso real da pessoa
   const consumoAgua = calcularConsumoAgua(peso);
 
   // Função para calcular o IMC e o grau correspondente
-  const calcularIMC = (peso: number, altura: number): { imc: string; grau: string } => {
+  const calcularIMC = (
+    peso: number,
+    altura: number
+  ): { imc: string; grau: string } => {
     const imc = peso / (altura * altura); // IMC = peso / (altura * altura)
-    let grau = '';
+    let grau = "";
     // Determinando o grau de IMC com base na tabela
     if (imc < 16) {
-    grau = 'Magreza grave';
+      grau = "Magreza grave";
     } else if (imc >= 16 && imc < 16.9) {
-      grau = 'Magreza moderada';
+      grau = "Magreza moderada";
     } else if (imc >= 17 && imc < 18.5) {
-      grau = 'Magreza leve';
+      grau = "Magreza leve";
     } else if (imc >= 18.6 && imc < 24.9) {
-      grau = 'Peso ideal';
+      grau = "Peso ideal";
     } else if (imc >= 25 && imc < 29.9) {
-      grau = 'Sobrepeso';
+      grau = "Sobrepeso";
     } else if (imc >= 30 && imc < 34.9) {
-      grau = 'Obesidade grau I';
+      grau = "Obesidade grau I";
     } else if (imc >= 35 && imc < 39.9) {
-      grau = 'Obesidade grau II';
+      grau = "Obesidade grau II";
     } else {
-      grau = 'Obesidade grau III ou superior';
+      grau = "Obesidade grau III ou superior";
     }
-    return { imc: imc.toFixed(1).replace('.', ','), grau }; // Retorna IMC formatado e grau
+    return { imc: imc.toFixed(1).replace(".", ","), grau }; // Retorna IMC formatado e grau
   };
   // Exemplo de uso da função
   const pesoPessoa = 70; // Substitua pelo peso real da pessoa
@@ -114,22 +117,22 @@ const Home: React.FC = () => {
         {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
-            <Item onClick={() => navigate("/home")}>
+            <Item onClick={() => navigate("/home")} title="Home">
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/cardapio")}>
+            <Item onClick={() => navigate("/cardapio")} title="Cardapio">
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/historico")}>
+            <Item onClick={() => navigate("/historico")} title="Histórico">
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/metas")}>
+            <Item onClick={() => navigate("/metas")} title="Progresso">
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
@@ -167,7 +170,7 @@ const Home: React.FC = () => {
             <MealInfo>
               <MealTypeContainer>
                 {/* adicionar o tipo de refeição nesse campo */}
-                <MealType>Almoço</MealType> 
+                <MealType>Almoço</MealType>
               </MealTypeContainer>
               {/* adicionar o horario da refeição nesse campo */}
               <MealTimeContainer>
@@ -178,9 +181,9 @@ const Home: React.FC = () => {
               </MealTimeContainer>
               {/* os alimentos devem esntrar nesse campo */}
               <MealItems>
-              {items.map((item, index) => (
-                <p key={index}>- {item}</p>
-              ))}
+                {items.map((item, index) => (
+                  <p key={index}>- {item}</p>
+                ))}
               </MealItems>
               {/* o resultado do calculo de calorias deve aparecer nesse campo */}
               <MealKcal>
@@ -188,7 +191,7 @@ const Home: React.FC = () => {
                 {totalCalorias}
               </MealKcal>
             </MealInfo>
-              {/* os nutrientes da refeição devem constar no grafico nesse campo */}
+            {/* os nutrientes da refeição devem constar no grafico nesse campo */}
             <ChartContainer>
               <MealChart />
             </ChartContainer>

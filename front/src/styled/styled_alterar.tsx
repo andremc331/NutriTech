@@ -1,43 +1,9 @@
 import styled from "styled-components";
 
-const styled_Cadastro = () => {
-  // const Body = styled.body`
-  //   background-color: #7E5EC2;
-  //   overflow: hidden;
-  //   width: 100vw;
-  //   height: 100vh;
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
-  //   padding: 20px; /* Ajuste de padding para telas menores */
-
-  //   @media (max-width: 768px) {
-  //     padding: 10px; /* Reduz o padding em telas menores */
-  //   }
-  // `;
-
-  const ImageContainer = styled.div`
-    text-align: center;
-    max-width: 100%;
-    margin: 10px auto;
-
-    img {
-      width: 230px; /* Ajuste conforme necessário */
-      height: auto;
-
-      @media (max-width: 768px) {
-        width: 200px; /* Reduz a imagem em telas menores */
-      }
-
-      @media (max-width: 480px) {
-        width: 150px; /* Reduz ainda mais para telas muito pequenas */
-      }
-    }
-  `;
-
+const styled_alterar = () => {
+  
   const FormContainer = styled.div`
-    width: 800px;
+    width: 400px;
     margin: 20px auto;
     padding: 30px;
     margin-top: 10px;
@@ -116,26 +82,7 @@ const styled_Cadastro = () => {
     }
   `;
 
-  const FormGroupRow = styled.div`
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 15px;
-
-    .form-group {
-      flex: 1;
-      margin-right: 10px; /* Espaço entre os inputs */
-
-      &:last-child {
-        margin-right: 0; /* Remove a margem do último item */
-      }
-
-      @media (max-width: 768px) {
-        margin-right: 0; /* Remove margens em telas menores */
-      }
-    }
-  `;
-
-  const Button = styled.button`
+  const SaveButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -168,12 +115,12 @@ const styled_Cadastro = () => {
     }
   `;
 
-  const BackButton = styled(Button)`
+  const CancelButton = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
-    background-color: var(--color-5);
+    background-color: var(--color-13);
     font-weight: bold;
     font-size: 18px;
     color: var(--color-1);
@@ -185,7 +132,7 @@ const styled_Cadastro = () => {
     margin-top: 20px;
 
     &:hover {
-      background-color: #1ca885;
+      background-color: #de3163;
     }
   `;
 
@@ -228,18 +175,16 @@ const styled_Cadastro = () => {
   `;
 
   return {
-    ImageContainer,
     FormContainer,
     Title,
     FormGroup,
     Label,
     Input,
-    FormGroupRow,
-    Button,
-    BackButton,
+    SaveButton,
+    CancelButton,
     ButtonContainer,
     NavigationButton,
   };
 };
 
-export default styled_Cadastro;
+export default styled_alterar;

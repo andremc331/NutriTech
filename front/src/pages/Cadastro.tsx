@@ -157,8 +157,9 @@ const Cadastro: React.FC = () => {
               <Icon>
                 <IonIcon icon={Icons.chevronBack} />
               </Icon>
+              Voltar ao Login
             </BackButton>
-            <Button type="submit">
+            <Button type="submit">Avançar
               <Icon>
                 <IonIcon icon={Icons.chevronForward} />
               </Icon>

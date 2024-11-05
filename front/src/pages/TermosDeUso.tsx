@@ -118,9 +118,9 @@ const TermosDeUso: React.FC = () => {
               <Icon>
                 <IonIcon icon={Icons.chevronBack} />
               </Icon>
+              Voltar
             </BackButton>
-            <Button className="next-button" onClick={handleNextClick}>
-              Salvar
+            <Button className="next-button" onClick={handleNextClick}>Salvar
               <Icon>
                 <IonIcon icon={Icons.checkmark} />
               </Icon>

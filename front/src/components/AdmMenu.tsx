@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useUser } from "../hooks";
 import { Link } from "react-router-dom";
@@ -38,7 +38,7 @@ export default function AdmMenu() {
             <UserIcon onClick={toggleMenu}>{currentUser?.alias.charAt(0).toUpperCase()}</UserIcon>
             {isOpen && (
                 <DropdownMenu>
-                    <StyledLink to="/cadastro" onClick={() => setIsOpen(false)}>
+                    <StyledLink to="/alterar-user" onClick={() => setIsOpen(false)}>
                         Editar Informações de Usuário
                     </StyledLink>
                     <StyledLink to="/configuracoes" onClick={() => setIsOpen(false)}>

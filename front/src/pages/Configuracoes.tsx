@@ -21,6 +21,7 @@ import Perfil2 from "../logo/Perfil2.jpeg";
 import Perfil3 from "../logo/Perfil3.jpeg";
 import Perfil4 from "../logo/Perfil4.jpeg";
 import Perfil5 from "../logo/Perfil5.jpeg";
+import Perfil6 from "../logo/Perfil6.jpeg";
 import { useNavigate } from "react-router-dom";
 import { UserProvider } from "../contexts";
 import { AdmMenu } from "../components";
@@ -56,22 +57,22 @@ const Configuracoes: React.FC = () => {
         {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
-            <Item onClick={() => navigate("/home")}>
+            <Item onClick={() => navigate("/home")} title="Home">
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/cardapio")}>
+            <Item onClick={() => navigate("/cardapio")} title="Cardapio">
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/historico")}>
+            <Item onClick={() => navigate("/historico")} title="Histórico">
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/metas")}>
+            <Item onClick={() => navigate("/metas")} title="Progresso">
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
@@ -191,7 +192,7 @@ const Configuracoes: React.FC = () => {
           </TeamSection1>
 
           <TeamSection2>
-            <ImgPerfil2 src={Perfil3} alt="perfil valcir" />
+            <ImgPerfil2 src={Perfil6} alt="perfil valcir" />
             <div>
               <Title2>Dev team: Valcir Jr.</Title2>
               <IconsContainer>

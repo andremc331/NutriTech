@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
 
-const { Title, HistoryboxContainer, HistoryBox, MealInfo, Input, Label } =
+const { HistoryboxContainer, HistoryBox, MealInfo, Input, Label } =
   styled_Historico();
 
 interface Meal {
@@ -68,22 +68,22 @@ const Historico: React.FC = () => {
         {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
-            <Item onClick={() => navigate("/home")}>
+            <Item onClick={() => navigate("/home")} title="Home">
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/cardapio")}>
+            <Item onClick={() => navigate("/cardapio")} title="Cardapio">
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/historico")}>
+            <Item onClick={() => navigate("/historico")} title="Histórico">
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/metas")}>
+            <Item onClick={() => navigate("/metas")} title="Progresso">
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
@@ -93,7 +93,6 @@ const Historico: React.FC = () => {
       </ContainerMenu>
       {/* Corpo da aplicação */}
       <ContainerBody>
-        <Title>Histórico</Title>
         <Label>
           Data Inicial:
           <Input type="date" />

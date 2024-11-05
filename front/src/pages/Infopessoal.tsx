@@ -256,16 +256,17 @@ const Infopessoal: React.FC = () => {
             </Select>
 
             <ButtonContainer>
-              <BackButton type="button" onClick={() => navigate("/cadastro")}>
-                <Icon>
-                  <IonIcon icon={Icons.chevronBack} />
-                </Icon>
-              </BackButton>
-              <Button type="submit">
-                <Icon>
-                  <IonIcon icon={Icons.chevronForward} />
-                </Icon>
-              </Button>
+            <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>
+              <Icon>
+                <IonIcon icon={Icons.chevronBack} />
+              </Icon>
+              Voltar
+            </BackButton>
+            <Button type="submit">Avançar
+              <Icon>
+                <IonIcon icon={Icons.chevronForward} />
+              </Icon>
+            </Button>
             </ButtonContainer>
           </form>
 

@@ -10,6 +10,7 @@ import Cardapio from './pages/Cardapio';
 import Historico from './pages/Historico';
 import Progresso from './pages/Progresso';
 import Configuracoes from './pages/Configuracoes';
+import AlterarUser from './pages/AlterarUser';
 import { UserProvider } from './hooks/useUser';
 import { GlobalStyles } from './styled/styled_Main';
 
@@ -31,6 +32,7 @@ const App: React.FC = () => {
                     <Route path="/historico" element={<Historico />} />
                     <Route path="/metas" element={<Progresso />} />
                     <Route path="/configuracoes" element={<Configuracoes />} />
+                    <Route path="/alterar-user" element={<AlterarUser />} />
                 </Routes>
                 </UserProvider>
             </Router>

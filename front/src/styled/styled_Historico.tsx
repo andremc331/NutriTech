@@ -1,12 +1,6 @@
 import styled from "styled-components";
 
 const styled_Historico = () => {
-  const Title = styled.h2`
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-size: 50px;
-    text-transform: uppercase;
-  `;
 
   const HistoryboxContainer = styled.div`
     font-family: "Roboto", sans-serif;
@@ -79,7 +73,6 @@ const styled_Historico = () => {
   `;
 
   return {
-    Title,
     HistoryboxContainer,
     HistoryBox,
     MealInfo,
