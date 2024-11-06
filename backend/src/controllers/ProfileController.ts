@@ -3,7 +3,7 @@ import { query } from "../database/connection";
 
 class ProfileController {
   // Rota para buscar peso e altura sem sobrescrever outras rotas
-  public async getWeightAndHeight(req: Request, res: Response): Promise<void> {
+  public async fetchWeightAndHeight(req: Request, res: Response): Promise<void> {
     const { id } = res.locals; // Obtém o id do usuário a partir do token ou sessão
     try {
       // Realiza a consulta no banco de dados

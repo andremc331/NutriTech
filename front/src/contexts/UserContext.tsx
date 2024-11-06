@@ -198,11 +198,24 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
-  
+  const fetchWeightAndHeight = async (): Promise<{ weight: number; height: number }> => {
+    try {
+      const response = await Profile.list(); // Supõe que Profile.list retorna um array
+      if (isErrorProps(response) || response.length === 0) {
+        throw new Error("Erro ao obter peso e altura");
+      }
+      const { weight, height } = response[0]; // Acessando o primeiro item da lista
+      return { weight, height };
+    } catch (error) {
+      console.error("Erro ao buscar peso e altura:", error);
+      return { weight: 0, height: 0 }; // Valores padrão em caso de erro
+    }
+  };
 
   return (
     <UserContext.Provider
       value={{
+        fetchWeightAndHeight,
         currentUser,
         loading,
         token,

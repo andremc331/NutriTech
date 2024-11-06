@@ -27,6 +27,7 @@ export interface UserContextProps {
   deleteProfile: () => Promise<boolean>;
   saveGoal: (goal: string) => Promise<boolean>;
   getGoals: () => Promise<void>;
+  fetchWeightAndHeight: () => Promise<{ weight: number; height: number }>;
 }
 
 export interface FoodContextProps {
@@ -221,9 +222,9 @@ export interface TokenProps extends UserProps {
 
 export interface ProfileProps {
   birth_date: string;
-  weight: number|null;
+  weight: number;
   sex: string;
-  height: number|null; 
+  height: number; 
 }
 
 export interface EatProductProps {

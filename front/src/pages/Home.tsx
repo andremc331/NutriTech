@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import MealChart from "../components/MealChart";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { ContainerBody, ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, Footer, ImgIcon } from "../styled/styled_Main";
@@ -8,6 +8,7 @@ import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserContext, UserProvider } from "../contexts";
+import { UserContextProps } from "../types";
 
 const {
   InfoBox1,
@@ -45,21 +46,21 @@ const Home: React.FC = () => {
   const [pesoPessoa, setPesoPessoa] = useState<number>(0);
   const [alturaPessoa, setAlturaPessoa] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
-  // const { fetchWeightAndHeight } = UserContext(UserContext);
+  const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } = useContext(UserContext) || {} as UserContextProps;
 
-  // useEffect(() => {
-  //   // Chama o serviço para obter peso e altura
-  //   const fetchData = async () => {
-  //     const data = await fetchWeightAndHeight();
-  //     if ("weight" in data && "height" in data) {
-  //       setPesoPessoa(data.weight);
-  //       setAlturaPessoa(data.height);
-  //     }
-  //     setLoading(false);
-  //   };
+  useEffect(() => {
+    // Chama o serviço para obter peso e altura
+    const fetchData = async () => {
+      const data = await fetchWeightAndHeight();
+      if ("weight" in data && "height" in data) {
+        setPesoPessoa(data.weight);
+        setAlturaPessoa(data.height);
+      }
+      setLoading(false);
+    };
 
-  //   fetchData();
-  // }, []);
+    fetchData();
+  }, []);
 
   const calcularCalorias = (items: MealItem[], index: number): number => {
     if (index < 0) return 0;
