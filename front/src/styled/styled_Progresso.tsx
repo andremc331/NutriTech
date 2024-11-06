@@ -6,12 +6,6 @@ const styled_Metas = () => {
     flex-direction: row;
     gap: 20px;
   `;
-  const Title = styled.h2`
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-size: 45px;
-    text-transform: uppercase;
-  `;
 
   const ChartContainer = styled.div`
     display: flex;
@@ -20,7 +14,7 @@ const styled_Metas = () => {
   `;
 
   const PesoChart = styled.div`
-  flex-direction: row;
+    flex-direction: row;
     padding: 20px;
     border-radius: 10px;
     width: 100%;
@@ -33,7 +27,7 @@ const styled_Metas = () => {
 
     .content {
       display: flex;
-      
+
       width: 90%;
       height: 90%;
       z-index: 1;
@@ -78,7 +72,7 @@ const styled_Metas = () => {
     margin: 20px 0 0;
     border-radius: 10px;
     width: 100%;
-    height: 250px;
+    height: 280px;
     color: var(--color-1);
     background-color: var(--color-5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -112,7 +106,7 @@ const styled_Metas = () => {
 
     .objetivo {
       font-size: 25px;
-      margin-left: 5px; /* Espaço entre os labels, se necessário */
+      margin-left: 10px; /* Espaço entre os labels, se necessário */
     }
   `;
 
@@ -142,16 +136,92 @@ const styled_Metas = () => {
     }
   `;
 
+  const Button = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-left: 20px;
+    background-color: var(--color-5);
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--color-1);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #1ca885;
+    }
+  `;
+
+  // Estilos do Modal
+  const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px); /* Efeito de embasamento */
+    z-index: 9999; /* Garante que o modal fique sobre o conteúdo */
+  `;
+
+  const ModalContent = styled.div`
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra leve */
+  `;
+
+  const ModalButtons = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+  `;
+
+  const ButtonCancel = styled.button`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-left: 20px;
+    background-color: var(--color-13);
+    font-weight: bold;
+    font-size: 18px;
+    color: var(--color-1);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #de3163;
+    }
+  `;
+
   return {
-    Title,
     FoodChart,
     GoalInfo,
     PesoChart,
     Label,
     Input,
+    Button,
+    ButtonCancel,
     Container,
     ChartContainer,
-    VerticalContainer
+    VerticalContainer,
+    ModalOverlay,
+    ModalContent,
+    ModalButtons,
   };
 };
 export default styled_Metas;

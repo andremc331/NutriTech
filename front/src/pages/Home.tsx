@@ -7,8 +7,7 @@ import { Icons } from "../components/icons";
 import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
-import { UserProvider } from "../contexts";
-import { fetchWeightAndHeight } from "../services/homeService";  // Importa a função do serviço
+import { UserContext, UserProvider } from "../contexts";
 
 const {
   InfoBox1,
@@ -46,20 +45,21 @@ const Home: React.FC = () => {
   const [pesoPessoa, setPesoPessoa] = useState<number>(0);
   const [alturaPessoa, setAlturaPessoa] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  // const { fetchWeightAndHeight } = UserContext(UserContext);
 
-  useEffect(() => {
-    // Chama o serviço para obter peso e altura
-    const fetchData = async () => {
-      const data = await fetchWeightAndHeight();
-      if ("weight" in data && "height" in data) {
-        setPesoPessoa(data.weight);
-        setAlturaPessoa(data.height);
-      }
-      setLoading(false);
-    };
+  // useEffect(() => {
+  //   // Chama o serviço para obter peso e altura
+  //   const fetchData = async () => {
+  //     const data = await fetchWeightAndHeight();
+  //     if ("weight" in data && "height" in data) {
+  //       setPesoPessoa(data.weight);
+  //       setAlturaPessoa(data.height);
+  //     }
+  //     setLoading(false);
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   const calcularCalorias = (items: MealItem[], index: number): number => {
     if (index < 0) return 0;

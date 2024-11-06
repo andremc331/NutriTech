@@ -96,7 +96,8 @@ const styled_alterar = () => {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     &:hover {
       background-color: #1ca885;
@@ -129,7 +130,8 @@ const styled_alterar = () => {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     &:hover {
       background-color: #de3163;

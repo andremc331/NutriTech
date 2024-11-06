@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   ContainerBody,
   ContainerMenu,
@@ -5,6 +6,7 @@ import {
   Sidebar,
   SidebarContent,
   Icon,
+  Ico,
   Item,
   Footer,
   ImgIcon,
@@ -23,12 +25,16 @@ const {
   FoodChart,
   GoalInfo,
   PesoChart,
-  Title,
   Label,
   Input,
+  Button,
+  ButtonCancel,
   Container,
   ChartContainer,
   VerticalContainer,
+  ModalOverlay,
+  ModalContent,
+  ModalButtons,
 } = styled_Progresso();
 
 const Metas: React.FC = () => {
@@ -45,6 +51,28 @@ const Metas: React.FC = () => {
   const pesoAtual = weights[weights.length - 1]; // Peso atual
   const mediaTotal = calculateAverage(weights); // Média dos pesos
 
+  //Função para o botão atualizar o peso
+  // Estado para controlar a visibilidade do modal de atualização de peso
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newWeight, setNewWeight] = useState<number | "">(""); // Estado para o novo peso
+
+  // Função para abrir o modal
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // Função para fechar o modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Função para salvar o novo peso
+  const saveWeight = () => {
+    // Aqui você pode atualizar o peso na sua lógica
+    console.log("Novo peso salvo:", newWeight);
+    setIsModalOpen(false); // Fecha o modal
+  };
+
   return (
     <>
       {/* Barra de navegação da aplicação */}
@@ -60,22 +88,22 @@ const Metas: React.FC = () => {
         {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
-            <Item onClick={() => navigate("/home")}>
+            <Item onClick={() => navigate("/home")} title="Home">
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/cardapio")}>
+            <Item onClick={() => navigate("/cardapio")} title="Cardapio">
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/historico")}>
+            <Item onClick={() => navigate("/historico")} title="Histórico">
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/metas")}>
+            <Item onClick={() => navigate("/metas")} title="Progresso">
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
@@ -86,7 +114,6 @@ const Metas: React.FC = () => {
       {/* Corpo da aplicação */}
       <ContainerBody>
         <Container>
-          <Title>Progresso</Title>
           <Label>
             Data Inicial:
             <Input type="date" />
@@ -120,17 +147,46 @@ const Metas: React.FC = () => {
               <div className="objetivo-container">
                 <label className="objetivo">Média Total:</label>
                 <label className="objetivo">{mediaTotal.toFixed(1)} KG</label>
+                <Button onClick={openModal}>
+                  Atualizar
+                  <Icon>
+                    <IonIcon icon={Icons.create} />
+                  </Icon>
+                </Button>
               </div>
             </div>
           </GoalInfo>
         </VerticalContainer>
       </ContainerBody>
+
+      {/* Modal de atualização de peso */}
+      {isModalOpen && (
+        <ModalOverlay>
+          <ModalContent>
+            <h3>Atualizar Peso</h3>
+            <Input
+              type="text"
+              value={newWeight}
+              onChange={(e) => setNewWeight(Number(e.target.value))}
+            />
+            <ModalButtons>
+              <ButtonCancel onClick={closeModal}>Cancelar</ButtonCancel>
+              <Button onClick={saveWeight}>Salvar</Button>
+            </ModalButtons>
+          </ModalContent>
+        </ModalOverlay>
+      )}
+
       {/* Rodapé da aplicação */}
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
           <br />
           Todos os direitos reservados
+          <br />
+          <Ico>
+            <IonIcon icon={Icons.logoGithub} /> github.com/andremc331/NutriTech
+          </Ico>
         </div>
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />

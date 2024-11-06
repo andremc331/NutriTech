@@ -198,6 +198,8 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
+  
+
   return (
     <UserContext.Provider
       value={{

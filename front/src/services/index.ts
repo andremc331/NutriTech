@@ -4,7 +4,7 @@ import Field from "./Field";
 import Food from "./Food";
 import Goal from "./Goal";
 import Historico from "./Historico";
-import Home from "./Home";
+// import Home from "./Home";
 import Product from "./Product";
 import Profile from "./Profile";
 import User from "./User";
@@ -19,5 +19,5 @@ export {
     User,
     Goal,
     Historico,
-    Home
+    // Home
 }
