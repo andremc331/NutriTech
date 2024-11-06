@@ -80,13 +80,13 @@ const DefinicaoMetas: React.FC = () => {
             </CardDiet>
           </CardContainer>
             <ButtonContainer>
-            <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>
+            <BackButton type="button" onClick={() => navigate("/info-pessoal")}>
               <Icon>
                 <IonIcon icon={Icons.chevronBack} />
               </Icon>
               Voltar
             </BackButton>
-            <Button type="submit">Avançar
+            <Button type="submit" onClick={() => navigate("/TermosDeUso")}>Avançar
               <Icon>
                 <IonIcon icon={Icons.chevronForward} />
               </Icon>
