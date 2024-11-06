@@ -5,6 +5,8 @@ import { Icon } from "../styled/styled_Main";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import Captcha from "./Captcha";
+
 
 const {
   ButtonContainer,
@@ -30,6 +32,15 @@ const TermosDeUso: React.FC = () => {
       alert("Você precisa concordar com ambos os termos antes de prosseguir.");
     }
   };
+
+  // // Função para quando o Captcha for validado
+  // const handleCadastro = async (): Promise<void> => {
+  //   // Primeiro, verifica se o Captcha foi validado
+  //   if (!isCaptchaVerified) {
+  //     window.alert("Por favor, verifique o CAPTCHA.");
+  //     return;
+  //   }
+
 
   return (
     <>
@@ -113,11 +124,22 @@ const TermosDeUso: React.FC = () => {
               Eu concordo com a Política de Privacidade
             </label>
           </CheckboxGroup>
+
+          {/* Componente Captcha */}
+          {/* <Captcha onVerified={async () => setIsCaptchaVerified(true)} setIsVerified={setIsCaptchaVerified} />
+          {/* Renderiza o botão de cadastro apenas se o CAPTCHA estiver verificado */}
+          {/* {isCaptchaVerified && (
+            <button type="button" onClick={handleCadastro}>
+              Confirmar Cadastro
+            </button>
+          // )} */}
+
           <ButtonContainer>
             <BackButton type="button" onClick={() => navigate("/Definicao-Metas")}>
               <Icon>
                 <IonIcon icon={Icons.chevronBack} />
               </Icon>
+              Voltar
             </BackButton>
             <Button className="next-button" onClick={handleNextClick}>
               Salvar

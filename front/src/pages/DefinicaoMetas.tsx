@@ -97,7 +97,10 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Perder peso" ? "selected" : ""}
           >
             <CardTitle>Perder Peso</CardTitle>
-            <Text>Emagracimento envolve uma combinação de alimentação equilibrada e atividade física regular...</Text>
+            <Text>
+              Emagracimento envolve uma combinação de alimentação equilibrada e
+              atividade física regular...
+            </Text>
           </CardLoseWeight>
 
           <CardGainWeight
@@ -105,7 +108,10 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Ganhar peso" ? "selected" : ""}
           >
             <CardTitle>Ganhar Peso</CardTitle>
-            <Text>Engordar envolve aumentar a massa muscular e/ou a gordura de maneira saudável...</Text>
+            <Text>
+              Engordar envolve aumentar a massa muscular e/ou a gordura de
+              maneira saudável...
+            </Text>
           </CardGainWeight>
 
           <CardMuscle
@@ -113,7 +119,10 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Ganhar peso" ? "selected" : ""}
           >
             <CardTitle>Ganhar Massa Muscular</CardTitle>
-            <Text>Hipertrofismo envolve o aumento da força e volume muscular através de treinamento...</Text>
+            <Text>
+              Hipertrofismo envolve o aumento da força e volume muscular através
+              de treinamento...
+            </Text>
           </CardMuscle>
 
           <CardDiet
@@ -121,7 +130,10 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Manter peso" ? "selected" : ""}
           >
             <CardTitle>Monitorar Dieta</CardTitle>
-            <Text>Educação Alimentar envolve a conscientização e o registro dos alimentos consumidos diariamente...</Text>
+            <Text>
+              Educação Alimentar envolve a conscientização e o registro dos
+              alimentos consumidos diariamente...
+            </Text>
           </CardDiet>
         </CardContainer>
 
@@ -130,17 +142,21 @@ const DefinicaoMetas: React.FC = () => {
             <Icon>
               <IonIcon icon={Icons.chevronBack} />
             </Icon>
+            Voltar
           </BackButton>
-          <Button onClick={enviarMeta}>Next</Button>
+          <Button onClick={enviarMeta}>
+            Avançar
+            <Icon>
+              <IonIcon icon={Icons.chevronForward} />
+            </Icon>
+          </Button>
           {/* Popup de confirmação */}
-        {showPopup && (
-          <PopupMessage onClick={() => setShowPopup(false)}>
-            <p>{messagePopup}</p>
-          </PopupMessage>
-        )}
+          {showPopup && (
+            <PopupMessage onClick={() => setShowPopup(false)}>
+              <p>{messagePopup}</p>
+            </PopupMessage>
+          )}
         </ButtonContainer>
-
-        
       </FormContainer>
     </>
   );
