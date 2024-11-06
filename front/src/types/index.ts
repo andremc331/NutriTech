@@ -26,7 +26,7 @@ export interface UserContextProps {
   ) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
   saveGoal: (goal: string) => Promise<boolean>;
-  getGoals: () => Promise<void>;
+  getGoals: () => Promise <GoalProps[]>;
   fetchWeightAndHeight: () => Promise<{ weight: number; height: number }>;
 }
 
@@ -63,6 +63,10 @@ export interface RefeicaoProps {
   userId: string;
   food_name: string;
 }
+
+// export interface userGoal {
+//   userGoal: GoalProps[]
+// }
 
 export interface FoodNutrientsProps {
   id: string;

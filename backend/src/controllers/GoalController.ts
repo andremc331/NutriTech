@@ -11,7 +11,7 @@ class GoalController {
          WHERE goals_user_id = $1`,
         [id]
       );
-      res.status(200).json(result.rows);
+      res.status(200).json(result);
     } catch (error: any) {
       res.status(500).json({ error: "Erro ao obter metas." });
     }

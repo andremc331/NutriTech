@@ -183,18 +183,18 @@ export function UserProvider({ children }: ProviderProps) {
   };
   
   // Obtém as metas
-  const getGoals = async (): Promise<void> => {
+  const getGoals = async (): Promise<GoalProps[]> => {
     try {
       const response = await Goal.getGoals();
       if (!isErrorProps(response)) {
-        // Atualize o estado com as metas recebidas
-        // Supondo que você tenha um estado para as metas
-        setGoals(response); // Assumindo que você tenha um estado chamado setGoals
+        return response; // Retorne os objetivos
       } else {
-        setError(response);
+        setError(response); // Caso haja erro, trate da maneira adequada
+        return []; // Caso ocorra erro, retorna um array vazio
       }
     } catch (error) {
       setError({ error: "Erro ao obter as metas." });
+      return []; // Caso ocorra erro, retorna um array vazio
     }
   };
 

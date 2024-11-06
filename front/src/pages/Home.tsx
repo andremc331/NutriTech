@@ -8,7 +8,7 @@ import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserContext, UserProvider } from "../contexts";
-import { UserContextProps } from "../types";
+import { GoalProps, UserContextProps } from "../types";
 
 const {
   InfoBox1,
@@ -46,16 +46,22 @@ const Home: React.FC = () => {
   const [pesoPessoa, setPesoPessoa] = useState<number>(0);
   const [alturaPessoa, setAlturaPessoa] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
+  const [goals, setGoals] = useState<GoalProps[]>([]); 
+  const { getGoals } = useContext(UserContext) || {} as UserContextProps;
   const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } = useContext(UserContext) || {} as UserContextProps;
 
   useEffect(() => {
-    // Chama o serviço para obter peso e altura
+    // Chama o serviço para obter peso, altura e objetivo
     const fetchData = async () => {
       const data = await fetchWeightAndHeight();
       if ("weight" in data && "height" in data) {
         setPesoPessoa(data.weight);
         setAlturaPessoa(data.height);
       }
+
+      const userGoal = await getGoals(); // Chama a função para obter o objetivo do usuário
+      setGoals(userGoal);
+
       setLoading(false);
     };
 
@@ -139,8 +145,9 @@ const Home: React.FC = () => {
               <label className="imc-label">Grau: {resultadoIMC.grau}</label>
               <div className="objetivo-container">
                 <label className="objetivo">Objetivo: </label>
-                <label className="objetivo">Emagrecimento</label>
-              </div>
+                <label className="objetivo">
+                  {goals.length > 0 ? goals.map((goals) => goals.goals).join(', ') : 'Sem objetivo definido'}
+                </label>              </div>
             </div>
           </InfoBox1>
           <InfoBox2>
@@ -195,4 +202,4 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+export default Home;  
