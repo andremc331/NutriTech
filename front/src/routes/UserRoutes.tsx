@@ -1,11 +1,13 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from "react-router-dom";
 import BemVindo from "../pages/BemVindo";
-import { Cadastro, Cardapio, Configuracoes, DefinicaoMetas, InfoPessoal } from "../pages";
+import { Cadastro, Cardapio, DefinicaoMetas, InfoPessoal } from "../pages";
 import TermosDeUso from "../pages/TermosDeUso";
 import Home from "../pages/Home";
 import Progresso from "../pages/Progresso";
 import { UserProvider } from "../contexts";
 import Historico from "../pages/Historico";
+import Sobre from "../pages/Sobre";
+import AtualizarUsuário from "../pages/AtualizarUsuário";
 
 export default function UserRoutes() {
   return (
@@ -22,7 +24,8 @@ export default function UserRoutes() {
           <Route path="/cardapio" element={<Cardapio />} />
           <Route path="/historico" element={<Historico />} />
           <Route path="/metas" element={<Progresso />} />
-          <Route path="/configuracoes" element={<Configuracoes />} />
+          <Route path="/sobre" element={<Sobre />} />
+          <Route path="/atualizar" element={<AtualizarUsuário />} />
         </Routes>
       </UserProvider>
     </Router>

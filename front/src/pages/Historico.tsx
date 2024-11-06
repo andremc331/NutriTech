@@ -18,12 +18,13 @@ import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserProvider, EatContext } from "../contexts";
 
-const { Title, HistoryboxContainer, HistoryBox, MealInfo, Input, Label } = styled_Historico();
+const { Title, HistoryboxContainer, HistoryBox, MealInfo, MealContainer, Input, Label } = styled_Historico();
 
 interface Meal {
   date: string;
   foodName: string;
   quantity: number;
+  food_name: string;
 }
 
 const Historico: React.FC = () => {
@@ -117,10 +118,12 @@ const Historico: React.FC = () => {
                 <p>{error}</p> // Exibe a mensagem de erro, se houver
               ) : historicoData.length > 0 ? (
                 historicoData.map((meal, index) => (
+                  <MealContainer>
                   <div key={index}>
                     <h4>{meal.date}</h4>
                     <p>{meal.foodName} - {meal.quantity} kg</p>
-                  </div>
+                    <p>{meal.food_name}</p>
+                  </div></MealContainer>
                 ))
               ) : (
                 <p>Clique em Filtrar para buscar.</p>

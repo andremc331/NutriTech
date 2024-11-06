@@ -3,10 +3,10 @@
 import Loading from "./Loading";
 import NotFoundPage from "./NotFoundPage";
 import Cardapio from "./Cardapio";
-import Configuracoes from "./Configuracoes";
+import Configuracoes from "./Sobre";
 import Bemvindo from "./BemVindo";
 import Cadastro from "./Cadastro";
-import UserRolePage from "./UserRolePage";
+import UserRolePage from "./AtualizarUsuário";
 import InfoPessoal from "./Infopessoal";
 import DefinicaoMetas from "./DefinicaoMetas";
 import Captcha from "./Captcha";
@@ -14,8 +14,6 @@ import Captcha from "./Captcha";
 
 
 export {
-    // EatPage,
-    // FoodPage,
     Loading,
     NotFoundPage,
     Cardapio,

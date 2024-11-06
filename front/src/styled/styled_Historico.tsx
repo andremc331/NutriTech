@@ -34,6 +34,16 @@ const styled_Historico = () => {
     }
   `;
 
+  const MealContainer = styled.div`
+  background-color: white;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: black;
+`;
+
   const HistoryBox = styled.div`
     display: flex;
     padding: 10px;
@@ -81,6 +91,7 @@ const styled_Historico = () => {
   return {
     Title,
     HistoryboxContainer,
+    MealContainer,
     HistoryBox,
     MealInfo,
     Input,

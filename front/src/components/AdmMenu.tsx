@@ -40,10 +40,10 @@ export default function AdmMenu() {
                 <StyledLink to="/info-pessoal" onClick={() => setIsOpen(false)}>
                     Editar Dados Pessoais
                 </StyledLink>
-                <StyledLink to="/cadastro" onClick={() => setIsOpen(false)}>
+                <StyledLink to="/atualizar" onClick={() => setIsOpen(false)}>
                     Editar Informações de Usuário
                 </StyledLink>
-                <StyledLink to="/configuracoes" onClick={() => setIsOpen(false)}>
+                <StyledLink to="/sobre" onClick={() => setIsOpen(false)}>
                     Sobre
                 </StyledLink>
                 <MenuItemBorderTop onClick={handleLogout}>

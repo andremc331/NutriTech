@@ -9,10 +9,11 @@ import Home from './pages/Home';
 import Cardapio from './pages/Cardapio';
 import Historico from './pages/Historico';
 import Progresso from './pages/Progresso';
-import Configuracoes from './pages/Configuracoes';
 import { EatProvider, FoodProvider, UserProvider } from './contexts';
 import { GlobalStyles } from './styled/styled_Main';
-import Captcha from './pages/Captcha';
+import Sobre from './pages/Sobre';
+import UpdateUser from './pages/AtualizarUsuário';
+import AtualizarUsuário from './pages/AtualizarUsuário';
 
 const App: React.FC = () => {
     return (
@@ -33,7 +34,8 @@ const App: React.FC = () => {
                             <Route path="/cardapio" element={<Cardapio />} />
                             <Route path="/historico" element={<Historico />} />
                             <Route path="/metas" element={<Progresso />} />
-                            <Route path="/configuracoes" element={<Configuracoes />} />
+                            <Route path="/sobre" element={<Sobre />} />
+                            <Route path="/atualizar" element={<AtualizarUsuário />} />
                         </Routes>
                     </FoodProvider>
                 </EatProvider>

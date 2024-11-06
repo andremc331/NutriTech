@@ -95,7 +95,7 @@ const Cadastro: React.FC = () => {
         <form>
           <FormGroupRow>
             <FormGroup>
-              <Label htmlFor="nome">Nome:</Label>
+              <Label htmlFor="nome">Nome de Usuário:</Label>
               <Input
                 type="text"
                 id="nome"

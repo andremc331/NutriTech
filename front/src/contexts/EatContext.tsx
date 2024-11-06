@@ -12,7 +12,6 @@ import {
 } from "../types";
 import { Eat, Food, Historico, Product } from "../services";
 import { dateFormat, isErrorProps } from "../utils";
-import historico from "../services/Historico";
 
 export const EatContext = createContext({} as EatContextProps);
 
@@ -171,30 +170,30 @@ export function EatProvider({ children }: ProviderProps) {
   // Novas funções para gerenciar o histórico
   async function getHistoricoWithFoodName(): Promise<Meal[]> {
     try {
-      const response = await Historico.getHistoricoWithFoodName();
-      if (isErrorProps(response)) {
-        setError(response);
-        return []; // Retorne um array vazio em caso de erro
-      } else {
-        const historicoItems = response as unknown as RefeicaoProps[];
+        const response = await Historico.getHistoricoWithFoodName();
+        if (isErrorProps(response)) {
+            setError(response);
+            return []; // Retorne um array vazio em caso de erro
+        } else {
+            const historicoItems = response as RefeicaoProps[];
   
-        // Mapeia os itens para o formato Meal[]
-        const mealData = historicoItems.map(item => ({
-          id: item.id,
-          foodName: item.foodName,
-          quantity: item.quantity,
-          date: item.date,
-          userId: item.userId,
-        })) as Meal[];
+            // Mapeia os itens para o formato Meal[], ajustando o nome do campo, se necessário
+            const mealData = historicoItems.map(item => ({
+                id: item.id,
+                foodName: item.foodName || item.food_name, // Verifica foodName ou food_name
+                quantity: item.quantity,
+                date: item.date,
+                userId: item.userId,
+            })) as Meal[];
   
-        setError(null);
-        return mealData; // Retorne o array de refeições
-      }
+            setError(null);
+            return mealData; // Retorne o array de refeições
+        }
     } catch (e: any) {
-      setError(e.message);
-      return []; // Retorne um array vazio em caso de erro
+        setError(e.message);
+        return []; // Retorne um array vazio em caso de erro
     }
-  }
+}
   
   async function getHistoricoByDate(startDate: string, endDate: string): Promise<Meal[]> {
     try {

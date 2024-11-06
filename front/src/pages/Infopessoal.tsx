@@ -17,7 +17,6 @@ const {
     Button,
     ButtonContainer,
     Container,
-    Label,
     Title,
 } = styled_Infop();
 
@@ -123,17 +122,6 @@ const InfoPessoal: React.FC = () => {
                     setValue={setSex}
                     options={options}
                 />
-                <Label htmlFor="nivelAtividade">Nível de Atividade:</Label>
-                <select
-                    name="nivelAtividade"
-                    required
-                >
-                    <option value="sedentario">Sedentário</option>
-                    <option value="leve">Leve</option>
-                    <option value="moderado">Moderado</option>
-                    <option value="intenso">Intenso</option>
-                    <option value="muito_intenso">Muito Intenso</option>
-                </select>
                 <ButtonContainer>
                     <Button onClick={handleSave}>Salvar</Button>
                     {profile && <Button onClick={handleDelete}>Excluir</Button>}

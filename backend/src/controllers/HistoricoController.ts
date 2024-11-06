@@ -3,7 +3,10 @@ import { query } from "../database/connection";
 
 class HistoricoController {
   // Busca todas as refeições no histórico com JOIN para incluir nome do alimento
-  public async getHistoricoWithFoodName(req: Request, res: Response): Promise<void> {
+  public async getHistoricoWithFoodName(
+    req: Request,
+    res: Response
+  ): Promise<void> {
     const { startDate, endDate, userId } = req.query; // Adiciona userId como parâmetro de consulta
     try {
       const result = await query(
@@ -18,7 +21,9 @@ class HistoricoController {
       res.json(result);
     } catch (error: any) {
       console.error("Erro ao buscar o histórico:", error);
-      res.status(500).json({ error: "Erro ao buscar o histórico de refeições" });
+      res
+        .status(500)
+        .json({ error: "Erro ao buscar o histórico de refeições" });
     }
   }
 
@@ -33,13 +38,17 @@ class HistoricoController {
 
     try {
       const result = await query(
-        'SELECT * FROM eat_foods WHERE date BETWEEN $1 AND $2 ORDER BY date DESC',
+        `SELECT ef.date, f.description AS food_name, ef.quantity
+         FROM eat_foods ef
+         JOIN foods f ON ef.food = f.id
+         WHERE ef.date BETWEEN $1 AND $2
+         ORDER BY ef.date DESC`,
         [startDate, endDate]
       );
       res.json(result);
     } catch (error: any) {
       console.error("Erro ao buscar histórico por data:", error);
-      res.status(500).json({ error: 'Erro ao buscar histórico por data' });
+      res.status(500).json({ error: "Erro ao buscar histórico por data" });
     }
   }
 
@@ -49,13 +58,17 @@ class HistoricoController {
 
     try {
       const result = await query(
-        'SELECT * FROM eat_foods WHERE _user = $1 ORDER BY date DESC',
+        `SELECT ef.date, f.description AS food_name, ef.quantity
+         FROM eat_foods ef
+         JOIN foods f ON ef.food = f.id
+         WHERE ef._user = $1
+         ORDER BY ef.date DESC`,
         [userId]
       );
-      res.json(result.rows);
+      res.json(result);
     } catch (error: any) {
       console.error("Erro ao buscar histórico do usuário:", error);
-      res.status(500).json({ error: 'Erro ao buscar histórico do usuário' });
+      res.status(500).json({ error: "Erro ao buscar histórico do usuário" });
     }
   }
 }
