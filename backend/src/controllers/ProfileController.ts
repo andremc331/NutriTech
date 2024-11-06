@@ -2,14 +2,41 @@ import { Request, Response } from "express";
 import { query } from "../database/connection";
 
 class ProfileController {
+  // Rota para buscar peso e altura sem sobrescrever outras rotas
+  public async getWeightAndHeight(req: Request, res: Response): Promise<void> {
+    const { id } = res.locals; // Obtém o id do usuário a partir do token ou sessão
+    try {
+      // Realiza a consulta no banco de dados
+      const result: any = await query(
+        "SELECT weight, height FROM profiles WHERE _user=$1",
+        [id]
+      );
+
+      if (result.length === 0) {
+        // Caso o usuário não tenha perfil, retorna um erro
+        res.status(404).json({ error: 'Perfil não encontrado' });
+        return;
+      }
+
+      // Retorna os dados de peso e altura
+      res.json({
+        weight: result[0].weight,
+        height: result[0].height
+      });
+    } catch (e: any) {
+      res.status(502).json({ error: e.message });
+    }
+  }
+
+  // Outras rotas já existentes...
+
   public async list(_: Request, res: Response): Promise<void> {
     const { id } = res.locals;
     try {
       const result: any = await query(
-        "SELECT TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex FROM profiles WHERE _user=$1",
+        "SELECT TO_CHAR(birth_date, 'YYYY-MM-DD') AS birth_date, weight, sex, height FROM profiles WHERE _user=$1",
         [id]
       );
-
       res.json(result);
     } catch (e: any) {
       res.status(502).json({ error: e.message });
@@ -28,9 +55,8 @@ class ProfileController {
     } else if (! height){
       res.json({error: "Forneça seu peso"});
     }
-      else {
+    else {
       try {
-        // Verifica se o usuário já possui um perfil cadastrado
         const queryProfile: any = await query(
           "SELECT birth_date,weight,sex,height FROM profiles WHERE _user=$1",
           [id]
