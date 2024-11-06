@@ -8,10 +8,11 @@ import {
   add,
   close,
   remove,
+  search,
+  checkmark,
   chevronForward,
   chevronBack,
   arrowForward,
-  checkmark,
   logoGithub,
   logoLinkedin
 } from "ionicons/icons";
@@ -26,10 +27,11 @@ export const Icons = {
   add,
   remove,
   close,
+  search,
+  checkmark,
   chevronForward,
   chevronBack,
   arrowForward,
-  checkmark,
   logoGithub,
   logoLinkedin
 };

@@ -17,6 +17,7 @@ const {
   Select,
   Input,
   Row,
+  Button,
   ButtonAdd,
 } = styled_Cardapio();
 const Cardapio: React.FC = () => {
@@ -139,7 +140,11 @@ const Cardapio: React.FC = () => {
               placeholder="Buscar alimento..."
               onFocus={handleSearch}
             />
-            <button onClick={handleSearch}>Buscar</button>
+            <Button onClick={handleSearch}>
+              <Icon>
+                <IonIcon icon={Icons.search} />
+              </Icon>
+            </Button>
           </Row>
 
           {searchResults.length > 0 && (
@@ -154,14 +159,7 @@ const Cardapio: React.FC = () => {
               </ul>
             </Row>
           )}
-          
-          <Row>
-          <Label>Preparação:</Label>
-            <Select>
-              <option value="">Selecione...</option>
-            </Select>
-          </Row>
-          
+    
           <Row>
             <Label>Quantidade:</Label>
             <Input
@@ -174,12 +172,12 @@ const Cardapio: React.FC = () => {
             />
           </Row>
   
-          <ButtonAdd onClick={handleSendData}>
+          <Button onClick={handleSendData}>
             <Icon>
               <IonIcon icon={Icons.add} />
             </Icon>
-            Enviar
-          </ButtonAdd>
+            Adicionar
+          </Button>
   
           {selectedFoods.length > 0 && (
             <Row>
