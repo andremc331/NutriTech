@@ -10,6 +10,19 @@ import { AdmMenu } from "../components";
 import { UserContext, UserProvider, EatContext } from "../contexts";
 import { GoalProps, Meal, UserContextProps } from "../types";
 
+type MealItem =
+  | "150g de frango grelhado"
+  | "1 colher de arroz integral"
+  | "25g de brócolis"
+  | "salada verde com azeite de oliva";
+
+const caloriasPorItem: Record<MealItem, number> = {
+  "150g de frango grelhado": 300,
+  "1 colher de arroz integral": 80,
+  "25g de brócolis": 10,
+  "salada verde com azeite de oliva": 50,
+};
+
 const {
   InfoBox1,
   InfoBox2,
@@ -59,10 +72,11 @@ const Home: React.FC = () => {
     fetchData();
   }, []);
 
-  const calcularCalorias = (items: any[], index: number): number => {
-    // Lógica para calcular calorias da refeição
-    return 0;
-  };
+  // const calcularCalorias = (items: MealItem[], index: number): number => {
+  //   if (index < 0) return 0;
+  //   return caloriasPorItem[items[index]] + calcularCalorias(items, index - 1);
+  // };
+  // const totalCalorias = calcularCalorias(items, items.length - 1);
 
   const calcularConsumoAgua = (peso: number): string => {
     const consumo = peso * 35;
@@ -74,10 +88,20 @@ const Home: React.FC = () => {
 
   const calcularIMC = (peso: number, altura: number): { imc: string; grau: string } => {
     const imc = peso / (altura * altura);
-    return { imc: imc.toFixed(1).replace('.', ','), grau: "" };
+    let grau = '';
+    if (imc < 16) grau = 'Magreza grave';
+    else if (imc < 16.9) grau = 'Magreza moderada';
+    else if (imc < 18.5) grau = 'Magreza leve';
+    else if (imc < 24.9) grau = 'Peso ideal';
+    else if (imc < 29.9) grau = 'Sobrepeso';
+    else if (imc < 34.9) grau = 'Obesidade grau I';
+    else if (imc < 39.9) grau = 'Obesidade grau II';
+    else grau = 'Obesidade grau III ou superior';
+    return { imc: imc.toFixed(1).replace('.', ','), grau };
   };
 
   const resultadoIMC = calcularIMC(pesoPessoa, alturaPessoa);
+
 
   if (loading) {
     return <div>Carregando...</div>;
