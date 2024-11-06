@@ -33,6 +33,7 @@ const {
   Button,
   BackButton,
   ButtonContainer,
+  PopupMessage,
 } = styled_Definicao_M();
 
 const DefinicaoMetas: React.FC = () => {
@@ -40,7 +41,7 @@ const DefinicaoMetas: React.FC = () => {
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [goal, setGoal] = useState<string>("");
-  const [goals, setGoals] = useState<GoalProps[]>([]); 
+  const [goals, setGoals] = useState<GoalProps[]>([]);
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
 
@@ -62,16 +63,21 @@ const DefinicaoMetas: React.FC = () => {
   }, [setError]);
 
   const enviarMeta = async () => {
-    if (!goal || !['Ganhar peso', 'Perder peso', 'Manter peso'].includes(goal)) {
-      setError({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter peso'." });
+    const validGoals = ["Ganhar peso", "Perder peso", "Manter peso"];
+    if (!validGoals.includes(goal)) {
+      setError({ error: "Meta inválida." });
       return;
     }
     const response = await saveGoal(goal);
     if (response) {
       setMessagePopup("Meta salva com sucesso!");
       setShowPopup(true);
-      setTimeout(() => setShowPopup(false), 3000); // Fecha o popup após 3 segundos
-      navigate("/termosdeuso"); // Navega para a próxima página
+      
+      // Aguarda 3 segundos antes de fechar o popup e navegar para a próxima página
+      setTimeout(() => {
+        setShowPopup(false);
+        navigate("/termosdeuso"); // Navega para a próxima página após o popup desaparecer
+      }, 2000);
     } else {
       setError({ error: "Erro ao salvar a meta." });
     }
@@ -87,22 +93,34 @@ const DefinicaoMetas: React.FC = () => {
         <Title>Definição de Metas</Title>
 
         <CardContainer>
-          <CardLoseWeight onClick={() => setGoal("Perder peso")}>
+          <CardLoseWeight
+            onClick={() => setGoal("Perder peso")}
+            className={goal === "Perder peso" ? "selected" : ""}
+          >
             <CardTitle>Perder Peso</CardTitle>
             <Text>Emagracimento envolve uma combinação de alimentação equilibrada e atividade física regular...</Text>
           </CardLoseWeight>
-          
-          <CardGainWeight onClick={() => setGoal("Ganhar peso")}>
+
+          <CardGainWeight
+            onClick={() => setGoal("Ganhar peso")}
+            className={goal === "Ganhar peso" ? "selected" : ""}
+          >
             <CardTitle>Ganhar Peso</CardTitle>
             <Text>Engordar envolve aumentar a massa muscular e/ou a gordura de maneira saudável...</Text>
           </CardGainWeight>
-          
-          <CardMuscle onClick={() => setGoal("Ganhar peso")}>
+
+          <CardMuscle
+            onClick={() => setGoal("Ganhar peso")}
+            className={goal === "Ganhar peso" ? "selected" : ""}
+          >
             <CardTitle>Ganhar Massa Muscular</CardTitle>
             <Text>Hipertrofismo envolve o aumento da força e volume muscular através de treinamento...</Text>
           </CardMuscle>
-          
-          <CardDiet onClick={() => setGoal("Manter peso")}>
+
+          <CardDiet
+            onClick={() => setGoal("Manter peso")}
+            className={goal === "Manter peso" ? "selected" : ""}
+          >
             <CardTitle>Monitorar Dieta</CardTitle>
             <Text>Educação Alimentar envolve a conscientização e o registro dos alimentos consumidos diariamente...</Text>
           </CardDiet>
@@ -115,14 +133,13 @@ const DefinicaoMetas: React.FC = () => {
             </Icon>
           </BackButton>
           <Button onClick={enviarMeta}>Next</Button>
+          {/* Popup de confirmação */}
+          {showPopup && (
+            <PopupMessage onClick={() => setShowPopup(false)}>
+              <p>{messagePopup}</p>
+            </PopupMessage>
+          )}
         </ButtonContainer>
-
-        {/* Popup de confirmação */}
-        {showPopup && (
-          <div className="popup">
-            <p>{messagePopup}</p>
-          </div>
-        )}
       </FormContainer>
     </>
   );

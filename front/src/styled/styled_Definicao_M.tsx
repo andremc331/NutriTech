@@ -49,6 +49,12 @@ const Card = styled.div`
   @media (max-width: 600px) {
     flex: 0 0 90%;
   }
+
+  &.selected {
+    border: 2px solid #007bff; /* Cor de borda para indicar seleção */
+    background-color: #e6f0ff; /* Cor de fundo mais clara */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Sombra */
+  }
 `;
 
   const Logo = styled.div`
@@ -369,6 +375,28 @@ const MinusButton = styled.button`
 
 const PlusButton = styled(MinusButton)``;
 
+const PopupMessage = styled.div`
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 2.5s;
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+`;
 
   return {
     ImageContainer,
@@ -394,6 +422,7 @@ const PlusButton = styled(MinusButton)``;
     Button,
     BackButton,
     ButtonContainer,
+    PopupMessage,
   };
 };
 
