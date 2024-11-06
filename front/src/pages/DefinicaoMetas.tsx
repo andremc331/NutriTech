@@ -72,12 +72,11 @@ const DefinicaoMetas: React.FC = () => {
     if (response) {
       setMessagePopup("Meta salva com sucesso!");
       setShowPopup(true);
-      
-      // Aguarda 3 segundos antes de fechar o popup e navegar para a próxima página
+
       setTimeout(() => {
         setShowPopup(false);
-        navigate("/termosdeuso"); // Navega para a próxima página após o popup desaparecer
-      }, 2000);
+        navigate("/termosdeuso");
+      }, 1700);
     } else {
       setError({ error: "Erro ao salvar a meta." });
     }
@@ -134,12 +133,14 @@ const DefinicaoMetas: React.FC = () => {
           </BackButton>
           <Button onClick={enviarMeta}>Next</Button>
           {/* Popup de confirmação */}
-          {showPopup && (
-            <PopupMessage onClick={() => setShowPopup(false)}>
-              <p>{messagePopup}</p>
-            </PopupMessage>
-          )}
+        {showPopup && (
+          <PopupMessage onClick={() => setShowPopup(false)}>
+            <p>{messagePopup}</p>
+          </PopupMessage>
+        )}
         </ButtonContainer>
+
+        
       </FormContainer>
     </>
   );

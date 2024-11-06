@@ -51,11 +51,17 @@ const Card = styled.div`
   }
 
   &.selected {
-    border: 2px solid #007bff; /* Cor de borda para indicar seleção */
-    background-color: #e6f0ff; /* Cor de fundo mais clara */
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Sombra */
+    border: 2px solid #007bff;
+    background-color: #e6f0ff;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+  }
+
+  /* Efeito hover apenas quando o card não está selecionado */
+  &:hover:not(.selected) {
+    background-color: #f0f8ff;
   }
 `;
+
 
   const Logo = styled.div`
     display: flex;
