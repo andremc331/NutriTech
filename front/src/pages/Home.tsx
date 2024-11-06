@@ -1,37 +1,28 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import MealChart from "../components/MealChart";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
-import {
-  ContainerBody, 
-  ContainerMenu, 
-  Navbar, 
-  Sidebar, 
-  SidebarContent, 
-  Icon, 
-  Item, 
-  Footer, 
-  ImgIcon,
-} from "../styled/styled_Main";
+import { ContainerBody, ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, Footer, ImgIcon } from "../styled/styled_Main";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import styled_Home from "../styled/styled_Home";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserProvider } from "../contexts";
+import { fetchWeightAndHeight } from "../services/homeService";  // Importa a função do serviço
 
 const {
-  InfoBox1, 
-  InfoBox2, 
-  FoodBox, 
-  MealInfo, 
-  MealKcal, 
-  MealType, 
-  Mealtime, 
-  MealItems, 
+  InfoBox1,
+  InfoBox2,
+  FoodBox,
+  MealInfo,
+  MealKcal,
+  MealType,
+  Mealtime,
+  MealItems,
   ChartContainer,
-  FoodBoxContainer, 
-  MealTimeContainer, 
-  MealTypeContainer, 
+  FoodBoxContainer,
+  MealTimeContainer,
+  MealTypeContainer,
   InfoBoxContainer,
 } = styled_Home();
 
@@ -52,6 +43,24 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   const items: MealItem[] = Object.keys(caloriasPorItem) as MealItem[];
 
+  const [pesoPessoa, setPesoPessoa] = useState<number>(0);
+  const [alturaPessoa, setAlturaPessoa] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    // Chama o serviço para obter peso e altura
+    const fetchData = async () => {
+      const data = await fetchWeightAndHeight();
+      if ("weight" in data && "height" in data) {
+        setPesoPessoa(data.weight);
+        setAlturaPessoa(data.height);
+      }
+      setLoading(false);
+    };
+
+    fetchData();
+  }, []);
+
   const calcularCalorias = (items: MealItem[], index: number): number => {
     if (index < 0) return 0;
     return caloriasPorItem[items[index]] + calcularCalorias(items, index - 1);
@@ -63,10 +72,6 @@ const Home: React.FC = () => {
     const litros = consumo / 1000;
     return `${litros.toFixed(1).replace('.', ',')} L`;
   };
-
-  // Aqui você deve obter peso e altura do usuário do seu banco de dados ou contexto
-  const pesoPessoa = 70; // Exemplo, substituir por dados do usuário
-  const alturaPessoa = 1.75; // Exemplo, substituir por dados do usuário
 
   const consumoAgua = calcularConsumoAgua(pesoPessoa);
 
@@ -85,6 +90,10 @@ const Home: React.FC = () => {
   };
 
   const resultadoIMC = calcularIMC(pesoPessoa, alturaPessoa);
+
+  if (loading) {
+    return <div>Carregando...</div>;
+  }
 
   return (
     <>
