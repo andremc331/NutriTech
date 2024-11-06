@@ -40,47 +40,30 @@ const DefinicaoMetas: React.FC = () => {
   const navigate = useNavigate();
   const carouselRef = useRef<HTMLDivElement>(null);
   const [goal, setGoal] = useState<string>("");
-  const [goalsUserId, setGoalsUserId] = useState<number>(1);
   const [goals, setGoals] = useState<GoalProps[]>([]); 
   const [showPopup, setShowPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState("");
 
-  const scrollLeft = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: -300, behavior: "smooth" });
-    }
-  };
-
-  const scrollRight = () => {
-    if (carouselRef.current) {
-      carouselRef.current.scrollBy({ left: 300, behavior: "smooth" });
+  const fetchGoals = async () => {
+    try {
+      const response = await getGoals();
+      if (Array.isArray(response)) {
+        setGoals(response);
+      } else {
+        setError({ error: "" });
+      }
+    } catch (error) {
+      setError({ error: "Erro ao carregar metas." });
     }
   };
 
   useEffect(() => {
-    const fetchGoals = async () => {
-      try {
-        const response = await getGoals();
-        if (Array.isArray(response)) {
-          setGoals(response);
-        } else {
-          setError({ error: "" });
-        }
-      } catch (error) {
-        setError({ error: "Erro ao carregar metas." });
-      }
-    };
-
     fetchGoals();
   }, [setError]);
 
   const enviarMeta = async () => {
-    if (!goalsUserId) {
-      setError({ error: "ID do usuário não fornecido." });
-      return;
-    }
-    if (!goal || !['Ganhar peso', 'Perder peso', 'Manter Peso'].includes(goal)) {
-      setError({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter Peso'." });
+    if (!goal || !['Ganhar peso', 'Perder peso', 'Manter peso'].includes(goal)) {
+      setError({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter peso'." });
       return;
     }
     const response = await saveGoal(goal);
@@ -88,11 +71,12 @@ const DefinicaoMetas: React.FC = () => {
       setMessagePopup("Meta salva com sucesso!");
       setShowPopup(true);
       setTimeout(() => setShowPopup(false), 3000); // Fecha o popup após 3 segundos
+      navigate("/termosdeuso"); // Navega para a próxima página
     } else {
       setError({ error: "Erro ao salvar a meta." });
     }
   };
-  
+
   return (
     <>
       <ImageContainer>
@@ -103,43 +87,22 @@ const DefinicaoMetas: React.FC = () => {
         <Title>Definição de Metas</Title>
 
         <CardContainer>
-          <CardLoseWeight>
+          <CardLoseWeight onClick={() => setGoal("Perder peso")}>
             <CardTitle>Perder Peso</CardTitle>
             <Text>Emagracimento envolve uma combinação de alimentação equilibrada e atividade física regular...</Text>
-            <ButtonGroup>
-                <MinusButton type="button" onClick={() => setGoal("")}>
-                  -
-                </MinusButton>
-                <PlusButton type="button" onClick={() => setGoal("Perder peso")}>
-                  +
-                </PlusButton>
-              </ButtonGroup>
           </CardLoseWeight>
-          <CardGainWeight>
+          
+          <CardGainWeight onClick={() => setGoal("Ganhar peso")}>
             <CardTitle>Ganhar Peso</CardTitle>
-            
             <Text>Engordar envolve aumentar a massa muscular e/ou a gordura de maneira saudável...</Text>
-            <ButtonGroup>
-                <MinusButton type="button" onClick={() => setGoal("")}>
-                  -
-                </MinusButton>
-                <PlusButton type="button" onClick={() => setGoal("Ganhar peso")}>
-                  +
-                </PlusButton>
-              </ButtonGroup>
           </CardGainWeight>
-          <CardMuscle>
+          
+          <CardMuscle onClick={() => setGoal("Ganhar peso")}>
             <CardTitle>Ganhar Massa Muscular</CardTitle>
             <Text>Hipertrofismo envolve o aumento da força e volume muscular através de treinamento...</Text>
-            <ButtonGroup>
-                <MinusButton type="button" onClick={() => setGoal("")}>
-                  -
-                </MinusButton>
-                <PlusButton type="button" onClick={() => setGoal("Manter peso")}>
-                  +
-                </PlusButton>
-              </ButtonGroup></CardMuscle>
-          <CardDiet>
+          </CardMuscle>
+          
+          <CardDiet onClick={() => setGoal("Manter peso")}>
             <CardTitle>Monitorar Dieta</CardTitle>
             <Text>Educação Alimentar envolve a conscientização e o registro dos alimentos consumidos diariamente...</Text>
           </CardDiet>
@@ -151,12 +114,7 @@ const DefinicaoMetas: React.FC = () => {
               <IonIcon icon={Icons.chevronBack} />
             </Icon>
           </BackButton>
-          <Button onClick={enviarMeta}>Salvar</Button>
-          <Button type="submit" onClick={() => { navigate("/termosdeuso"); }}>
-            <Icon>
-              <IonIcon icon={Icons.chevronForward} />
-            </Icon>
-          </Button>
+          <Button onClick={enviarMeta}>Next</Button>
         </ButtonContainer>
 
         {/* Popup de confirmação */}

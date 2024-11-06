@@ -23,8 +23,8 @@ class GoalController {
     console.log("ID do usuário:", id);
     console.log("Meta recebida:", goal);
 
-    if (!goal || !['Ganhar peso', 'Perder peso', 'Manter Peso'].includes(goal)) {
-      res.status(400).json({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter Peso'." });
+    if (!goal || !['Ganhar peso', 'Perder peso', 'Manter peso'].includes(goal)) {
+      res.status(400).json({ error: "Meta inválida. Deve ser 'Ganhar peso', 'Perder peso' ou 'Manter peso'." });
       return;
     }
 

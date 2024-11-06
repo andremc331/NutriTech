@@ -6,7 +6,7 @@ async function init() {
     DO
     $$
     BEGIN
-        DROP TABLE IF EXISTS users, profiles, fields, goals, categories, foods, products, votes, eat_foods, eat_products, meta;
+        DROP TABLE IF EXISTS users, profiles, fields, goals, groups, categories, foods, products, votes, eat_foods, eat_products, meta;
         drop domain if exists chk_goals CASCADE;    
         DROP TYPE IF EXISTS enum_sex, enum_role CASCADE;
 
@@ -48,7 +48,7 @@ async function init() {
             PRIMARY KEY(id)
         );
 
-        CREATE DOMAIN chk_goals TEXT CHECK(value IN ('Ganhar peso', 'Perder peso', 'Manter Peso'));
+        CREATE DOMAIN chk_goals TEXT CHECK(value IN ('Ganhar peso', 'Perder peso', 'Manter peso'));
         CREATE TABLE goals (
             id SERIAL PRIMARY KEY,
             goals_user_id INTEGER NOT NULL,
