@@ -1,22 +1,7 @@
 import styled from "styled-components";
 
 const styled_Cadastro = () => {
-  // const Body = styled.body`
-  //   background-color: #7E5EC2;
-  //   overflow: hidden;
-  //   width: 100vw;
-  //   height: 100vh;
-  //   display: flex;
-  //   flex-direction: column;
-  //   justify-content: center;
-  //   align-items: center;
-  //   padding: 20px; /* Ajuste de padding para telas menores */
-
-  //   @media (max-width: 768px) {
-  //     padding: 10px; /* Reduz o padding em telas menores */
-  //   }
-  // `;
-
+  
   const ImageContainer = styled.div`
     text-align: center;
     max-width: 100%;
