@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.nutritech.png";
 import styled_Cadastro from "../styled/styled_Cadastro";
-import { Icon } from "../styled/styled_Main";
-import { IonIcon } from "@ionic/react";
-import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks";
+import Captcha from "./Captcha";
 
 const {
   ImageContainer,
@@ -15,9 +13,6 @@ const {
   FormGroupRow,
   Label,
   Input,
-  Button,
-  BackButton,
-  ButtonContainer,
   ErrorMessage,
 } = styled_Cadastro();
 
@@ -32,6 +27,8 @@ const Cadastro: React.FC = () => {
     confirmarSenha: "",
   });
 
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false); // Verifica se o Captcha foi validado
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -43,9 +40,7 @@ const Cadastro: React.FC = () => {
   // Função para verificar se as senhas são iguais
   const VerificarSenhas = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
-      window.alert(
-        "As senhas não estão batendo, por favor, verifique se as senhas são correspondentes."
-      );
+      window.alert("As senhas não estão batendo, por favor, verifique se as senhas são correspondentes.");
       return false;
     }
     return true;
@@ -53,7 +48,12 @@ const Cadastro: React.FC = () => {
 
   // Função para quando o Captcha for validado
   const handleCadastro = async (): Promise<void> => {
-    
+    // Primeiro, verifica se o Captcha foi validado
+    if (!isCaptchaVerified) {
+      window.alert("Por favor, verifique o CAPTCHA.");
+      return;
+    }
+
     // Verifica se as senhas estão iguais
     if (!VerificarSenhas()) {
       return; // Já exibe um alerta dentro da função VerificarSenhas se não baterem
@@ -80,9 +80,7 @@ const Cadastro: React.FC = () => {
   };
 
   // Função de verificação de tipo de erro
-  function isErrorWithResponse(
-    err: unknown
-  ): err is { response?: { status: number } } {
+  function isErrorWithResponse(err: unknown): err is { response?: { status: number } } {
     return typeof err === "object" && err !== null && "response" in err;
   }
 
@@ -93,8 +91,7 @@ const Cadastro: React.FC = () => {
       </ImageContainer>
       <FormContainer>
         <Title>Informações de Usuário</Title>
-        {error && <ErrorMessage>{error.error}</ErrorMessage>}{" "}
-        {/* Mensagem de erro */}
+        {error && <ErrorMessage>{error.error}</ErrorMessage>} {/* Mensagem de erro */}
         <form>
           <FormGroupRow>
             <FormGroup>
@@ -120,44 +117,37 @@ const Cadastro: React.FC = () => {
               required
             />
           </FormGroup>
-          <FormGroupRow>
-            <FormGroup className="form-group">
-              <Label htmlFor="senha">Senha:</Label>
-              <Input
-                type="password"
-                id="senha"
-                name="senha"
-                value={formData.senha}
-                onChange={handleChange}
-                required
-              />
-            </FormGroup>
-            <FormGroup className="form-group">
-              <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
-              <Input
-                type="password"
-                id="confirmarSenha"
-                name="confirmarSenha"
-                value={formData.confirmarSenha}
-                onChange={handleChange}
-                required
-              />
-            </FormGroup>
-          </FormGroupRow>
-          <ButtonContainer>
-            <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>
-              <Icon>
-                <IonIcon icon={Icons.chevronBack} />
-              </Icon>
-              Voltar ao Login
-            </BackButton>
-            <Button type="submit">
-              Avançar
-              <Icon>
-                <IonIcon icon={Icons.chevronForward} />
-              </Icon>
-            </Button>
-          </ButtonContainer>
+          <FormGroup>
+            <Label htmlFor="senha">Senha:</Label>
+            <Input
+              type="password"
+              id="senha"
+              name="senha"
+              value={formData.senha}
+              onChange={handleChange}
+              required
+            />
+          </FormGroup>
+          <FormGroup>
+            <Label htmlFor="confirmarSenha">Confirmar Senha:</Label>
+            <Input
+              type="password"
+              id="confirmarSenha"
+              name="confirmarSenha"
+              value={formData.confirmarSenha}
+              onChange={handleChange}
+              required
+            />
+            {/* Componente Captcha */}
+            <Captcha onVerified={async () => setIsCaptchaVerified(true)} setIsVerified={setIsCaptchaVerified} />
+          </FormGroup>
+          
+          {/* Renderiza o botão de cadastro apenas se o CAPTCHA estiver verificado */}
+          {isCaptchaVerified && (
+            <button type="button" onClick={handleCadastro}>
+              Confirmar Cadastro
+            </button>
+          )}
         </form>
       </FormContainer>
     </>

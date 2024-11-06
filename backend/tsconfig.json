@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node"],
     "target": "ES2020",                        // Versão do JavaScript para o qual você quer compilar
     "module": "commonjs",                      // Usado para Node.js (CommonJS)
     "strict": true,                            // Ativa verificações estritas de tipo
