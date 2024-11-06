@@ -12,7 +12,6 @@ import Progresso from './pages/Progresso';
 import { EatProvider, FoodProvider, UserProvider } from './contexts';
 import { GlobalStyles } from './styled/styled_Main';
 import Sobre from './pages/Sobre';
-import UpdateUser from './pages/AtualizarUsuário';
 import AtualizarUsuário from './pages/AtualizarUsuário';
 
 const App: React.FC = () => {
