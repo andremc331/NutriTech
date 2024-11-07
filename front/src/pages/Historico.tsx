@@ -158,7 +158,7 @@ const Historico: React.FC = () => {
 
         <HistoryboxContainer>
           <HistoryBox>
-          <MealInfo>
+            <MealInfo>
               {loading ? (
                 <p>Carregando...</p>
               ) : error ? (
@@ -167,9 +167,10 @@ const Historico: React.FC = () => {
                 historicoData.map((meal, index) => (
                   <MealContainer key={index}>
                     <div>
-                      <h4>{meal.date}</h4> {/* Exibe a data formatada */}
-                      <p>{meal.foodName} - {meal.quantity} kg</p>
-                      <p>{meal.food_name}</p>
+                      <p>Refeição:</p>
+                      <h3>{meal.food_name}</h3>  
+                      <h4>{meal.foodName} Quantidade: {meal.quantity} kg</h4>                   
+                      <p>{meal.date}</p> {/* Exibe a data formatada */}
                     </div>
                   </MealContainer>
                 ))

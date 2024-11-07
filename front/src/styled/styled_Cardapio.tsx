@@ -26,14 +26,52 @@ const styled_Cardapio = () => {
     overflow: hidden;
   `;
 
-  const Label = styled.label`
-    display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: var(--color-1);
+  const Row = styled.div`
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    width: 100%; /* Para ocupar a largura total */
+    margin-bottom: 10px; /* Espaço entre as linhas */
   `;
 
-  // Criar os novos componentes Alimentolabel e Quantidadelabel
+  const SearchResultList = styled.ul`
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    width: 100%;
+    max-height: 200px;
+    overflow-y: auto;
+  `;
+
+  const SearchResultItem = styled.li`
+    background-color: var(--color-3);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: var(--color-5);
+    }
+
+    & > button {
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 5px 10px;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #0c3d0f;
+      }
+    }
+  `;
+
   const Alimentolabel = styled.label`
     display: block;
     margin-bottom: 10px;
@@ -59,7 +97,7 @@ const styled_Cardapio = () => {
     margin-left: 10px;
 
     &:focus {
-      border-color: #4caf50;
+      border-color: #000000;
       outline: none;
     }
   `;
@@ -73,26 +111,12 @@ const styled_Cardapio = () => {
     border-radius: 20px;
     font-size: 14px;
     transition: border-color 0.3s;
-    color: #5f5f5f; /* Aqui você define a cor da fonte */
+    color: #000000; /* Aqui você define a cor da fonte */
 
     &:focus {
       border-color: #4caf50;
       outline: none;
     }
-  `;
-
-  const ButtonAdd = styled.button`
-    background-color: var(--color-5);
-    color: var(--color-1);
-    border: none;
-    border-radius: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    margin-left: 95%;
-    width: 50px;
-    height: 50px;
   `;
 
   const Button = styled.button`
@@ -121,26 +145,17 @@ const styled_Cardapio = () => {
     }
   `;
 
-  const Row = styled.div`
-    display: flex;
-    gap: 15px;
-    align-items: center;
-
-    width: 100%; /* Para ocupar a largura total */
-    margin-bottom: 10px; /* Espaço entre as linhas */
-  `;
-
   return {
     Title,
     CardBox,
-    Label, // Mantido por enquanto, mas pode ser removido após a alteração do código
-    Alimentolabel, // Novo componente
-    Quantidadelabel, // Novo componente
+    Alimentolabel,
+    Quantidadelabel,
     Select,
     Input,
     Row,
     Button,
-    ButtonAdd,
+    SearchResultList,
+    SearchResultItem,
   };
 };
 

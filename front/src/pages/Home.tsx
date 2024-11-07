@@ -226,19 +226,25 @@ const Home: React.FC = () => {
             <FoodBox>
               <MealInfo>
                 {lastMeal ? (
-                  <div>
-                    <h2>Refeição do dia</h2>
-                    <div>{lastMeal.food_name}</div>
-                    <div>Quantidade: {lastMeal.quantity}kg</div>
-                    <div>Calorias: {totalCalorias} Kcal</div> 
-                    <MealTimeContainer>
-                      <label className="meal-time">Horário da refeição: {formatDateTime(lastMeal.date)}</label>
-                    </MealTimeContainer>
+                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '15px' }}>
+                  <h3>Refeição do dia:</h3>
+                  
+                  <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                    <IonIcon icon={Icons.time} style={{ marginRight: '8px' }} />
+                    <label className="meal-time">Horário: {formatDateTime(lastMeal.date)}</label>
                   </div>
+                
+                  <h2>{lastMeal.food_name}</h2>
+                  <h4>Quantidade: {lastMeal.quantity}kg</h4>
+                  <p>Total de Calorias: {totalCalorias} Kcal</p>
+                </div>
                 ) : (
                   <div>Sem refeição registrada</div>
                 )}
               </MealInfo>
+              <ChartContainer>
+              <MealChart />
+            </ChartContainer>
             </FoodBox>
           </FoodBoxContainer>
         </ContainerBody>

@@ -160,7 +160,7 @@ const styled_Home = () => {
   `;
 
   const MealTimeContainer = styled.div`
-    display: flex;
+    display: inline-block;
     align-items: center;
     margin-top: 5px;
   `;
@@ -169,7 +169,6 @@ const styled_Home = () => {
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     margin-left: 10px;
-    display: inline-block;
   `;
 
   const MealItems = styled.div`

@@ -13,14 +13,15 @@ import { formatDateTime } from '../components/Date';
 
 const {
   Title,
-  CardBox,
-  Alimentolabel,
-  Quantidadelabel,
-  Select,
-  Input,
-  Row,
-  Button,
-  ButtonAdd,
+    CardBox,
+    Alimentolabel,
+    Quantidadelabel,
+    Select,
+    Input,
+    Row,
+    Button,
+    SearchResultList,
+    SearchResultItem,
 } = styled_Cardapio();
 
 const Cardapio: React.FC = () => {
@@ -149,14 +150,14 @@ const Cardapio: React.FC = () => {
 
           {searchResults.length > 0 && (
             <Row>
-              <ul>
+              <SearchResultList>
                 {searchResults.map((food) => (
-                  <li key={food.id}>
+                  <SearchResultItem key={food.id}>
                     {food.description}
                     <button onClick={() => handleSelectFood(food)}>Selecionar</button>
-                  </li>
+                  </SearchResultItem>
                 ))}
-              </ul>
+              </SearchResultList>
             </Row>
           )}
 
