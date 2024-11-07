@@ -30,6 +30,10 @@ export interface UserContextProps {
   fetchWeightAndHeight: () => Promise<{ weight: number; height: number }>;
 }
 
+export interface ConsumeChartProps {
+  data: HistoricoData[];
+}
+
 export interface FoodContextProps {
   pageFoods: PageProps | null;
   food: FoodNutrientsProps | null;
@@ -263,4 +267,22 @@ export interface EatFoodProps {
   dietary_fiber: number | null;
   calcium: number | null;
   sodium: number | null;
+  category:string;
+  foodGroup:string;
+}
+export interface HistoricoData {
+  id: string;
+  foodName: string;
+  quantity: number;
+  date: string;
+  foodGroup:string
+}
+export interface HistoricoData {
+  id: string;
+  foodName: string;
+  quantity: number;
+  date: string;
+}
+export interface ErrorProps {
+  error: string;
 }

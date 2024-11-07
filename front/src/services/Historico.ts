@@ -2,6 +2,9 @@ import { ErrorProps, RefeicaoProps } from "../types"; // Ajuste o caminho e os t
 import { api } from "./api";
 
 class Historico {
+  getHistoricoPeso(startDate: string, endDate: string) {
+    throw new Error("Method not implemented.");
+  }
   // Método para buscar todas as refeições no histórico
   async getHistoricoWithFoodName(): Promise<RefeicaoProps[] | ErrorProps> {
     try {

@@ -1,21 +1,17 @@
 import React from 'react';
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
+import { HistoricoData } from '../types';  // Certifique-se de que o tipo HistoricoData está correto
 
-const ConsumeChart: React.FC = () => {
-  const gruposAlimentares = [
-    'Cereais', 'Leguminosas', 'Hortaliças tuberosas', 'Farinhas, féculas e Massas',
-    'Castanhas e Nozes', 'Hortaliças folhosas, frutosas', 'Frutas', 'Açucares e doces',
-    'Sais e Condimentos', 'Carnes', 'Pescados', 'Frutos do mar', 'Enlatados',
-    'Aves e ovos', 'Laticínios', 'Panificados', 'Carnes industrializadas',
-    'Bebidas não alcoólicas', 'Bebidas alcoólicas', 'Chás', 'Óleos e gorduras', 'Miscelâneas'
-  ];
+// Definindo as props que o componente vai receber
+interface ConsumeChartProps {
+  data: HistoricoData[];  // Tipando o 'data' como HistoricoData[]
+}
 
-  const consumoPercentual = [
-    15, 10, 5, 8, 12, 7, 14, 6,
-    3, 9, 4, 11, 2, 8, 7, 6,
-    5, 9, 3, 10, 4, 8
-  ];
+const ConsumeChart: React.FC<ConsumeChartProps> = ({ data }) => {
+  // Mapeando os dados para as labels e séries do gráfico
+  const labels = data.map(item => item.foodName);  // Nome do alimento (ou descrição)
+  const series = data.map(item => item.quantity);  // Quantidade consumida
 
   const chartOptions: ApexOptions = {
     chart: {
@@ -25,7 +21,7 @@ const ConsumeChart: React.FC = () => {
       text: "Consumo Alimentar",
       align: "left",
     },
-    labels: gruposAlimentares,
+    labels: labels,  // Usando os labels extraídos dos dados
     legend: {
       show: false, // Remove a legenda
     },
@@ -43,9 +39,10 @@ const ConsumeChart: React.FC = () => {
 
   return (
     <div>
+      <h2>Gráfico de Consumo</h2>
       <Chart
         options={chartOptions}
-        series={consumoPercentual}
+        series={series}
         type="donut"
         width="300"
       />

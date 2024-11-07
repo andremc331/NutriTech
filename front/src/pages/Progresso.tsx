@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import eat from "../services/Eat"; // Importando o serviço da API
 import {
   ContainerBody,
   ContainerMenu,
@@ -6,7 +8,6 @@ import {
   Sidebar,
   SidebarContent,
   Icon,
-  Ico,
   Item,
   Footer,
   ImgIcon,
@@ -17,31 +18,66 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import ConsumeChart from "../components/ConsumeChart";
 import WeightChart from "../components/WeightChart";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import { UserProvider } from "../contexts";
 import { AdmMenu } from "../components";
+import { EatFoodProps, ErrorProps, HistoricoData } from "../types";
 
+// Definindo os componentes do styled
 const {
   FoodChart,
   GoalInfo,
   PesoChart,
   Label,
   Input,
-  Button,
-  ButtonCancel,
   Container,
   ChartContainer,
   VerticalContainer,
-  ModalOverlay,
-  ModalContent,
-  ModalButtons,
 } = styled_Progresso();
 
 const Metas: React.FC = () => {
   const navigate = useNavigate(); // Inicializar o hook useNavigate
+  const [historicoData, setHistoricoData] = useState<HistoricoData[]>([]); // Dados de alimentos
+  const [startDate, setStartDate] = useState<string>(""); // Data inicial
+  const [endDate, setEndDate] = useState<string>(""); // Data final
 
+  // Função para buscar dados ao preencher as datas
+  const fetchData = async () => {
+    if (!startDate || !endDate) {
+      console.log("Por favor, insira as datas para buscar os dados.");
+      return;
+    }
+
+    try {
+      // Chamada para pegar os dados de alimentos
+      const foodData: EatFoodProps[] | ErrorProps = await eat.listFoods(startDate);
+
+      // Verifica se o retorno é um erro
+      if ('error' in foodData) {
+        console.error("Erro ao buscar alimentos:", foodData.error);
+        return;
+      }
+
+      console.log("Resposta da API:", foodData);  // Verificando a resposta da API
+
+      // Se não for erro, mapeia os dados para o formato esperado
+      const mappedData: HistoricoData[] = foodData.map((food) => ({
+        id: food.id,
+        foodName: food.description,  // Mapeia 'description' para 'foodName'
+        foodGroup: food.foodGroup,  // Supondo que foodGroup existe nos dados
+        quantity: food.quantity,
+        date: food.date,
+      }));
+
+      console.log("Dados de alimentos mapeados:", mappedData);
+      setHistoricoData(mappedData);  // Atualiza o estado com os dados mapeados
+
+    } catch (error) {
+      console.error("Erro ao buscar os dados:", error);
+    }
+  };
+
+  // Calcular média de peso
   const weights = [90, 82, 74, 80, 86, 63, 62];
-
   const calculateAverage = (arr: number[]) => {
     const total = arr.reduce((acc, weight) => acc + weight, 0);
     return total / arr.length;
@@ -51,27 +87,12 @@ const Metas: React.FC = () => {
   const pesoAtual = weights[weights.length - 1]; // Peso atual
   const mediaTotal = calculateAverage(weights); // Média dos pesos
 
-  //Função para o botão atualizar o peso
-  // Estado para controlar a visibilidade do modal de atualização de peso
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newWeight, setNewWeight] = useState<number | "">(""); // Estado para o novo peso
-
-  // Função para abrir o modal
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  // Função para fechar o modal
-  const closeModal = () => {
-    setIsModalOpen(false);
-  };
-
-  // Função para salvar o novo peso
-  const saveWeight = () => {
-    // Aqui você pode atualizar o peso na sua lógica
-    console.log("Novo peso salvo:", newWeight);
-    setIsModalOpen(false); // Fecha o modal
-  };
+  // UseEffect para chamar a função de buscar dados quando as datas mudarem
+  useEffect(() => {
+    if (startDate && endDate) {
+      fetchData();
+    }
+  }, [startDate, endDate]); // Dependendo de startDate e endDate, o fetchData será chamado
 
   return (
     <>
@@ -81,29 +102,28 @@ const Metas: React.FC = () => {
           <h1>Nome de usuário</h1>
           <UserProvider>
             <AdmMenu />
-            {/* Conteúdo da página de administração */}
           </UserProvider>
         </Navbar>
 
         {/* Barra lateral da aplicação */}
         <Sidebar>
           <SidebarContent>
-            <Item onClick={() => navigate("/home")} title="Home">
+            <Item onClick={() => navigate("/home")}>
               <Icon>
                 <IonIcon icon={Icons.home} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/cardapio")} title="Cardapio">
+            <Item onClick={() => navigate("/cardapio")}>
               <Icon>
                 <IonIcon icon={Icons.restaurant} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/historico")} title="Histórico">
+            <Item onClick={() => navigate("/historico")}>
               <Icon>
                 <IonIcon icon={Icons.nutrition} />
               </Icon>
             </Item>
-            <Item onClick={() => navigate("/metas")} title="Progresso">
+            <Item onClick={() => navigate("/metas")}>
               <Icon>
                 <IonIcon icon={Icons.fitness} />
               </Icon>
@@ -111,18 +131,30 @@ const Metas: React.FC = () => {
           </SidebarContent>
         </Sidebar>
       </ContainerMenu>
+
       {/* Corpo da aplicação */}
       <ContainerBody>
         <Container>
+          <title>Progresso</title>
           <Label>
             Data Inicial:
-            <Input type="date" />
+            <Input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
           </Label>
           <Label>
             Data Final:
-            <Input type="date" />
+            <Input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
           </Label>
+          <button onClick={fetchData}>Buscar Dados</button>
         </Container>
+
         <ChartContainer>
           <PesoChart>
             <div className="content">
@@ -131,13 +163,15 @@ const Metas: React.FC = () => {
             </div>
           </PesoChart>
         </ChartContainer>
+
         <VerticalContainer>
           <FoodChart>
             <div className="content">
-              {/* Conteúdo do FoodChart aqui */}
-              <ConsumeChart />
+              {/* Passando os dados para o ConsumeChart */}
+              <ConsumeChart data={historicoData} />
             </div>
           </FoodChart>
+
           <GoalInfo>
             <div className="content">
               <label className="peso-label">Peso Atual:</label>
@@ -147,35 +181,11 @@ const Metas: React.FC = () => {
               <div className="objetivo-container">
                 <label className="objetivo">Média Total:</label>
                 <label className="objetivo">{mediaTotal.toFixed(1)} KG</label>
-                <Button onClick={openModal}>
-                  Atualizar
-                  <Icon>
-                    <IonIcon icon={Icons.create} />
-                  </Icon>
-                </Button>
               </div>
             </div>
           </GoalInfo>
         </VerticalContainer>
       </ContainerBody>
-
-      {/* Modal de atualização de peso */}
-      {isModalOpen && (
-        <ModalOverlay>
-          <ModalContent>
-            <h3>Atualizar Peso</h3>
-            <Input
-              type="text"
-              value={newWeight}
-              onChange={(e) => setNewWeight(Number(e.target.value))}
-            />
-            <ModalButtons>
-              <ButtonCancel onClick={closeModal}>Cancelar</ButtonCancel>
-              <Button onClick={saveWeight}>Salvar</Button>
-            </ModalButtons>
-          </ModalContent>
-        </ModalOverlay>
-      )}
 
       {/* Rodapé da aplicação */}
       <Footer>
@@ -183,10 +193,6 @@ const Metas: React.FC = () => {
           Copyright © 2024 / 2025 | HighTech
           <br />
           Todos os direitos reservados
-          <br />
-          <Ico>
-            <IonIcon icon={Icons.logoGithub} /> github.com/andremc331/NutriTech
-          </Ico>
         </div>
         <ImgIcon>
           <img src={imgLogoSemFundo} alt="Logo Nutritech" />
