@@ -52,7 +52,7 @@ const styled_alterar = () => {
     font-size: 10px;
     text-transform: uppercase;
     display: block;
-    margin-bottom: 5px;
+    margin-top: 10px;
     color: var(--color-1);
     font-size: 20px;
 
@@ -120,7 +120,6 @@ const styled_alterar = () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
     background-color: var(--color-13);
     font-weight: bold;
     font-size: 18px;

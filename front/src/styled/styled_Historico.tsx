@@ -90,6 +90,30 @@ const styled_Historico = () => {
     }
   `;
 
+  const FilterContainer = styled.div`
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top:5px;
+  `;
+
+  const FilterButton = styled.button`
+    background-color: var(--color-5);
+    border: none;
+    padding: 2px 5px;
+    color: var(--color-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #1ca885;
+    }
+  `;
+
   return {
     Title,
     HistoryboxContainer,
@@ -98,6 +122,8 @@ const styled_Historico = () => {
     MealInfo,
     Input,
     Label,
+    FilterButton,
+    FilterContainer
   };
 };
 

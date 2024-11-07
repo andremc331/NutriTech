@@ -19,11 +19,14 @@ const ConsumeChart: React.FC<ConsumeChartProps> = ({ data }) => {
     },
     title: {
       text: 'Consumo Alimentar',
-      align: 'left',
+      align: 'center',
+      style: {
+        color: 'white' // Cor branca
+      }
     },
-    labels,  // As labels do gráfico são os nomes dos alimentos
+    labels, 
     legend: {
-      show: false, // Oculta a legenda
+      show: false,
     },
     responsive: [
       {

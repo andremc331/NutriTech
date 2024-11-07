@@ -1,6 +1,13 @@
 import styled from "styled-components";
 
 const styled_Metas = () => {
+  const Title = styled.h2`
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    text-transform: uppercase;
+  `;
+
   const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -20,6 +27,7 @@ const styled_Metas = () => {
     width: 100%;
     max-width: 450px;
     height: 280px;
+    margin-top: 20px;
     color: var(--color-12);
     background-color: var(--color-1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -72,7 +80,7 @@ const styled_Metas = () => {
     margin: 20px 0 0;
     border-radius: 10px;
     width: 100%;
-    height: 280px;
+    height: 310px;
     color: var(--color-1);
     background-color: var(--color-5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -157,6 +165,23 @@ const styled_Metas = () => {
     }
   `;
 
+  const FilterButton = styled.button`
+    background-color: var(--color-5);
+    border: none;
+    padding: 2px 6px;
+    color: var(--color-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #1ca885;
+    }
+  `;
+
   // Estilos do Modal
   const ModalOverlay = styled.div`
     position: fixed;
@@ -209,11 +234,13 @@ const styled_Metas = () => {
   `;
 
   return {
+    Title,
     FoodChart,
     GoalInfo,
     PesoChart,
     Label,
     Input,
+    FilterButton,
     Button,
     ButtonCancel,
     Container,

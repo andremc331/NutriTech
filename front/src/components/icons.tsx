@@ -1,4 +1,6 @@
 import {
+  moon,
+  sunny,
   home,
   restaurant,
   nutrition,
@@ -9,15 +11,21 @@ import {
   close,
   remove,
   search,
+  filter,
   checkmark,
+  logOut,
+  person,
+  informationCircle,
   chevronForward,
   chevronBack,
   arrowForward,
   logoGithub,
-  logoLinkedin
+  logoLinkedin,
 } from "ionicons/icons";
 
 export const Icons = {
+  moon,
+  sunny,
   home,
   restaurant,
   nutrition,
@@ -28,10 +36,15 @@ export const Icons = {
   remove,
   close,
   search,
+  filter,
   checkmark,
+  logOut,
+  person,
+
+  informationCircle,
   chevronForward,
   chevronBack,
   arrowForward,
   logoGithub,
-  logoLinkedin
+  logoLinkedin,
 };

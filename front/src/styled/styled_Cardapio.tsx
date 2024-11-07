@@ -17,7 +17,7 @@ const styled_Cardapio = () => {
     text-transform: uppercase;
     background-color: var(--color-2);
     color: var(--color-1);
-    border-radius: 8px;
+    border-radius: 20px;
     padding: 30px;
     margin: 10px;
     margin-left: 90px;
@@ -28,10 +28,11 @@ const styled_Cardapio = () => {
 
   const Row = styled.div`
     display: flex;
+    justify-content: space-between;
     gap: 15px;
     align-items: center;
-    width: 100%; /* Para ocupar a largura total */
-    margin-bottom: 10px; /* Espaço entre as linhas */
+    width: 100%; 
+    margin-bottom: 30px;  
   `;
 
   const SearchResultList = styled.ul`
@@ -87,14 +88,31 @@ const styled_Cardapio = () => {
   `;
 
   const Input = styled.input`
-    width: 17%;
-    height: 30px;
+    font-family: "Roboto", sans-serif;
+    width: 250px;
+    height: 40px;
     padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 14px;
     transition: border-color 0.3s;
-    margin-left: 10px;
+
+
+    &:focus {
+      border-color: #000000;
+      outline: none;
+    }
+  `;
+  const InputQnt = styled.input`
+    font-family: "Roboto", sans-serif;
+    width: 140px;
+    height: 40px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+
 
     &:focus {
       border-color: #000000;
@@ -103,12 +121,12 @@ const styled_Cardapio = () => {
   `;
 
   const Select = styled.select`
-    width: 26%;
+    font-family: "Roboto", sans-serif;
+    width: 200px;
     height: 40px;
-    margin-left: 10px;
     padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 20px;
+    border-radius: 10px;
     font-size: 14px;
     transition: border-color 0.3s;
     color: #000000; /* Aqui você define a cor da fonte */
@@ -118,6 +136,23 @@ const styled_Cardapio = () => {
       outline: none;
     }
   `;
+
+  const SearchButton = styled.button`
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-5);
+  color: var(--color-1);
+  padding: 9px 11px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer; 
+  transition: background-color 0.3s ease; 
+
+  &:hover {
+    background-color: #1ca885;
+  }
+`;
+
 
   const Button = styled.button`
     display: flex;
@@ -133,7 +168,7 @@ const styled_Cardapio = () => {
     border-radius: 10px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-top: 20px;
+    margin-top: 50px;
 
     &:hover {
       background-color: #1ca885;
@@ -152,8 +187,10 @@ const styled_Cardapio = () => {
     Quantidadelabel,
     Select,
     Input,
+    InputQnt,
     Row,
     Button,
+    SearchButton,
     SearchResultList,
     SearchResultItem,
   };

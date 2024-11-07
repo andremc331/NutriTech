@@ -159,7 +159,7 @@ export default function AtualizarUsuário() {
             {/* Botão de salvar para "Nome de usuário" */}
             <ButtonContainer>
               <SaveButton type="button" onClick={handleAlias}>
-                Alterar nome de usuário
+                Alterar usuário
               </SaveButton>
             </ButtonContainer>
 

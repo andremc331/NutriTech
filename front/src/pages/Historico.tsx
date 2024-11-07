@@ -27,6 +27,8 @@ const {
   MealContainer,
   Input,
   Label,
+  FilterButton,
+  FilterContainer,
 } = styled_Historico();
 
 interface Meal {
@@ -82,7 +84,9 @@ const Historico: React.FC = () => {
     setLoading(true);
     setError(null); // Resetar o erro antes de tentar buscar os dados
     try {
-      console.log(`Buscando histórico para o intervalo de datas: ${startDate} a ${endDate}`);
+      console.log(
+        `Buscando histórico para o intervalo de datas: ${startDate} a ${endDate}`
+      );
       const data = await getHistoricoByDate(startDate, endDate);
       console.log("Dados recebidos da rota getHistoricoByDate:", data);
 
@@ -146,15 +150,21 @@ const Historico: React.FC = () => {
             onChange={(e) => setStartDate(e.target.value)}
           />
         </Label>
-        <Label>
-          Data Final:
-          <Input
-            type="date"
-            value={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </Label>
-        <button onClick={handleFilter}>Filtrar</button>
+        <FilterContainer>
+          <Label>
+            Data Final:
+            <Input
+              type="date"
+              value={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </Label>
+          <FilterButton onClick={handleFilter} title="Filtrar">
+            <Icon>
+              <IonIcon icon={Icons.filter} />
+            </Icon>
+          </FilterButton>
+        </FilterContainer>
 
         <HistoryboxContainer>
           <HistoryBox>
@@ -168,8 +178,10 @@ const Historico: React.FC = () => {
                   <MealContainer key={index}>
                     <div>
                       <p>Refeição:</p>
-                      <h3>{meal.food_name}</h3>  
-                      <h4>{meal.foodName} Quantidade: {meal.quantity} kg</h4>                   
+                      <h3>{meal.food_name}</h3>
+                      <h4>
+                        {meal.foodName} Quantidade: {meal.quantity} kg
+                      </h4>
                       <p>{meal.date}</p> {/* Exibe a data formatada */}
                     </div>
                   </MealContainer>

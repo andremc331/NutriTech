@@ -134,7 +134,7 @@ const Sobre: React.FC = () => {
               </IconsContainer>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} />
+                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
                 </Icon>
               </IconsContainer>
             </div>
@@ -146,12 +146,12 @@ const Sobre: React.FC = () => {
               <Title1>Dev team: Bruno Henrique</Title1>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} />
+                  <IonIcon icon={Icons.logoGithub} /> github.com/
                 </Icon>
               </IconsContainer>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} />
+                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
                 </Icon>
               </IconsContainer>
             </div>
@@ -163,12 +163,12 @@ const Sobre: React.FC = () => {
               <Title2>Dev team: Eduardo Henrique</Title2>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} />
+                  <IonIcon icon={Icons.logoGithub} /> github.com/
                 </Icon>
               </IconsContainer>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} />
+                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
                 </Icon>
               </IconsContainer>
             </div>
@@ -180,12 +180,12 @@ const Sobre: React.FC = () => {
               <Title1>Dev team: Danilo Alves</Title1>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} />
+                  <IonIcon icon={Icons.logoGithub} /> github.com/
                 </Icon>
               </IconsContainer>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} />
+                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
                 </Icon>
               </IconsContainer>
             </div>
@@ -197,12 +197,12 @@ const Sobre: React.FC = () => {
               <Title2>Dev team: Valcir Jr.</Title2>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} />
+                  <IonIcon icon={Icons.logoGithub} /> github.com/
                 </Icon>
               </IconsContainer>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} />
+                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
                 </Icon>
               </IconsContainer>
             </div>

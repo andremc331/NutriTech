@@ -21,6 +21,7 @@ const GlobalStyles = createGlobalStyle`
     --color-9: #00fa9a; /*Verde-2*/
     --color-10: #000000;/*Preto */
     --color-11: #3f3f3f;/*Cinza */
+    --color-15: #2c2c2c;/*Cinza-2 */
     --color-12: #cccccc;/*Branco-2*/
     --color-13: #dc143c;/*Vermelho*/
     --color-14: #de3163;/*Vermelho-2*/
@@ -33,9 +34,16 @@ const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: 'Roboto', sans-serif;
     background-color: var(--color-1);
+    color: #000;
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
+
+  .dark-theme {
+    background-color: var(--color-15);
+    color: #fff;
+  }
+
 
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Roboto', sans-serif;
@@ -57,7 +65,7 @@ const ContainerBody = styled.div`
   max-width: 100vw;
   margin: 100px auto 20px;
   border-radius: 15px;
-  background-color: var(--color-1);
+  background-color: transparent;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 `;
 

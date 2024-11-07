@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import eat from "../services/Eat"; // Importando o serviço da API
-import { UserContext } from "../contexts";  // Certifique-se de importar o contexto de usuário ou serviço que retorna os dados de peso
+import { UserContext } from "../contexts"; // Certifique-se de importar o contexto de usuário ou serviço que retorna os dados de peso
 import {
   ContainerBody,
   ContainerMenu,
@@ -21,16 +21,23 @@ import ConsumeChart from "../components/ConsumeChart";
 import WeightChart from "../components/WeightChart";
 import { UserProvider } from "../contexts";
 import { AdmMenu } from "../components";
-import { EatFoodProps, ErrorProps, HistoricoData, UserContextProps } from "../types";
+import {
+  EatFoodProps,
+  ErrorProps,
+  HistoricoData,
+  UserContextProps,
+} from "../types";
 import { useUser } from "../hooks";
 
 // Definindo os componentes do styled
 const {
+  Title,
   FoodChart,
   GoalInfo,
   PesoChart,
   Label,
   Input,
+  FilterButton,
   Button,
   ButtonCancel,
   Container,
@@ -77,10 +84,12 @@ const Metas: React.FC = () => {
     }
 
     try {
-      const foodData: EatFoodProps[] | ErrorProps = await eat.listFoods(startDate);
+      const foodData: EatFoodProps[] | ErrorProps = await eat.listFoods(
+        startDate
+      );
 
       // Verifica se o retorno é um erro
-      if ('error' in foodData) {
+      if ("error" in foodData) {
         console.error("Erro ao buscar alimentos:", foodData.error);
         return;
       }
@@ -107,7 +116,8 @@ const Metas: React.FC = () => {
   };
 
   // Calcula a média de pesos (caso tenha um array de pesos)
-  const mediaTotal = pesoInicial && pesoAtual ? calculateAverage([pesoInicial, pesoAtual]) : 0;
+  const mediaTotal =
+    pesoInicial && pesoAtual ? calculateAverage([pesoInicial, pesoAtual]) : 0;
 
   // Função para abrir o modal
   const openModal = () => {
@@ -138,7 +148,6 @@ const Metas: React.FC = () => {
   };
   // Chama as funções de inicialização
   useEffect(() => {
-
     fetchPeso(); // Chama a função para buscar os dados de peso
   }, []);
 
@@ -189,8 +198,8 @@ const Metas: React.FC = () => {
 
       {/* Corpo da aplicação */}
       <ContainerBody>
+        <Title>Progresso</Title>
         <Container>
-          <title>Progresso</title>
           <Label>
             Data Inicial:
             <Input
@@ -199,6 +208,7 @@ const Metas: React.FC = () => {
               onChange={(e) => setStartDate(e.target.value)}
             />
           </Label>
+
           <Label>
             Data Final:
             <Input
@@ -207,7 +217,11 @@ const Metas: React.FC = () => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </Label>
-          <button onClick={fetchData}>Buscar Dados</button>
+          <FilterButton onClick={fetchData} title="Filtrar">
+            <Icon>
+              <IonIcon icon={Icons.filter} />
+            </Icon>
+          </FilterButton>
         </Container>
 
         <ChartContainer>
@@ -234,13 +248,13 @@ const Metas: React.FC = () => {
               <div className="objetivo-container">
                 <label className="objetivo">Média Total:</label>
                 <label className="objetivo">{mediaTotal.toFixed(1)} KG</label>
-                <Button onClick={openModal}>
-                  Atualizar
-                  <Icon>
-                    <IonIcon icon={Icons.create} />
-                  </Icon>
-                </Button>
               </div>
+              <Button onClick={openModal}>
+                Atualizar
+                <Icon>
+                  <IonIcon icon={Icons.create} />
+                </Icon>
+              </Button>
             </div>
           </GoalInfo>
         </VerticalContainer>
@@ -263,7 +277,6 @@ const Metas: React.FC = () => {
           </ModalContent>
         </ModalOverlay>
       )}
-
 
       {/* Rodapé da aplicação */}
       <Footer>
