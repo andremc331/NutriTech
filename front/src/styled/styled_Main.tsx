@@ -9,10 +9,10 @@ const GlobalStyles = createGlobalStyle`
   /* Variaveis de cores usadas no layout da aplicação tema claro*/
   :root {
     --color-1: #f0f0f0; /*Branco*/
-    --color-2: #8000bf; /*Roxo-1*/
-    --color-3: #9400d3; /*Roxo-2*/
+    --color-2: #59107e; /*Roxo-1*/
+    --color-3: #a546ce; /*Roxo-2*/
     --color-4: #f0ddee; /*Roxo-3*/
-    --color-5: #00ffa1; /*Verde-1*/
+    --color-5: #27c289; /*Verde-1*/
 
   /* Variaveis de cores usadas no layout da aplicação tema escuro*/
     --color-6: #341933; /*Roxo-4*/
