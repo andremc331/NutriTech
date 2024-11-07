@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styled from "styled-components";
 
 interface CaptchaProps {
   onVerified: React.Dispatch<React.SetStateAction<boolean>>;
@@ -69,31 +70,84 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerified, setIsVerified }) => {
   }, []);
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '20px', width: '300px', textAlign: 'center' }}>
-      <h2>Verificação de Segurança</h2>
-      
-      {/* Se a verificação foi concluída, exibe a mensagem de sucesso */}
-      {isVerified ? (
-        <p style={{ color: 'green', fontWeight: 'bold' }}>Verificação Concluída</p>
+    <Body>
+      <div style={{ border: '1px solid #ccc', padding: '20px', width: '300px', textAlign: 'center' }}>
+        <CaptchaTitle>Verificação de Segurança</CaptchaTitle>
+
+        {/* Se a verificação foi concluída, exibe a mensagem de sucesso */}
+        {isVerified ? (
+        <SuccessMessage>Verificação Concluída</SuccessMessage>
       ) : (
-        <>
-          <p>Resolva: {question}</p>
-          <input
-            type="number"
-            value={userAnswer}
-            onChange={handleAnswerChange}
-            required
-            disabled={isVerified} // Desabilita o campo após a verificação
-            style={{ marginBottom: '10px' }}
-          />
-          <p style={{ fontSize: '12px', color: '#888' }}>Mova o mouse para completar a verificação.</p>
-        </>
-      )}
-      
-      {/* Se houver mensagem de erro, exibe */}
-      {errorMessage && <p style={{ color: 'red', fontSize: '12px' }}>{errorMessage}</p>}
-    </div>
+          <>
+          <CaptchaQuestion>Resolva: {question}</CaptchaQuestion>
+          <CaptchaInput
+              type="number"
+              value={userAnswer}
+              onChange={handleAnswerChange}
+              required
+              disabled={isVerified} // Desabilita o campo após a verificação
+              style={{ marginBottom: '10px' }}
+            />
+          <InstructionText>Mova o mouse para completar a verificação.</InstructionText>
+          </>
+        )}
+
+        {/* Se houver mensagem de erro, exibe */}
+      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      </div>
+    </Body>
   );
 };
 
 export default Captcha;
+
+const Body = styled.div`
+    display: flex; /* Alterado para flex */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 60px;
+    border-radius: 10px;
+
+    @media (max-width: 768px) {
+      padding: 10px;
+    }
+  `;
+
+const CaptchaTitle = styled.h2`
+font-family: "Roboto", sans-serif;
+color: var(--color-1);
+font-size: 24px;
+font-weight: bold;
+margin-bottom: 20px;
+`;
+
+const CaptchaQuestion = styled.p`
+  font-size: 20px;
+  color: var(--color-10);
+`;
+
+const CaptchaInput = styled.input`
+  font-size: 16px;
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  width: 100%;
+  margin: 10px 0;
+`;
+
+const InstructionText = styled.p`
+  font-size: 14px;
+  color: #888;
+`;
+
+const SuccessMessage = styled.p`
+  color: #19f519;
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const ErrorMessage = styled.p`
+  color: red;
+  font-size: 12px;
+`;
