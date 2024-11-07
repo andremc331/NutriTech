@@ -1,33 +1,29 @@
+// ConsumeChart.tsx
 import React from 'react';
+import { HistoricoData } from '../types';  // Asegure-se de que 'HistoricoData' esteja correto
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
 
-const ConsumeChart: React.FC = () => {
-  const gruposAlimentares = [
-    'Cereais', 'Leguminosas', 'Hortaliças tuberosas', 'Farinhas, féculas e Massas',
-    'Castanhas e Nozes', 'Hortaliças folhosas, frutosas', 'Frutas', 'Açucares e doces',
-    'Sais e Condimentos', 'Carnes', 'Pescados', 'Frutos do mar', 'Enlatados',
-    'Aves e ovos', 'Laticínios', 'Panificados', 'Carnes industrializadas',
-    'Bebidas não alcoólicas', 'Bebidas alcoólicas', 'Chás', 'Óleos e gorduras', 'Miscelâneas'
-  ];
+interface ConsumeChartProps {
+  data: HistoricoData[];  // O componente espera uma lista de HistoricoData como 'data'
+}
 
-  const consumoPercentual = [
-    15, 10, 5, 8, 12, 7, 14, 6,
-    3, 9, 4, 11, 2, 8, 7, 6,
-    5, 9, 3, 10, 4, 8
-  ];
+const ConsumeChart: React.FC<ConsumeChartProps> = ({ data }) => {
+  // Aqui você vai mapear os dados para gerar os valores do gráfico
+  const labels = data.map((item) => item.foodName);  // Usando o nome dos alimentos
+  const series = data.map((item) => item.quantity);  // Usando a quantidade de alimentos
 
   const chartOptions: ApexOptions = {
     chart: {
       type: 'donut',
     },
     title: {
-      text: "Consumo Alimentar",
-      align: "left",
+      text: 'Consumo Alimentar',
+      align: 'left',
     },
-    labels: gruposAlimentares,
+    labels,  // As labels do gráfico são os nomes dos alimentos
     legend: {
-      show: false, // Remove a legenda
+      show: false, // Oculta a legenda
     },
     responsive: [
       {
@@ -43,12 +39,7 @@ const ConsumeChart: React.FC = () => {
 
   return (
     <div>
-      <Chart
-        options={chartOptions}
-        series={consumoPercentual}
-        type="donut"
-        width="300"
-      />
+      <Chart options={chartOptions} series={series} type="donut" width="300" />
     </div>
   );
 };
