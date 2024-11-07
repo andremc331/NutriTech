@@ -233,7 +233,7 @@ const Home: React.FC = () => {
               {lastMeal ? (
                 <div>
                   <h2>Refeição</h2>
-                  <p>horário: {}</p>
+                  <p>Dia: {lastMeal.date}</p>
                   <p>{lastMeal.food_name}</p>
                   <p>
                     Quantidade ({lastMeal.quantity}kg)
