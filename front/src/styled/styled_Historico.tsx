@@ -54,7 +54,7 @@ const styled_Historico = () => {
     width: 100%;
     border-radius: 15px;
     color: var(--color-1);
-    background-color: var(--color-2);
+    background-color: var(--color-7);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   `;
 
