@@ -88,7 +88,7 @@ const Card = styled.div`
   const FormContainer = styled.div`
     width: 100%;
     max-width: 90%;
-    height: 510px;
+    height: 300px;
     margin: 20px auto;
     padding: 30px;
     border: 2px solid #7d4cdb;
@@ -137,33 +137,35 @@ const Card = styled.div`
     text-align: center;
   `;
 
-  const CardLoseWeight = styled.div`
-    font-family: "Roboto", sans-serif;
-    font-weight: bold;
-    font-size: 15px;
-    text-transform: uppercase;
-    flex: 1;
-    min-width: 300px;
-    margin: 10px;
-    background-color: var(--color-8);
-    color: var(--color-1);
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column; /* O título permanece acima */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+const CardLoseWeight = styled.div`
+font-family: "Roboto", sans-serif;
+font-weight: bold;
+font-size: 15px;
+text-transform: uppercase;
+flex: 1;
+min-width: 300px;
+margin: 10px;
+background-color: var(--color-8);
+color: var(--color-1);
+border-radius: 10px;
+padding: 20px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+cursor: pointer;
+box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+transition: transform 0.3s ease, background-color 0.3s ease;
 
-    &:hover {
-      background-color: var(--color-7);
-    }
+&:hover {
+  background-color: var(--color-7);
+  transform: scale(1.50); /* Expande levemente o card */
+}
 
-    @media (max-width: 600px) {
-      flex: 0 0 90%; /* Em telas pequenas, ocupa a largura total */
-    }
-  `;
+@media (max-width: 600px) {
+  flex: 0 0 90%; /* Em telas pequenas, ocupa a largura total */
+}
+`;
   const CardGainWeight = styled.div`
     font-family: "Roboto", sans-serif;
     font-weight: bold;
@@ -182,9 +184,13 @@ const Card = styled.div`
     align-items: center;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
 
     &:hover {
       background-color: var(--color-7);
+      transform: scale(1.50); /* Expande levemente o card */
+
     }
 
     @media (max-width: 600px) {
@@ -209,9 +215,13 @@ const Card = styled.div`
     align-items: center;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
 
     &:hover {
       background-color: var(--color-7);
+      transform: scale(1.50); /* Expande levemente o card */
+
     }
 
     @media (max-width: 600px) {
@@ -236,9 +246,13 @@ const Card = styled.div`
     align-items: center;
     cursor: pointer;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+
 
     &:hover {
       background-color: var(--color-7);
+      transform: scale(1.50); /* Expande levemente o card */
+
     }
 
     @media (max-width: 600px) {
@@ -275,6 +289,7 @@ const Card = styled.div`
 
     &:hover {
       background-color: #1ca885;
+      transform: scale(1.50); /* Expande levemente o card */
     }
 
     @media (max-width: 768px) {
@@ -307,7 +322,7 @@ const Card = styled.div`
   const ButtonContainer = styled.div`
     display: flex;
     justify-content: space-between;
-    margin-top: 100px;
+    margin-top: 50px;
   `;
 
   const NavButton = styled.button`
