@@ -13,13 +13,15 @@ import axios from 'axios';
 const {
   Title,
   CardBox,
-  Label,
+  Alimentolabel,  
+  Quantidadelabel,  
   Select,
   Input,
   Row,
   Button,
   ButtonAdd,
 } = styled_Cardapio();
+
 const Cardapio: React.FC = () => {
   const navigate = useNavigate(); 
   const [inputValue, setInputValue] = useState<string>('');
@@ -114,7 +116,7 @@ const Cardapio: React.FC = () => {
         
         <CardBox>
           <Row>
-            <Label>Refeição:</Label>
+            <Alimentolabel>Refeição:</Alimentolabel>
             <Select>
               <option value="">Selecione...</option>
               <option value="cafe-da-manha">Café da Manhã</option>
@@ -126,13 +128,10 @@ const Cardapio: React.FC = () => {
               <option value="pre-treino">Pré Treino</option>
               <option value="pos-treino">Pós Treino</option>
             </Select>
-  
-            {/* <Label>Data e Hora:</Label>
-            <Input type="datetime-local" /> */}
           </Row>
-  
+
           <Row>
-            <Label>Alimento:</Label>
+            <Alimentolabel>Alimento:</Alimentolabel>
             <Input
               type="text"
               value={inputValue}
@@ -161,7 +160,7 @@ const Cardapio: React.FC = () => {
           )}
     
           <Row>
-            <Label>Quantidade:</Label>
+            <Quantidadelabel>Quantidade:</Quantidadelabel>
             <Input
               type="number"
               min="0"

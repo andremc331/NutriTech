@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 const styled_Cardapio = () => {
-
   const Title = styled.h2`
     font-family: "Roboto", sans-serif;
     font-weight: bold;
@@ -28,7 +27,22 @@ const styled_Cardapio = () => {
   `;
 
   const Label = styled.label`
-    display: block; 
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--color-1);
+  `;
+
+  // Criar os novos componentes Alimentolabel e Quantidadelabel
+  const Alimentolabel = styled.label`
+    display: block;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: var(--color-1);
+  `;
+
+  const Quantidadelabel = styled.label`
+    display: block;
     margin-bottom: 10px;
     font-size: 14px;
     color: var(--color-1);
@@ -39,14 +53,14 @@ const styled_Cardapio = () => {
     height: 30px;
     padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 5px; 
+    border-radius: 20px;
     font-size: 14px;
     transition: border-color 0.3s;
     margin-left: 10px;
 
     &:focus {
-      border-color: #4CAF50;
-      outline: none; 
+      border-color: #4caf50;
+      outline: none;
     }
   `;
 
@@ -54,14 +68,15 @@ const styled_Cardapio = () => {
     width: 26%;
     height: 40px;
     margin-left: 10px;
-    padding: 10px; 
-    border: 2px solid #ccc; 
-    border-radius: 5px; 
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 20px;
     font-size: 14px;
     transition: border-color 0.3s;
+    color: #5f5f5f; /* Aqui você define a cor da fonte */
 
     &:focus {
-      border-color: #4CAF50; 
+      border-color: #4caf50;
       outline: none;
     }
   `;
@@ -106,7 +121,6 @@ const styled_Cardapio = () => {
     }
   `;
 
-
   const Row = styled.div`
     display: flex;
     gap: 15px;
@@ -116,11 +130,12 @@ const styled_Cardapio = () => {
     margin-bottom: 10px; /* Espaço entre as linhas */
   `;
 
-
   return {
     Title,
     CardBox,
-    Label,
+    Label, // Mantido por enquanto, mas pode ser removido após a alteração do código
+    Alimentolabel, // Novo componente
+    Quantidadelabel, // Novo componente
     Select,
     Input,
     Row,
