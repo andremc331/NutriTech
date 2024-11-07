@@ -28,25 +28,19 @@ const TermosDeUso: React.FC = () => {
 
 
   const handleNextClick = () => {
+    // Verifica se o CAPTCHA foi validado
+    if (!isCaptchaVerified) {
+      window.alert("Por favor, verifique o CAPTCHA.");
+      return; // Não permite continuar caso o CAPTCHA não esteja verificado
+    }
+  
+    // Verifica se os termos foram aceitos
     if (agreedToTerms && agreedToPrivacy) {
       navigate("/home"); // Navega para a página "home"
     } else {
       alert("Você precisa concordar com ambos os termos antes de prosseguir.");
-    } 
-
-    if (!isCaptchaVerified) {
-      window.alert("Por favor, verifique o CAPTCHA.");
-      return;
     }
   };
-
-  // // Função para quando o Captcha for validado
-  // const handleCadastro = async (): Promise<void> => {
-  //   // Primeiro, verifica se o Captcha foi validado
-  //   if (!isCaptchaVerified) {
-  //     window.alert("Por favor, verifique o CAPTCHA.");
-  //     return;
-  //   }
 
 
   return (

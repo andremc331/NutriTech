@@ -13,12 +13,12 @@ const styled_TermoDuso=()=>{
 `;
 
  const LogoImage = styled.img`
-  width: 300px;
+  width: 200px;
   height: auto;
 `;
 
  const FormContainer = styled.div`
-  width: 800px;
+  width: 900px;
   margin: 20px auto;
   padding: 30px;
   border: 2px solid #7d4cdb;
@@ -38,7 +38,7 @@ const styled_TermoDuso=()=>{
 
  const TermsContainer = styled.div`
   font-family: "Roboto", sans-serif;
-  max-height: 200px;
+  max-height: 300px;
   overflow-y: scroll;
   background-color: var(--color-12);
   padding: 10px;
