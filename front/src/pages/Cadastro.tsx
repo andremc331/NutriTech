@@ -1,24 +1,24 @@
 import React, { useState } from "react";
 import logo from "../assets/logo.nutritech.png";
+import { Icon } from "../styled/styled_Main";
+import { IonIcon } from "@ionic/react";
+import { Icons } from "../components/icons";
 import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks";
-import Captcha from "./Captcha";
-// import { Button } from "../components";
 
 const {
   ImageContainer,
-    FormContainer,
-    Title,
-    FormGroup,
-    Label,
-    Input,
-    FormGroupRow,
-    Button,
-    BackButton,
-    ButtonContainer,
-    NavigationButton,
-    ErrorMessage
+  FormContainer,
+  Title,
+  FormGroup,
+  Label,
+  Input,
+  FormGroupRow,
+  Button,
+  BackButton,
+  ButtonContainer,
+  ErrorMessage,
 } = styled_Cadastro();
 
 const Cadastro: React.FC = () => {
@@ -32,8 +32,6 @@ const Cadastro: React.FC = () => {
     confirmarSenha: "",
   });
 
-  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false); // Verifica se o Captcha foi validado
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -45,7 +43,9 @@ const Cadastro: React.FC = () => {
   // Função para verificar se as senhas são iguais
   const VerificarSenhas = (): boolean => {
     if (formData.senha !== formData.confirmarSenha) {
-      window.alert("As senhas não estão batendo, por favor, verifique se as senhas são correspondentes.");
+      window.alert(
+        "As senhas não estão batendo, por favor, verifique se as senhas são correspondentes."
+      );
       return false;
     }
     return true;
@@ -75,10 +75,11 @@ const Cadastro: React.FC = () => {
   };
 
   // Função para verificar o tipo de erro
-  function isErrorWithResponse(err: unknown): err is { response?: { status: number } } {
+  function isErrorWithResponse(
+    err: unknown
+  ): err is { response?: { status: number } } {
     return typeof err === "object" && err !== null && "response" in err;
   }
-
 
   return (
     <>
@@ -87,7 +88,8 @@ const Cadastro: React.FC = () => {
       </ImageContainer>
       <FormContainer>
         <Title>Informações de Usuário</Title>
-        {error && <ErrorMessage>{error.error}</ErrorMessage>} {/* Mensagem de erro */}
+        {error && <ErrorMessage>{error.error}</ErrorMessage>}{" "}
+        {/* Mensagem de erro */}
         <form>
           <FormGroupRow>
             <FormGroup>
@@ -135,10 +137,21 @@ const Cadastro: React.FC = () => {
               required
             />
           </FormGroup>
-                    <ButtonContainer>
-                    <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>Voltar</BackButton>
-                    <Button type="button" onClick={handleCadastro}>Próximo</Button> {/* Define o tipo como "button" */}
-              </ButtonContainer>
+          <ButtonContainer>
+            <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>
+              <Icon>
+                <IonIcon icon={Icons.chevronBack} />
+              </Icon>
+              Voltar
+            </BackButton>
+            <Button type="button" onClick={handleCadastro}>
+              Próximo
+              <Icon>
+                <IonIcon icon={Icons.chevronForward} />
+              </Icon>
+            </Button>{" "}
+            {/* Define o tipo como "button" */}
+          </ButtonContainer>
         </form>
       </FormContainer>
     </>

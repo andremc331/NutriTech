@@ -2,80 +2,13 @@ import styled from "styled-components";
 
 const styled_Definicao_M = () => {
   const ImageContainer = styled.div`
-  text-align: center;
-  max-width: 100%;
-  margin: 50px auto;
-`;
-  const Body = styled.div`
-    display: flex; /* Alterado para flex */
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-
-    @media (max-width: 768px) {
-      padding: 10px;
-    }
-  `;
-
-  const Carousel = styled.div`
-  display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  width: 100%;
-  padding: 10px;
-
-  @media (max-width: 600px) {
-    padding: 5px;
-  }
-`;
-
-const Card = styled.div`
-  flex: 0 0 30%;
-  margin: 10px;
-  background-color: #f0f0f0;
-  border-radius: 10px;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  scroll-snap-align: center;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-
-  @media (max-width: 900px) {
-    flex: 0 0 45%;
-  }
-
-  @media (max-width: 600px) {
-    flex: 0 0 90%;
-  }
-
-  &.selected {
-    border: 2px solid #007bff;
-    background-color: #e6f0ff;
-    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-  }
-
-  /* Efeito hover apenas quando o card não está selecionado */
-  &:hover:not(.selected) {
-    background-color: #f0f8ff;
-  }
-`;
-
-
-  const Logo = styled.div`
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
+    text-align: center;
     max-width: 100%;
-
-    @media (max-width: 768px) {
-      margin-bottom: 15px;
-    }
+    margin: 30px auto;
   `;
 
   const LogoImage = styled.img`
-    width: 230px;
+    width: 200px;
     height: auto;
     margin-top: 10px;
     margin-bottom: 10px;
@@ -88,7 +21,7 @@ const Card = styled.div`
   const FormContainer = styled.div`
     width: 100%;
     max-width: 90%;
-    height: 300px;
+    height: 480px;
     margin: 20px auto;
     padding: 30px;
     border: 2px solid #7d4cdb;
@@ -137,35 +70,40 @@ const Card = styled.div`
     text-align: center;
   `;
 
-const CardLoseWeight = styled.div`
-font-family: "Roboto", sans-serif;
-font-weight: bold;
-font-size: 15px;
-text-transform: uppercase;
-flex: 1;
-min-width: 300px;
-margin: 10px;
-background-color: var(--color-8);
-color: var(--color-1);
-border-radius: 10px;
-padding: 20px;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-transition: transform 0.3s ease, background-color 0.3s ease;
+  const CardLoseWeight = styled.div`
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 15px;
+    text-transform: uppercase;
+    flex: 1;
+    min-width: 300px;
+    margin: 10px;
+    background-color: var(--color-8);
+    color: var(--color-1);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
 
-&:hover {
-  background-color: var(--color-7);
-  transform: scale(1.50); /* Expande levemente o card */
-}
+    &:hover {
+      background-color: var(--color-7);
+      transform: scale(1.5); /* Expande levemente o card */
+    }
 
-@media (max-width: 600px) {
-  flex: 0 0 90%; /* Em telas pequenas, ocupa a largura total */
-}
-`;
+    &.selected {
+      background-color: var(--color-7);
+      transform: scale(1.05); /* Aplicando hover enquanto estiver selecionado */
+    }
+
+    @media (max-width: 600px) {
+      flex: 0 0 90%; /* Em telas pequenas, ocupa a largura total */
+    }
+  `;
   const CardGainWeight = styled.div`
     font-family: "Roboto", sans-serif;
     font-weight: bold;
@@ -186,11 +124,14 @@ transition: transform 0.3s ease, background-color 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, background-color 0.3s ease;
 
-
     &:hover {
       background-color: var(--color-7);
-      transform: scale(1.50); /* Expande levemente o card */
+      transform: scale(1.5); /* Expande levemente o card */
+    }
 
+    &.selected {
+      background-color: var(--color-7);
+      transform: scale(1.05); /* Aplicando hover enquanto estiver selecionado */
     }
 
     @media (max-width: 600px) {
@@ -217,11 +158,14 @@ transition: transform 0.3s ease, background-color 0.3s ease;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, background-color 0.3s ease;
 
-
     &:hover {
       background-color: var(--color-7);
-      transform: scale(1.50); /* Expande levemente o card */
+      transform: scale(1.5); /* Expande levemente o card */
+    }
 
+    &.selected {
+      background-color: var(--color-7);
+      transform: scale(1.05); /* Aplicando hover enquanto estiver selecionado */
     }
 
     @media (max-width: 600px) {
@@ -253,6 +197,11 @@ transition: transform 0.3s ease, background-color 0.3s ease;
       background-color: var(--color-7);
       transform: scale(1.50); /* Expande levemente o card */
 
+    }
+
+    &.selected {
+      background-color: var(--color-7);
+      transform: scale(1.05); /* Aplicando hover enquanto estiver selecionado */
     }
 
     @media (max-width: 600px) {
@@ -289,7 +238,7 @@ transition: transform 0.3s ease, background-color 0.3s ease;
 
     &:hover {
       background-color: #1ca885;
-      transform: scale(1.50); /* Expande levemente o card */
+      transform: scale(1.5); /* Expande levemente o card */
     }
 
     @media (max-width: 768px) {
@@ -325,119 +274,39 @@ transition: transform 0.3s ease, background-color 0.3s ease;
     margin-top: 50px;
   `;
 
-  const NavButton = styled.button`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #21d29d;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
-  cursor: pointer;
-  z-index: 1;
+  const PopupMessage = styled.div`
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 2.5s;
 
-  &:hover {
-    background-color: #1ca885;
-  }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
 
-  &.left {
-    left: 10px;
-  }
-
-  &.right {
-    right: 10px;
-  }
-
-  @media (max-width: 600px) {
-    width: 40px;
-    height: 40px;
-  }
-`;
-
-const NextButton = styled.button`
-  width: 60px;
-  height: 60px;
-  background-color: #21d29d;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #1ca885;
-  }
-
-  @media (max-width: 600px) {
-    width: 50px;
-    height: 50px;
-  }
-`;
-
-const ButtonGroup = styled.div`
-  display: flex;
-  gap: 10px;
-`;
-
-const MinusButton = styled.button`
-  width: 40px;
-  height: 40px;
-  background-color: #21d29d;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  font-size: 24px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: #1ca885;
-  }
-
-  @media (max-width: 600px) {
-    width: 35px;
-    height: 35px;
-  }
-`;
-
-const PlusButton = styled(MinusButton)``;
-
-const PopupMessage = styled.div`
-  position: fixed;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #007bff;
-  color: white;
-  padding: 10px 20px;
-  border-radius: 5px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  animation: fadeIn 0.5s ease-in-out, fadeOut 0.5s ease-in-out 2.5s;
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-
-  @keyframes fadeOut {
-    from { opacity: 1; }
-    to { opacity: 0; }
-  }
-`;
+    @keyframes fadeOut {
+      from {
+        opacity: 1;
+      }
+      to {
+        opacity: 0;
+      }
+    }
+  `;
 
   return {
     ImageContainer,
-    Carousel,
-    NavButton,
-    Card,
-    ButtonGroup,
-    PlusButton,
-    MinusButton,
-    NextButton,
-    Body,
-    Logo,
     LogoImage,
     FormContainer,
     Title,

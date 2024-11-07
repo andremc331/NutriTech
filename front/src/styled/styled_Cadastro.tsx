@@ -85,7 +85,7 @@ const styled_Cadastro = () => {
   `;
 
   const Input = styled.input`
-    width: 100%;
+    width: 90%;
     height: 40px;
     padding: 8px;
     box-sizing: border-box;

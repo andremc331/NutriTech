@@ -11,15 +11,6 @@ import { GoalProps } from "../types";
 
 const {
   ImageContainer,
-  Carousel,
-  NavButton,
-  Card,
-  ButtonGroup,
-  PlusButton,
-  MinusButton,
-  NextButton,
-  Body,
-  Logo,
   LogoImage,
   FormContainer,
   Title,
@@ -97,7 +88,12 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Perder peso" ? "selected" : ""}
           >
             <CardTitle>Perder Peso</CardTitle>
-            <Text>Emagracimento envolve uma combinação de alimentação equilibrada e atividade física regular.</Text>
+            <Text>
+              Emagracimento <br />
+              envolve uma combinação de alimentação equilibrada e atividade
+              física regular. Isso pode incluir reduzir a ingestão de calorias e
+              incorporar exercícios aeróbicos e de resistência na rotina.
+            </Text>
           </CardLoseWeight>
 
           <CardGainWeight
@@ -105,15 +101,27 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Ganhar peso" ? "selected" : ""}
           >
             <CardTitle>Ganhar Peso</CardTitle>
-            <Text>Engordar envolve aumentar a massa muscular e/ou a gordura de maneira saudável.</Text>
+            <Text>
+              Engordar <br />
+              envolve aumentar a massa muscular e/ou a gordura de maneira
+              saudável. Isso pode ser alcançado por meio de uma dieta rica em
+              calorias e nutrientes, priorizando alimentos como proteínas
+              magras, grãos integrais e gorduras saudáveis.
+            </Text>
           </CardGainWeight>
 
           <CardMuscle
-            onClick={() => setGoal("Ganhar peso")}
-            className={goal === "Ganhar peso" ? "selected" : ""}
+            onClick={() => setGoal("Ganhar musculo")}
+            className={goal === "Ganhar musculo" ? "selected" : ""}
           >
             <CardTitle>Ganhar Massa Muscular</CardTitle>
-            <Text>Hipertrofismo envolve o aumento da força e volume muscular através de treinamento.</Text>
+            <Text>
+              Hipertrofismo <br />
+              envolve o aumento da força e volume muscular através de
+              treinamento de resistência e uma nutrição adequada. Isso inclui
+              uma dieta rica em proteínas, carboidratos complexos e gorduras
+              saudáveis.
+            </Text>
           </CardMuscle>
 
           <CardDiet
@@ -121,7 +129,12 @@ const DefinicaoMetas: React.FC = () => {
             className={goal === "Manter peso" ? "selected" : ""}
           >
             <CardTitle>Monitorar Dieta</CardTitle>
-            <Text>Educação Alimentar envolve a conscientização e o registro dos alimentos consumidos diariamente.</Text>
+            <Text>
+              Educação Alimentar <br />
+              envolve a conscientização e o registro dos alimentos consumidos
+              diariamente. Isso pode incluir contar calorias, acompanhar a
+              ingestão de macronutrientes e avaliar a qualidade dos alimentos.
+            </Text>
           </CardDiet>
         </CardContainer>
 
@@ -130,17 +143,21 @@ const DefinicaoMetas: React.FC = () => {
             <Icon>
               <IonIcon icon={Icons.chevronBack} />
             </Icon>
+            Voltar
           </BackButton>
-          <Button onClick={enviarMeta}>Next</Button>
+          <Button onClick={enviarMeta}>
+            Avançar
+            <Icon>
+              <IonIcon icon={Icons.chevronForward} />
+            </Icon>
+          </Button>
           {/* Popup de confirmação */}
-        {showPopup && (
-          <PopupMessage onClick={() => setShowPopup(false)}>
-            <p>{messagePopup}</p>
-          </PopupMessage>
-        )}
+          {showPopup && (
+            <PopupMessage onClick={() => setShowPopup(false)}>
+              <p>{messagePopup}</p>
+            </PopupMessage>
+          )}
         </ButtonContainer>
-
-        
       </FormContainer>
     </>
   );
