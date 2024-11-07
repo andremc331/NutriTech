@@ -22,6 +22,8 @@ const styled_Historico = () => {
     color: var(--color-10);
     background-color: var(--color-1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 9000px; /* Defina a altura máxima desejada */
+    overflow-y: auto; /* Permite a rolagem vertical */
 
     @media (min-width: 768px) {
       width: 60vw;
@@ -35,14 +37,14 @@ const styled_Historico = () => {
   `;
 
   const MealContainer = styled.div`
-  background-color: white;
-  padding: 15px;
-  margin: 10px 0;
-  border-radius: 8px;
-  width: 100%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  color: black;
-`;
+    background-color: white;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 8px;
+    width: 100%;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: black;
+  `;
 
   const HistoryBox = styled.div`
     display: flex;
@@ -67,7 +69,7 @@ const styled_Historico = () => {
     font-weight: bold;
     font-size: 12px;
     text-transform: uppercase;
-    display: block; 
+    display: block;
     margin-top: 10px;
     color: var(--color-10);
   `;
@@ -77,14 +79,14 @@ const styled_Historico = () => {
     height: 30px;
     padding: 10px;
     border: 2px solid #ccc;
-    border-radius: 5px; 
+    border-radius: 5px;
     font-size: 14px;
     transition: border-color 0.3s;
     margin-left: 10px;
 
     &:focus {
-      border-color: #4CAF50;
-      outline: none; 
+      border-color: #4caf50;
+      outline: none;
     }
   `;
 
@@ -95,7 +97,7 @@ const styled_Historico = () => {
     HistoryBox,
     MealInfo,
     Input,
-    Label
+    Label,
   };
 };
 

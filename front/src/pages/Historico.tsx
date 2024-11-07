@@ -18,17 +18,27 @@ import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserProvider, EatContext } from "../contexts";
 
-const { Title, HistoryboxContainer, HistoryBox, MealInfo, MealContainer, Input, Label } = styled_Historico();
+const {
+  Title,
+  HistoryboxContainer,
+  HistoryBox,
+  MealInfo,
+  MealContainer,
+  Input,
+  Label,
+} = styled_Historico();
 
 interface Meal {
   date: string;
   foodName: string;
   quantity: number;
   food_name: string;
+  id: string;
 }
 
 const Historico: React.FC = () => {
-  const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(EatContext);
+  const { getHistoricoWithFoodName, getHistoricoByDate } =
+    useContext(EatContext);
   const [historicoData, setHistoricoData] = useState<Meal[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [startDate, setStartDate] = useState<string>("");
@@ -39,12 +49,13 @@ const Historico: React.FC = () => {
   useEffect(() => {
     const fetchInitialHistoricoWithFoodName = async () => {
       setLoading(true);
-      setError(null); // Resetar o erro antes de tentar buscar os dados
+      setError(null);
       try {
         const data = await getHistoricoWithFoodName();
+        console.log("Dados do histórico:", data); // Verifique os dados que estão sendo recebidos
         setHistoricoData(data);
       } catch (e: any) {
-        setError("Erro ao carregar o histórico."); // Define uma mensagem de erro
+        setError("Erro ao carregar o histórico.");
       } finally {
         setLoading(false);
       }
@@ -82,30 +93,46 @@ const Historico: React.FC = () => {
         <Sidebar>
           <SidebarContent>
             <Item onClick={() => navigate("/home")}>
-              <Icon><IonIcon icon={Icons.home} /></Icon>
+              <Icon>
+                <IonIcon icon={Icons.home} />
+              </Icon>
             </Item>
             <Item onClick={() => navigate("/cardapio")}>
-              <Icon><IonIcon icon={Icons.restaurant} /></Icon>
+              <Icon>
+                <IonIcon icon={Icons.restaurant} />
+              </Icon>
             </Item>
             <Item onClick={() => navigate("/historico")}>
-              <Icon><IonIcon icon={Icons.nutrition} /></Icon>
+              <Icon>
+                <IonIcon icon={Icons.nutrition} />
+              </Icon>
             </Item>
             <Item onClick={() => navigate("/metas")}>
-              <Icon><IonIcon icon={Icons.fitness} /></Icon>
+              <Icon>
+                <IonIcon icon={Icons.fitness} />
+              </Icon>
             </Item>
           </SidebarContent>
         </Sidebar>
       </ContainerMenu>
-      
+
       <ContainerBody>
         <Title>Histórico</Title>
         <Label>
-          Data Inicial: 
-          <Input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} />
+          Data Inicial:
+          <Input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
         </Label>
         <Label>
-          Data Final: 
-          <Input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} />
+          Data Final:
+          <Input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </Label>
         <button onClick={handleFilter}>Filtrar</button>
 
@@ -116,23 +143,28 @@ const Historico: React.FC = () => {
                 <p>Carregando...</p>
               ) : error ? (
                 <p>{error}</p> // Exibe a mensagem de erro, se houver
-              ) : historicoData.length > 0 ? (
+              ) : historicoData && historicoData.length > 0 ? ( // Verifica se há dados
                 historicoData.map((meal, index) => (
-                  <MealContainer>
-                  <div key={index}>
+                  <MealContainer key={meal.id || index}>
+                    {" "}
+                    {/* Aqui usamos o key com base no id do item */}
                     <h4>{meal.date}</h4>
-                    <p>{meal.foodName} - {meal.quantity} kg</p>
+                    <p>
+                      {meal.foodName} - {meal.quantity} kg
+                    </p>
                     <p>{meal.food_name}</p>
-                  </div></MealContainer>
+                    {/* Aqui você pode adicionar outros dados, por exemplo */}
+                    <p>{}</p> {/* Exemplo de outra propriedade */}
+                  </MealContainer>
                 ))
               ) : (
-                <p>Clique em Filtrar para buscar.</p>
+                <p>Não há dados disponíveis.</p> // Exibe mensagem se não houver dados
               )}
             </MealInfo>
           </HistoryBox>
         </HistoryboxContainer>
       </ContainerBody>
-      
+
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech
