@@ -51,11 +51,20 @@ const Historico: React.FC = () => {
       setLoading(true);
       setError(null);
       try {
+        console.log("Buscando histórico com alimentos...");
         const data = await getHistoricoWithFoodName();
+<<<<<<< HEAD
         console.log("Dados do histórico:", data); // Verifique os dados que estão sendo recebidos
         setHistoricoData(data);
       } catch (e: any) {
         setError("Erro ao carregar o histórico.");
+=======
+        console.log("Dados recebidos da rota getHistoricoWithFoodName:", data);
+        setHistoricoData(data);
+      } catch (e: any) {
+        console.error("Erro ao buscar histórico:", e);
+        setError("Erro ao carregar o histórico."); // Define uma mensagem de erro
+>>>>>>> a00cf648d7911e20b138a8b2d78b51a044a97976
       } finally {
         setLoading(false);
       }
@@ -72,9 +81,12 @@ const Historico: React.FC = () => {
     setLoading(true);
     setError(null); // Resetar o erro antes de tentar buscar os dados
     try {
+      console.log(`Buscando histórico para o intervalo de datas: ${startDate} a ${endDate}`);
       const data = await getHistoricoByDate(startDate, endDate);
+      console.log("Dados recebidos da rota getHistoricoByDate:", data);
       setHistoricoData(data);
     } catch (e: any) {
+      console.error("Erro ao aplicar o filtro:", e);
       setError("Erro ao aplicar o filtro."); // Define uma mensagem de erro
     } finally {
       setLoading(false);
@@ -145,6 +157,7 @@ const Historico: React.FC = () => {
                 <p>{error}</p> // Exibe a mensagem de erro, se houver
               ) : historicoData && historicoData.length > 0 ? ( // Verifica se há dados
                 historicoData.map((meal, index) => (
+<<<<<<< HEAD
                   <MealContainer key={meal.id || index}>
                     {" "}
                     {/* Aqui usamos o key com base no id do item */}
@@ -155,6 +168,14 @@ const Historico: React.FC = () => {
                     <p>{meal.food_name}</p>
                     {/* Aqui você pode adicionar outros dados, por exemplo */}
                     <p>{}</p> {/* Exemplo de outra propriedade */}
+=======
+                  <MealContainer key={index}> {/* Usando 'key' com o index */}
+                    <div>
+                      <h4>{meal.date}</h4>
+                      <p>{meal.foodName} - {meal.quantity} kg</p>
+                      <p>{meal.food_name}</p>
+                    </div>
+>>>>>>> a00cf648d7911e20b138a8b2d78b51a044a97976
                   </MealContainer>
                 ))
               ) : (

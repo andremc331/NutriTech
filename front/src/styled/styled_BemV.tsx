@@ -70,7 +70,7 @@ const ContainerLeft = styled.div`
   width: 20%;
   height: 500px;
   padding: 20px;
-  background: var(--color-2);
+  background: var(--color-7);
   color: var(--color-1);
   border-radius: 20px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);

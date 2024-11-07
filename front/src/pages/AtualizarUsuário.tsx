@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import styled from "styled-components";
-import { Input, Button, Header, Error, PopupMessage } from "../components";
+import { Header, Error, PopupMessage } from "../components";
 import { useUser } from "../hooks";
 import {
   ContainerBody,
@@ -32,6 +32,13 @@ const {
   CancelButton,
   ButtonContainer,
 } = styled_alterar();
+
+// Adicionando um estilo customizado para alinhar os botões horizontalmente
+const ButtonContainerHorizontal = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px; /* Espaço entre os botões */
+`;
 
 export default function AtualizarUsuário() {
   const { token, updateAlias, updateMail, updatePassword, error, setError } = useUser();
@@ -72,7 +79,7 @@ export default function AtualizarUsuário() {
     } else {
       const response = await updateMail(email);
       if (response) {
-        setMessagePopup("e-mail atualizado com sucesso");
+        setMessagePopup("E-mail atualizado com sucesso");
         setShowPopup(true);
       }
     }
@@ -93,7 +100,7 @@ export default function AtualizarUsuário() {
   };
 
   return (
-<>
+    <>
       {/* Barra de navegação da aplicação */}
       <ContainerMenu>
         <Navbar>
@@ -130,73 +137,82 @@ export default function AtualizarUsuário() {
           </SidebarContent>
         </Sidebar>
       </ContainerMenu>
-            <Header />
+      <Header />
       {error && <Error>{error.error}</Error>}
       {showPopup && <PopupMessage message={messagePopup} setShowPopup={setShowPopup} />}
       
       {/* Corpo da aplicação */}
       <ContainerBody>
-      <FormContainer>
-        <Title>Atualizar Informações</Title>
-        <form>
-          <FormGroup>
-            <Label htmlFor="alias">Nome de usuário:</Label>
-            <AlterInput
-              type="text"
-              id="alias"
-              value={nome}
-              onChange={(e) => setAlias(e.target.value)}
-              required
-            />
-          </FormGroup>
-          <ButtonContainer>
-            <CancelButton type="button" onClick={() => navigate(-1)}>Cancelar</CancelButton>
-            <SaveButton type="button" onClick={handleAlias}>Alterar nome de usuário</SaveButton>
-          </ButtonContainer>
+        <FormContainer>
+          <Title>Atualizar Informações</Title>
+          <form>
+            <FormGroup>
+              <Label htmlFor="alias">Nome de usuário:</Label>
+              <AlterInput
+                type="text"
+                id="alias"
+                value={nome}
+                onChange={(e) => setAlias(e.target.value)}
+                required
+              />
+            </FormGroup>
+            {/* Botão de salvar para "Nome de usuário" */}
+            <ButtonContainer>
+              <SaveButton type="button" onClick={handleAlias}>
+                Alterar nome de usuário
+              </SaveButton>
+            </ButtonContainer>
 
-          <FormGroup>
-            <Label htmlFor="mail">E-mail:</Label>
-            <AlterInput
-              type="text"
-              id="mail"
-              value={email}
-              onChange={(e) => setMail(e.target.value)}
-              required
-            />
-          </FormGroup>
-          <ButtonContainer>
-            <CancelButton type="button" onClick={() => navigate(-1)}>Cancelar</CancelButton>
-            <SaveButton type="button" onClick={handleMail}>Alterar e-mail</SaveButton>
-          </ButtonContainer>
+            <FormGroup>
+              <Label htmlFor="mail">E-mail:</Label>
+              <AlterInput
+                type="text"
+                id="mail"
+                value={email}
+                onChange={(e) => setMail(e.target.value)}
+                required
+              />
+            </FormGroup>
+            {/* Botão de salvar para "E-mail" */}
+            <ButtonContainer>
+              <SaveButton type="button" onClick={handleMail}>
+                Alterar e-mail
+              </SaveButton>
+            </ButtonContainer>
 
-          <FormGroup>
-            <Label htmlFor="password">Nova senha:</Label>
-            <AlterInput
-              type="password"
-              id="password"
-              value={senha}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </FormGroup>
+            <FormGroup>
+              <Label htmlFor="password">Nova senha:</Label>
+              <AlterInput
+                type="password"
+                id="password"
+                value={senha}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </FormGroup>
 
-          <FormGroup>
-            <Label htmlFor="confirmPassword">Confirmação da nova senha:</Label>
-            <AlterInput
-              type="password"
-              id="confirmPassword"
-              value={confirmPassword}
-              onChange={(e) => setConfirmPassword(e.target.value)}
-              required
-            />
-          </FormGroup>
-          
-          <ButtonContainer>
-            <CancelButton type="button" onClick={() => navigate(-1)}>Cancelar</CancelButton>
-            <SaveButton type="button" onClick={handlePassword}>Alterar senha</SaveButton>
-          </ButtonContainer>
-        </form>
-      </FormContainer>
+            <FormGroup>
+              <Label htmlFor="confirmPassword">Confirmação da nova senha:</Label>
+              <AlterInput
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                required
+              />
+            </FormGroup>
+
+            {/* Botões de "Alterar senha" e "Cancelar" ao lado */}
+            <ButtonContainerHorizontal>
+              <CancelButton type="button" onClick={() => navigate(-1)}>
+                Cancelar
+              </CancelButton>
+              <SaveButton type="button" onClick={handlePassword}>
+                Alterar senha
+              </SaveButton>
+            </ButtonContainerHorizontal>
+          </form>
+        </FormContainer>
       </ContainerBody>
 
       {/* Rodapé da aplicação */}
