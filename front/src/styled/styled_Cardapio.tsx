@@ -15,7 +15,7 @@ const styled_Cardapio = () => {
     align-items: flex-start;
     font-size: 16px;
     text-transform: uppercase;
-    background-color: var(--color-2);
+    background-color: var(--color-7);
     color: var(--color-1);
     border-radius: 20px;
     padding: 30px;
