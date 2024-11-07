@@ -1,49 +1,35 @@
-import React, { useState } from "react";
-import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
-import {
-  ContainerMenu,
-  Navbar,
-  Sidebar,
-  SidebarContent,
-  Icon,
-  Item,
-  ImgIcon,
-  ContainerBody,
-  Footer,
-} from "../styled/styled_Main";
-import styled_Cardapio from "../styled/styled_Cardapio";
+import React, { useState } from 'react';
+import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
+import { ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, ImgIcon, ContainerBody, Footer } from "../styled/styled_Main";
+import styled_Cardapio from '../styled/styled_Cardapio';
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
-import { useNavigate } from "react-router-dom";
-import { AdmMenu } from "../components";
-import { UserProvider } from "../contexts";
-import eat from "../services/Eat";
-import axios from "axios";
-import { formatDateTime } from "../components/Date";
+import { useNavigate } from 'react-router-dom';
+import { AdmMenu } from '../components';
+import { UserProvider } from '../contexts';
+import eat from '../services/Eat';
+import axios from 'axios';
+import { formatDateTime } from '../components/Date';
 
 const {
   Title,
-  CardBox,
-  Alimentolabel,
-  Quantidadelabel,
-  Select,
-  Input,
-  InputQnt,
-  Row,
-  Button,
-  SearchButton,
-  SearchResultList,
-  SearchResultItem,
+    CardBox,
+    Alimentolabel,
+    Quantidadelabel,
+    Select,
+    Input,
+    Row,
+    Button,
+    SearchResultList,
+    SearchResultItem,
 } = styled_Cardapio();
 
 const Cardapio: React.FC = () => {
   const navigate = useNavigate();
-  const [inputValue, setInputValue] = useState<string>("");
+  const [inputValue, setInputValue] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [selectedFoods, setSelectedFoods] = useState<
-    { food: any; quantity: number }[]
-  >([]);
+  const [selectedFoods, setSelectedFoods] = useState<{ food: any; quantity: number }[]>([]);
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
@@ -56,9 +42,7 @@ const Cardapio: React.FC = () => {
   const handleSearch = async () => {
     if (inputValue) {
       try {
-        const response = await axios.get(
-          `http://localhost:3011/food/search?term=${inputValue}`
-        );
+        const response = await axios.get(`http://localhost:3011/food/search?term=${inputValue}`);
         setSearchResults(response.data.items);
       } catch (error) {
         console.error("Erro ao buscar alimentos:", error);
@@ -75,7 +59,7 @@ const Cardapio: React.FC = () => {
   };
 
   const handleSendData = async () => {
-    const date = new Date().toISOString().split("T")[0]; // Current date in YYYY-MM-DD format
+    const date = new Date().toISOString().split('T')[0]; // Current date in YYYY-MM-DD format
     const promises: Promise<any>[] = [];
 
     selectedFoods.forEach(({ food, quantity }) => {
@@ -146,7 +130,9 @@ const Cardapio: React.FC = () => {
               <option value="pre-treino">Pré Treino</option>
               <option value="pos-treino">Pós Treino</option>
             </Select>
+          </Row>
 
+          <Row>
             <Alimentolabel>Alimento:</Alimentolabel>
             <Input
               type="text"
@@ -155,33 +141,37 @@ const Cardapio: React.FC = () => {
               placeholder="Buscar alimento..."
               onFocus={handleSearch}
             />
-            <SearchButton onClick={handleSearch}>
+            <Button onClick={handleSearch}>
               <Icon>
                 <IonIcon icon={Icons.search} />
               </Icon>
-            </SearchButton>
+            </Button>
+          </Row>
 
-            {searchResults.length > 0 && (
+          {searchResults.length > 0 && (
+            <Row>
               <SearchResultList>
                 {searchResults.map((food) => (
                   <SearchResultItem key={food.id}>
                     {food.description}
-                    <button onClick={() => handleSelectFood(food)}></button>
+                    <button onClick={() => handleSelectFood(food)}>Selecionar</button>
                   </SearchResultItem>
                 ))}
               </SearchResultList>
-            )}
-          </Row>
+            </Row>
+          )}
 
-          <Quantidadelabel>Quantidade:</Quantidadelabel>
-          <InputQnt
-            type="text"
-            min="0"
-            step="1"
-            value={quantity || ""}
-            onChange={(e) => handleQuantityChange(Number(e.target.value))}
-            placeholder="Quantidade em kg"
-          />
+          <Row>
+            <Quantidadelabel>Quantidade:</Quantidadelabel>
+            <Input
+              type="number"
+              min="0"
+              step="1"
+              value={quantity || ''}
+              onChange={(e) => handleQuantityChange(Number(e.target.value))}
+              placeholder="Quantidade em kg"
+            />
+          </Row>
 
           <Button onClick={handleSendData}>
             <Icon>
@@ -196,9 +186,7 @@ const Cardapio: React.FC = () => {
               <ul>
                 {selectedFoods.map(({ food, quantity }) => (
                   <li key={food.id}>
-                    {food.description} - {quantity} kg -{" "}
-                    {formatDateTime(new Date().toISOString())}{" "}
-                    {/* Exemplo de uso de data */}
+                    {food.description} - {quantity} kg - {formatDateTime(new Date().toISOString())} {/* Exemplo de uso de data */}
                   </li>
                 ))}
               </ul>
@@ -219,6 +207,6 @@ const Cardapio: React.FC = () => {
       </Footer>
     </>
   );
-};
+}
 
 export default Cardapio;

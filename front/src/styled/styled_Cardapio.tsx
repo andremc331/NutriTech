@@ -13,14 +13,11 @@ const styled_Cardapio = () => {
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
-    font-size: 16px;
-    text-transform: uppercase;
-    background-color: var(--color-7);
+    background-color: var(--color-2);
     color: var(--color-1);
-    border-radius: 20px;
+    border-radius: 8px;
     padding: 30px;
-    margin: 10px;
-    margin-left: 90px;
+    margin: 10px 0 0 90px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     width: 50vw;
     overflow: hidden;
@@ -28,25 +25,30 @@ const styled_Cardapio = () => {
 
   const Row = styled.div`
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 15px;
     align-items: center;
-    width: 100%; 
-    margin-bottom: 30px;  
+    width: 100%;
+    margin-bottom: 10px;
   `;
 
   const SearchResultList = styled.ul`
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-    width: 100%;
-    max-height: 200px;
-    overflow-y: auto;
-    top: 100%; /* Coloca a lista abaixo do campo de entrada */
+  list-style: none;
+  padding: 0;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  width: 1000px; /* O mesmo valor do Input, para alinhar */
+  max-height: 200px;
+  overflow-y: auto;
+  top: 100%; /* Coloca a lista abaixo do campo de entrada */
+  left: 0;
+  border: 2px solid #adadad;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+`;
 
-  `;
-
-  const SearchResultItem = styled.li`
+  const SearchResultItem = styled.li`  
     background-color: var(--color-3);
     border-radius: 8px;
     padding: 10px;
@@ -73,114 +75,61 @@ const styled_Cardapio = () => {
         background-color: #0c3d0f;
       }
     }
-  `;
+  ;`
 
   const Alimentolabel = styled.label`
-  display: block;
-  margin-bottom: 10px;
-  font-size: 14px;
-  color: var(--color-1);
-`;
-
-
-  const Quantidadelabel = styled.label`
-    display: block;
-    margin-bottom: 10px;
     font-size: 14px;
     color: var(--color-1);
   `;
 
-  const Input = styled.input`
-    font-family: "Roboto", sans-serif;
-    width: 250px;
-    height: 40px;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
+  const Quantidadelabel = styled.label`
     font-size: 14px;
-    transition: border-color 0.3s;
-
-
-    &:focus {
-      border-color: #000000;
-      outline: none;
-    }
-  `;
-  const InputQnt = styled.input`
-    font-family: "Roboto", sans-serif;
-    width: 140px;
-    height: 40px;
-    padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-
-
-    &:focus {
-      border-color: #000000;
-      outline: none;
-    }
+    color: var(--color-1);
+    margin-bottom: 15px;
   `;
 
   const Select = styled.select`
-    font-family: "Roboto", sans-serif;
-    width: 200px;
+    width: 26%;
     height: 40px;
+    margin-left: 10px;
     padding: 10px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-    color: #000000; /* Aqui você define a cor da fonte */
-
-    &:focus {
-      border-color: #4caf50;
-      outline: none;
-    }
+    font-size: 16px;
+    border-radius: 8px;
   `;
 
-  const SearchButton = styled.button`
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color-5);
-  color: var(--color-1);
-  padding: 9px 11px;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer; 
-  transition: background-color 0.3s ease; 
-
-  &:hover {
-    background-color: #1ca885;
-  }
-`;
-
+  const Input = styled.input`
+    width: 40%;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: none;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    justify-content: flex-start;  
+  `;
 
   const Button = styled.button`
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    background-color: var(--color-5);
-    font-weight: bold;
-    font-size: 18px;
-    color: var(--color-1);
+    padding: 10px;
+    background-color: #4caf50;
+    color: white;
     border: none;
-    padding: 10px 20px;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
+    font-size: 14px;
     transition: background-color 0.3s ease;
-    margin-top: 50px;
 
     &:hover {
-      background-color: #1ca885;
+      background-color: #0c3d0f;
     }
+  `;
 
-    @media (max-width: 768px) {
-      font-size: 16px;
-      padding: 12px;
-    }
+  const SearchButton = styled(Button)`
+    margin-left: -60px;
+    margin-bottom: 50px
   `;
 
   return {
@@ -190,12 +139,11 @@ const styled_Cardapio = () => {
     Quantidadelabel,
     Select,
     Input,
-    InputQnt,
     Row,
     Button,
-    SearchButton,
     SearchResultList,
     SearchResultItem,
+    SearchButton,
   };
 };
 
