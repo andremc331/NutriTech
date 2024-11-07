@@ -42,6 +42,8 @@ const styled_Cardapio = () => {
     width: 100%;
     max-height: 200px;
     overflow-y: auto;
+    top: 100%; /* Coloca a lista abaixo do campo de entrada */
+
   `;
 
   const SearchResultItem = styled.li`
@@ -74,11 +76,12 @@ const styled_Cardapio = () => {
   `;
 
   const Alimentolabel = styled.label`
-    display: block;
-    margin-bottom: 10px;
-    font-size: 14px;
-    color: var(--color-1);
-  `;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 14px;
+  color: var(--color-1);
+`;
+
 
   const Quantidadelabel = styled.label`
     display: block;
