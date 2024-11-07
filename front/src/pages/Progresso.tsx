@@ -1,3 +1,4 @@
+// Metas.tsx
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import eat from "../services/Eat"; // Importando o serviço da API

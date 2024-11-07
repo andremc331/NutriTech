@@ -57,6 +57,7 @@ export interface Meal {
   date: string;
   userId: string;
   food_name: string;
+  foodGroup:string;
 }
 
 export interface RefeicaoProps {
@@ -280,6 +281,7 @@ export interface HistoricoData {
 export interface HistoricoData {
   id: string;
   foodName: string;
+  foodGroup:string;
   quantity: number;
   date: string;
 }

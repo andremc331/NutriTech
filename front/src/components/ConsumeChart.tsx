@@ -1,29 +1,29 @@
+// ConsumeChart.tsx
 import React from 'react';
+import { HistoricoData } from '../types';  // Asegure-se de que 'HistoricoData' esteja correto
 import Chart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
-import { HistoricoData } from '../types';  // Certifique-se de que o tipo HistoricoData está correto
 
-// Definindo as props que o componente vai receber
 interface ConsumeChartProps {
-  data: HistoricoData[];  // Tipando o 'data' como HistoricoData[]
+  data: HistoricoData[];  // O componente espera uma lista de HistoricoData como 'data'
 }
 
 const ConsumeChart: React.FC<ConsumeChartProps> = ({ data }) => {
-  // Mapeando os dados para as labels e séries do gráfico
-  const labels = data.map(item => item.foodName);  // Nome do alimento (ou descrição)
-  const series = data.map(item => item.quantity);  // Quantidade consumida
+  // Aqui você vai mapear os dados para gerar os valores do gráfico
+  const labels = data.map((item) => item.foodName);  // Usando o nome dos alimentos
+  const series = data.map((item) => item.quantity);  // Usando a quantidade de alimentos
 
   const chartOptions: ApexOptions = {
     chart: {
       type: 'donut',
     },
     title: {
-      text: "Consumo Alimentar",
-      align: "left",
+      text: 'Consumo Alimentar',
+      align: 'left',
     },
-    labels: labels,  // Usando os labels extraídos dos dados
+    labels,  // As labels do gráfico são os nomes dos alimentos
     legend: {
-      show: false, // Remove a legenda
+      show: false, // Oculta a legenda
     },
     responsive: [
       {
@@ -39,13 +39,7 @@ const ConsumeChart: React.FC<ConsumeChartProps> = ({ data }) => {
 
   return (
     <div>
-      <h2>Gráfico de Consumo</h2>
-      <Chart
-        options={chartOptions}
-        series={series}
-        type="donut"
-        width="300"
-      />
+      <Chart options={chartOptions} series={series} type="donut" width="300" />
     </div>
   );
 };

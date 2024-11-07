@@ -41,9 +41,12 @@ const Historico: React.FC = () => {
       setLoading(true);
       setError(null); // Resetar o erro antes de tentar buscar os dados
       try {
+        console.log("Buscando histórico com alimentos...");
         const data = await getHistoricoWithFoodName();
+        console.log("Dados recebidos da rota getHistoricoWithFoodName:", data);
         setHistoricoData(data);
       } catch (e: any) {
+        console.error("Erro ao buscar histórico:", e);
         setError("Erro ao carregar o histórico."); // Define uma mensagem de erro
       } finally {
         setLoading(false);
@@ -61,9 +64,12 @@ const Historico: React.FC = () => {
     setLoading(true);
     setError(null); // Resetar o erro antes de tentar buscar os dados
     try {
+      console.log(`Buscando histórico para o intervalo de datas: ${startDate} a ${endDate}`);
       const data = await getHistoricoByDate(startDate, endDate);
+      console.log("Dados recebidos da rota getHistoricoByDate:", data);
       setHistoricoData(data);
     } catch (e: any) {
+      console.error("Erro ao aplicar o filtro:", e);
       setError("Erro ao aplicar o filtro."); // Define uma mensagem de erro
     } finally {
       setLoading(false);
@@ -118,12 +124,13 @@ const Historico: React.FC = () => {
                 <p>{error}</p> // Exibe a mensagem de erro, se houver
               ) : historicoData.length > 0 ? (
                 historicoData.map((meal, index) => (
-                  <MealContainer>
-                  <div key={index}>
-                    <h4>{meal.date}</h4>
-                    <p>{meal.foodName} - {meal.quantity} kg</p>
-                    <p>{meal.food_name}</p>
-                  </div></MealContainer>
+                  <MealContainer key={index}> {/* Usando 'key' com o index */}
+                    <div>
+                      <h4>{meal.date}</h4>
+                      <p>{meal.foodName} - {meal.quantity} kg</p>
+                      <p>{meal.food_name}</p>
+                    </div>
+                  </MealContainer>
                 ))
               ) : (
                 <p>Clique em Filtrar para buscar.</p>
