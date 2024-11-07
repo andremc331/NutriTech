@@ -4,16 +4,21 @@ import styled_Cadastro from "../styled/styled_Cadastro";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../hooks";
 import Captcha from "./Captcha";
+// import { Button } from "../components";
 
 const {
   ImageContainer,
-  FormContainer,
-  Title,
-  FormGroup,
-  FormGroupRow,
-  Label,
-  Input,
-  ErrorMessage,
+    FormContainer,
+    Title,
+    FormGroup,
+    Label,
+    Input,
+    FormGroupRow,
+    Button,
+    BackButton,
+    ButtonContainer,
+    NavigationButton,
+    ErrorMessage
 } = styled_Cadastro();
 
 const Cadastro: React.FC = () => {
@@ -21,8 +26,8 @@ const Cadastro: React.FC = () => {
   const { create, error, setError } = useUser();
 
   const [formData, setFormData] = useState({
-    nome: "Ana Maria",
-    email: "aba@teste.com",
+    nome: "Ana",
+    email: "a@teste.com",
     senha: "123456",
     confirmarSenha: "",
   });
@@ -48,16 +53,7 @@ const Cadastro: React.FC = () => {
 
   // Função para quando o Captcha for validado
   const handleCadastro = async (): Promise<void> => {
-    // Primeiro, verifica se o Captcha foi validado
-    if (!isCaptchaVerified) {
-      window.alert("Por favor, verifique o CAPTCHA.");
-      return;
-    }
-
-    // Verifica se as senhas estão iguais
-    if (!VerificarSenhas()) {
-      return; // Já exibe um alerta dentro da função VerificarSenhas se não baterem
-    }
+    if (!VerificarSenhas()) return;
 
     try {
       // Envia os dados para a API
@@ -65,7 +61,6 @@ const Cadastro: React.FC = () => {
       navigate("/info-pessoal"); // Redireciona para a página info-pessoal após o cadastro bem-sucedido
     } catch (err) {
       console.error("Erro ao cadastrar usuário:", err);
-      // Verificando se o erro é do tipo esperado
       if (isErrorWithResponse(err)) {
         const response = (err as any).response;
         if (response && response.status === 409) {
@@ -79,10 +74,11 @@ const Cadastro: React.FC = () => {
     }
   };
 
-  // Função de verificação de tipo de erro
+  // Função para verificar o tipo de erro
   function isErrorWithResponse(err: unknown): err is { response?: { status: number } } {
     return typeof err === "object" && err !== null && "response" in err;
   }
+
 
   return (
     <>
@@ -138,16 +134,11 @@ const Cadastro: React.FC = () => {
               onChange={handleChange}
               required
             />
-            {/* Componente Captcha */}
-            <Captcha onVerified={async () => setIsCaptchaVerified(true)} setIsVerified={setIsCaptchaVerified} />
           </FormGroup>
-          
-          {/* Renderiza o botão de cadastro apenas se o CAPTCHA estiver verificado */}
-          {isCaptchaVerified && (
-            <button type="button" onClick={handleCadastro}>
-              Confirmar Cadastro
-            </button>
-          )}
+                    <ButtonContainer>
+                    <BackButton type="button" onClick={() => navigate("/Bem-Vindo")}>Voltar</BackButton>
+                    <Button type="button" onClick={handleCadastro}>Próximo</Button> {/* Define o tipo como "button" */}
+              </ButtonContainer>
         </form>
       </FormContainer>
     </>

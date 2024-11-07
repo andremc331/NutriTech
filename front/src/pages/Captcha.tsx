@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 interface CaptchaProps {
-  onVerified: () => Promise<void>;
+  onVerified: React.Dispatch<React.SetStateAction<boolean>>;
   setIsVerified: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -44,7 +44,7 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerified, setIsVerified }) => {
     if (userAnswer === correctAnswer && mouseMoveCount > 5) {
       setIsVerified(true);  // Marca como verificado
       setCaptchaVerified(true);  // Verifica que o CAPTCHA foi resolvido
-      onVerified();  // Chama a função onVerified
+      onVerified(true);  // Chama a função onVerified
     }
   }, [userAnswer, mouseMoveCount, correctAnswer, onVerified, setIsVerified]);
 

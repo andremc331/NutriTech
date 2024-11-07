@@ -104,7 +104,7 @@ const styled_Cadastro = () => {
   const FormGroupRow = styled.div`
     display: flex;
     justify-content: space-between;
-    margin-bottom: 15px;
+    margin-bottom: 2px;
 
     .form-group {
       flex: 1;

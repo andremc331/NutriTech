@@ -13,6 +13,13 @@ const styled_Infop = () => {
     }
   `;
 
+const StyledLabel = styled.label`
+color: #000; /* Cor preta */
+font-size: 18px; /* Fonte maior */
+font-weight: bold;
+margin-bottom: 5px;
+`;
+
   const Container = styled.div`
     background-color: var(--color-2);
     width: 800px;
@@ -168,9 +175,8 @@ const styled_Infop = () => {
     transition: background-color 0.3s ease;
     margin-top: 20px;
 
-
     &:hover {
-      background-color: #1ca885;
+      background-color: #0c8566;
     }
 
     @media (max-width: 768px) {
@@ -194,7 +200,6 @@ const styled_Infop = () => {
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 20px;
-
 
     &:hover {
       background-color: #1ca885;
@@ -240,6 +245,7 @@ const styled_Infop = () => {
     Logo,
     LogoImage,
     Title,
+    StyledLabel
   };
 };
 

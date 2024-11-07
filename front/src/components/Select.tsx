@@ -42,21 +42,26 @@ const Wrapper = styled.div`
 `;
 
 const LabelSld = styled.label`
-  display: flex;
-  color: #333;
-  padding: 0px;
-  margin: 5px 0px;
-`;
+    font-family: "Roboto", sans-serif;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: var(--color-1);
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: grid;
+  `;
 
 const SelectSld = styled.select`
-  display: flex;
-  border-radius: 5px;
-  border: none;
-  padding: 8px;
-  color: rgb(27, 71, 153);
-  font-weight: 600;
-  font-size: 110%;
-  font-family: roboto;
-  appearance: none;
-  background: #fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="rgb(27, 71, 153)" d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
-`;
+    width: 90%; /* Deixa o select ocupar apenas o necessário */
+    height: 40px;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+
+    &:focus {
+      border-color: #000000;
+      outline: none;
+    }
+  `;

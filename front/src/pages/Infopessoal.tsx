@@ -12,13 +12,22 @@ import { calculateAge, dateFormat } from "../utils";
 import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 const {
-  Body,
-  BackButton,
-  Button,
-  ButtonContainer,
-  Container,
-  Title,
-} = styled_Infop();
+    Body,
+    BackButton,
+    Button,
+    ButtonContainer,
+    Container,
+    FormRow,
+    GenderContainer,
+    GenderInput,
+    GenderLabel,
+    // Input,
+    // Select,
+    Label,
+    Logo,
+    LogoImage,
+    Title,
+  } = styled_Infop();
 
 const InfoPessoal: React.FC = () => {
   const { profile, saveProfile, deleteProfile, error, setError } = useUser();

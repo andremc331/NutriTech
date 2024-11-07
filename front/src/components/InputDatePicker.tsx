@@ -123,11 +123,14 @@ const Wrapper = styled.div`
 `;
 
 const LabelSld = styled.label`
-  display: flex;
-  color: #333;
-  padding: 0px;
-  margin: 5px 0px;
-`;
+    font-family: "Roboto", sans-serif;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: var(--color-1);
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: grid;
+  `;
 
 const DatePickerWrapper = styled.div`
   display: flex;
@@ -140,12 +143,13 @@ const StyledButton = styled.button`
   border-radius: 5px;
   border: none;
   background-color: white;
-  color: rgb(27, 71, 153);
-  font-weight: 600;
+  color: rgb(0, 0, 0);
+  /* font-weight: 600; */
   font-size: 110%;
   font-family: roboto;
   cursor: pointer;
   box-sizing: border-box;
+  margin-bottom: 10px;
 
   &:hover {
     background-color: #f0f0f0;
@@ -160,8 +164,10 @@ const LineSld = styled.div`
 
 const AgeSld = styled.div`
   display: flex;
-  color: #333;
-  margin-left: 20px;
+  color: #ffffff;
+  margin-left: 15px;
+  font-size: medium;
+  margin-bottom: 7px;
 `;
 
 interface Props {

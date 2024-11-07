@@ -23,22 +23,27 @@ const Wrapper = styled.div`
 `;
 
 const LabelSld = styled.label`
-  display: flex;
-  color: #333;
-  padding: 0px;
-  margin: 5px 0px;
-`;
+    font-family: "Roboto", sans-serif;
+    font-size: 25px;
+    text-transform: uppercase;
+    color: var(--color-1);
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: grid;
+  `;
 
 const InputSld = styled.input`
-  display: flex;
-  border-radius: 5px;
-  border: none;
-  padding: 8px;
-  color: rgb(27, 71, 153);
-  font-weight: 600;
-  font-size: 110%;
-  font-family: roboto;
-`;
+    height: 40px;
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid;
+    border-radius: 10px;
+
+    @media (max-width: 768px) {
+      width: 100%; /* O input ocupará toda a largura em telas menores */
+    }
+  `;
 
 interface Props {
   type: string;

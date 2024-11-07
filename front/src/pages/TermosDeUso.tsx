@@ -24,12 +24,19 @@ const TermosDeUso: React.FC = () => {
   const [agreedToTerms, setAgreedToTerms] = useState(false);
   const [agreedToPrivacy, setAgreedToPrivacy] = useState(false);
   const navigate = useNavigate(); // Inicializar o hook useNavigate
+  const [isCaptchaVerified, setIsCaptchaVerified] = useState(false); // Verifica se o Captcha foi validado
+
 
   const handleNextClick = () => {
     if (agreedToTerms && agreedToPrivacy) {
       navigate("/home"); // Navega para a página "home"
     } else {
       alert("Você precisa concordar com ambos os termos antes de prosseguir.");
+    } 
+
+    if (!isCaptchaVerified) {
+      window.alert("Por favor, verifique o CAPTCHA.");
+      return;
     }
   };
 
@@ -133,6 +140,9 @@ const TermosDeUso: React.FC = () => {
               Confirmar Cadastro
             </button>
           // )} */}
+
+      <Captcha onVerified={async () => setIsCaptchaVerified(true)} setIsVerified={setIsCaptchaVerified} />
+
 
           <ButtonContainer>
             <BackButton type="button" onClick={() => navigate("/Definicao-Metas")}>
