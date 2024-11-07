@@ -4,17 +4,18 @@ import { ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, ImgIcon, Co
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
 import { AdmMenu } from '../components';
 import { UserProvider } from '../contexts';
 import eat from '../services/Eat';
 import axios from 'axios';
+import { formatDateTime } from '../components/Date';
 
 const {
   Title,
   CardBox,
-  Alimentolabel,  
-  Quantidadelabel,  
+  Alimentolabel,
+  Quantidadelabel,
   Select,
   Input,
   Row,
@@ -23,7 +24,7 @@ const {
 } = styled_Cardapio();
 
 const Cardapio: React.FC = () => {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [inputValue, setInputValue] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(0);
   const [searchResults, setSearchResults] = useState<any[]>([]);
@@ -84,7 +85,7 @@ const Cardapio: React.FC = () => {
             <AdmMenu />
           </UserProvider>
         </Navbar>
-  
+
         <Sidebar>
           <SidebarContent>
             <Item onClick={() => navigate("/home")}>
@@ -110,10 +111,10 @@ const Cardapio: React.FC = () => {
           </SidebarContent>
         </Sidebar>
       </ContainerMenu>
-  
+
       <ContainerBody>
         <Title>Cardápio</Title>
-        
+
         <CardBox>
           <Row>
             <Alimentolabel>Refeição:</Alimentolabel>
@@ -158,7 +159,7 @@ const Cardapio: React.FC = () => {
               </ul>
             </Row>
           )}
-    
+
           <Row>
             <Quantidadelabel>Quantidade:</Quantidadelabel>
             <Input
@@ -170,27 +171,29 @@ const Cardapio: React.FC = () => {
               placeholder="Quantidade em kg"
             />
           </Row>
-  
+
           <Button onClick={handleSendData}>
             <Icon>
               <IonIcon icon={Icons.add} />
             </Icon>
             Adicionar
           </Button>
-  
+
           {selectedFoods.length > 0 && (
             <Row>
               <h3>Alimentos Selecionados:</h3>
               <ul>
                 {selectedFoods.map(({ food, quantity }) => (
-                  <li key={food.id}>{food.description} - {quantity} kg</li>
+                  <li key={food.id}>
+                    {food.description} - {quantity} kg - {formatDateTime(new Date().toISOString())} {/* Exemplo de uso de data */}
+                  </li>
                 ))}
               </ul>
             </Row>
           )}
         </CardBox>
       </ContainerBody>
-  
+
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech

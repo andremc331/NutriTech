@@ -19,6 +19,7 @@ import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserContext, UserProvider, EatContext } from "../contexts";
 import { GoalProps, UserContextProps } from "../types";
+import { formatDateTime } from "../components/Date";
 
 interface Meal {
   date: string;
@@ -69,8 +70,6 @@ const Home: React.FC = () => {
   const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } =
     useContext(UserContext) || ({} as UserContextProps);
 
-  const [showLastMeal, setShowLastMeal] = useState(false);
-
   useEffect(() => {
     const fetchInitialData = async () => {
       setLoading(true);
@@ -81,11 +80,11 @@ const Home: React.FC = () => {
           setPesoPessoa(data.weight);
           setAlturaPessoa(data.height);
         }
-  
+
         // 2. Buscar metas do usuário
         const userGoals = await getGoals();
         setGoals(userGoals);
-  
+
         // 3. Buscar histórico de refeições e ordená-las pela data
         const historico = await getHistoricoWithFoodName();
         if (Array.isArray(historico)) {
@@ -99,15 +98,28 @@ const Home: React.FC = () => {
         } else {
           setError("Dados do histórico são inválidos.");
         }
+
+        // 4. Buscar a última refeição automaticamente
+        const endDate = new Date().toISOString().split("T")[0]; // Hoje
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 1); // Ontem
+        const startDateFormatted = startDate.toISOString().split("T")[0];
+
+        const meals = await getHistoricoByDate(startDateFormatted, endDate);
+        if (meals.length > 0) {
+          setHistoricoData(meals);
+        } else {
+          setError("Nenhuma refeição encontrada para o intervalo.");
+        }
       } catch (e: any) {
         setError("Erro ao carregar os dados.");
       } finally {
         setLoading(false);
       }
     };
-  
+
     fetchInitialData();
-  }, [fetchWeightAndHeight, getGoals, getHistoricoWithFoodName]);
+  }, [fetchWeightAndHeight, getGoals, getHistoricoWithFoodName, getHistoricoByDate]);
 
   const calcularCalorias = (items: MealItem[]): number => {
     return items.reduce(
@@ -147,25 +159,10 @@ const Home: React.FC = () => {
     return <div>Carregando...</div>;
   }
 
-  const handleShowLastMeal = async () => {
-    const endDate = new Date().toISOString().split("T")[0]; // Hoje
-    const startDate = new Date();
-    startDate.setDate(startDate.getDate() - 1); // Ontem
-    const startDateFormatted = startDate.toISOString().split("T")[0];
-
-    const meals = await getHistoricoByDate(startDateFormatted, endDate);
-
-    if (meals.length > 0) {
-      setHistoricoData(meals);
-    } else {
-      setError("Nenhuma refeição encontrada para o intervalo.");
-    }
-  };
-
   const lastMeal = historicoData.length > 0 ? historicoData[0] : null; // Agora a refeição mais recente é a primeira da lista ordenada
 
-    const totalCalorias = lastMeal
-    ? calcularCalorias([lastMeal.foodName as MealItem]) * lastMeal.quantity
+  const totalCalorias = lastMeal
+    ? calcularCalorias([lastMeal.food_name as MealItem]) * lastMeal.quantity
     : 0;
 
   return (
@@ -201,52 +198,61 @@ const Home: React.FC = () => {
             </Item>
           </SidebarContent>
         </Sidebar>
-      </ContainerMenu>
-      <ContainerBody>
-        <InfoBoxContainer>
-          <InfoBox1>
-            <div className="content">
-              <label className="imc-label">IMC</label>
-              <label className="imc">{resultadoIMC.imc}</label>
-              <label className="imc-label">Grau: {resultadoIMC.grau}</label>
-              <div className="objetivo-container">
-                <label className="objetivo">Objetivo: </label>
-                <label className="objetivo">
-                  {goals.length > 0
-                    ? goals.map((goal) => goal.goals).join(", ")
-                    : "Sem objetivo definido"}
-                </label>
-              </div>
-            </div>
-          </InfoBox1>
-          <InfoBox2>
-            <div className="content">
-              <label className="consumo-label">Consumo de água</label>
-              <label className="consumo-agua">{consumoAgua}</label>
-            </div>
-          </InfoBox2>
-        </InfoBoxContainer>
-        <FoodBoxContainer>
-          <FoodBox>
-            <MealInfo>
-              <button onClick={handleShowLastMeal}>Mostrar última refeição</button>
-              {lastMeal ? (
-                <div>
-                  <h2>Refeição</h2>
-                  <p>Dia: {lastMeal.date}</p>
-                  <p>{lastMeal.food_name}</p>
-                  <p>
-                    Quantidade ({lastMeal.quantity}kg)
-                  </p>
-                  <p>{totalCalorias} calorias</p>
+        <ContainerBody>
+          <InfoBoxContainer>
+            <InfoBox1>
+              <div className="content">
+                <label className="imc-label">IMC</label>
+                <label className="imc">{resultadoIMC.imc}</label>
+                <label className="imc-label">Grau: {resultadoIMC.grau}</label>
+                <div className="objetivo-container">
+                  <label className="objetivo">Objetivo: </label>
+                  <label className="objetivo">
+                    {goals.length > 0
+                      ? goals.map((goal) => goal.goals).join(", ")
+                      : "Sem objetivo definido"}
+                  </label>
                 </div>
-              ) : (
-                <p>...</p>
-              )}
-            </MealInfo>
-          </FoodBox>
-        </FoodBoxContainer>
-      </ContainerBody>
+              </div>
+            </InfoBox1>
+            <InfoBox2>
+              <div className="content">
+                <label className="consumo-label">Consumo de água</label>
+                <label className="consumo-agua">{consumoAgua}</label>
+              </div>
+            </InfoBox2>
+          </InfoBoxContainer>
+          <FoodBoxContainer>
+            <FoodBox>
+              <MealInfo>
+                {lastMeal ? (
+                  <div>
+                    <h2>Refeição do dia</h2>
+                    <div>{lastMeal.food_name}</div>
+                    <div>Quantidade: {lastMeal.quantity}kg</div>
+                    <div>Calorias: {totalCalorias} Kcal</div> 
+                    <MealTimeContainer>
+                      <label className="meal-time">Horário da refeição: {formatDateTime(lastMeal.date)}</label>
+                    </MealTimeContainer>
+                  </div>
+                ) : (
+                  <div>Sem refeição registrada</div>
+                )}
+              </MealInfo>
+            </FoodBox>
+          </FoodBoxContainer>
+        </ContainerBody>
+        <Footer>
+          <div>
+            Copyright © 2024 / 2025 | HighTech
+            <br />
+            Todos os direitos reservados
+          </div>
+          <ImgIcon>
+            <img src={imgLogoSemFundo} alt="Logo Nutritech" />
+          </ImgIcon>
+        </Footer>
+      </ContainerMenu>
     </>
   );
 };

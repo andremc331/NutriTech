@@ -17,6 +17,7 @@ import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
 import { UserProvider, EatContext } from "../contexts";
+import { formatDateTime } from "../components/Date";
 
 const {
   Title,
@@ -54,10 +55,17 @@ const Historico: React.FC = () => {
         console.log("Buscando histórico com alimentos...");
         const data = await getHistoricoWithFoodName();
         console.log("Dados recebidos da rota getHistoricoWithFoodName:", data);
-        setHistoricoData(data);
+
+        // Formatar as datas para o formato desejado
+        const formattedData = data.map((meal: Meal) => ({
+          ...meal,
+          date: formatDateTime(meal.date), // Aplica o formato correto de data
+        }));
+
+        setHistoricoData(formattedData);
       } catch (e: any) {
         console.error("Erro ao buscar histórico:", e);
-        setError("Erro ao carregar o histórico."); // Define uma mensagem de erro
+        setError("Erro ao carregar o histórico.");
       } finally {
         setLoading(false);
       }
@@ -77,10 +85,17 @@ const Historico: React.FC = () => {
       console.log(`Buscando histórico para o intervalo de datas: ${startDate} a ${endDate}`);
       const data = await getHistoricoByDate(startDate, endDate);
       console.log("Dados recebidos da rota getHistoricoByDate:", data);
-      setHistoricoData(data);
+
+      // Formatar as datas para o formato desejado
+      const formattedData = data.map((meal: Meal) => ({
+        ...meal,
+        date: formatDateTime(meal.date), // Aplica o formato correto de data
+      }));
+
+      setHistoricoData(formattedData);
     } catch (e: any) {
       console.error("Erro ao aplicar o filtro:", e);
-      setError("Erro ao aplicar o filtro."); // Define uma mensagem de erro
+      setError("Erro ao aplicar o filtro.");
     } finally {
       setLoading(false);
     }
@@ -143,23 +158,23 @@ const Historico: React.FC = () => {
 
         <HistoryboxContainer>
           <HistoryBox>
-            <MealInfo>
+          <MealInfo>
               {loading ? (
                 <p>Carregando...</p>
               ) : error ? (
-                <p>{error}</p> // Exibe a mensagem de erro, se houver
-              ) : historicoData && historicoData.length > 0 ? ( // Verifica se há dados
+                <p>{error}</p>
+              ) : historicoData && historicoData.length > 0 ? (
                 historicoData.map((meal, index) => (
-                  <MealContainer key={index}> {/* Usando 'key' com o index */}
+                  <MealContainer key={index}>
                     <div>
-                      <h4>{meal.date}</h4>
+                      <h4>{meal.date}</h4> {/* Exibe a data formatada */}
                       <p>{meal.foodName} - {meal.quantity} kg</p>
                       <p>{meal.food_name}</p>
                     </div>
                   </MealContainer>
                 ))
               ) : (
-                <p>Não há dados disponíveis.</p> // Exibe mensagem se não houver dados
+                <p>Não há dados disponíveis.</p>
               )}
             </MealInfo>
           </HistoryBox>

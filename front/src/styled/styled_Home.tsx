@@ -169,6 +169,7 @@ const styled_Home = () => {
     font-family: "Roboto", sans-serif;
     font-size: 18px;
     margin-left: 10px;
+    display: inline-block;
   `;
 
   const MealItems = styled.div`

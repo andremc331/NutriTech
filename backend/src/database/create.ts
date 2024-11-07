@@ -124,38 +124,38 @@ async function init() {
         );
 
         CREATE TABLE eat_foods (
-            id SERIAL NOT NULL,
-            _user INTEGER NOT NULL,
-            food INTEGER NOT NULL,
-            date DATE NULL,
-            quantity FLOAT NULL,
-            PRIMARY KEY(id),
-            FOREIGN KEY(food)
-                REFERENCES foods(id)
-                ON DELETE RESTRICT
-                ON UPDATE CASCADE,
-            FOREIGN KEY(_user)
-                REFERENCES users(id)
-                ON DELETE RESTRICT
-                ON UPDATE CASCADE
-        );
+    id SERIAL NOT NULL,
+    _user INTEGER NOT NULL,
+    food INTEGER NOT NULL,
+    date TIMESTAMP DEFAULT NOW(),
+    quantity FLOAT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(food)
+        REFERENCES foods(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+    FOREIGN KEY(_user)
+        REFERENCES users(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
 
-        CREATE TABLE eat_products (
-            id SERIAL NOT NULL,
-            _user INTEGER NOT NULL,
-            product INTEGER NOT NULL,
-            date DATE NULL,
-            quantity FLOAT NULL,
-            PRIMARY KEY(id),
-            FOREIGN KEY(_user)
-                REFERENCES users(id)
-                ON DELETE RESTRICT
-                ON UPDATE CASCADE,
-            FOREIGN KEY(product)
-                REFERENCES products(id)
-                ON DELETE RESTRICT
-                ON UPDATE CASCADE
-        );
+CREATE TABLE eat_products (
+    id SERIAL NOT NULL,
+    _user INTEGER NOT NULL,
+    product INTEGER NOT NULL,
+    date TIMESTAMP DEFAULT NOW(),
+    quantity FLOAT NULL,
+    PRIMARY KEY(id),
+    FOREIGN KEY(_user)
+        REFERENCES users(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE,
+    FOREIGN KEY(product)
+        REFERENCES products(id)
+        ON DELETE RESTRICT
+        ON UPDATE CASCADE
+);
     END;
     $$;
     `);
