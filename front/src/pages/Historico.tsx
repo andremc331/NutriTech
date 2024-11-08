@@ -21,6 +21,7 @@ import { formatDateTime } from "../components/Date";
 
 const {
   Title,
+  DateboxContainer,
   HistoryboxContainer,
   HistoryBox,
   MealInfo,
@@ -142,29 +143,31 @@ const Historico: React.FC = () => {
 
       <ContainerBody>
         <Title>Histórico</Title>
-        <Label>
-          Data Inicial:
-          <Input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-        </Label>
-        <FilterContainer>
+        <DateboxContainer>
           <Label>
-            Data Final:
+            Data Inicial:
             <Input
               type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
             />
           </Label>
-          <FilterButton onClick={handleFilter} title="Filtrar">
-            <Icon>
-              <IonIcon icon={Icons.filter} />
-            </Icon>
-          </FilterButton>
-        </FilterContainer>
+          <FilterContainer>
+            <Label>
+              Data Final:
+              <Input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </Label>
+            <FilterButton onClick={handleFilter} title="Filtrar">
+              <Icon>
+                <IonIcon icon={Icons.filter} />
+              </Icon>
+            </FilterButton>
+          </FilterContainer>
+        </DateboxContainer>
 
         <HistoryboxContainer>
           <HistoryBox>

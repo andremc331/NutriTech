@@ -8,6 +8,17 @@ const styled_Historico = () => {
     text-transform: uppercase;
   `;
 
+  const DateboxContainer = styled.div`
+    font-family: "Roboto", sans-serif;
+    border-radius: 10px;
+    color: var(--color-10);
+    background-color: var(--color-1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 300px;
+    height: 150px;
+  `;
+
   const HistoryboxContainer = styled.div`
     font-family: "Roboto", sans-serif;
     display: flex;
@@ -54,7 +65,7 @@ const styled_Historico = () => {
     width: 100%;
     border-radius: 15px;
     color: var(--color-1);
-    background-color: var(--color-2);
+    background-color: var(--color-7);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   `;
 
@@ -116,6 +127,7 @@ const styled_Historico = () => {
 
   return {
     Title,
+    DateboxContainer,
     HistoryboxContainer,
     MealContainer,
     HistoryBox,

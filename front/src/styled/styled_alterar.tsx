@@ -7,9 +7,9 @@ const styled_alterar = () => {
     margin: 20px auto;
     padding: 30px;
     margin-top: 10px;
-    border: 2px solid #7d4cdb;
+    //border: 2px solid #7d4cdb;
     border-radius: 20px;
-    background-color: var(--color-2);
+    background-color: var(--color-7);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
     @media (max-width: 1024px) {

@@ -8,6 +8,17 @@ const styled_Metas = () => {
     text-transform: uppercase;
   `;
 
+  const DateboxContainer = styled.div`
+    font-family: "Roboto", sans-serif;
+    border-radius: 10px;
+    color: var(--color-10);
+    background-color: var(--color-1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    width: 300px;
+    height: 100px;
+  `;
+
   const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -244,6 +255,7 @@ const styled_Metas = () => {
     Button,
     ButtonCancel,
     Container,
+    DateboxContainer,
     ChartContainer,
     VerticalContainer,
     ModalOverlay,

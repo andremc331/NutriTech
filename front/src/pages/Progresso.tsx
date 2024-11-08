@@ -27,6 +27,12 @@ import {
   HistoricoData,
   UserContextProps,
 } from "../types";
+import {
+  EatFoodProps,
+  ErrorProps,
+  HistoricoData,
+  UserContextProps,
+} from "../types";
 import { useUser } from "../hooks";
 
 const {
@@ -39,6 +45,7 @@ const {
   ButtonCancel,
   Container,
   ChartContainer,
+  DateboxContainer,
   VerticalContainer,
   ModalOverlay,
   ModalContent,
@@ -235,13 +242,13 @@ const Metas: React.FC = () => {
               <div className="objetivo-container">
                 <label className="objetivo">Média Total:</label>
                 <label className="objetivo">{mediaTotal.toFixed(1)} KG</label>
-                <Button onClick={openModal}>
-                  Atualizar
-                  <Icon>
-                    <IonIcon icon={Icons.create} />
-                  </Icon>
-                </Button>
               </div>
+              <Button onClick={openModal}>
+                Atualizar
+                <Icon>
+                  <IonIcon icon={Icons.create} />
+                </Icon>
+              </Button>
             </div>
           </GoalInfo>
         </VerticalContainer>
@@ -279,3 +286,4 @@ const Metas: React.FC = () => {
 };
 
 export default Metas;
+
