@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from "styled-components";
 import { Error, Header, InputDatePickerConsumer, TableEatProduct, TableEatFood, NutrientPane, FoodPane } from "../components";
 import { useEat, useFood } from "../hooks";
-import { FoodProps, ProductNutrientsProps } from "../types";
+import { FoodProps, ProductNutrientsProps, UserContextProps } from "../types";
 import { dateFormat } from "../utils";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom';
 import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
 import { AdmMenu } from '../components';
-import { UserProvider } from '../contexts';
+import { UserContext, UserProvider } from '../contexts';
 import { formatDateTime } from '../components/Date';
 import styled_Cardapio from '../styled/styled_Cardapio';
 import { ContainerBody, ContainerMenu, Footer, Icon, ImgIcon, Item, Navbar, Sidebar, SidebarContent } from '../styled/styled_Main';
@@ -42,6 +42,8 @@ const EatPage: React.FC = () => {
   const [selectedFoods, setSelectedFoods] = useState<{ food: any; quantity: number }[]>([]);
   const navigate = useNavigate();
   const { food } = useFood();
+  const { getGoals, currentUser } =
+  useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
 
 
   const handleFood = async () => {
@@ -148,8 +150,8 @@ const EatPage: React.FC = () => {
     <>
       <ContainerMenu>
         <Navbar>
-          <h1>Nome de usuário</h1>
-          <UserProvider>
+        <h1>{currentUser?.nome || "Nome de usuário"}</h1>{" "}
+        {/* Exibindo o nome do usuário */}          <UserProvider>
             <AdmMenu />
           </UserProvider>
         </Navbar>

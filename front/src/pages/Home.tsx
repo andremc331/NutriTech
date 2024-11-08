@@ -176,13 +176,13 @@ const Home: React.FC = () => {
   }
 
   const mealChartData = lastMeal
-  ? {
+    ? {
       protein: lastMeal.protein || 0,
       lipids: lastMeal.lipids || 0,
       carbohydrates: lastMeal.carbohydrates || 0,
       fibers: lastMeal.fibers || 0,
     }
-  : { protein: 0, lipids: 0, carbohydrates: 0, fibers: 0 };
+    : { protein: 0, lipids: 0, carbohydrates: 0, fibers: 0 };
 
   const totalCalorias = lastMeal
     ? calcularCalorias([{ nome: lastMeal.foodName, calorias: 0 }]) *
@@ -265,6 +265,11 @@ const Home: React.FC = () => {
                     }}
                   >
                     <h3>Refeição do dia:</h3>
+
+
+                    <h2>{lastMeal.food_name}</h2>
+                    <h4>Quantidade: {lastMeal.quantity}kg</h4>
+                    {/* <p>Total de Calorias: {totalCalorias} Kcal</p> */}
                     <div
                       style={{ display: "inline-flex", alignItems: "center" }}
                     >
@@ -276,10 +281,6 @@ const Home: React.FC = () => {
                         Horário: {formatDateTime(lastMeal.date)}
                       </label>
                     </div>
-
-                    <h2>{lastMeal.food_name}</h2>
-                    <h4>Quantidade: {lastMeal.quantity}kg</h4>
-                    <p>Total de Calorias: {totalCalorias} Kcal</p>
                   </div>
                 ) : (
                   <div>Sem refeição registrada</div>
