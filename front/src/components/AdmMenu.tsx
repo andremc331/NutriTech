@@ -7,7 +7,7 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "./icons";
 
 export default function AdmMenu() {
-    const {token, logout} = useUser();
+  const { token, logout } = useUser();
 
   const [isOpen, setIsOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -32,42 +32,38 @@ export default function AdmMenu() {
   const handleLogout = () => {
     setIsOpen(false);
     logout();
-  }
+  };
 
   return (
     <Wrapper ref={menuRef}>
-        <UserIcon onClick={toggleMenu}> {token?.nome ? token.nome.charAt(0).toUpperCase() : "?"}
-        </UserIcon>
-        {isOpen && (
-            <DropdownMenu>
-                <StyledLink to="/info-pessoal" onClick={() => setIsOpen(false)}>
-                    Editar Dados Pessoais
-                    <Icon>
-              <IonIcon icon={Icons.person} />
-            </Icon>
-                </StyledLink>
-                <StyledLink to="/atualizar" onClick={() => setIsOpen(false)}>
-                    Editar Informações de Usuário
-                    <Icon>
+      <UserIcon onClick={toggleMenu}>
+        {" "}
+        {token?.nome ? token.nome.charAt(0).toUpperCase() : "?"}
+      </UserIcon>
+      {isOpen && (
+        <DropdownMenu>
+          <StyledLink to="/atualizar" onClick={() => setIsOpen(false)}>
+            Editar Informações de Usuário
+            <Icon>
               <IonIcon icon={Icons.person} />
             </Icon>{" "}
-                </StyledLink>
-                <StyledLink to="/sobre" onClick={() => setIsOpen(false)}>
-                    Sobre
-                    <Icon>
+          </StyledLink>
+          <StyledLink to="/sobre" onClick={() => setIsOpen(false)}>
+            Sobre
+            <Icon>
               <IonIcon icon={Icons.informationCircle} />
             </Icon>
-                </StyledLink>
-                <MenuItemBorderTop onClick={handleLogout}>
-                    Sair
-                    <Icon>
+          </StyledLink>
+          <MenuItemBorderTop onClick={handleLogout}>
+            Sair
+            <Icon>
               <IonIcon icon={Icons.logOut} />
             </Icon>
-                </MenuItemBorderTop>
-            </DropdownMenu>
-        )}
+          </MenuItemBorderTop>
+        </DropdownMenu>
+      )}
     </Wrapper>
-);
+  );
 }
 
 const Wrapper = styled.div`

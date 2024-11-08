@@ -42,6 +42,7 @@ const {
   ButtonCancel,
   Container,
   ChartContainer,
+  DateboxContainer,
   VerticalContainer,
   ModalOverlay,
   ModalContent,
@@ -63,49 +64,54 @@ const Metas: React.FC = () => {
   const [newWeight, setNewWeight] = useState<number | "">("");
   const { saveProfile, updateWeight } = useUser();
   const [error, setError] = useState<string | null>(null);
-  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
+  const { getGoals, currentUser } =
+    useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
 
   const fetchData = async () => {
     if (!startDate || !endDate) {
       console.log("Por favor, insira as datas para buscar os dados.");
       return;
     }
-  
+
     try {
       // Chama o método list com as datas
-      const foodData: FoodProps | ErrorProps = await Category.list(startDate, endDate);
-  
+      const foodData: FoodProps | ErrorProps = await Category.list(
+        startDate,
+        endDate
+      );
+
       // Verificando se retornou um erro (se for ErrorProps)
       if ("error" in foodData) {
         console.error("Erro ao buscar alimentos:", foodData.error);
         return;
       }
-  
+
       // Verificando se a resposta é um array válido
       if (Array.isArray(foodData) && foodData.length > 0) {
         console.log("Resposta da API:", foodData);
-  
+
         // Mapeando os dados corretamente (agora foodData contém as categorias consumidas)
         const mappedData: HistoricoData[] = foodData.map((category) => ({
-          id: category.id,              // id da categoria
-          food_name: category.name,      // nome da categoria
-          quantity: 1,                  // Definir a quantidade como 1 ou qualquer valor lógico
+          id: category.id, // id da categoria
+          food_name: category.name, // nome da categoria
+          quantity: 1, // Definir a quantidade como 1 ou qualquer valor lógico
           date: new Date().toISOString(), // Definir a data como a data atual ou ajustar conforme necessário
-          foodGroup: category.name,     // Usando o nome da categoria como grupo de alimentos
+          foodGroup: category.name, // Usando o nome da categoria como grupo de alimentos
         }));
-  
+
         // Atualiza o estado com os dados mapeados
         setHistoricoData(mappedData);
       } else {
-        console.error("Os dados de alimentos não foram encontrados ou a resposta não é um array válido.");
+        console.error(
+          "Os dados de alimentos não foram encontrados ou a resposta não é um array válido."
+        );
       }
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
     }
   };
-  
 
-useEffect(() => {
+  useEffect(() => {
     if (startDate && endDate) {
       fetchData();
     }
@@ -165,13 +171,12 @@ useEffect(() => {
     fetchPeso();
   }, []);
 
-  
-
   return (
     <>
       <ContainerMenu>
-      <Navbar>
-          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
+        <Navbar>
+          <h1>{currentUser?.nome || "Nome de usuário"}</h1>{" "}
+          {/* Exibindo o nome do usuário */}
           <UserProvider>
             <AdmMenu />
           </UserProvider>
@@ -206,45 +211,47 @@ useEffect(() => {
       <ContainerBody>
         <Container>
           <title>Progresso</title>
-          <Label>
-            Data Inicial:
-            <Input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
-            />
-          </Label>
-          <Label>
-            Data Final:
-            <Input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
-          </Label>
+          <DateboxContainer>
+            <Label>
+              Data Inicial:
+              <Input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </Label>
+            <Label>
+              Data Final:
+              <Input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </Label>
+          </DateboxContainer>
         </Container>
         <ChartContainer>
-        <PesoChart>
+          <PesoChart>
             <div className="content">
               {/* O gráfico de peso pode agora utilizar pesoAnterior e pesoAtual */}
-              <WeightChart 
+              <WeightChart
                 pesoAnterior={pesoAnterior} // Passa o peso anterior para o gráfico
-                pesoAtual={pesoAtual} 
+                pesoAtual={pesoAtual}
               />
             </div>
           </PesoChart>
         </ChartContainer>
 
         <VerticalContainer>
-  <FoodChart>
-    <div className="content">
-      {historicoData && historicoData.length > 0 ? (
-        <ConsumeChart data={historicoData} />
-      ) : (
-        <p>Sem dados para exibir no gráfico.</p>
-      )}
-    </div>
-  </FoodChart>
+          <FoodChart>
+            <div className="content">
+              {historicoData && historicoData.length > 0 ? (
+                <ConsumeChart data={historicoData} />
+              ) : (
+                <p>Sem dados para exibir no gráfico.</p>
+              )}
+            </div>
+          </FoodChart>
           <GoalInfo>
             <div className="content">
               <label className="peso-label">Peso Atual:</label>

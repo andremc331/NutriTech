@@ -146,12 +146,7 @@ const Sobre: React.FC = () => {
               <Title1>Dev team: Bruno Henrique</Title1>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} /> github.com/
-                </Icon>
-              </IconsContainer>
-              <IconsContainer>
-                <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
+                  <IonIcon icon={Icons.logoGithub} /> https://github.com/BrunoHenrique258
                 </Icon>
               </IconsContainer>
             </div>
@@ -163,12 +158,7 @@ const Sobre: React.FC = () => {
               <Title2>Dev team: Eduardo Henrique</Title2>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} /> github.com/
-                </Icon>
-              </IconsContainer>
-              <IconsContainer>
-                <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
+                  <IonIcon icon={Icons.logoGithub} /> https://github.com/EduardoBrito2
                 </Icon>
               </IconsContainer>
             </div>
@@ -180,12 +170,12 @@ const Sobre: React.FC = () => {
               <Title1>Dev team: Danilo Alves</Title1>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} /> github.com/
+                  <IonIcon icon={Icons.logoGithub} /> https://github.com/Danilo-Fatec
                 </Icon>
               </IconsContainer>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
+                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/danilo-alves-dos-santos-braz
                 </Icon>
               </IconsContainer>
             </div>
@@ -197,12 +187,7 @@ const Sobre: React.FC = () => {
               <Title2>Dev team: Valcir Jr.</Title2>
               <IconsContainer>
                 <Icon>
-                  <IonIcon icon={Icons.logoGithub} /> github.com/
-                </Icon>
-              </IconsContainer>
-              <IconsContainer>
-                <Icon>
-                  <IonIcon icon={Icons.logoLinkedin} /> www.linkedin.com/in/
+                  <IonIcon icon={Icons.logoGithub} /> https://github.com/valcir-jr
                 </Icon>
               </IconsContainer>
             </div>
