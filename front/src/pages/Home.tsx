@@ -76,57 +76,63 @@ const Home: React.FC = () => {
       setIsDarkMode(!isDarkMode); // Alterna o estado do modo escuro
     };
   
-  useEffect(() => {
-    const fetchInitialData = async () => {
-      setLoading(true);
-      try {
-        // 1. Buscar peso e altura do usuário
-        const data = await fetchWeightAndHeight();
-        if ("weight" in data && "height" in data) {
-          setPesoPessoa(data.weight);
-          setAlturaPessoa(data.height);
+    useEffect(() => {
+      const fetchInitialData = async () => {
+        setLoading(true);
+        try {
+          // 1. Buscar peso e altura do usuário
+          const data = await fetchWeightAndHeight();
+          if ("weight" in data && "height" in data) {
+            setPesoPessoa(data.weight);
+            setAlturaPessoa(data.height);
+          }
+    
+          // 2. Buscar metas do usuário
+          const userGoals = await getGoals();
+          setGoals(userGoals);
+    
+          // 3. Buscar histórico de refeições (somente com getHistoricoByDate)
+          const endDate = new Date().toISOString().split("T")[0]; // Hoje
+          const startDate = new Date();
+          startDate.setDate(startDate.getDate() - 1); // Ontem
+          const startDateFormatted = startDate.toISOString().split("T")[0];
+    
+          const meals = await getHistoricoByDate(startDateFormatted, endDate);
+          console.log("Retorno de getHistoricoByDate:", meals);
+    
+          if (meals.length > 0) {
+            // Ordena as refeições pela data (do mais recente para o mais antigo)
+            // Caso a data seja igual, ordena pelo índice na lista (ou outro critério de sua escolha)
+            const sortedMeals = meals.sort((a, b) => {
+              const dateA = new Date(a.date).getTime();
+              const dateB = new Date(b.date).getTime();
+              
+              // Se as datas forem iguais, ordena pela posição no array
+              if (dateA === dateB) {
+                return meals.indexOf(b) - meals.indexOf(a);
+              }
+              
+              return dateB - dateA; // Ordem decrescente
+            });
+            setHistoricoData(sortedMeals);
+          } else {
+            setError("Nenhuma refeição encontrada para o intervalo.");
+          }
+        } catch (e: any) {
+          setError("Erro ao carregar os dados.");
+        } finally {
+          setLoading(false);
         }
- 
-        // 2. Buscar metas do usuário
-        const userGoals = await getGoals();
-        setGoals(userGoals);
- 
-        // 3. Buscar histórico de refeições e ordená-las pela data
-        const historico = await getHistoricoWithFoodName();
-        if (Array.isArray(historico)) {
-          // Ordena as refeições por data (do mais recente para o mais antigo)
-          const sortedHistorico = historico.sort((a, b) => {
-            const dateA = new Date(a.date);
-            const dateB = new Date(b.date);
-            return dateB.getTime() - dateA.getTime(); // Ordem decrescente
-          });
-          setHistoricoData(sortedHistorico);
-        } else {
-          setError("Dados do histórico são inválidos.");
-        }
- 
-        // 4. Buscar a última refeição automaticamente
-        const endDate = new Date().toISOString().split("T")[0]; // Hoje
-        const startDate = new Date();
-        startDate.setDate(startDate.getDate() - 1); // Ontem
-        const startDateFormatted = startDate.toISOString().split("T")[0];
- 
-        const meals = await getHistoricoByDate(startDateFormatted, endDate);
-        if (meals.length > 0) {
-          setHistoricoData(meals);
-        } else {
-          setError("Nenhuma refeição encontrada para o intervalo.");
-        }
-      } catch (e: any) {
-        setError("Erro ao carregar os dados.");
-      } finally {
-        setLoading(false);
-      }
-    };
- 
-    fetchInitialData();
-  }, [fetchWeightAndHeight, getGoals, getHistoricoWithFoodName, getHistoricoByDate]);
- 
+      };
+    
+      fetchInitialData();
+    }, [fetchWeightAndHeight, getGoals, getHistoricoByDate, setHistoricoData]);
+    
+    // Definir a última refeição, agora após a atualização de historicoData
+    const lastMeal = historicoData.length > 0 ? historicoData[0] : null;
+    console.log('Retorno de lastMeal:', lastMeal);
+
+
   // Função para calcular as calorias com base nos itens
   const calcularCalorias = (items: MealItem[]): number => {
     return items.reduce(
@@ -168,7 +174,6 @@ const Home: React.FC = () => {
     return <div>Carregando...</div>;
   }
  
-  const lastMeal = historicoData.length > 0 ? historicoData[0] : null; // Agora a refeição mais recente é a primeira da lista ordenada
  
   const totalCalorias = lastMeal
     ? calcularCalorias([{ nome: lastMeal.food_name, calorias: 0 }]) * lastMeal.quantity
