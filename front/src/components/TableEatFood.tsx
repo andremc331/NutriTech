@@ -95,7 +95,6 @@ const Wrapper = styled.div`
 `;
 
 const TableContainer = styled.div`
-  width: fit-content;
   overflow-x: auto;
 `;
 

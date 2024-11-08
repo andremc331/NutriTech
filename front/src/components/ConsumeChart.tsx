@@ -10,7 +10,7 @@ interface ConsumeChartProps {
 
 const ConsumeChart: React.FC<ConsumeChartProps> = ({ data }) => {
   // Aqui você vai mapear os dados para gerar os valores do gráfico
-  const labels = data.map((item) => item.foodName);  // Usando o nome dos alimentos
+  const labels = data.map((item) => item.food_name);  // Usando o nome dos alimentos
   const series = data.map((item) => item.quantity);  // Usando a quantidade de alimentos
 
   const chartOptions: ApexOptions = {

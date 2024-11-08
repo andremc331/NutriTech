@@ -178,21 +178,13 @@ const Historico: React.FC = () => {
         <HistoryboxContainer>
           <HistoryBox>
             {historicoData.length > 0 ? (
-              historicoData.map((meal, index) => (
-                <MealContainer key={index}>
-                  <div>
-                    <p>Refeição:</p>
-                    <h3>{meal.food_name}</h3>
-                    <h4>
-                      {meal.foodName} Quantidade: {meal.quantity} kg
-                    </h4>
-                    <p>{meal.date}</p> {/* Exibe a data formatada */}
-
-                    {/* Tabela de alimentos e produtos */}
-                    <TableEatFood items={eatFoods} /> {/* Passando os alimentos do estado eatFoods */}
-                  </div>
-                </MealContainer>
-              ))
+              <MealContainer>
+                <div>
+                  <h2>Refeições</h2>
+                  {/* Renderiza uma tabela única com todos os alimentos */}
+                  <TableEatFood items={eatFoods} /> {/* Passa todos os alimentos para a tabela */}
+                </div>
+              </MealContainer>
             ) : (
               <p>Não há dados disponíveis.</p>
             )}

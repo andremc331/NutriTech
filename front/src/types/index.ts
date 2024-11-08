@@ -183,11 +183,21 @@ export interface ProductNutrientsProps {
   sodium: number | null;
 }
  
+export interface Food {
+  id: string;
+  description: string;
+  foodGroup: string;
+  quantity: number;
+  date: string;
+  food_name: string
+}
+
 export interface PageProps {
-  items: FoodProps[];
+  items: Food[];
   total: number;
   page: number;
   pagesize: number;
+  map: any;
 }
  
 export interface CategoryProps {
@@ -269,14 +279,14 @@ export interface EatFoodProps {
 }
 export interface HistoricoData {
   id: string;
-  foodName: string;
+  food_name: string;
   quantity: number;
   date: string;
   foodGroup:string
 }
 export interface HistoricoData {
   id: string;
-  foodName: string;
+  food_name: string;
   foodGroup:string;
   quantity: number;
   date: string;

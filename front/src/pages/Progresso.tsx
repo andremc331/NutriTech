@@ -24,10 +24,13 @@ import { AdmMenu } from "../components";
 import {
   EatFoodProps,
   ErrorProps,
+  FoodProps,
   HistoricoData,
+  PageProps,
   UserContextProps,
 } from "../types";
 import { useUser } from "../hooks";
+import { Category, Food } from "../services";
 
 const {
   FoodChart,
@@ -67,30 +70,46 @@ const Metas: React.FC = () => {
       console.log("Por favor, insira as datas para buscar os dados.");
       return;
     }
-
+  
     try {
-      const foodData: EatFoodProps[] | ErrorProps = await eat.listFoods(
-        startDate
-      );
-
+      // Chama o método list com as datas
+      const foodData: FoodProps | ErrorProps = await Category.list(startDate, endDate);
+  
+      // Verificando se retornou um erro (se for ErrorProps)
       if ("error" in foodData) {
         console.error("Erro ao buscar alimentos:", foodData.error);
         return;
       }
-
-      const mappedData: HistoricoData[] = foodData.map((food) => ({
-        id: food.id,
-        foodName: food.description,
-        foodGroup: food.foodGroup,
-        quantity: food.quantity,
-        date: food.date,
-      }));
-
-      setHistoricoData(mappedData);
+  
+      // Verificando se a resposta é um array válido
+      if (Array.isArray(foodData) && foodData.length > 0) {
+        console.log("Resposta da API:", foodData);
+  
+        // Mapeando os dados corretamente (agora foodData contém as categorias consumidas)
+        const mappedData: HistoricoData[] = foodData.map((category) => ({
+          id: category.id,              // id da categoria
+          food_name: category.name,      // nome da categoria
+          quantity: 1,                  // Definir a quantidade como 1 ou qualquer valor lógico
+          date: new Date().toISOString(), // Definir a data como a data atual ou ajustar conforme necessário
+          foodGroup: category.name,     // Usando o nome da categoria como grupo de alimentos
+        }));
+  
+        // Atualiza o estado com os dados mapeados
+        setHistoricoData(mappedData);
+      } else {
+        console.error("Os dados de alimentos não foram encontrados ou a resposta não é um array válido.");
+      }
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
     }
   };
+  
+
+useEffect(() => {
+    if (startDate && endDate) {
+      fetchData();
+    }
+  }, [startDate, endDate]);
 
   const calculateAverage = (arr: number[]): number => {
     const total = arr.reduce((acc, weight) => acc + weight, 0);
@@ -146,11 +165,7 @@ const Metas: React.FC = () => {
     fetchPeso();
   }, []);
 
-  useEffect(() => {
-    if (startDate && endDate) {
-      fetchData();
-    }
-  }, [startDate, endDate]);
+  
 
   return (
     <>
@@ -221,12 +236,15 @@ const Metas: React.FC = () => {
         </ChartContainer>
 
         <VerticalContainer>
-          <FoodChart>
-            <div className="content">
-              <ConsumeChart data={historicoData} />
-            </div>
-          </FoodChart>
-
+  <FoodChart>
+    <div className="content">
+      {historicoData && historicoData.length > 0 ? (
+        <ConsumeChart data={historicoData} />
+      ) : (
+        <p>Sem dados para exibir no gráfico.</p>
+      )}
+    </div>
+  </FoodChart>
           <GoalInfo>
             <div className="content">
               <label className="peso-label">Peso Atual:</label>

@@ -16,7 +16,7 @@ const styled_Historico = () => {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     padding: 10px;
     width: 300px;
-    height: 150px;
+    height: 200px;
   `;
 
   const HistoryboxContainer = styled.div`
@@ -29,12 +29,12 @@ const styled_Historico = () => {
     border-radius: 10px;
     width: 90%;
     max-width: 720px;
-    height: 200px;
+    height: 700px;
     color: var(--color-10);
     background-color: var(--color-1);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-height: 9000px; /* Defina a altura máxima desejada */
     overflow-y: auto; /* Permite a rolagem vertical */
+    min-height: 500px;
 
     @media (min-width: 768px) {
       width: 60vw;
