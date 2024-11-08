@@ -29,6 +29,15 @@ class Profile {
     }
   }
 
+  async updateWeight(weight: number): Promise<ProfileProps | ErrorProps> {
+    try {
+      const { data } = await api.put("/profile/weight", { weight }); // Chama o endpoint adequado para atualizar o peso
+      return data;
+    } catch (error: any) {
+      return error; // Retorna o erro caso haja falha na requisição
+    }
+  }
+
 }
 
 const profile = new Profile();

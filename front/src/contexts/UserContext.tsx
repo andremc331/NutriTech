@@ -212,6 +212,28 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
 
+  const updateWeight = async (newWeight: number): Promise<boolean> => {
+    try {
+      // Simulando o envio de dados para o backend
+      const response = await Profile.updateWeight(newWeight);
+    if (!isErrorProps(response)) {
+      await updateWeight(newWeight); // Awaiting to ensure users are updated
+      return true;
+    }
+
+      if (!response) {
+        throw new Error("Erro ao atualizar o peso.");
+      }
+
+      // Atualizando o perfil com o novo peso
+      setProfile((prevProfile) => prevProfile ? { ...prevProfile, weight: newWeight } : null);
+      return true; // Retorna true em caso de sucesso
+    } catch (error) {
+      setError({ error: "Erro ao atualizar o peso." });
+      return false; // Retorna false em caso de erro
+    }
+  };
+
   return (
     <UserContext.Provider
       value={{
@@ -236,6 +258,7 @@ export function UserProvider({ children }: ProviderProps) {
         deleteProfile,
         saveGoal, // Função para salvar meta
         getGoals, // Função para obter metas
+        updateWeight,
       }}
     >
       {children}

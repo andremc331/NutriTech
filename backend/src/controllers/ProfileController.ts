@@ -28,6 +28,36 @@ class ProfileController {
     }
   }
 
+  public async updateWeight(req: Request, res: Response): Promise<void> {
+    const { weight } = req.body;
+    const { id } = res.locals;
+
+    if (weight == null) {
+      res.json({ error: "Forneça o peso" });
+      return;
+    }
+
+    try {
+      const result: any = await query(
+        `UPDATE profiles 
+         SET weight = $1
+         WHERE _user = $2
+         RETURNING weight`,
+        [weight, id]
+      );
+
+      if (result.rowCount === 0) {
+        res.status(404).json({ error: "Perfil não encontrado" });
+        return;
+      }
+
+      // Retorna o peso atualizado
+      res.json({ weight: result[0].weight });
+    } catch (e: any) {
+      res.status(502).json({ error: e.message });
+    }
+  }
+
   // Outras rotas já existentes...
 
   public async list(_: Request, res: Response): Promise<void> {

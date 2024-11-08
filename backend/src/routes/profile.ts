@@ -7,6 +7,7 @@ routes.get("/", controller.list);
 routes.post("/", controller.save);
 routes.delete("/", controller.delete);
 routes.get("/", controller.fetchWeightAndHeight);
+routes.put("/weight", controller.updateWeight);
 
 //aceita qualquer método HTTP ou URL
 routes.use((req: Request, res: Response) => {

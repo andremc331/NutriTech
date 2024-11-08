@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import eat from "../services/Eat"; // Importando o serviço da API
-import { UserContext } from "../contexts";  // Certifique-se de importar o contexto de usuário ou serviço que retorna os dados de peso
+import eat from "../services/Eat";
+import { UserContext } from "../contexts";
 import {
   ContainerBody,
   ContainerMenu,
@@ -21,10 +21,14 @@ import ConsumeChart from "../components/ConsumeChart";
 import WeightChart from "../components/WeightChart";
 import { UserProvider } from "../contexts";
 import { AdmMenu } from "../components";
-import { EatFoodProps, ErrorProps, HistoricoData, UserContextProps } from "../types";
+import {
+  EatFoodProps,
+  ErrorProps,
+  HistoricoData,
+  UserContextProps,
+} from "../types";
 import { useUser } from "../hooks";
 
-// Definindo os componentes do styled
 const {
   FoodChart,
   GoalInfo,
@@ -39,38 +43,24 @@ const {
   ModalOverlay,
   ModalContent,
   ModalButtons,
-  FilterButton,
 } = styled_Progresso();
 
 const Metas: React.FC = () => {
-  const navigate = useNavigate(); // Hook para navegação
+  const navigate = useNavigate();
   const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } =
     useContext(UserContext) || ({} as UserContextProps);
 
-  // Estado para dados de alimentos e peso
   const [historicoData, setHistoricoData] = useState<HistoricoData[]>([]);
-  const [startDate, setStartDate] = useState<string>(""); // Data inicial
-  const [endDate, setEndDate] = useState<string>(""); // Data final
-  const [pesoInicial, setPesoInicial] = useState<number>(0); // Peso inicial
-  const [pesoAtual, setPesoAtual] = useState<number>(0); // Peso atual
+  const [startDate, setStartDate] = useState<string>("");
+  const [endDate, setEndDate] = useState<string>("");
+  const [pesoInicial, setPesoInicial] = useState<number>(0);
+  const [pesoAtual, setPesoAtual] = useState<number>(0);
+  const [pesoAnterior, setPesoAnterior] = useState<number>(0); // Novo estado para o peso anterior
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newWeight, setNewWeight] = useState<number | "">(""); // Novo peso
-  const { saveProfile } = useUser();
+  const [newWeight, setNewWeight] = useState<number | "">("");
+  const { saveProfile, updateWeight } = useUser();
+  const [error, setError] = useState<string | null>(null);
 
-  // Função para buscar dados de peso
-  const fetchPeso = async () => {
-    try {
-      const data = await fetchWeightAndHeight(); // Busca dados de peso
-      if (data) {
-        setPesoInicial(data.weight); // Assume que a resposta tem o campo weight
-        setPesoAtual(data.weight); // Assume que a resposta tem o campo weight
-      }
-    } catch (error) {
-      console.error("Erro ao buscar dados de peso:", error);
-    }
-  };
-
-  // Função para buscar dados de alimentos
   const fetchData = async () => {
     if (!startDate || !endDate) {
       console.log("Por favor, insira as datas para buscar os dados.");
@@ -78,81 +68,91 @@ const Metas: React.FC = () => {
     }
 
     try {
-      const foodData: EatFoodProps[] | ErrorProps = await eat.listFoods(startDate);
+      const foodData: EatFoodProps[] | ErrorProps = await eat.listFoods(
+        startDate
+      );
 
-      // Verifica se o retorno é um erro
-      if ('error' in foodData) {
+      if ("error" in foodData) {
         console.error("Erro ao buscar alimentos:", foodData.error);
         return;
       }
 
-      // Mapeia os dados para o formato esperado
       const mappedData: HistoricoData[] = foodData.map((food) => ({
         id: food.id,
-        foodName: food.description, // Mapeia 'description' para 'foodName'
-        foodGroup: food.foodGroup, // Supondo que foodGroup existe nos dados
+        foodName: food.description,
+        foodGroup: food.foodGroup,
         quantity: food.quantity,
         date: food.date,
       }));
 
-      setHistoricoData(mappedData); // Atualiza o estado com os dados mapeados
+      setHistoricoData(mappedData);
     } catch (error) {
       console.error("Erro ao buscar os dados:", error);
     }
   };
 
-  // Função para calcular a média de um array de números
   const calculateAverage = (arr: number[]): number => {
     const total = arr.reduce((acc, weight) => acc + weight, 0);
     return total / arr.length;
   };
 
-  // Calcula a média de pesos (caso tenha um array de pesos)
-  const mediaTotal = pesoInicial && pesoAtual ? calculateAverage([pesoInicial, pesoAtual]) : 0;
+  const mediaTotal =
+    pesoInicial && pesoAtual ? calculateAverage([pesoInicial, pesoAtual]) : 0;
 
-  // Função para abrir o modal
   const openModal = () => {
     setIsModalOpen(true);
   };
 
-  // Função para fechar o modal
   const closeModal = () => {
     setIsModalOpen(false);
   };
 
-  // Função para salvar o novo peso
-  const saveNewWeight = async () => {
-    const birth_date = "2000-01-01"; // Você pode obter essa data de algum lugar, como do perfil do usuário
-    const sex = "Masculino"; // Supondo que você tenha esse dado em algum lugar
-    const height = 0; // Caso o usuário tenha fornecido ou tenha no perfil
-    const weight = 0;
-
-    const success = await saveProfile(birth_date, weight, sex, height);
-
-    if (success) {
-      console.log("Novo peso salvo:", newWeight);
-      setPesoAtual(weight); // Atualiza o peso na interface
-      setIsModalOpen(false); // Fecha o modal após salvar
-    } else {
-      console.error("Falha ao salvar o peso");
+  const fetchPeso = async () => {
+    try {
+      const data = await fetchWeightAndHeight();
+      if (data) {
+        setPesoInicial(data.weight);
+        setPesoAtual(data.weight);
+        setPesoAnterior(data.weight); // Armazena o peso inicial como o "anterior"
+      }
+    } catch (error) {
+      console.error("Erro ao buscar dados de peso:", error);
     }
   };
-  // Chama as funções de inicialização
-  useEffect(() => {
 
-    fetchPeso(); // Chama a função para buscar os dados de peso
+  const saveNewWeight = async () => {
+    if (!newWeight) return;
+
+    try {
+      // Chama a função updateWeight para enviar a atualização do peso ao backend
+      const success = await updateWeight(newWeight);
+
+      if (success) {
+        console.log("Novo peso salvo com sucesso:", newWeight);
+        setPesoAnterior(pesoAtual); // Atualiza o peso anterior com o peso atual antes de atualizar
+        setPesoAtual(newWeight);
+        setIsModalOpen(false); // Fecha o modal
+      } else {
+        setError("Falha ao salvar o peso."); // Define um erro no estado
+      }
+    } catch (error) {
+      console.error("Erro ao tentar salvar o peso:", error);
+      setError("Erro ao tentar salvar o peso."); // Define um erro no estado
+    }
+  };
+
+  useEffect(() => {
+    fetchPeso();
   }, []);
 
-  // UseEffect para chamar a função de buscar dados quando as datas mudarem
   useEffect(() => {
     if (startDate && endDate) {
-      fetchData(); // Chama a função para buscar dados de alimentos
+      fetchData();
     }
   }, [startDate, endDate]);
 
   return (
     <>
-      {/* Barra de navegação */}
       <ContainerMenu>
         <Navbar>
           <h1>Nome de usuário</h1>
@@ -161,7 +161,6 @@ const Metas: React.FC = () => {
           </UserProvider>
         </Navbar>
 
-        {/* Barra lateral */}
         <Sidebar>
           <SidebarContent>
             <Item onClick={() => navigate("/home")}>
@@ -188,7 +187,6 @@ const Metas: React.FC = () => {
         </Sidebar>
       </ContainerMenu>
 
-      {/* Corpo da aplicação */}
       <ContainerBody>
         <Container>
           <title>Progresso</title>
@@ -208,16 +206,15 @@ const Metas: React.FC = () => {
               onChange={(e) => setEndDate(e.target.value)}
             />
           </Label>
-          {/* <FilterButton onClick={fetchData} title="Filtrar">
-            <Icon>
-              <IonIcon icon={Icons.filter} />
-            </Icon>
-          </FilterButton> */}
         </Container>
         <ChartContainer>
-          <PesoChart>
+        <PesoChart>
             <div className="content">
-              <WeightChart />
+              {/* O gráfico de peso pode agora utilizar pesoAnterior e pesoAtual */}
+              <WeightChart 
+                pesoAnterior={pesoAnterior} // Passa o peso anterior para o gráfico
+                pesoAtual={pesoAtual} 
+              />
             </div>
           </PesoChart>
         </ChartContainer>
@@ -250,7 +247,6 @@ const Metas: React.FC = () => {
         </VerticalContainer>
       </ContainerBody>
 
-      {/* Modal de atualização de peso */}
       {isModalOpen && (
         <ModalOverlay>
           <ModalContent>
@@ -268,8 +264,6 @@ const Metas: React.FC = () => {
         </ModalOverlay>
       )}
 
-
-      {/* Rodapé da aplicação */}
       <Footer>
         <div>
           Copyright © 2024 / 2025 | HighTech

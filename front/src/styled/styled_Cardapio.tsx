@@ -33,22 +33,22 @@ const styled_Cardapio = () => {
   `;
 
   const SearchResultList = styled.ul`
-  list-style: none;
-  padding: 0;
-  margin-top: 5px;
-  margin-bottom: 15px;
-  width: 1000px; /* O mesmo valor do Input, para alinhar */
-  max-height: 200px;
-  overflow-y: auto;
-  top: 100%; /* Coloca a lista abaixo do campo de entrada */
-  left: 0;
-  border: 2px solid #adadad;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  z-index: 1;
-`;
+    list-style: none;
+    padding: 0;
+    margin-top: 5px;
+    margin-bottom: 15px;
+    width: 1000px;
+    max-height: 200px;
+    overflow-y: auto;
+    top: 100%;
+    left: 0;
+    border: 2px solid #adadad;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+  `;
 
-  const SearchResultItem = styled.li`  
+  const SearchResultItem = styled.li`
     background-color: var(--color-3);
     border-radius: 8px;
     padding: 10px;
@@ -75,7 +75,7 @@ const styled_Cardapio = () => {
         background-color: #0c3d0f;
       }
     }
-  ;`
+  `;
 
   const Alimentolabel = styled.label`
     font-size: 14px;
@@ -129,7 +129,7 @@ const styled_Cardapio = () => {
 
   const SearchButton = styled(Button)`
     margin-left: -60px;
-    margin-bottom: 50px
+    margin-bottom: 50px;
   `;
 
   return {
