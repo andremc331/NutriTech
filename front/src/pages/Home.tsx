@@ -17,30 +17,23 @@ import { Icons } from "../components/icons";
 import styled_Home from "../styled/styled_Home";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
-import { UserContext, UserProvider, EatContext } from "../contexts";
-import { GoalProps, UserContextProps } from "../types";
+import { UserContext, EatContext, UserProvider } from "../contexts";
+import { GoalProps, Meal, UserContextProps } from "../types";
 import { formatDateTime } from "../components/Date";
-
-interface Meal {
-  date: string;
-  foodName: string;
-  quantity: number;
-  food_name: string;
-}
-
-type MealItem =
-  | "150g de frango grelhado"
-  | "1 colher de arroz integral"
-  | "25g de brócolis"
-  | "salada verde com azeite de oliva";
-
-const caloriasPorItem: Record<MealItem, number> = {
-  "150g de frango grelhado": 300,
-  "1 colher de arroz integral": 80,
-  "25g de brócolis": 10,
-  "salada verde com azeite de oliva": 50,
+ 
+// Definindo o tipo MealItem com id opcional
+type MealItem = {
+  id?: number;  // Tornando 'id' opcional
+  nome: string;
+  calorias: number;
 };
-
+ 
+const caloriasPorItem: Record<string, number> = {
+  "Arroz": 130,
+  "Feijão": 100,
+  "Frango": 200,
+};
+ 
 const {
   InfoBox1,
   InfoBox2,
@@ -56,7 +49,7 @@ const {
   MealTypeContainer,
   InfoBoxContainer,
 } = styled_Home();
-
+ 
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(EatContext);
@@ -65,11 +58,11 @@ const Home: React.FC = () => {
   const [alturaPessoa, setAlturaPessoa] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [goals, setGoals] = useState<GoalProps[]>([]);
-  const { getGoals } = useContext(UserContext) || ({} as UserContextProps);
+  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
   const [error, setError] = useState<string | null>(null);
   const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } =
     useContext(UserContext) || ({} as UserContextProps);
-
+ 
   useEffect(() => {
     const fetchInitialData = async () => {
       setLoading(true);
@@ -80,11 +73,11 @@ const Home: React.FC = () => {
           setPesoPessoa(data.weight);
           setAlturaPessoa(data.height);
         }
-
+ 
         // 2. Buscar metas do usuário
         const userGoals = await getGoals();
         setGoals(userGoals);
-
+ 
         // 3. Buscar histórico de refeições e ordená-las pela data
         const historico = await getHistoricoWithFoodName();
         if (Array.isArray(historico)) {
@@ -98,13 +91,13 @@ const Home: React.FC = () => {
         } else {
           setError("Dados do histórico são inválidos.");
         }
-
+ 
         // 4. Buscar a última refeição automaticamente
         const endDate = new Date().toISOString().split("T")[0]; // Hoje
         const startDate = new Date();
         startDate.setDate(startDate.getDate() - 1); // Ontem
         const startDateFormatted = startDate.toISOString().split("T")[0];
-
+ 
         const meals = await getHistoricoByDate(startDateFormatted, endDate);
         if (meals.length > 0) {
           setHistoricoData(meals);
@@ -117,25 +110,28 @@ const Home: React.FC = () => {
         setLoading(false);
       }
     };
-
+ 
     fetchInitialData();
   }, [fetchWeightAndHeight, getGoals, getHistoricoWithFoodName, getHistoricoByDate]);
-
+ 
+  // Função para calcular as calorias com base nos itens
   const calcularCalorias = (items: MealItem[]): number => {
     return items.reduce(
-      (total, item) => total + (caloriasPorItem[item] || 0),
+      (total, item) => total + (caloriasPorItem[item.nome] || 0),
       0
     );
   };
-
+ 
+  // Função para calcular o consumo de água com base no peso
   const calcularConsumoAgua = (peso: number): string => {
     const consumo = peso * 35;
     const litros = consumo / 1000;
     return `${litros.toFixed(1).replace(".", ",")} L`;
   };
-
+ 
   const consumoAgua = calcularConsumoAgua(pesoPessoa);
-
+ 
+  // Função para calcular o IMC
   const calcularIMC = (
     peso: number,
     altura: number
@@ -152,24 +148,24 @@ const Home: React.FC = () => {
     else grau = "Obesidade grau III ou superior";
     return { imc: imc.toFixed(1).replace(".", ","), grau };
   };
-
+ 
   const resultadoIMC = calcularIMC(pesoPessoa, alturaPessoa);
-
+ 
   if (loading) {
     return <div>Carregando...</div>;
   }
-
+ 
   const lastMeal = historicoData.length > 0 ? historicoData[0] : null; // Agora a refeição mais recente é a primeira da lista ordenada
-
+ 
   const totalCalorias = lastMeal
-    ? calcularCalorias([lastMeal.food_name as MealItem]) * lastMeal.quantity
+    ? calcularCalorias([{ nome: lastMeal.food_name, calorias: 0 }]) * lastMeal.quantity
     : 0;
-
+ 
   return (
     <>
       <ContainerMenu>
         <Navbar>
-          <h1>Nome de usuário</h1>
+          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
           <UserProvider>
             <AdmMenu />
           </UserProvider>
@@ -227,24 +223,23 @@ const Home: React.FC = () => {
               <MealInfo>
                 {lastMeal ? (
                   <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '15px' }}>
-                  <h3>Refeição do dia:</h3>
-                  
-                  <div style={{ display: 'inline-flex', alignItems: 'center' }}>
-                    <IonIcon icon={Icons.time} style={{ marginRight: '8px' }} />
-                    <label className="meal-time">Horário: {formatDateTime(lastMeal.date)}</label>
+                    <h3>Refeição do dia:</h3>
+                    <div style={{ display: 'inline-flex', alignItems: 'center' }}>
+                      <IonIcon icon={Icons.time} style={{ marginRight: '8px' }} />
+                      <label className="meal-time">Horário: {formatDateTime(lastMeal.date)}</label>
+                    </div>
+ 
+                    <h2>{lastMeal.food_name}</h2>
+                    <h4>Quantidade: {lastMeal.quantity}kg</h4>
+                    <p>Total de Calorias: {totalCalorias} Kcal</p>
                   </div>
-                
-                  <h2>{lastMeal.food_name}</h2>
-                  <h4>Quantidade: {lastMeal.quantity}kg</h4>
-                  <p>Total de Calorias: {totalCalorias} Kcal</p>
-                </div>
                 ) : (
                   <div>Sem refeição registrada</div>
                 )}
               </MealInfo>
-              <ChartContainer>
-              <MealChart />
-            </ChartContainer>
+              {/* <ChartContainer>
+                <MealChart />
+              </ChartContainer> */}
             </FoodBox>
           </FoodBoxContainer>
         </ContainerBody>
@@ -262,5 +257,5 @@ const Home: React.FC = () => {
     </>
   );
 };
-
+ 
 export default Home;

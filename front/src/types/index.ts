@@ -1,40 +1,35 @@
 import { ReactNode } from "react";
-
+ 
 export interface UserContextProps {
+  fetchWeightAndHeight: () => Promise<{ weight: number; height: number }>;
   currentUser: UserProps | null;
   loading: boolean;
-  users: UserProps[] | null;
   token: TokenProps | null;
   profile: ProfileProps | null;
-  setToken: (value: TokenProps | null) => void;
-  login: (mail: string, password: string) => void;
+  setToken: React.Dispatch<React.SetStateAction<TokenProps | null>>;
+  users: UserProps[] | null;
+  login: (email: string, senha: string) => Promise<void>;
   logout: () => void;
-  create: (alias: string, mail: string, password: string) => void;
-  getUsers: () => void;
+  create: (nome: string, email: string, senha: string) => Promise<void>;
+  getUsers: () => Promise<void>;
   updateRole: (id: string, role: string) => Promise<boolean>;
   error: ErrorProps | null;
-  setError: (error: ErrorProps | null) => void;
-  updateAlias: (alias: string) => Promise<boolean>;
-  updateMail: (mail: string) => Promise<boolean>;
-  updatePassword: (password: string) => Promise<boolean>;
-  saveProfile: (
-    birth_date: string,
-    weight:number|null,
-    sex: string,
-    // numericWeight:number
-    height:number|null
-  ) => Promise<boolean>;
+  setError: React.Dispatch<React.SetStateAction<ErrorProps | null>>;
+  updateAlias: (nome: string) => Promise<boolean>;
+  updateMail: (email: string) => Promise<boolean>;
+  updatePassword: (senha: string) => Promise<boolean>;
+  saveProfile: (birth_date: string, weight: number | null, sex: string, height: number | null) => Promise<boolean>;
   deleteProfile: () => Promise<boolean>;
-  saveGoal: (goal: string) => Promise<boolean>;
-  getGoals: () => Promise <GoalProps[]>;
-  fetchWeightAndHeight: () => Promise<{ weight: number; height: number }>;
-  updateWeight: (weight: number) => Promise<boolean>;
+  saveGoal: (goals: string) => Promise<boolean>;
+  getGoals: () => Promise<GoalProps[]>;
+  getCurrentUserName: () => void;  // Adicionando a função aqui
+  updateWeight:any
 }
-
+ 
 export interface ConsumeChartProps {
   data: HistoricoData[];
 }
-
+ 
 export interface FoodContextProps {
   pageFoods: PageProps | null;
   food: FoodNutrientsProps | null;
@@ -44,13 +39,13 @@ export interface FoodContextProps {
   getById: (id: string) => Promise<void>;
   setError: (error: ErrorProps | null) => void;
 }
-
-
+ 
+ 
 export interface FoodProps {
   id: string;
   description: string;
 }
-
+ 
 export interface Meal {
   id: string;
   foodName: string;
@@ -60,7 +55,7 @@ export interface Meal {
   food_name: string;
   foodGroup:string;
 }
-
+ 
 export interface RefeicaoProps {
   id: string;
   foodName: string;
@@ -69,11 +64,11 @@ export interface RefeicaoProps {
   userId: string;
   food_name: string;
 }
-
+ 
 // export interface userGoal {
 //   userGoal: GoalProps[]
 // }
-
+ 
 export interface FoodNutrientsProps {
   id: string;
   description: string;
@@ -104,7 +99,7 @@ export interface FoodNutrientsProps {
   niacin: ValueProps;
   vitamin_c: ValueProps;
 }
-
+ 
 export interface ProductContextProps {
   products: ProductNutrientsProps[];
   error: ErrorProps | null;
@@ -147,7 +142,7 @@ export interface ProductContextProps {
   remove: (id:string) => Promise<boolean>;
   search: (term:string) => Promise<ProductNutrientsProps[]>;
 }
-
+ 
 export interface EatContextProps {
   eatProducts: EatProductProps[];
   eatFoods: EatFoodProps[];
@@ -168,7 +163,7 @@ export interface EatContextProps {
   getHistoricoByUser: (userId: string) => Promise<Meal[]>;
   historicoData: Meal[] | null; // Atualize aqui para usar Meal[]
 }
-
+ 
 export interface ProductNutrientsProps {
   id: string;
   description: string;
@@ -187,67 +182,67 @@ export interface ProductNutrientsProps {
   calcium: number | null;
   sodium: number | null;
 }
-
+ 
 export interface PageProps {
   items: FoodProps[];
   total: number;
   page: number;
   pagesize: number;
 }
-
+ 
 export interface CategoryProps {
   id: string;
   name: string;
 }
-
+ 
 export interface ValueProps {
   label: string;
   value: number | null;
   unit: string;
 }
-
+ 
 export interface ErrorProps {
   error: string;
 }
-
+ 
 export interface ProviderProps {
   children: ReactNode;
 }
-
+ 
 export interface UserProps {
   id: string;
   nome: string;
   email: string;
   role: string;
 }
-
+ 
 export interface GoalProps {
   id: number;
   goals: string;
 }
-
+ 
 export interface TokenProps extends UserProps {
   token: string;
 }
-
+ 
 export interface ProfileProps {
   birth_date: string;
   weight: number;
   sex: string;
-  height: number; 
+  height: number;
 }
-
+ 
 export interface EatProductProps {
   id: string;
   date: string;
-  quantity: number; 
+  quantity: number;
   description: string;
-  serving_size: number; 
-  serving_size_unit: string; 
+  serving_size: number;
+  serving_size_unit: string;
   quantity_per_serving: number;
   quantity_per_serving_unit: string;
   energy: number | null;
-  protein: number | null; 
+  protein: number | null;
   carbohydrate: number | null;
   sugar: number | null;
   dietary_fiber: number | null;
@@ -257,14 +252,14 @@ export interface EatProductProps {
   calcium: number | null;
   sodium: number | null;
 }
-
+ 
 export interface EatFoodProps {
   id: string;
   date: string;
-  quantity: number; 
+  quantity: number;
   description: string;
   energy: number | null;
-  protein: number | null; 
+  protein: number | null;
   carbohydrate: number | null;
   dietary_fiber: number | null;
   calcium: number | null;
@@ -289,3 +284,11 @@ export interface HistoricoData {
 export interface ErrorProps {
   error: string;
 }
+ 
+// Defina o tipo MealItem
+export type MealItem = {
+  id: number;
+  nome: string;
+  calorias: number; // ou 'kcal', dependendo da sua estrutura
+};
+ 
