@@ -28,6 +28,7 @@ export interface UserContextProps {
   saveGoal: (goal: string) => Promise<boolean>;
   getGoals: () => Promise <GoalProps[]>;
   fetchWeightAndHeight: () => Promise<{ weight: number; height: number }>;
+  updateWeight: (weight: number) => Promise<boolean>;
 }
 
 export interface ConsumeChartProps {

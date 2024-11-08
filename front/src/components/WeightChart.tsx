@@ -1,16 +1,22 @@
-
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-//Grafico para mostrar o progresso do usuário em relação a perda ou ganho de peso
-const WeightChart: React.FC = () => {
-  const series = [
-    {
-      name: "Peso",
-      data: [90, 82, 74, 80, 86, 63, 62], // Exemplo de dados de perda de peso
-    },
-  ];
+interface WeightChartProps {
+  pesoAnterior: number;
+  pesoAtual: number;
+}
+
+// Grafico para mostrar o progresso do usuário em relação a perda ou ganho de peso
+const WeightChart: React.FC<WeightChartProps> = ({ pesoAnterior, pesoAtual }) => {
+  const [seriesData, setSeriesData] = useState<number[]>([pesoAnterior, pesoAtual]); // Armazenando os dados do gráfico
+  const [categories, setCategories] = useState<string[]>(["Início", "Atual"]); // Categorias de exemplo (Início, Atual)
+
+  useEffect(() => {
+    // Atualiza a série de dados sempre que os pesos mudarem
+    setSeriesData([pesoAnterior, pesoAtual]);
+    setCategories((prevCategories) => [...prevCategories, "Próximo"]); // Adiciona uma nova categoria caso necessário
+  }, [pesoAnterior, pesoAtual]);
 
   const options: ApexOptions = {
     chart: {
@@ -28,21 +34,13 @@ const WeightChart: React.FC = () => {
       align: "center",
     },
     xaxis: {
-      categories: [
-        "Semana 1",
-        "Semana 2",
-        "Semana 3",
-        "Semana 4",
-        "Semana 5",
-        "Semana 6",
-        "Semana 7",
-      ],
+      categories, // Usando categorias dinâmicas
     },
     yaxis: {
-      max: 200, // Define o valor máximo do eixo Y
-      min: 0, // Define o valor mínimo do eixo Y
+      max: 200, // Definindo o valor máximo do eixo Y
+      min: 0, // Definindo o valor mínimo do eixo Y
       title: {
-        text: "Peso (kg)", // Título do eixo Y
+        text: "Peso (kg)",
       },
     },
     tooltip: {
@@ -50,21 +48,31 @@ const WeightChart: React.FC = () => {
       intersect: false,
     },
     markers: {
-      size: 5, // Tamanho dos marcadores
+      size: 5,
       hover: {
-        size: 7, // Tamanho do marcador ao passar o mouse
+        size: 7,
       },
     },
   };
 
+  const series = [
+    {
+      name: "Peso",
+      data: seriesData, // Usando dados dinâmicos
+    },
+  ];
+
   return (
     <div>
       <Chart 
-      options={options} 
-      series={series} 
-      type="line"
-      width="400" 
-      height={250} />
+        options={options} 
+        series={series} 
+        type="line"
+        width="400" 
+        height={250} 
+      />
+      <div>
+      </div>
     </div>
   );
 };
