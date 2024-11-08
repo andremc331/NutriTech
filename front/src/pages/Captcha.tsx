@@ -81,7 +81,7 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerified, setIsVerified }) => {
           <>
           <CaptchaQuestion>Resolva: {question}</CaptchaQuestion>
           <CaptchaInput
-              type="number"
+              type="text"
               value={userAnswer}
               onChange={handleAnswerChange}
               required
@@ -102,12 +102,13 @@ const Captcha: React.FC<CaptchaProps> = ({ onVerified, setIsVerified }) => {
 export default Captcha;
 
 const Body = styled.div`
-    display: flex; /* Alterado para flex */
+    display: flex; 
     justify-content: center;
     align-items: center;
     flex-direction: column;
     margin-top: 60px;
-    border-radius: 10px;
+    border-radius: 15px;
+    background-color: var(--color-2);
 
     @media (max-width: 768px) {
       padding: 10px;
@@ -123,31 +124,36 @@ margin-bottom: 20px;
 `;
 
 const CaptchaQuestion = styled.p`
+  font-family: "Roboto", sans-serif;
   font-size: 20px;
-  color: var(--color-10);
+  color: var(--color-1);
 `;
 
 const CaptchaInput = styled.input`
   font-size: 16px;
   padding: 8px;
-  border-radius: 5px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   width: 100%;
   margin: 10px 0;
 `;
 
 const InstructionText = styled.p`
+  font-family: "Roboto", sans-serif;
   font-size: 14px;
   color: #888;
 `;
 
 const SuccessMessage = styled.p`
-  color: #19f519;
+  font-family: "Roboto", sans-serif;
+  color: var(--color-5);
   font-weight: bold;
   font-size: 20px;
 `;
 
 const ErrorMessage = styled.p`
-  color: red;
-  font-size: 12px;
+  font-family: "Roboto", sans-serif;
+  color: var(--color-13);
+  font-weight: bold;
+  font-size: 20px;
 `;
