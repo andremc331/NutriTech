@@ -138,7 +138,7 @@ const Icon = styled.div`
 const Ico = styled.div`
   font-size: 16px;
   margin-left: 3px;
-  justify-contente: center;
+  justify-content: center;
   align-content: center;
 `;
 

@@ -6,6 +6,7 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
+import Loading from "../components/Loading";
 
 const {
   Background,
@@ -24,6 +25,7 @@ const {
 const BemVindo: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [senha, setSenha] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
   const handleLogin = async () => {
@@ -34,6 +36,8 @@ const BemVindo: React.FC = () => {
     }
 
     try {
+      setIsLoading(true);
+
       // Chama a API de login
       const response = await api.post("/login", { email: email, senha: senha });
 
@@ -50,11 +54,14 @@ const BemVindo: React.FC = () => {
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       alert("Erro ao efetuar o login. Tente novamente.");
+    } finally {
+      setIsLoading(false); 
     }
   };
 
   return (
     <Background>
+      {isLoading && <Loading />}
       <ContainerLeft>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>

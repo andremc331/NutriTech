@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useUser } from "../hooks";
 import { Link } from "react-router-dom";
-import { Icon } from "../styled/styled_Main";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 
@@ -118,7 +117,7 @@ const DropdownMenu = styled.div`
   border-radius: 5px;
   overflow: hidden;
   box-sizing: border-box;
-  width: max-content; /* Ajusta a largura ao conteúdo */
+  width: max-content; 
   z-index: 10;
 `;
 
@@ -141,10 +140,16 @@ const MenuItemBorderTop = styled(MenuItem)`
 const StyledLink = styled(Link)`
   display: flex;
   padding: 10px 20px;
-  text-decoration: none; /* Removes the underline */
+  text-decoration: none; 
   cursor: pointer;
 
   &:hover {
     background-color: #c0bfc2;
   }
+`;
+
+const Icon = styled.div`
+  margin-left: 10px; 
+  display: flex;
+  align-items: center; 
 `;
