@@ -54,6 +54,10 @@ export interface Meal {
   userId: string;
   food_name: string;
   foodGroup:string;
+  protein: number;
+  lipids: number;
+  carbohydrates: number;
+  fibers: number;
 }
  
 export interface RefeicaoProps {

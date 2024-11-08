@@ -8,11 +8,44 @@ const styled_Cardapio = () => {
     text-transform: uppercase;
   `;
 
-interface ItemSldProps {
-  selected: boolean;
-}
+  interface ItemSldProps {
+    selected: boolean;
+  }
 
-const ItemSld = styled.div<ItemSldProps>`
+  const PopupMessage = styled.div<{ show: boolean }>`
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  font-size: 16px;
+  text-align: center;
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+`;
+
+
+  const ItemSld = styled.div<ItemSldProps>`
 display: flex;
 flex-direction: row;
 width: 100%;
@@ -27,9 +60,9 @@ padding: 5px 10px;
 }
 
 background-color: ${(props) =>
-  props.selected ? "rgb(34, 175, 163)" : "transparent"};
+      props.selected ? "rgb(34, 175, 163)" : "transparent"};
 color: ${(props) =>
-  props.selected ? "#fff" : "#000"};
+      props.selected ? "#fff" : "#000"};
 `;
 
   const CardBox = styled.div`
@@ -46,6 +79,10 @@ color: ${(props) =>
     width: 50vw;
     overflow: hidden;
   `;
+
+  const ButtonSection = styled.div`
+    
+`;
 
   const Row = styled.div`
     display: flex;
@@ -168,7 +205,9 @@ color: ${(props) =>
     SearchResultList,
     SearchResultItem,
     SearchButton,
-    ItemSld
+    ItemSld,
+    PopupMessage,
+    ButtonSection
   };
 };
 

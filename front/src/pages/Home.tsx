@@ -175,9 +175,18 @@ const Home: React.FC = () => {
     return <div>Carregando...</div>;
   }
 
+  const mealChartData = lastMeal
+  ? {
+      protein: lastMeal.protein || 0,
+      lipids: lastMeal.lipids || 0,
+      carbohydrates: lastMeal.carbohydrates || 0,
+      fibers: lastMeal.fibers || 0,
+    }
+  : { protein: 0, lipids: 0, carbohydrates: 0, fibers: 0 };
+
   const totalCalorias = lastMeal
-    ? calcularCalorias([{ nome: lastMeal.food_name, calorias: 0 }]) *
-      lastMeal.quantity
+    ? calcularCalorias([{ nome: lastMeal.foodName, calorias: 0 }]) *
+    lastMeal.quantity
     : 0;
 
   return (
@@ -276,9 +285,9 @@ const Home: React.FC = () => {
                   <div>Sem refeição registrada</div>
                 )}
               </MealInfo>
-              <ChartContainer>
-                <MealChart />
-              </ChartContainer>
+              {/* <ChartContainer>
+                <MealChart {...mealChartData} />
+              </ChartContainer> */}
             </FoodBox>
           </FoodBoxContainer>
         </ContainerBody>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from "styled-components";
-import { Error, Header, PopupMessage, InputDatePickerConsumer, TableEatProduct, TableEatFood } from "../components";
-import { useEat } from "../hooks";
+import { Error, Header, InputDatePickerConsumer, TableEatProduct, TableEatFood, NutrientPane, FoodPane } from "../components";
+import { useEat, useFood } from "../hooks";
 import { FoodProps, ProductNutrientsProps } from "../types";
 import { dateFormat } from "../utils";
 import { IonIcon } from "@ionic/react";
@@ -25,6 +25,7 @@ const {
   Button,
   SearchResultList,
   SearchResultItem,
+  PopupMessage,
 } = styled_Cardapio();
 
 const EatPage: React.FC = () => {
@@ -40,6 +41,8 @@ const EatPage: React.FC = () => {
   const [quantityFood, setQuantityFood] = useState<number>(0);
   const [selectedFoods, setSelectedFoods] = useState<{ food: any; quantity: number }[]>([]);
   const navigate = useNavigate();
+  const { food } = useFood();
+
 
   const handleFood = async () => {
     if (inputValue.trim().length >= 3) {
@@ -79,7 +82,7 @@ const EatPage: React.FC = () => {
         const response = await createProduct(selectedProduct.id, dateFormat(date), parseFloat(quantity));
         if (response) {
           setMessagePopup("Consumo registrado com sucesso");
-          setShowPopup(true);
+          setShowPopup(true); // Exibir o popup
         }
       }
     } else if (searchType === "food" && selectedFood) {
@@ -93,8 +96,8 @@ const EatPage: React.FC = () => {
         const response = await createFood(selectedFood.id, dateFormat(date), parseFloat(quantity));
         if (response) {
           setMessagePopup("Consumo registrado com sucesso");
-          setShowPopup(true);
-        }
+          setShowPopup(true); // Exibir o popup
+        } 
       }
     } else {
       setError({ error: "Selecione um alimento ou produto" });
@@ -201,8 +204,7 @@ const EatPage: React.FC = () => {
                 {items}
               </SearchResultList>
             </Row>
-          )}
-
+          )}  
           <Row>
             <Quantidadelabel>Quantidade consumida:</Quantidadelabel>
             <Input
@@ -215,6 +217,11 @@ const EatPage: React.FC = () => {
           </Row>
 
           <Button onClick={handleSave}>Salvar</Button>
+          {showPopup && (
+          <PopupMessage show={showPopup}>
+            {messagePopup}
+          </PopupMessage>
+          )}
         </CardBox>
       </ContainerBody>
 

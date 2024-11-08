@@ -2,24 +2,36 @@ import React from "react";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
 
-// Grafico de refeição que aparace no historico na pagina home
-const MealChart = () => {
+// Grafico de refeição que aparece no histórico na página home
+type MealChartProps = {
+  protein: number;
+  lipids: number;
+  carbohydrates: number;
+  fibers: number;
+};
+
+const MealChart: React.FC<MealChartProps> = ({
+  protein,
+  lipids,
+  carbohydrates,
+  fibers,
+}) => {
   const series = [
     {
       name: "Proteina",
-      data: [150],
+      data: [protein],
     },
     {
       name: "Lipidios",
-      data: [85],
+      data: [lipids],
     },
     {
       name: "Carboidrato",
-      data: [25],
+      data: [carbohydrates],
     },
     {
       name: "Fibras",
-      data: [35],
+      data: [fibers],
     },
   ];
 
@@ -42,33 +54,33 @@ const MealChart = () => {
     xaxis: {
       categories: ["Almoço"],
       labels: {
-        show: false, // Oculta os rótulos do eixo X
+        show: false,
       },
       axisBorder: {
-        show: false, // Oculta a linha do eixo X
+        show: false,
       },
       axisTicks: {
-        show: false, // Oculta os marcadores do eixo X
+        show: false,
       },
     },
     yaxis: {
       labels: {
-        show: false, // Oculta os rótulos do eixo Y
+        show: false,
       },
       axisBorder: {
-        show: false, // Oculta a linha do eixo Y
+        show: false,
       },
       axisTicks: {
-        show: false, // Oculta os marcadores do eixo Y
+        show: false,
       },
     },
     grid: {
-      show: false, // Oculta as linhas do grid
+      show: false,
     },
     tooltip: {
       y: {
         formatter: function (val: number) {
-          return val + "g"; // Exibe o valor em gramas
+          return val + "g";
         },
       },
     },
@@ -79,8 +91,8 @@ const MealChart = () => {
       position: "top",
       horizontalAlign: "left",
       floating: true,
-      offsetX: 0, // Ajuste conforme necessário
-      offsetY: 0, // Ajuste conforme necessário
+      offsetX: 0,
+      offsetY: 0,
     },
   };
 
