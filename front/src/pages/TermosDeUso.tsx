@@ -6,6 +6,7 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom"; // Importar useNavigate
 import Captcha from "./Captcha";
+import Modal from "../components/Modal";
 
 
 const {
