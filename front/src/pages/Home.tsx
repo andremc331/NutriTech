@@ -20,6 +20,7 @@ import { AdmMenu } from "../components";
 import { UserContext, EatContext, UserProvider } from "../contexts";
 import { GoalProps, Meal, UserContextProps } from "../types";
 import { formatDateTime } from "../components/Date";
+import styled from "styled-components";
  
 // Definindo o tipo MealItem com id opcional
 type MealItem = {
@@ -52,6 +53,7 @@ const {
  
 const Home: React.FC = () => {
   const navigate = useNavigate();
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(false); // Estado para o modo escuro
   const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(EatContext);
   const [historicoData, setHistoricoData] = useState<Meal[]>([]);
   const [pesoPessoa, setPesoPessoa] = useState<number>(0);
@@ -63,6 +65,17 @@ const Home: React.FC = () => {
   const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } =
     useContext(UserContext) || ({} as UserContextProps);
  
+    useEffect(() => {
+      if (isDarkMode) {
+        document.body.classList.add("dark-theme");
+      } else {
+        document.body.classList.remove("dark-theme");
+      }
+    }, [isDarkMode]);
+    const toggleTheme = () => {
+      setIsDarkMode(!isDarkMode); // Alterna o estado do modo escuro
+    };
+  
   useEffect(() => {
     const fetchInitialData = async () => {
       setLoading(true);
@@ -166,6 +179,10 @@ const Home: React.FC = () => {
       <ContainerMenu>
         <Navbar>
           <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
+          <ToggleButton onClick={toggleTheme}>
+            <IonIcon icon={isDarkMode ? Icons.moon : Icons.sunny} />
+            {isDarkMode ? "" : ""}
+          </ToggleButton>
           <UserProvider>
             <AdmMenu />
           </UserProvider>
@@ -259,3 +276,19 @@ const Home: React.FC = () => {
 };
  
 export default Home;
+
+const ToggleButton = styled.button`
+  background-color: ${({ theme }) => theme.buttonBackground};
+  color: ${({ theme }) => theme.buttonColor};
+  border-radius: 7px;
+  font-size: 13px;
+  padding: 5px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  
+  ion-icon {
+    margin-right: 8px;
+  }
+`;

@@ -60,6 +60,7 @@ const Metas: React.FC = () => {
   const [newWeight, setNewWeight] = useState<number | "">("");
   const { saveProfile, updateWeight } = useUser();
   const [error, setError] = useState<string | null>(null);
+  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
 
   const fetchData = async () => {
     if (!startDate || !endDate) {
@@ -154,8 +155,8 @@ const Metas: React.FC = () => {
   return (
     <>
       <ContainerMenu>
-        <Navbar>
-          <h1>Nome de usuário</h1>
+      <Navbar>
+          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
           <UserProvider>
             <AdmMenu />
           </UserProvider>

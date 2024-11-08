@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
 import { ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, ImgIcon, ContainerBody, Footer } from "../styled/styled_Main";
 import styled_Cardapio from '../styled/styled_Cardapio';
@@ -6,10 +6,11 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom';
 import { AdmMenu } from '../components';
-import { UserProvider } from '../contexts';
+import { UserContext, UserProvider } from '../contexts';
 import eat from '../services/Eat';
 import axios from 'axios';
 import { formatDateTime } from '../components/Date';
+import { UserContextProps } from '../types';
 
 const {
   Title,
@@ -30,6 +31,7 @@ const Cardapio: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(0);
   const [searchResults, setSearchResults] = useState<any[]>([]);
   const [selectedFoods, setSelectedFoods] = useState<{ food: any; quantity: number }[]>([]);
+  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
 
   const handleInputChange = (value: string) => {
     setInputValue(value);
@@ -80,8 +82,8 @@ const Cardapio: React.FC = () => {
   return (
     <>
       <ContainerMenu>
-        <Navbar>
-          <h1>Nome de usuário</h1>
+      <Navbar>
+          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
           <UserProvider>
             <AdmMenu />
           </UserProvider>

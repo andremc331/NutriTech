@@ -23,7 +23,7 @@ export interface UserContextProps {
   saveGoal: (goals: string) => Promise<boolean>;
   getGoals: () => Promise<GoalProps[]>;
   getCurrentUserName: () => void;  // Adicionando a função aqui
-  updateWeight:any
+  updateWeight: (weight: number) => Promise<boolean>;
 }
  
 export interface ConsumeChartProps {

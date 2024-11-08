@@ -16,8 +16,9 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 import { AdmMenu } from "../components";
-import { UserProvider, EatContext } from "../contexts";
+import { UserProvider, EatContext, UserContext } from "../contexts";
 import { formatDateTime } from "../components/Date";
+import { UserContextProps } from "../types";
 
 const {
   Title,
@@ -49,6 +50,8 @@ const Historico: React.FC = () => {
   const [endDate, setEndDate] = useState<string>("");
   const [error, setError] = useState<string | null>(null); // Estado de erro adicionado
   const navigate = useNavigate();
+  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
+
 
   useEffect(() => {
     const fetchInitialHistoricoWithFoodName = async () => {
@@ -109,8 +112,8 @@ const Historico: React.FC = () => {
   return (
     <>
       <ContainerMenu>
-        <Navbar>
-          <h1>Nome de usuário</h1>
+      <Navbar>
+          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
           <UserProvider>
             <AdmMenu />
           </UserProvider>

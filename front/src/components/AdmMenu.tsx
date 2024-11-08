@@ -2,23 +2,18 @@ import { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { useUser } from "../hooks";
 import { Link } from "react-router-dom";
+import { Icon } from "../styled/styled_Main";
 import { IonIcon } from "@ionic/react";
-import { Icons } from "../components/icons";
+import { Icons } from "./icons";
 
 export default function AdmMenu() {
-  const { token, logout } = useUser();
+    const {token, logout} = useUser();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [isDarkMode, setIsDarkMode] = useState(false); 
   const menuRef = useRef<HTMLDivElement>(null);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
-  };
-
-  // Alterna entre claro e escuro
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
   };
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -28,64 +23,51 @@ export default function AdmMenu() {
   };
 
   useEffect(() => {
-    // Adiciona o listener para fechar o menu ao clicar fora
     document.addEventListener("mousedown", handleClickOutside);
-
-    // Aplica o tema baseado no estado
-    if (isDarkMode) {
-      document.body.classList.add("dark-theme");
-    } else {
-      document.body.classList.remove("dark-theme");
-    }
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isDarkMode]);  // O tema é alterado sempre que isDarkMode mudar
+  }, []);
 
   const handleLogout = () => {
     setIsOpen(false);
     logout();
-  };
+  }
 
   return (
     <Wrapper ref={menuRef}>
-      <UserIcon onClick={toggleMenu}>
-        {token?.nome ? token.nome.charAt(0).toUpperCase() : "?"}
-      </UserIcon>
-      {isOpen && (
-        <DropdownMenu>
-          <StyledLink to="#" onClick={() => { toggleTheme(); setIsOpen(false); }}>
-            Tema: {isDarkMode ? "Escuro" : "Claro"}
-            <Icon>
-              <IonIcon icon={isDarkMode ? Icons.moon : Icons.sunny} />
+        <UserIcon onClick={toggleMenu}> {token?.nome ? token.nome.charAt(0).toUpperCase() : "?"}
+        </UserIcon>
+        {isOpen && (
+            <DropdownMenu>
+                <StyledLink to="/info-pessoal" onClick={() => setIsOpen(false)}>
+                    Editar Dados Pessoais
+                    <Icon>
+              <IonIcon icon={Icons.person} />
             </Icon>
-          </StyledLink>
-          <StyledLink to="/atualizar" onClick={() => setIsOpen(false)}>
-          Editar Informações de Usuário
-            <Icon>
+                </StyledLink>
+                <StyledLink to="/atualizar" onClick={() => setIsOpen(false)}>
+                    Editar Informações de Usuário
+                    <Icon>
               <IonIcon icon={Icons.person} />
             </Icon>{" "}
-            
-          </StyledLink>
-          <StyledLink to="/sobre" onClick={() => setIsOpen(false)}>
-          Sobre
-            <Icon>
+                </StyledLink>
+                <StyledLink to="/sobre" onClick={() => setIsOpen(false)}>
+                    Sobre
+                    <Icon>
               <IonIcon icon={Icons.informationCircle} />
             </Icon>
-            
-          </StyledLink>
-          <MenuItemBorderTop onClick={handleLogout}>
-          Sair
-            <Icon>
+                </StyledLink>
+                <MenuItemBorderTop onClick={handleLogout}>
+                    Sair
+                    <Icon>
               <IonIcon icon={Icons.logOut} />
             </Icon>
-           
-          </MenuItemBorderTop>
-        </DropdownMenu>
-      )}
+                </MenuItemBorderTop>
+            </DropdownMenu>
+        )}
     </Wrapper>
-  );
+);
 }
 
 const Wrapper = styled.div`
@@ -117,7 +99,7 @@ const DropdownMenu = styled.div`
   border-radius: 5px;
   overflow: hidden;
   box-sizing: border-box;
-  width: max-content; 
+  width: max-content; /* Ajusta a largura ao conteúdo */
   z-index: 10;
 `;
 
@@ -140,16 +122,10 @@ const MenuItemBorderTop = styled(MenuItem)`
 const StyledLink = styled(Link)`
   display: flex;
   padding: 10px 20px;
-  text-decoration: none; 
+  text-decoration: none; /* Removes the underline */
   cursor: pointer;
 
   &:hover {
     background-color: #c0bfc2;
   }
-`;
-
-const Icon = styled.div`
-  margin-left: 10px; 
-  display: flex;
-  align-items: center; 
 `;

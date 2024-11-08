@@ -239,23 +239,25 @@ export function UserProvider({ children }: ProviderProps) {
     }
   };
  
-  const updateWeight = async (weight: number): Promise<boolean> => {
+  const updateWeight = async (newWeight: number): Promise<boolean> => {
     try {
-      // Atualizar o peso do perfil do usuário
-      const response = await Profile.updateWeight(weight);
-      if (isErrorProps(response)) {
-        setError(response);
-        return false;
-      } else {
-        setError(null);
-        if (profile) {
-          setProfile({ ...profile, weight });  // Atualizar o perfil localmente
-        }
-        return true;
+      // Simulando o envio de dados para o backend
+      const response = await Profile.updateWeight(newWeight);
+    if (!isErrorProps(response)) {
+      await updateWeight(newWeight); // Awaiting to ensure users are updated
+      return true;
+    }
+
+      if (!response) {
+        throw new Error("Erro ao atualizar o peso.");
       }
+
+      // Atualizando o perfil com o novo peso
+      setProfile((prevProfile) => prevProfile ? { ...prevProfile, weight: newWeight } : null);
+      return true; // Retorna true em caso de sucesso
     } catch (error) {
       setError({ error: "Erro ao atualizar o peso." });
-      return false;
+      return false; // Retorna false em caso de erro
     }
   };
 

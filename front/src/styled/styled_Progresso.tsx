@@ -91,7 +91,7 @@ const styled_Metas = () => {
     margin: 20px 0 0;
     border-radius: 10px;
     width: 100%;
-    height: 310px;
+    height: 280px;
     color: var(--color-1);
     background-color: var(--color-5);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
