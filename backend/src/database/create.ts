@@ -132,7 +132,7 @@ async function init() {
     PRIMARY KEY(id),
     FOREIGN KEY(food)
         REFERENCES foods(id)
-        ON DELETE RESTRICT
+        ON DELETE CASCADE
         ON UPDATE CASCADE,
     FOREIGN KEY(_user)
         REFERENCES users(id)
@@ -153,7 +153,7 @@ CREATE TABLE eat_products (
         ON UPDATE CASCADE,
     FOREIGN KEY(product)
         REFERENCES products(id)
-        ON DELETE RESTRICT
+        ON DELETE CASCADE
         ON UPDATE CASCADE
 );
     END;

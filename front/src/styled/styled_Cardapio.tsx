@@ -8,6 +8,30 @@ const styled_Cardapio = () => {
     text-transform: uppercase;
   `;
 
+interface ItemSldProps {
+  selected: boolean;
+}
+
+const ItemSld = styled.div<ItemSldProps>`
+display: flex;
+flex-direction: row;
+width: 100%;
+box-sizing: border-box;
+justify-content: space-between;
+cursor: pointer;
+padding: 5px 10px;
+
+&:hover {
+  color: #fff;
+  background-color: rgb(245, 149, 59);
+}
+
+background-color: ${(props) =>
+  props.selected ? "rgb(34, 175, 163)" : "transparent"};
+color: ${(props) =>
+  props.selected ? "#fff" : "#000"};
+`;
+
   const CardBox = styled.div`
     display: flex;
     flex-direction: column;
@@ -144,6 +168,7 @@ const styled_Cardapio = () => {
     SearchResultList,
     SearchResultItem,
     SearchButton,
+    ItemSld
   };
 };
 

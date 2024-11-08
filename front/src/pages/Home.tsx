@@ -136,7 +136,7 @@ const Home: React.FC = () => {
   // Função para calcular as calorias com base nos itens
   const calcularCalorias = (items: MealItem[]): number => {
     return items.reduce(
-      (total, item) => total + (caloriasPorItem[item.nome] || 0),
+      (total, item) => total + (caloriasPorItem[item.nome] || 100), // Fallback para 100 calorias
       0
     );
   };
@@ -259,9 +259,9 @@ const Home: React.FC = () => {
                   <div>Sem refeição registrada</div>
                 )}
               </MealInfo>
-              {/* <ChartContainer>
+              <ChartContainer>
                 <MealChart />
-              </ChartContainer> */}
+              </ChartContainer>
             </FoodBox>
           </FoodBoxContainer>
         </ContainerBody>

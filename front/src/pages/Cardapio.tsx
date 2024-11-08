@@ -1,60 +1,109 @@
-import React, { useContext, useState } from 'react';
-import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
-import { ContainerMenu, Navbar, Sidebar, SidebarContent, Icon, Item, ImgIcon, ContainerBody, Footer } from "../styled/styled_Main";
-import styled_Cardapio from '../styled/styled_Cardapio';
+import React, { useState } from 'react';
+import styled from "styled-components";
+import { Error, Header, PopupMessage, InputDatePickerConsumer, TableEatProduct, TableEatFood } from "../components";
+import { useEat } from "../hooks";
+import { FoodProps, ProductNutrientsProps } from "../types";
+import { dateFormat } from "../utils";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from 'react-router-dom';
+import imgLogoSemFundo from '../assets/img-logo-semfundo.png';
 import { AdmMenu } from '../components';
-import { UserContext, UserProvider } from '../contexts';
-import eat from '../services/Eat';
-import axios from 'axios';
+import { UserProvider } from '../contexts';
 import { formatDateTime } from '../components/Date';
-import { UserContextProps } from '../types';
+import styled_Cardapio from '../styled/styled_Cardapio';
+import { ContainerBody, ContainerMenu, Footer, Icon, ImgIcon, Item, Navbar, Sidebar, SidebarContent } from '../styled/styled_Main';
 
 const {
   Title,
-    CardBox,
-    Alimentolabel,
-    Quantidadelabel,
-    Select,
-    Input,
-    Row,
-    Button,
-    SearchResultList,
-    SearchResultItem,
+  CardBox,
+  Alimentolabel,
+  Quantidadelabel,
+  Select,
+  Input,
+  Row,
+  Button,
+  SearchResultList,
+  SearchResultItem,
 } = styled_Cardapio();
 
-const Cardapio: React.FC = () => {
-  const navigate = useNavigate();
+const EatPage: React.FC = () => {
+  const { products, foods, eatProducts, eatFoods, searchFood, searchProduct, error, setError, createProduct, createFood, date, setDate } = useEat();
+  const [showPopup, setShowPopup] = useState(false);
+  const [messagePopup, setMessagePopup] = useState("");
+  const [term, setTerm] = useState("");
+  const [selectedFood, setSelectedFood] = useState<FoodProps | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductNutrientsProps | null>(null);
+  const [searchType, setSearchType] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState("");
   const [inputValue, setInputValue] = useState<string>('');
-  const [quantity, setQuantity] = useState<number>(0);
-  const [searchResults, setSearchResults] = useState<any[]>([]);
+  const [quantityFood, setQuantityFood] = useState<number>(0);
   const [selectedFoods, setSelectedFoods] = useState<{ food: any; quantity: number }[]>([]);
-  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
+  const navigate = useNavigate();
 
-  const handleInputChange = (value: string) => {
-    setInputValue(value);
-  };
-
-  const handleQuantityChange = (value: number) => {
-    setQuantity(value);
-  };
-
-  const handleSearch = async () => {
-    if (inputValue) {
-      try {
-        const response = await axios.get(`http://localhost:3011/food/search?term=${inputValue}`);
-        setSearchResults(response.data.items);
-      } catch (error) {
-        console.error("Erro ao buscar alimentos:", error);
+  const handleFood = async () => {
+    if (inputValue.trim().length >= 3) {
+      const response = await searchFood(inputValue);
+      if (response) {
+        setMessagePopup("Não existem alimentos com esse termo");
+        setShowPopup(true);
+      } else {
+        setSearchType("food");
+        setSelectedFood(null);
       }
     }
   };
 
+  const handleProduct = async () => {
+    if (inputValue.trim().length >= 3) {
+      const response = await searchProduct(inputValue);
+      if (response) {
+        setMessagePopup("Não existem produtos com esse termo");
+        setShowPopup(true);
+      } else {
+        setSearchType("product");
+        setSelectedProduct(null);
+      }
+    }
+  };
+
+  const handleSave = async () => {
+    if (searchType === "product" && selectedProduct) {
+      if (!date) {
+        setError({ error: "Selecione a data" });
+      } else if (!quantity || isNaN(parseFloat(quantity))) {
+        setError({ error: "Forneça a quantidade consumida" });
+      } else if (parseFloat(quantity) <= 0) {
+        setError({ error: "A quantidade precisa ser maior que zero" });
+      } else {
+        const response = await createProduct(selectedProduct.id, dateFormat(date), parseFloat(quantity));
+        if (response) {
+          setMessagePopup("Consumo registrado com sucesso");
+          setShowPopup(true);
+        }
+      }
+    } else if (searchType === "food" && selectedFood) {
+      if (!date) {
+        setError({ error: "Selecione a data" });
+      } else if (!quantity || isNaN(parseFloat(quantity))) {
+        setError({ error: "Forneça a quantidade consumida" });
+      } else if (parseFloat(quantity) <= 0) {
+        setError({ error: "A quantidade precisa ser maior que zero" });
+      } else {
+        const response = await createFood(selectedFood.id, dateFormat(date), parseFloat(quantity));
+        if (response) {
+          setMessagePopup("Consumo registrado com sucesso");
+          setShowPopup(true);
+        }
+      }
+    } else {
+      setError({ error: "Selecione um alimento ou produto" });
+    }
+  };
+
   const handleSelectFood = (food: any) => {
-    if (quantity > 0) {
-      setSelectedFoods([...selectedFoods, { food, quantity }]);
+    if (quantityFood > 0) {
+      setSelectedFoods([...selectedFoods, { food, quantity: quantityFood }]);
     } else {
       alert("Por favor, insira uma quantidade válida.");
     }
@@ -65,9 +114,7 @@ const Cardapio: React.FC = () => {
     const promises: Promise<any>[] = [];
 
     selectedFoods.forEach(({ food, quantity }) => {
-      promises.push(
-        eat.createFood(food.id, date, quantity) // Use the method from the Eat class
-      );
+      promises.push(createFood(food.id, date, quantity));
     });
 
     try {
@@ -79,11 +126,26 @@ const Cardapio: React.FC = () => {
     }
   };
 
+  let items = null;
+  if (searchType === "product") {
+    items = products.map((item) => (
+      <ItemSld key={item.id} onClick={() => setSelectedProduct(item)} selected={selectedProduct?.id === item.id}>
+        {item.description} ({item.quantity_per_serving_unit})
+      </ItemSld>
+    ));
+  } else if (searchType === "food") {
+    items = foods.map((item) => (
+      <ItemSld key={item.id} onClick={() => setSelectedFood(item)} selected={selectedFood?.id === item.id}>
+        {item.description}
+      </ItemSld>
+    ));
+  }
+
   return (
     <>
       <ContainerMenu>
-      <Navbar>
-          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
+        <Navbar>
+          <h1>Nome de usuário</h1>
           <UserProvider>
             <AdmMenu />
           </UserProvider>
@@ -113,87 +175,46 @@ const Cardapio: React.FC = () => {
             </Item>
           </SidebarContent>
         </Sidebar>
+
       </ContainerMenu>
 
       <ContainerBody>
         <Title>Cardápio</Title>
-
         <CardBox>
           <Row>
-            <Alimentolabel>Refeição:</Alimentolabel>
-            <Select>
-              <option value="">Selecione...</option>
-              <option value="cafe-da-manha">Café da Manhã</option>
-              <option value="lanche-da-manha">Lanche da Manhã</option>
-              <option value="almoco">Almoço</option>
-              <option value="lanche-da-tarde">Lanche da Tarde</option>
-              <option value="jantar">Jantar</option>
-              <option value="ceia">Ceia</option>
-              <option value="pre-treino">Pré Treino</option>
-              <option value="pos-treino">Pós Treino</option>
-            </Select>
-          </Row>
-
-          <Row>
-            <Alimentolabel>Alimento:</Alimentolabel>
+            <Alimentolabel>Busca alimento ou produto consumido</Alimentolabel>
             <Input
               type="text"
               value={inputValue}
-              onChange={(e) => handleInputChange(e.target.value)}
-              placeholder="Buscar alimento..."
-              onFocus={handleSearch}
+              onChange={(e) => setInputValue(e.target.value)}
+              placeholder="Digite parte do nome do alimento ou produto"
             />
-            <Button onClick={handleSearch}>
+            <Button onClick={handleFood}>
               <Icon>
                 <IonIcon icon={Icons.search} />
               </Icon>
             </Button>
           </Row>
-
-          {searchResults.length > 0 && (
+          {items && (
             <Row>
               <SearchResultList>
-                {searchResults.map((food) => (
-                  <SearchResultItem key={food.id}>
-                    {food.description}
-                    <button onClick={() => handleSelectFood(food)}>Selecionar</button>
-                  </SearchResultItem>
-                ))}
+                {items}
               </SearchResultList>
             </Row>
           )}
 
           <Row>
-            <Quantidadelabel>Quantidade:</Quantidadelabel>
+            <Quantidadelabel>Quantidade consumida:</Quantidadelabel>
             <Input
               type="number"
               min="0"
-              step="1"
               value={quantity || ''}
-              onChange={(e) => handleQuantityChange(Number(e.target.value))}
-              placeholder="Quantidade em kg"
+              onChange={(e) => setQuantity(e.target.value)}
+              placeholder="Quantidade"
             />
           </Row>
 
-          <Button onClick={handleSendData}>
-            <Icon>
-              <IonIcon icon={Icons.add} />
-            </Icon>
-            Adicionar
-          </Button>
-
-          {selectedFoods.length > 0 && (
-            <Row>
-              <h3>Alimentos Selecionados:</h3>
-              <ul>
-                {selectedFoods.map(({ food, quantity }) => (
-                  <li key={food.id}>
-                    {food.description} - {quantity} kg - {formatDateTime(new Date().toISOString())} {/* Exemplo de uso de data */}
-                  </li>
-                ))}
-              </ul>
-            </Row>
-          )}
+          <Button onClick={handleSave}>Salvar</Button>
         </CardBox>
       </ContainerBody>
 
@@ -211,4 +232,28 @@ const Cardapio: React.FC = () => {
   );
 }
 
-export default Cardapio;
+export default EatPage;
+
+interface ItemSldProps {
+  selected: boolean;
+}
+
+const ItemSld = styled.div<ItemSldProps>`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  box-sizing: border-box;
+  justify-content: space-between;
+  cursor: pointer;
+  padding: 5px 10px;
+
+  &:hover {
+    color: #fff;
+    background-color: rgb(245, 149, 59);
+  }
+
+  background-color: ${(props) =>
+    props.selected ? "rgb(34, 175, 163)" : "transparent"};
+  color: ${(props) =>
+    props.selected ? "#fff" : "#000"};
+`;

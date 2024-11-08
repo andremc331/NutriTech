@@ -107,22 +107,30 @@ const Table = styled.table`
     border: 1px solid #ccc;
     padding: 8px;
     text-align: left;
+    overflow: hidden; /* Garantir que texto não saia da célula */
+    white-space: nowrap;
   }
 
   th {
     background: #f1f1f1;
+    text-transform: uppercase;
+    font-weight: bold;
   }
 
   td {
     .cell-content {
-      max-width: 150px; /* Ensure this matches the description maxWidth if needed */
+      max-width: 150px; /* Limitar o texto dentro da célula */
       overflow: hidden;
-      white-space: nowrap;
       text-overflow: ellipsis;
     }
   }
-`;
 
+  @media (max-width: 768px) {
+    th, td {
+      font-size: 12px; /* Ajustar o tamanho da fonte para telas menores */
+    }
+  }
+`;
 const Button = styled.button`
   padding: 6px 12px;
   border: none;

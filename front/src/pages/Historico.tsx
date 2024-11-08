@@ -15,10 +15,11 @@ import imgLogoSemFundo from "../assets/img-logo-semfundo.png";
 import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
-import { AdmMenu } from "../components";
+import { AdmMenu, TableEatFood, TableEatProduct } from "../components";
 import { UserProvider, EatContext, UserContext } from "../contexts";
 import { formatDateTime } from "../components/Date";
 import { UserContextProps } from "../types";
+import { useEat } from "../hooks";
 
 const {
   Title,
@@ -51,6 +52,8 @@ const Historico: React.FC = () => {
   const [error, setError] = useState<string | null>(null); // Estado de erro adicionado
   const navigate = useNavigate();
   const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
+  const { products, foods, eatProducts, eatFoods, searchFood, searchProduct, createProduct, createFood, date, setDate } = useEat();
+  const [selectedFood, setSelectedFood] = useState<{ food: any; quantity: number }[]>([]);
 
 
   useEffect(() => {
@@ -112,7 +115,7 @@ const Historico: React.FC = () => {
   return (
     <>
       <ContainerMenu>
-      <Navbar>
+        <Navbar>
           <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
           <UserProvider>
             <AdmMenu />
@@ -174,28 +177,25 @@ const Historico: React.FC = () => {
 
         <HistoryboxContainer>
           <HistoryBox>
-            <MealInfo>
-              {loading ? (
-                <p>Carregando...</p>
-              ) : error ? (
-                <p>{error}</p>
-              ) : historicoData && historicoData.length > 0 ? (
-                historicoData.map((meal, index) => (
-                  <MealContainer key={index}>
-                    <div>
-                      <p>Refeição:</p>
-                      <h3>{meal.food_name}</h3>
-                      <h4>
-                        {meal.foodName} Quantidade: {meal.quantity} kg
-                      </h4>
-                      <p>{meal.date}</p> {/* Exibe a data formatada */}
-                    </div>
-                  </MealContainer>
-                ))
-              ) : (
-                <p>Não há dados disponíveis.</p>
-              )}
-            </MealInfo>
+            {historicoData.length > 0 ? (
+              historicoData.map((meal, index) => (
+                <MealContainer key={index}>
+                  <div>
+                    <p>Refeição:</p>
+                    <h3>{meal.food_name}</h3>
+                    <h4>
+                      {meal.foodName} Quantidade: {meal.quantity} kg
+                    </h4>
+                    <p>{meal.date}</p> {/* Exibe a data formatada */}
+
+                    {/* Tabela de alimentos e produtos */}
+                    <TableEatFood items={eatFoods} /> {/* Passando os alimentos do estado eatFoods */}
+                  </div>
+                </MealContainer>
+              ))
+            ) : (
+              <p>Não há dados disponíveis.</p>
+            )}
           </HistoryBox>
         </HistoryboxContainer>
       </ContainerBody>
