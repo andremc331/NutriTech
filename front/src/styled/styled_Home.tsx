@@ -14,7 +14,7 @@ const styled_Home = () => {
     position: relative;
     padding: 30px;
     margin: 20px 0 0;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 100%;
     max-width: 500px;
     height: 250px;
@@ -62,7 +62,7 @@ const styled_Home = () => {
     text-transform: uppercase;
     text-align: left;
     padding: 30px;
-    border-radius: 10px;
+    border-radius: 15px;
     width: 90%;
     max-width: 250px;
     height: 250px;
@@ -106,8 +106,7 @@ const styled_Home = () => {
   max-width: 720px;
   height: 200px;
   color: var(--color-10);
-  background-color: var(--color-1);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: transparent;
 
   @media (min-width: 768px) {
     width: 60vw;
@@ -125,10 +124,11 @@ const styled_Home = () => {
   padding: 10px;
   flex-direction: row;
   align-items: center;
+  padding: 25px;
   width: 100%;
   border-radius: 15px; 
   color: var(--color-1);
-  background-color: var(--color-3);
+  background-color: var(--color-2);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 `;
   const MealInfo = styled.div`

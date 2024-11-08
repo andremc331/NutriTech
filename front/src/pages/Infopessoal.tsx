@@ -132,9 +132,9 @@
                     options={options}
                 />
                 <ButtonContainer>
+                    <BackButton type="button" onClick={() => navigate("/cadastro")}>Voltar</BackButton>
                     <Button onClick={handleSave}>Salvar</Button>
                     {profile && <Button onClick={handleDelete}>Excluir</Button>}
-                    <BackButton type="button" onClick={() => navigate("/cadastro")}>Voltar</BackButton>
                     <Button type="submit" onClick={() => navigate("/definicao-metas")}>Próximo</Button>
                 </ButtonContainer>
             </Container>

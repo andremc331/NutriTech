@@ -1,8 +1,6 @@
-
 import React from "react";
 import Chart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-
 
 // Grafico de refeição que aparace no historico na pagina home
 const MealChart = () => {
@@ -24,7 +22,7 @@ const MealChart = () => {
       data: [35],
     },
   ];
-  
+
   const options: ApexOptions = {
     chart: {
       type: "bar" as const,
@@ -78,12 +76,12 @@ const MealChart = () => {
       opacity: 1,
     },
     legend: {
-        position: "top",
-        horizontalAlign: "left",
-        floating: true,
-        offsetX: 0,  // Ajuste conforme necessário
-        offsetY: 0,  // Ajuste conforme necessário
-      },
+      position: "top",
+      horizontalAlign: "left",
+      floating: true,
+      offsetX: 0, // Ajuste conforme necessário
+      offsetY: 0, // Ajuste conforme necessário
+    },
   };
 
   return (

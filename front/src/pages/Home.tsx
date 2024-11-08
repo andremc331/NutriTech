@@ -21,20 +21,20 @@ import { UserContext, EatContext, UserProvider } from "../contexts";
 import { GoalProps, Meal, UserContextProps } from "../types";
 import { formatDateTime } from "../components/Date";
 import styled from "styled-components";
- 
+
 // Definindo o tipo MealItem com id opcional
 type MealItem = {
-  id?: number;  // Tornando 'id' opcional
+  id?: number; // Tornando 'id' opcional
   nome: string;
   calorias: number;
 };
- 
+
 const caloriasPorItem: Record<string, number> = {
-  "Arroz": 130,
-  "Feijão": 100,
-  "Frango": 200,
+  Arroz: 130,
+  Feijão: 100,
+  Frango: 200,
 };
- 
+
 const {
   InfoBox1,
   InfoBox2,
@@ -50,88 +50,89 @@ const {
   MealTypeContainer,
   InfoBoxContainer,
 } = styled_Home();
- 
+
 const Home: React.FC = () => {
   const navigate = useNavigate();
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false); // Estado para o modo escuro
-  const { getHistoricoWithFoodName, getHistoricoByDate } = useContext(EatContext);
+  const { getHistoricoWithFoodName, getHistoricoByDate } =
+    useContext(EatContext);
   const [historicoData, setHistoricoData] = useState<Meal[]>([]);
   const [pesoPessoa, setPesoPessoa] = useState<number>(0);
   const [alturaPessoa, setAlturaPessoa] = useState<number>(0);
   const [loading, setLoading] = useState<boolean>(true);
   const [goals, setGoals] = useState<GoalProps[]>([]);
-  const { getGoals, currentUser } = useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
+  const { getGoals, currentUser } =
+    useContext(UserContext) || ({} as UserContextProps); // Acessando currentUser aqui
   const [error, setError] = useState<string | null>(null);
   const { fetchWeightAndHeight = async () => ({ weight: 0, height: 0 }) } =
     useContext(UserContext) || ({} as UserContextProps);
- 
-    useEffect(() => {
-      if (isDarkMode) {
-        document.body.classList.add("dark-theme");
-      } else {
-        document.body.classList.remove("dark-theme");
-      }
-    }, [isDarkMode]);
-    const toggleTheme = () => {
-      setIsDarkMode(!isDarkMode); // Alterna o estado do modo escuro
-    };
-  
-    useEffect(() => {
-      const fetchInitialData = async () => {
-        setLoading(true);
-        try {
-          // 1. Buscar peso e altura do usuário
-          const data = await fetchWeightAndHeight();
-          if ("weight" in data && "height" in data) {
-            setPesoPessoa(data.weight);
-            setAlturaPessoa(data.height);
-          }
-    
-          // 2. Buscar metas do usuário
-          const userGoals = await getGoals();
-          setGoals(userGoals);
-    
-          // 3. Buscar histórico de refeições (somente com getHistoricoByDate)
-          const endDate = new Date().toISOString().split("T")[0]; // Hoje
-          const startDate = new Date();
-          startDate.setDate(startDate.getDate() - 1); // Ontem
-          const startDateFormatted = startDate.toISOString().split("T")[0];
-    
-          const meals = await getHistoricoByDate(startDateFormatted, endDate);
-          console.log("Retorno de getHistoricoByDate:", meals);
-    
-          if (meals.length > 0) {
-            // Ordena as refeições pela data (do mais recente para o mais antigo)
-            // Caso a data seja igual, ordena pelo índice na lista (ou outro critério de sua escolha)
-            const sortedMeals = meals.sort((a, b) => {
-              const dateA = new Date(a.date).getTime();
-              const dateB = new Date(b.date).getTime();
-              
-              // Se as datas forem iguais, ordena pela posição no array
-              if (dateA === dateB) {
-                return meals.indexOf(b) - meals.indexOf(a);
-              }
-              
-              return dateB - dateA; // Ordem decrescente
-            });
-            setHistoricoData(sortedMeals);
-          } else {
-            setError("Nenhuma refeição encontrada para o intervalo.");
-          }
-        } catch (e: any) {
-          setError("Erro ao carregar os dados.");
-        } finally {
-          setLoading(false);
-        }
-      };
-    
-      fetchInitialData();
-    }, [fetchWeightAndHeight, getGoals, getHistoricoByDate, setHistoricoData]);
-    
-    // Definir a última refeição, agora após a atualização de historicoData
-    const lastMeal = historicoData.length > 0 ? historicoData[0] : null;
-    console.log('Retorno de lastMeal:', lastMeal);
 
+  useEffect(() => {
+    if (isDarkMode) {
+      document.body.classList.add("dark-theme");
+    } else {
+      document.body.classList.remove("dark-theme");
+    }
+  }, [isDarkMode]);
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode); // Alterna o estado do modo escuro
+  };
+
+  useEffect(() => {
+    const fetchInitialData = async () => {
+      setLoading(true);
+      try {
+        // 1. Buscar peso e altura do usuário
+        const data = await fetchWeightAndHeight();
+        if ("weight" in data && "height" in data) {
+          setPesoPessoa(data.weight);
+          setAlturaPessoa(data.height);
+        }
+
+        // 2. Buscar metas do usuário
+        const userGoals = await getGoals();
+        setGoals(userGoals);
+
+        // 3. Buscar histórico de refeições (somente com getHistoricoByDate)
+        const endDate = new Date().toISOString().split("T")[0]; // Hoje
+        const startDate = new Date();
+        startDate.setDate(startDate.getDate() - 1); // Ontem
+        const startDateFormatted = startDate.toISOString().split("T")[0];
+
+        const meals = await getHistoricoByDate(startDateFormatted, endDate);
+        console.log("Retorno de getHistoricoByDate:", meals);
+
+        if (meals.length > 0) {
+          // Ordena as refeições pela data (do mais recente para o mais antigo)
+          // Caso a data seja igual, ordena pelo índice na lista (ou outro critério de sua escolha)
+          const sortedMeals = meals.sort((a, b) => {
+            const dateA = new Date(a.date).getTime();
+            const dateB = new Date(b.date).getTime();
+
+            // Se as datas forem iguais, ordena pela posição no array
+            if (dateA === dateB) {
+              return meals.indexOf(b) - meals.indexOf(a);
+            }
+
+            return dateB - dateA; // Ordem decrescente
+          });
+          setHistoricoData(sortedMeals);
+        } else {
+          setError("Nenhuma refeição encontrada para o intervalo.");
+        }
+      } catch (e: any) {
+        setError("Erro ao carregar os dados.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchInitialData();
+  }, [fetchWeightAndHeight, getGoals, getHistoricoByDate, setHistoricoData]);
+
+  // Definir a última refeição, agora após a atualização de historicoData
+  const lastMeal = historicoData.length > 0 ? historicoData[0] : null;
+  console.log("Retorno de lastMeal:", lastMeal);
 
   // Função para calcular as calorias com base nos itens
   const calcularCalorias = (items: MealItem[]): number => {
@@ -140,16 +141,16 @@ const Home: React.FC = () => {
       0
     );
   };
- 
+
   // Função para calcular o consumo de água com base no peso
   const calcularConsumoAgua = (peso: number): string => {
     const consumo = peso * 35;
     const litros = consumo / 1000;
     return `${litros.toFixed(1).replace(".", ",")} L`;
   };
- 
+
   const consumoAgua = calcularConsumoAgua(pesoPessoa);
- 
+
   // Função para calcular o IMC
   const calcularIMC = (
     peso: number,
@@ -167,30 +168,32 @@ const Home: React.FC = () => {
     else grau = "Obesidade grau III ou superior";
     return { imc: imc.toFixed(1).replace(".", ","), grau };
   };
- 
+
   const resultadoIMC = calcularIMC(pesoPessoa, alturaPessoa);
- 
+
   if (loading) {
     return <div>Carregando...</div>;
   }
- 
- 
+
   const totalCalorias = lastMeal
-    ? calcularCalorias([{ nome: lastMeal.food_name, calorias: 0 }]) * lastMeal.quantity
+    ? calcularCalorias([{ nome: lastMeal.food_name, calorias: 0 }]) *
+      lastMeal.quantity
     : 0;
- 
+
   return (
     <>
       <ContainerMenu>
         <Navbar>
-          <h1>{currentUser?.nome || "Nome de usuário"}</h1> {/* Exibindo o nome do usuário */}
-          <ToggleButton onClick={toggleTheme}>
-            <IonIcon icon={isDarkMode ? Icons.moon : Icons.sunny} />
-            {isDarkMode ? "" : ""}
-          </ToggleButton>
-          <UserProvider>
-            <AdmMenu />
-          </UserProvider>
+          <h1>{currentUser?.nome || "Nome de usuário"}</h1>{" "}
+          {/* Exibindo o nome do usuário */}
+          <Container>
+            <ToggleButton onClick={toggleTheme}>
+              <IonIcon icon={isDarkMode ? Icons.moon : Icons.sunny} />
+            </ToggleButton>
+            <UserProvider>
+              <AdmMenu />
+            </UserProvider>
+          </Container>
         </Navbar>
         <Sidebar>
           <SidebarContent>
@@ -244,13 +247,27 @@ const Home: React.FC = () => {
             <FoodBox>
               <MealInfo>
                 {lastMeal ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '15px' }}>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "space-between",
+                      gap: "15px",
+                    }}
+                  >
                     <h3>Refeição do dia:</h3>
-                    <div style={{ display: 'inline-flex', alignItems: 'center' }}>
-                      <IonIcon icon={Icons.time} style={{ marginRight: '8px' }} />
-                      <label className="meal-time">Horário: {formatDateTime(lastMeal.date)}</label>
+                    <div
+                      style={{ display: "inline-flex", alignItems: "center" }}
+                    >
+                      <IonIcon
+                        icon={Icons.time}
+                        style={{ marginRight: "8px" }}
+                      />
+                      <label className="meal-time">
+                        Horário: {formatDateTime(lastMeal.date)}
+                      </label>
                     </div>
- 
+
                     <h2>{lastMeal.food_name}</h2>
                     <h4>Quantidade: {lastMeal.quantity}kg</h4>
                     <p>Total de Calorias: {totalCalorias} Kcal</p>
@@ -279,21 +296,30 @@ const Home: React.FC = () => {
     </>
   );
 };
- 
+
 export default Home;
 
 const ToggleButton = styled.button`
-  background-color: ${({ theme }) => theme.buttonBackground};
-  color: ${({ theme }) => theme.buttonColor};
-  border-radius: 7px;
-  font-size: 13px;
-  padding: 5px;
+  background-color: transparent; /* Remove o fundo */
+  color: ${({ theme }) => theme.buttonColor}; /* Mantém a cor do ícone */
+  border: none; /* Remove a borda */
+  font-size: 35px; /* Define o tamanho do ícone */
+  padding: 0; /* Remove o padding */
   cursor: pointer;
   display: flex;
   align-items: center;
-  transition: background-color 0.3s ease, color 0.3s ease;
-  
+  justify-content: center;
+  transition: color 0.3s ease;
+
   ion-icon {
-    margin-right: 8px;
+    font-size: inherit;
+    color: white;
   }
+
+  margin-right: 25px;
+`;
+
+const Container = styled.div`
+  display: flex;
+  align-items: center; /* Alinha o conteúdo verticalmente no centro */
 `;
