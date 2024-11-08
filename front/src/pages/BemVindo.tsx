@@ -6,7 +6,7 @@ import { IonIcon } from "@ionic/react";
 import { Icons } from "../components/icons";
 import { useNavigate } from "react-router-dom";
 import { api } from "../services/api";
-import Loading from "../components/Loading";
+
 
 const {
   Background,
@@ -52,14 +52,12 @@ const BemVindo: React.FC = () => {
     } catch (error) {
       console.error("Erro ao fazer login:", error);
       alert("Erro ao efetuar o login. Tente novamente.");
-    } finally {
-      setIsLoading(false); 
-    }
+    } 
   };
 
   return (
     <Background>
-      {isLoading && <Loading />}
+
       <ContainerLeft>
         <h1>Login</h1>
         <EmailLabel>Email:</EmailLabel>
