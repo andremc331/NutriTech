@@ -114,6 +114,8 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 ### 🎨 FIGMA
 [Clique Aqui](https://www.figma.com/design/csGwtJwjsN7gELjbUGDzEb/NutriTech)
 
+### BD 
+[Clique Aqui](https://docs.google.com/document/d/1rx506LzvThDNv5bD8vC2l_zp9RnLZclvP0leNitskz4/edit?tab=t.0)
 
 # :computer: EQUIPE
 
