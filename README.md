@@ -94,7 +94,7 @@ O objetivo é especificar e construir uma aplicação web que permita aos usuár
 
 # BURNDOWN SP3
  <div align = center>
- <img src="![Sprint 3 burndown](https://github.com/user-attachments/assets/10536057-3e71-421d-a526-6454092c5879)">
+ <img src="https://github.com/user-attachments/assets/10536057-3e71-421d-a526-6454092c5879">
  </div>
 
 -----------------------------------------------------------------------------------
